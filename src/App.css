@@ -8,9 +8,6 @@
 
   }
 
-  body {
-    /* background: red; */
-  }
 }
 
 * {
@@ -23,8 +20,6 @@
 
 body {
   padding: 0px;
-
-
 }
 
 body::-webkit-scrollbar {
@@ -95,13 +90,10 @@ html {
 .p {
   width: 80%;
   font-size: 1.3rem;
-  line-height: 2.2rem;
+  line-height: 1.7rem;
 
 }
 
-h1 {
-
-}
 
 .r {
   margin-left: 3rem
@@ -110,6 +102,6 @@ h1 {
 .p2 {
   width: 80%;
   font-size: 1.3rem;
-  line-height: 2.2rem;
+  line-height: 1.7rem;
   margin-left: 3rem
 }
