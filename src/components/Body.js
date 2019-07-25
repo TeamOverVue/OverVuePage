@@ -38,8 +38,7 @@ export const Body = () => {
           <div>
             <h1>Prototype based on UI design</h1>
             <p className = 'p'>
-              Upload an mockup from your filesystem if you'd like. Remove the
-              mockup and choose a new one if needed.
+            Upload a web design of your choice to begin prototyping.
             </p>
           </div>
         </HeadTwoStyle>
@@ -51,8 +50,7 @@ export const Body = () => {
           <div>
             <h1 className = 'r'>Create components</h1>
             <p className = 'p2'>
-              Type your component name and add desired HTML elements. Select a parent component. Resize and mock your component on the canvas
-              display.
+              Name your component. Add desired HTML elements. Build them right over your design.
             </p>
           </div>
         </HeadTwoStyle>
@@ -62,7 +60,7 @@ export const Body = () => {
           <div>
             <h1>Hierarchy</h1>
             <p className = 'p'>
-              Right-click your component to adjust hierarchy after creation. Visualize changes in your tree.
+            Specify hierarchy before or after component creation. Visualize the changes in your tree.
             </p>
           </div>
         </HeadTwoStyle>
@@ -75,7 +73,7 @@ export const Body = () => {
             <h1 className = 'r'>View live code snippets</h1>
             <p className = 'p2'>
               Code snippets are auto generated when components are created. Click a component in the display to see its
-              code and its HTML elements.
+              code and HTML elements.
             </p>
           </div>
         </HeadTwoStyle>
@@ -86,8 +84,7 @@ export const Body = () => {
             <h1>Add Vue routes</h1>
   
             <p className = 'p'>
-              Keep track of components and routes in the
-              sidebar. When finished satisfied, you can export to your project to your file system.
+            You can add new routes and view all components associated with that route. Export your project to your file system when finished.
             </p>
           </div>
         </HeadTwoStyle>
