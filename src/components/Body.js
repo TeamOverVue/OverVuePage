@@ -5,7 +5,7 @@ import "../App.css";
 
 const Section = styled.div`
   display: flex;
-  margin: 2rem auto;
+  margin: 10rem auto;
   align-items: flex-start;
   text-align: left;
   /* justify-content: center; */
@@ -72,6 +72,21 @@ export const Body = () => {
             </h2>
           </div>
         </HeadTwoStyle>
+      </Section>
+      <Section>
+        <HeadTwoStyle>
+          <div>
+            <h1>Styled components</h1>
+            <h2>
+              To add a new component, type its name in the component name box
+              and select any HTML elements that should be rendered by that
+              component. Select a parent component for the new component if
+              needed. After adding, you can move and resize the component in the
+              display.
+            </h2>
+          </div>
+        </HeadTwoStyle>
+        <img src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/component_creation.gif" />
       </Section>
     </div>
   );
