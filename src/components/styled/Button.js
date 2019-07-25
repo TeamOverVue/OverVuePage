@@ -1,14 +1,15 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Button = styled.a`
-  font-size: 2rem;
-  padding: 10px 50px;
+  font-size: 1.1rem;
+  padding: 10px;
   color: white;
   background-color: #289ead;
   text-decoration: none;
   border-radius: 0.5rem;
-  margin: auto;
+  /* margin: auto; */
   font-family: sans-serif;
+  transition: 200ms ease-in;
   &:hover {
     background-color: #3fd1eb;
   }
