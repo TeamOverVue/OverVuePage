@@ -13,14 +13,16 @@ const DeveloperCard = styled.div`
   }
   .dev-name {
     line-height: 1.7em;
+    font-weight: 100;
   }
   a {
     color: white;
     text-decoration: none;
+    font-weight: 500;
   }
   a:hover {
     color: #3fd1eb;
-    transition: .3s;
+    transition: 0.3s;
   }
 `;
 

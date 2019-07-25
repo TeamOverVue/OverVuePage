@@ -1,14 +1,14 @@
-import React from 'react';
-import DeveloperCard from './styled/DeveloperCard';
-import deanfchung from '../assets/dev-pics/dean-chung.png';
-import deano from '../assets/dev-pics/deano.jpg';
-import drew from '../assets/dev-pics/drew.jpg';
-import joseph from '../assets/dev-pics/joseph.jpg';
+import React from "react";
+import DeveloperCard from "./styled/DeveloperCard";
+import deanfchung from "../assets/dev-pics/dean-chung.png";
+import deano from "../assets/dev-pics/deano.jpg";
+import drew from "../assets/dev-pics/drew.jpg";
+import joseph from "../assets/dev-pics/joseph.jpg";
 
 export const Footer = () => {
   return (
     <div className="footer">
-      <h3 className="team-heading">THE TEAM</h3>
+      <h3 className="team-heading">Meet the team</h3>
       <DeveloperCard>
         <img src={deano} className="dev-pic" />
         <p className="dev-name">Dean Ohashi</p>
@@ -30,5 +30,5 @@ export const Footer = () => {
         <a href="https://github.com/jeisele2">@jeisele</a>
       </DeveloperCard>
     </div>
-  )
-}
+  );
+};
