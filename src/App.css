@@ -1,5 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background-color: #142536;
+  padding: 0px;
+}
+
+html {
+  padding: 0px;
+}
+
+#logo {
+  margin-top: 3rem;
 }
 
 .App {
@@ -14,3 +28,27 @@ body {
   font-size: 8rem;
 }
 
+.margin-tb {
+  margin: 8rem 0;
+}
+
+.header {
+  padding-bottom: 3rem;
+  height: 800px;
+  padding: 0px;
+  background-color: #142536;
+}
+
+.lowerText {
+  font-size: 1.5rem;
+}
+
+.githubbtn {
+  margin-bottom: 2rem;
+  display: inline-block;
+}
+
+.footer {
+  background-color: #142536;
+  padding: 3em;
+}
