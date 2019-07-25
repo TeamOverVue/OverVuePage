@@ -5,9 +5,7 @@
     padding: 0px;
     background-color: red;
     /* display: flex; */
-
   }
-
 }
 
 * {
@@ -20,6 +18,12 @@
 
 body {
   padding: 0px;
+
+
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 body::-webkit-scrollbar {
