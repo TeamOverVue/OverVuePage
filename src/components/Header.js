@@ -81,7 +81,7 @@ export const Header = () => {
         }}
         className="subtitle"
       >
-        All in one prototyping tool for Vue developers
+        Prototype driven development.
       </motion.p>
 
       <motion.div

@@ -17,4 +17,5 @@ export const Button = styled.a`
   margin-top: 1rem;
   padding: 0.5em 1.2em;
   display: inline-block;
+  border: 0.8px solid white;
 `;
