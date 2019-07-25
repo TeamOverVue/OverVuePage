@@ -14,3 +14,12 @@ body {
   font-size: 8rem;
 }
 
+.lowerText {
+  font-size: 1.5rem;
+}
+
+.githubbtn {
+  margin-bottom: 2rem;
+  display: inline-block;
+}
+
