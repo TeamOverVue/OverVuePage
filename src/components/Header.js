@@ -23,7 +23,7 @@ export const Header = () => {
       <div>
         <GitHubButton
           className={"githubbtn"}
-          href="https://github.com/TeamOverVue/OverVuePage"
+          href="https://github.com/TeamOverVue/OverVue"
           data-icon="octicon-star"
           aria-label="Star ntkme/github-buttons on GitHub"
         >
