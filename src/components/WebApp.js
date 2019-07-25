@@ -3,7 +3,7 @@ import "../App.css";
 
 export const WebApp = () => {
   return (
-    <div className="margin-tb black " id="webapp">
+    <div className="margin-tb black" id="webapp">
       <h1>Demo 👇</h1>
       <iframe
         className="iframe"

@@ -54,10 +54,16 @@ export const Body = () => {
             </p>
           </div>
         </HeadTwoStyle>
-        <img src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/upload-image-drawers.gif" />
+        <img
+          className="shadow"
+          src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/upload-image-drawers.gif"
+        />
       </Section>
       <Section>
-        <img src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/component_creation.gif" />
+        <img
+          className="shadow"
+          src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/component_creation.gif"
+        />
         <HeadTwoStyle>
           <div>
             <h1 className="r">Create components</h1>
@@ -78,10 +84,16 @@ export const Body = () => {
             </p>
           </div>
         </HeadTwoStyle>
-        <img src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/HTML-elements-tree-rerender.gif" />
+        <img
+          className="shadow"
+          src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/HTML-elements-tree-rerender.gif"
+        />
       </Section>
       <Section>
-        <img src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/snippets-active-component.gif" />
+        <img
+          className="shadow"
+          src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/snippets-active-component.gif"
+        />
         <HeadTwoStyle>
           <div>
             <h1 className="r">View live code snippets</h1>
@@ -103,7 +115,10 @@ export const Body = () => {
             </p>
           </div>
         </HeadTwoStyle>
-        <img src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/sidebar-components-routes.gif" />
+        <img
+          className="shadow"
+          src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/sidebar-components-routes.gif"
+        />
       </Section>
       <WebApp />
     </div>

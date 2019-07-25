@@ -9,7 +9,7 @@ const svg = require("../logo/overvue-logo.svg");
 const HeaderStyles = styled.div`
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 100vh;
   background: rgb(37, 96, 159);
   background: linear-gradient(
     107deg,
@@ -32,22 +32,30 @@ const HeaderStyles = styled.div`
   .title {
     margin-top: 5rem;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
   }
   .subtitle {
     font-size: 1.3rem;
     margin: 2rem;
-    /* margin-bottom: 10rem; */
+    font-weight: 100;
   }
   #name {
     font-size: 7rem;
     color: whitesmoke;
-    margin-right: .75em;
+    margin-right: 0.75em;
+    font-weight: 600;
   }
   #download {
     font-weight: 200;
     display: flex;
+  }
+  #demo {
+    margin-right: 0px;
+  }
+  span {
+    padding: 0;
+    margin: 0;
   }
 `;
 
@@ -78,7 +86,7 @@ export const Header = () => {
         animate="visible"
         variants={variants}
         transition={{
-          delay: 0.5
+          delay: 1
         }}
         className="subtitle"
       >
@@ -90,7 +98,7 @@ export const Header = () => {
         animate="visible"
         variants={button}
         transition={{
-          delay: 1,
+          delay: 2,
           x: { type: "inertia", stiffness: 50 },
           default: { duration: 1 }
         }}
@@ -111,9 +119,15 @@ export const Header = () => {
           href="https://overvue-app.s3-us-west-2.amazonaws.com/OverVue-0.0.1.dmg"
         >
           <div id="download">
-            <p>DOWNLOAD</p> <i class="fab fa-apple" />
+            <p>Download for </p> <i class="fab fa-apple" />
           </div>
         </Button>
+        {/* <Button className={"button"} href="link">
+          <div id="download">
+            <p>Demo</p>
+            <i class="fas fa-hand-point-down" />
+          </div>
+        </Button> */}
       </motion.div>
     </HeaderStyles>
   );
