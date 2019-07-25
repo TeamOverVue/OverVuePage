@@ -1,33 +1,44 @@
 import React from "react";
-import HeadTwoStyle from "./styled/HeadTwoStyle";
-import styled from "styled-components";
 import "../App.css";
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import HeadTwoStyle from "./styled/HeadTwoStyle";
 
 const Section = styled.div`
   display: flex;
-  margin: 10rem auto;
+  margin: 8rem 12rem;
   align-items: flex-start;
   text-align: left;
   /* justify-content: center; */
-  width: 80%;
+  /* max-width: 100%; */
+  /* height: auto; */
   color: black;
 `;
 
 export const Body = () => {
+  const section = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
   return (
     <div className="margin-tb">
-      <Section>
-        <HeadTwoStyle>
-          <div>
-            <h1>Styled components</h1>
-            <h2>
-              Upload an mockup from your filesystem if you'd like. Remove the
-              mockup and choose a new one if needed.
-            </h2>
-          </div>
-        </HeadTwoStyle>
-        <img src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/upload-image-drawers.gif" />
-      </Section>
+      <motion.div initial="hidden" animate="visible" variants={section}>
+        <Section>
+          <HeadTwoStyle>
+            <div>
+              <h1>Styled components</h1>
+              <h2>
+                Upload an mockup from your filesystem if you'd like. Remove the
+                mockup and choose a new one if needed.
+              </h2>
+            </div>
+          </HeadTwoStyle>
+          <img src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/upload-image-drawers.gif" />
+        </Section>
+      </motion.div>
       <Section>
         <img src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/component_creation.gif" />
         <HeadTwoStyle>
