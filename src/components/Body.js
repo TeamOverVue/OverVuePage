@@ -21,6 +21,18 @@ const Section = styled.div`
   h1 {
     margin-bottom: 1rem;
   }
+  p {
+    color: #666666 !important;
+    font-weight: 300;
+  }
+  h1::after {
+    background: hsla(0, 0%, 56.5%, 0.5);
+    content: "";
+    display: block;
+    height: 1px;
+    margin: 1em 0;
+    width: 6em;
+  }
 `;
 
 export const Body = () => {
@@ -82,9 +94,8 @@ export const Body = () => {
         <HeadTwoStyle>
           <div>
             <h1>Add Vue routes</h1>
-  
             <p className = 'p'>
-            You can add new routes and view all components associated with that route. Export your project to your file system when finished.
+            Add new routes and view all components associated with that route. Export your project to your file system when finished.
             </p>
           </div>
         </HeadTwoStyle>
