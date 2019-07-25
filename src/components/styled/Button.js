@@ -10,6 +10,8 @@ export const Button = styled.a`
   margin: auto;
   font-family: sans-serif;
   &:hover {
-    color: blue
+    background-color: #3fd1eb;
   }
+  margin-top: 1rem;
+  display: inline-block;
 `;
