@@ -1,7 +1,11 @@
 /* macbook air */
 @media only screen and (max-height: 766px) {
   .header {
-    height: 100vh;
+    height: 900px;
+    padding: 0px;
+    background-color: red;
+    /* display: flex; */
+
   }
 
   body {
@@ -13,10 +17,18 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+
 }
 
 body {
   padding: 0px;
+
+
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 html {
