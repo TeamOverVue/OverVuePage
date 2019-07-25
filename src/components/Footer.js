@@ -8,7 +8,7 @@ import joseph from "../assets/dev-pics/joseph.jpg";
 export const Footer = () => {
   return (
     <div className="footer">
-      <h3 className="team-heading">Meet the team</h3>
+      <h3 className="team-heading">Meet the team.</h3>
       <DeveloperCard>
         <img src={deano} className="dev-pic" />
         <p className="dev-name">Dean Ohashi</p>

@@ -38,12 +38,13 @@ const HeaderStyles = styled.div`
   .subtitle {
     font-size: 1.3rem;
     margin: 2rem;
-    /* margin-bottom: 10rem; */
+    font-weight: 100;
   }
   #name {
     font-size: 7rem;
     color: whitesmoke;
-    margin-right: .75em;
+    margin-right: 0.75em;
+    font-weight: 600;
   }
   #download {
     font-weight: 200;
