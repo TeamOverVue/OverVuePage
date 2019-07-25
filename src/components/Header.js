@@ -20,7 +20,7 @@ const HeaderStyles = styled.div`
   justify-content: center;
   img {
     height: 8rem;
-    margin-right: 2rem;
+    margin-right: 1.5rem;
   }
   p {
     margin-right: 0.5em;
@@ -43,6 +43,7 @@ const HeaderStyles = styled.div`
   #name {
     font-size: 7rem;
     color: whitesmoke;
+    margin-right: .75em;
   }
   #download {
     font-weight: 200;
