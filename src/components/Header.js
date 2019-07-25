@@ -17,25 +17,28 @@ export const Header = () => {
           All in one prototyping tool for Vue developers
         </p>
       </div>
-      <br />
+      <br/>
+      <br/>
+      <br/>
       <div>
         <GitHubButton
           className={"githubbtn"}
-          href="https://github.com/TeamOverVue/OverVuePage"
+          href="https://github.com/TeamOverVue/OverVue"
           data-icon="octicon-star"
           aria-label="Star ntkme/github-buttons on GitHub"
         >
           Star
         </GitHubButton>
+        <br/>
+        <br/>
         <p className="lowerText">Star us on GitHub!</p>
-
-        <Button
-          className={"button"}
-          href="https://overvue-app.s3-us-west-2.amazonaws.com/OverVue-0.0.1.dmg"
-        >
-          Download for MacOS
-        </Button>
-      </div>
+    <br></br>
+      <Button className = {'button' }href="https://overvue-app.s3-us-west-2.amazonaws.com/OverVue-0.0.1.dmg">
+        <p className = 'lowerText'>Download for MacOS</p>
+      </Button>
+      
     </div>
+    </div>
+
   );
 };
