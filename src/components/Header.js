@@ -17,7 +17,7 @@ export const Header = () => {
   <br></br>
   <div>
    
-  <GitHubButton className = {'githubbtn'}href="https://github.com/TeamOverVue/OverVuePage" data-icon="octicon-star" aria-label="Star ntkme/github-buttons on GitHub">Star</GitHubButton>
+  <GitHubButton className = {'githubbtn'}href="https://github.com/TeamOverVue/OverVue" data-icon="octicon-star" aria-label="Star ntkme/github-buttons on GitHub">Star</GitHubButton>
   <p className = 'lowerText'>Star us on GitHub!</p>
     
       <Button className = {'button' }href="https://overvue-app.s3-us-west-2.amazonaws.com/OverVue-0.0.1.dmg">
