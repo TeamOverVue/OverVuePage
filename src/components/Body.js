@@ -49,8 +49,8 @@ export const Body = () => {
         <HeadTwoStyle>
           <div>
             <h1>Prototype based on UI design</h1>
-            <p className = 'p'>
-            Upload a web design of your choice to begin prototyping.
+            <p className="p">
+              Upload a web design of your choice to begin prototyping.
             </p>
           </div>
         </HeadTwoStyle>
@@ -60,9 +60,10 @@ export const Body = () => {
         <img src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/component_creation.gif" />
         <HeadTwoStyle>
           <div>
-            <h1 className = 'r'>Create components</h1>
-            <p className = 'p2'>
-              Name your component. Add desired HTML elements. Build them right over your design.
+            <h1 className="r">Create components</h1>
+            <p className="p2">
+              Name your component. Add desired HTML elements. Build them right
+              over your design.
             </p>
           </div>
         </HeadTwoStyle>
@@ -71,8 +72,9 @@ export const Body = () => {
         <HeadTwoStyle>
           <div>
             <h1>Hierarchy</h1>
-            <p className = 'p'>
-            Specify hierarchy before or after component creation. Visualize the changes in your tree.
+            <p className="p">
+              Specify hierarchy before or after component creation. Visualize
+              the changes in your tree.
             </p>
           </div>
         </HeadTwoStyle>
@@ -82,10 +84,11 @@ export const Body = () => {
         <img src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/snippets-active-component.gif" />
         <HeadTwoStyle>
           <div>
-            <h1 className = 'r'>View live code snippets</h1>
-            <p className = 'p2'>
-              Code snippets are auto generated when components are created. Click a component in the display to see its
-              code and HTML elements.
+            <h1 className="r">View live code snippets</h1>
+            <p className="p2">
+              Code snippets are auto generated when components are created.
+              Click a component in the display to see its code and HTML
+              elements.
             </p>
           </div>
         </HeadTwoStyle>
@@ -94,8 +97,9 @@ export const Body = () => {
         <HeadTwoStyle>
           <div>
             <h1>Add Vue routes</h1>
-            <p className = 'p'>
-            Add new routes and view all components associated with that route. Export your project to your file system when finished.
+            <p className="p">
+              Add new routes and view all components associated with that route.
+              Export your project to your file system when finished.
             </p>
           </div>
         </HeadTwoStyle>

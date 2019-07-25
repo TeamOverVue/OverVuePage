@@ -1,4 +1,6 @@
 /* macbook air */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css');
+
 @media only screen and (max-height: 766px) {
   .header {
     height: 900px;
@@ -48,7 +50,10 @@ html {
 
 #name {
   font-size: 8rem;
+  color: black;
 }
+
+
 
 .margin-tb {
   margin: 6rem 0;
@@ -87,7 +92,7 @@ html {
   border: none;
   margin-top: 2rem;
   width: 90vw;
-  height: 800px;
+  height: 680px;
   box-shadow: 0px 8px 15px 5px rgba(66, 66, 66, 0.8);
 }
 
