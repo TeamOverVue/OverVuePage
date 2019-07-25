@@ -1,3 +1,14 @@
+/* macbook air */
+@media only screen and (max-height: 766px) {
+  .header {
+    height: 100vh;
+  }
+
+  body {
+    /* background: red; */
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -29,11 +40,13 @@ html {
 }
 
 .margin-tb {
-  margin: 8rem 0;
+  margin: 6rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header {
-  padding-bottom: 3rem;
   height: 900px;
   padding: 0px;
   background-color: #142536;

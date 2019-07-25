@@ -1,20 +1,36 @@
 import React from "react";
 import HeadTwoStyle from "./styled/HeadTwoStyle";
-import { WebApp } from './WebApp';
+import { WebApp } from "./WebApp";
 import styled from "styled-components";
 import "../App.css";
+import { motion } from "framer-motion";
 
 const Section = styled.div`
+  /* mobile */
+  @media only screen and (max-width: 860px) {
+    flex-direction: column;
+  }
   display: flex;
-  margin: 10rem auto;
+  margin: 5rem 12rem;
   align-items: flex-start;
   text-align: left;
   /* justify-content: center; */
-  width: 80%;
+  /* max-width: 100%; */
+  /* height: auto; */
   color: black;
+  h1 {
+    margin-bottom: 1rem;
+  }
 `;
 
 export const Body = () => {
+  const section = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
   return (
     <div className="margin-tb">
       <Section>
@@ -49,7 +65,9 @@ export const Body = () => {
           <div>
             <h1>Establish parent-child hierarchy</h1>
             <h2>
-            You can also add children to components by right-clicking the component to add children to, and you can see the tree rerender as you create new components or change the hierarchy. 
+              You can also add children to components by right-clicking the
+              component to add children to, and you can see the tree rerender as
+              you create new components or change the hierarchy.
             </h2>
           </div>
         </HeadTwoStyle>
@@ -61,7 +79,9 @@ export const Body = () => {
           <div>
             <h1>View live code snippets</h1>
             <h2>
-            The dashboard shows info about each component (code snippets and HTML elements). Click a component in the display to see its properties.
+              The dashboard shows info about each component (code snippets and
+              HTML elements). Click a component in the display to see its
+              properties.
             </h2>
           </div>
         </HeadTwoStyle>
@@ -71,7 +91,9 @@ export const Body = () => {
           <div>
             <h1>Add Vue routes</h1>
             <h2>
-            You can add new routes and view all components and routes in the sidebar. When finished creating, you can export to a file location of your choice!
+              You can add new routes and view all components and routes in the
+              sidebar. When finished creating, you can export to a file location
+              of your choice!
             </h2>
           </div>
         </HeadTwoStyle>
