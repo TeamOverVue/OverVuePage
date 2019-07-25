@@ -51,10 +51,7 @@ export const Body = () => {
           <div>
             <h1 className = 'r'>Create components</h1>
             <p className = 'p2'>
-              To add a new component, type its name in the component name box
-              and select any HTML elements that should be rendered by that
-              component. Select a parent component for the new component if
-              needed. After adding, you can move and resize the component in the
+              Type your component name and add desired HTML elements. Select a parent component. Resize and mock your component on the canvas
               display.
             </p>
           </div>
@@ -63,11 +60,9 @@ export const Body = () => {
       <Section>
         <HeadTwoStyle>
           <div>
-            <h1>Establish parent-child hierarchy</h1>
+            <h1>Hierarchy</h1>
             <p className = 'p'>
-              You can also add children to components by right-clicking the
-              component to add children to, and you can see the tree rerender as
-              you create new components or change the hierarchy.
+              Right-click your component to adjust hierarchy after creation. Visualize changes in your tree.
             </p>
           </div>
         </HeadTwoStyle>
@@ -79,9 +74,8 @@ export const Body = () => {
           <div>
             <h1 className = 'r'>View live code snippets</h1>
             <p className = 'p2'>
-              The dashboard shows info about each component (code snippets and
-              HTML elements). Click a component in the display to see its
-              properties.
+              Code snippets are auto generated when components are created. Click a component in the display to see its
+              code and its HTML elements.
             </p>
           </div>
         </HeadTwoStyle>
@@ -92,9 +86,8 @@ export const Body = () => {
             <h1>Add Vue routes</h1>
   
             <p className = 'p'>
-              You can add new routes and view all components and routes in the
-              sidebar. When finished creating, you can export to a file location
-              of your choice!
+              Keep track of components and routes in the
+              sidebar. When finished satisfied, you can export to your project to your file system.
             </p>
           </div>
         </HeadTwoStyle>
