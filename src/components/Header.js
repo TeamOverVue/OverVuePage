@@ -3,12 +3,12 @@ import styled from "styled-components";
 import { Button } from "./styled/Button";
 import GitHubButton from "react-github-btn";
 const logo = require("../logo/overvue-logo.png");
-
+const svg = require("../logo/overvue-logo.svg");
 export const Header = () => {
   return (
     <div className="header">
       <div id="name">
-        <img id="logo" src={logo} />
+        <img id="logo" src={svg} />
         <br />
         OverVue
       </div>
@@ -17,9 +17,9 @@ export const Header = () => {
           All in one prototyping tool for Vue developers
         </p>
       </div>
-      <br/>
-      <br/>
-      <br/>
+      <br />
+      <br />
+      <br />
       <div>
         <GitHubButton
           className={"githubbtn"}
@@ -29,16 +29,17 @@ export const Header = () => {
         >
           Star
         </GitHubButton>
-        <br/>
-        <br/>
+        <br />
+        <br />
         <p className="lowerText">Star us on GitHub!</p>
-    <br></br>
-      <Button className = {'button' }href="https://overvue-app.s3-us-west-2.amazonaws.com/OverVue-0.0.1.dmg">
-        <p className = 'lowerText'>Download for MacOS</p>
-      </Button>
-      
+        <br />
+        <Button
+          className={"button"}
+          href="https://overvue-app.s3-us-west-2.amazonaws.com/OverVue-0.0.1.dmg"
+        >
+          <p className="lowerText">Download for MacOS</p>
+        </Button>
+      </div>
     </div>
-    </div>
-
   );
 };
