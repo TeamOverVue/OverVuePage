@@ -21,6 +21,18 @@ const Section = styled.div`
   h1 {
     margin-bottom: 1rem;
   }
+  p {
+    color: #666666 !important;
+    font-weight: 300;
+  }
+  h1::after {
+    background: hsla(0, 0%, 56.5%, 0.5);
+    content: "";
+    display: block;
+    height: 1px;
+    margin: 1em 0;
+    width: 6em;
+  }
 `;
 
 export const Body = () => {
@@ -50,7 +62,7 @@ export const Body = () => {
           <div>
             <h1 className = 'r'>Create components</h1>
             <p className = 'p2'>
-              Add as many components as your application desires. Build them right over your design. 
+              Add as many components to meet your application requirements. Build them right over your design. 
             </p>
           </div>
         </HeadTwoStyle>
@@ -81,7 +93,6 @@ export const Body = () => {
         <HeadTwoStyle>
           <div>
             <h1>Add Vue routes</h1>
-  
             <p className = 'p'>
               You can add new routes and view all components associated with that particular route.
             </p>
