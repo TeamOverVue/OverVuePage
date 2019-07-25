@@ -5,8 +5,8 @@ const HeadTwoStyles = styled.div`
   margin: 1em;
   h2 {
     font-size: 18px;
-    text-transform: uppercase;
-    font-weight: 700;
+    /* text-transform: uppercase; */
+    font-weight: 200;
   }
 `;
 
