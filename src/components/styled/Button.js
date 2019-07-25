@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const Button = styled.a`
   font-size: 2rem;
   padding: 10px 50px;
-  color: white;
-  background-color: black;
+  color: pink;
+  background-color: #4D4D4D;
   text-decoration: none;
   border-radius: 5%;
 `;
