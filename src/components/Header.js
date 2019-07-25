@@ -19,11 +19,15 @@ const HeaderStyles = styled.div`
   align-items: center;
   justify-content: center;
   img {
-    height: 5rem;
-    margin-right: 1rem;
+    height: 8rem;
+    margin-right: 2rem;
   }
   p {
-    margin-right: 1em;
+    margin-right: 0.5em;
+    font-size: 1em;
+  }
+  i {
+    font-size: 1.1em;
   }
   .title {
     margin-top: 5rem;
@@ -37,7 +41,12 @@ const HeaderStyles = styled.div`
     /* margin-bottom: 10rem; */
   }
   #name {
-    font-size: 5rem;
+    font-size: 7rem;
+    color: whitesmoke;
+  }
+  #download {
+    font-weight: 200;
+    display: flex;
   }
 `;
 
@@ -100,7 +109,9 @@ export const Header = () => {
           className={"button"}
           href="https://overvue-app.s3-us-west-2.amazonaws.com/OverVue-0.0.1.dmg"
         >
-          <div>Download for MacOS</div>
+          <div id="download">
+            <p>DOWNLOAD</p> <i class="fab fa-apple" />
+          </div>
         </Button>
       </motion.div>
     </HeaderStyles>
