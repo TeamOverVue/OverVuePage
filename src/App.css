@@ -79,3 +79,9 @@ html {
   height: 800px;
   box-shadow: 0px 8px 15px 5px rgba(66, 66, 66, 0.8);
 }
+
+.p {
+  width: 80%;
+  font-size: 1.3rem;
+  line-height: 2.2rem
+}
