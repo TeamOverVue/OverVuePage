@@ -49,8 +49,8 @@ export const Body = () => {
         <img src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/component_creation.gif" />
         <HeadTwoStyle>
           <div>
-            <h1>Create components</h1>
-            <p className = 'p'>
+            <h1 className = 'r'>Create components</h1>
+            <p className = 'p2'>
               To add a new component, type its name in the component name box
               and select any HTML elements that should be rendered by that
               component. Select a parent component for the new component if
@@ -77,8 +77,8 @@ export const Body = () => {
         <img src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/snippets-active-component.gif" />
         <HeadTwoStyle>
           <div>
-            <h1>View live code snippets</h1>
-            <p className = 'p'>
+            <h1 className = 'r'>View live code snippets</h1>
+            <p className = 'p2'>
               The dashboard shows info about each component (code snippets and
               HTML elements). Click a component in the display to see its
               properties.

@@ -83,5 +83,21 @@ html {
 .p {
   width: 80%;
   font-size: 1.3rem;
-  line-height: 2.2rem
+  line-height: 2.2rem;
+
+}
+
+h1 {
+
+}
+
+.r {
+  margin-left: 3rem
+}
+
+.p2 {
+  width: 80%;
+  font-size: 1.3rem;
+  line-height: 2.2rem;
+  margin-left: 3rem
 }
