@@ -4,7 +4,7 @@ export const Button = styled.a`
   font-size: 1.1rem;
   padding: 10px;
   color: white;
-  background-color: #289ead;
+  background-color: rbg(0,0,0);
   text-decoration: none;
   border-radius: 0.5rem;
   /* margin: auto; */
@@ -15,4 +15,5 @@ export const Button = styled.a`
   }
   margin-top: 1rem;
   display: inline-block;
+  border: 0.8px solid white
 `;

@@ -50,7 +50,7 @@ export const Body = () => {
           <div>
             <h1>Prototype based on UI design</h1>
             <p className = 'p'>
-              Upload a web design and create a Vue prototype.
+            Upload a web design of your choice to begin prototyping.
             </p>
           </div>
         </HeadTwoStyle>
@@ -62,7 +62,7 @@ export const Body = () => {
           <div>
             <h1 className = 'r'>Create components</h1>
             <p className = 'p2'>
-              Add as many components to meet your application requirements. Build them right over your design. 
+              Name your component. Add desired HTML elements. Build them right over your design.
             </p>
           </div>
         </HeadTwoStyle>
@@ -70,9 +70,9 @@ export const Body = () => {
       <Section>
         <HeadTwoStyle>
           <div>
-            <h1>Establish parent-child hierarchy</h1>
+            <h1>Hierarchy</h1>
             <p className = 'p'>
-              Designate relationships between your components before or after creating them. 
+            Specify hierarchy before or after component creation. Visualize the changes in your tree.
             </p>
           </div>
         </HeadTwoStyle>
@@ -84,7 +84,8 @@ export const Body = () => {
           <div>
             <h1 className = 'r'>View live code snippets</h1>
             <p className = 'p2'>
-              Check the dashboard to see how the component template file will be exported. 
+              Code snippets are auto generated when components are created. Click a component in the display to see its
+              code and HTML elements.
             </p>
           </div>
         </HeadTwoStyle>
@@ -94,7 +95,7 @@ export const Body = () => {
           <div>
             <h1>Add Vue routes</h1>
             <p className = 'p'>
-              You can add new routes and view all components associated with that particular route.
+            Add new routes and view all components associated with that route. Export your project to your file system when finished.
             </p>
           </div>
         </HeadTwoStyle>
