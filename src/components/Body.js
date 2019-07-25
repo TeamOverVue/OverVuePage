@@ -38,8 +38,7 @@ export const Body = () => {
           <div>
             <h1>Prototype based on UI design</h1>
             <p className = 'p'>
-              Upload an mockup from your filesystem if you'd like. Remove the
-              mockup and choose a new one if needed.
+              Upload a web design and create a Vue prototype.
             </p>
           </div>
         </HeadTwoStyle>
@@ -51,11 +50,7 @@ export const Body = () => {
           <div>
             <h1 className = 'r'>Create components</h1>
             <p className = 'p2'>
-              To add a new component, type its name in the component name box
-              and select any HTML elements that should be rendered by that
-              component. Select a parent component for the new component if
-              needed. After adding, you can move and resize the component in the
-              display.
+              Add as many components as your application desires. Build them right over your design. 
             </p>
           </div>
         </HeadTwoStyle>
@@ -65,9 +60,7 @@ export const Body = () => {
           <div>
             <h1>Establish parent-child hierarchy</h1>
             <p className = 'p'>
-              You can also add children to components by right-clicking the
-              component to add children to, and you can see the tree rerender as
-              you create new components or change the hierarchy.
+              Designate relationships between your components before or after creating them. 
             </p>
           </div>
         </HeadTwoStyle>
@@ -79,9 +72,7 @@ export const Body = () => {
           <div>
             <h1 className = 'r'>View live code snippets</h1>
             <p className = 'p2'>
-              The dashboard shows info about each component (code snippets and
-              HTML elements). Click a component in the display to see its
-              properties.
+              Check the dashboard to see how the component template file will be exported. 
             </p>
           </div>
         </HeadTwoStyle>
@@ -92,9 +83,7 @@ export const Body = () => {
             <h1>Add Vue routes</h1>
   
             <p className = 'p'>
-              You can add new routes and view all components and routes in the
-              sidebar. When finished creating, you can export to a file location
-              of your choice!
+              You can add new routes and view all components associated with that particular route.
             </p>
           </div>
         </HeadTwoStyle>
