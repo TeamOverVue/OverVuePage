@@ -4,9 +4,14 @@ export const Button = styled.a`
   font-size: 2rem;
   padding: 10px 50px;
   color: white;
-  background-color: black;
+  background-color: #289ead;
   text-decoration: none;
-  border-radius: 5%;
+  border-radius: 0.5rem;
   margin: auto;
   font-family: sans-serif;
+  &:hover {
+    background-color: #3fd1eb;
+  }
+  margin-top: 1rem;
+  display: inline-block;
 `;
