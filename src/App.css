@@ -12,6 +12,10 @@ html {
   padding: 0px;
 }
 
+#logo {
+  margin-top: 3rem;
+}
+
 .App {
   text-align: center;
   align-content: center;
@@ -25,12 +29,21 @@ html {
 }
 
 .margin-tb {
-  margin: 10rem 0;
+  margin: 8rem 0;
 }
 
 .header {
-  padding-top: 3rem;
+  padding-bottom: 3rem;
   height: 800px;
   padding: 0px;
   background-color: #142536;
+}
+
+.lowerText {
+  font-size: 1.5rem;
+}
+
+.githubbtn {
+  margin-bottom: 2rem;
+  display: inline-block;
 }
