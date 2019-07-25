@@ -1,5 +1,16 @@
+body {
+  background-color: #142536;
+}
+
 .App {
   text-align: center;
   align-content: center;
   justify-content: center;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: white;
 }
+
+#name {
+  font-size: 8rem;
+}
+
