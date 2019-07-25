@@ -7,4 +7,6 @@ export const Button = styled.a`
   background-color: black;
   text-decoration: none;
   border-radius: 5%;
+  margin: auto;
+  font-family: sans-serif;
 `;
