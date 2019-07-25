@@ -20,7 +20,7 @@ html {
   text-align: center;
   align-content: center;
   justify-content: center;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Quattrocento Sans', sans-serif;
   color: white;
 }
 
@@ -34,18 +34,20 @@ html {
 
 .header {
   padding-bottom: 3rem;
-  height: 800px;
+  height: 900px;
   padding: 0px;
   background-color: #142536;
 }
 
 .lowerText {
   font-size: 1.5rem;
+  display: block;
 }
 
 .githubbtn {
   margin-bottom: 2rem;
   display: inline-block;
+  margin-top: 4rem;
 }
 
 .black {
@@ -59,4 +61,6 @@ html {
   height: 800px;
   box-shadow: 0px 8px 15px 5px rgba(66, 66, 66, 0.8);
 }
+
+
 
