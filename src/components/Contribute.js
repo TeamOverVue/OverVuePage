@@ -3,9 +3,11 @@ import styled from "styled-components";
 
 const BottomDiv = styled.div`
   background: black;
-  height: 15vh;
+  height: 25vh;
   justify-content: flex-start;
-  align-items: r;
+  padding: 2rem;
+  margin: 0 auto;
+  /* text-align: left; */
 `;
 
 export const Contribute = () => {

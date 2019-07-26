@@ -13,8 +13,8 @@
     margin: 0rem;
   }
 
-  .left {
-    display: flex;
+  .left .right {
+    /* display: flex; */
     flex-direction: column;
   }
 
@@ -26,14 +26,22 @@
     display: none;
   }
 
-  div {
+  .left .right {
     margin: 0rem;
+  }
+
+  .footer {
+    padding: 1em !important;
   }
 }
 
 .left {
   display: flex;
   flex-direction: row-reverse;
+}
+
+.right {
+  display: flex;
 }
 
 * {
