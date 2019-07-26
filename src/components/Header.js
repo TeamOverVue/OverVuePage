@@ -9,7 +9,7 @@ const svg = require("../logo/overvue-logo.svg");
 const HeaderStyles = styled.div`
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 98vh;
   background: rgb(37, 96, 159);
   background: linear-gradient(
     107deg,
@@ -148,12 +148,6 @@ export const Header = () => {
             <div>Download for </div> <i class="fab fa-apple" />
           </div>
         </Button>
-        {/* <Button className={"button"} href="link">
-          <div id="download">
-            <p>Demo</p>
-            <i class="fas fa-hand-point-down" />
-          </div>
-        </Button> */}
       </motion.div>
     </HeaderStyles>
   );

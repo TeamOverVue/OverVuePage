@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "./styled/Button";
 
 const BottomDiv = styled.div`
   @media only screen and (max-width: 800px) {
@@ -16,7 +15,7 @@ const BottomDiv = styled.div`
   height: 100%;
   justify-content: left;
   margin: 2rem;
-  margin-top: 8rem;
+  margin-top: 6rem;
   h2 {
     font-weight: 100;
   }
@@ -58,9 +57,7 @@ export const Contribute = () => {
       <h2>Want to Contribute?</h2>
       <div>OverVue is open source. Help make Vue prototyping better!</div>
       <button class="contribute" href="https://github.com/TeamOverVue/OverVue">
-        {/* <div id="contribute"> */}
         <p>Github </p> <i class="fab fa-github" />
-        {/* </div> */}
       </button>
     </BottomDiv>
   );

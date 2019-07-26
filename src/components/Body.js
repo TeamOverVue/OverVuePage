@@ -30,9 +30,6 @@ const Section = styled.div`
   margin: 5rem 12rem;
   align-items: flex-start;
   text-align: left;
-  /* justify-content: center; */
-  /* max-width: 100%; */
-  /* height: auto; */
   color: black;
   max-width: 70vw;
   h1 {
@@ -57,13 +54,6 @@ const Section = styled.div`
 `;
 
 export const Body = () => {
-  const section = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  };
   return (
     <div className="margin-tb">
       <Section>
