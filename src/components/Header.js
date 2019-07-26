@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Button } from "./styled/Button";
 import GitHubButton from "react-github-btn";
@@ -46,6 +46,11 @@ const HeaderStyles = styled.div`
     margin-right: 0.75em;
     font-weight: 600;
   }
+  @media only screen and (max-width: 700px) {
+    #name {
+      font-size: 3rem;
+    }
+  }
   #download {
     font-weight: 200;
     display: flex;
@@ -71,6 +76,7 @@ export const Header = () => {
       opacity: 1
     }
   };
+  const [width, setWidth] = useState();
   return (
     <HeaderStyles>
       <div class="title">
