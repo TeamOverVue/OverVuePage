@@ -48,7 +48,7 @@ const HeaderStyles = styled.div`
   }
   @media only screen and (max-width: 700px) {
     #name {
-      font-size: 3rem;
+      font-size: 2.6rem;
     }
   }
   #download {
