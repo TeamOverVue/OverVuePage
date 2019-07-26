@@ -2,14 +2,12 @@ import styled from "styled-components";
 
 export const Button = styled.a`
   font-size: 1.1rem;
-  /* margin-right: 1em; */
   padding: 10px;
   color: white;
   background-color: none;
   text-decoration: none;
   border-radius: 0.5rem;
   border: 1px solid white;
-  /* margin: auto; */
   font-family: sans-serif;
   transition: 200ms ease-in;
   &:hover {
@@ -18,6 +16,5 @@ export const Button = styled.a`
   margin-top: 1rem;
   padding: 0.5em 1.2em;
   display: inline-block;
-  /* display: flex; */
   border: 0.8px solid white;
 `;

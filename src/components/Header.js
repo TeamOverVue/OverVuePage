@@ -148,12 +148,6 @@ export const Header = () => {
             <div>Download for </div> <i class="fab fa-apple" />
           </div>
         </Button>
-        {/* <Button className={"button"} href="link">
-          <div id="download">
-            <p>Demo</p>
-            <i class="fas fa-hand-point-down" />
-          </div>
-        </Button> */}
       </motion.div>
     </HeaderStyles>
   );
