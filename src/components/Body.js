@@ -39,7 +39,7 @@ const Section = styled.div`
   }
 
   div {
-    /* margin: 1rem; */
+    margin: 1rem;
   }
 `;
 

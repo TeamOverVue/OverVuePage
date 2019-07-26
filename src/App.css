@@ -9,6 +9,10 @@
     /* display: flex; */
   }
 
+  div {
+    margin: 0rem;
+  }
+
   .left {
     display: flex;
     flex-direction: column;
@@ -20,6 +24,10 @@
 @media only screen and (max-width: 766px) {
   #webapp {
     display: none;
+  }
+
+  div {
+    margin: 0rem;
   }
 }
 
