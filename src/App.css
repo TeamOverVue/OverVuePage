@@ -17,13 +17,15 @@
     /* display: flex; */
     flex-direction: column;
   }
-
-
 }
 
 @media only screen and (max-width: 766px) {
   #webapp {
     display: none;
+  }
+
+  .contribute {
+    margin: 0;
   }
 
   .left .right {
@@ -103,11 +105,6 @@ html {
   align-items: center;
 }
 
-.header {
-  height: 100vh;
-  padding: 0px;
-  background-color: #142536;
-}
 
 .lowerText {
   font-size: 1.5rem;
@@ -125,11 +122,13 @@ html {
   background: linear-gradient(107deg,
       rgba(37, 96, 159, 1) 0%,
       rgba(20, 37, 54, 1) 100%);
-  padding: 3em;
+  padding: 1em;
 }
 
 .team-heading {
+  margin-top: 3rem;
   font-weight: 200;
+  font-size: 1.5rem;
 }
 
 .m-1 {

@@ -11,7 +11,6 @@ function App() {
       <Header />
       <Body />
       <Footer />
-      {/* <Contribute /> */}
     </div>
   );
 }
