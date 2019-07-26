@@ -33,6 +33,7 @@ const BottomDiv = styled.div`
     margin-left: 0.5em;
   }
   .contribute {
+    width: 6.4rem;
     display: flex;
     margin: 2em auto;
     font-size: 1.1rem;
@@ -56,9 +57,9 @@ export const Contribute = () => {
     <BottomDiv>
       <h2>Want to Contribute?</h2>
       <div>OverVue is open source. Help make Vue prototyping better!</div>
-      <button class="contribute" href="https://github.com/TeamOverVue/OverVue">
+      <a class="contribute" href="https://github.com/TeamOverVue/OverVue">
         <p>Github </p> <i class="fab fa-github" />
-      </button>
+      </a>
     </BottomDiv>
   );
 };
