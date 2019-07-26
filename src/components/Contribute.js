@@ -15,7 +15,7 @@ const BottomDiv = styled.div`
   height: 100%;
   justify-content: left;
   margin: 2rem;
-  margin-top: 8rem;
+  margin-top: 6rem;
   h2 {
     font-weight: 100;
   }

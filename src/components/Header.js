@@ -9,7 +9,7 @@ const svg = require("../logo/overvue-logo.svg");
 const HeaderStyles = styled.div`
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 98vh;
   background: rgb(37, 96, 159);
   background: linear-gradient(
     107deg,
