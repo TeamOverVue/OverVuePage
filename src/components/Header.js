@@ -28,6 +28,7 @@ const HeaderStyles = styled.div`
   }
   i {
     font-size: 1.1em;
+    margin-left: 0.5em;
   }
   .title {
     margin-top: 5rem;
@@ -49,6 +50,24 @@ const HeaderStyles = styled.div`
   @media only screen and (max-width: 700px) {
     #name {
       font-size: 2.6rem;
+    }
+  }
+  @media only screen and (max-width: 400px) {
+    margin: 0 auto;
+    #name {
+      font-size: 3rem;
+      margin: 0px;
+    }
+    .title {
+      flex-direction: column;
+      margin: 0px;
+      justify-content: center;
+    }
+    p {
+      margin-bottom: 1em;
+    }
+    img {
+      margin: 0px;
     }
   }
   #download {
@@ -125,7 +144,7 @@ export const Header = () => {
           href="https://overvue-app.s3-us-west-2.amazonaws.com/OverVue-0.0.1.dmg"
         >
           <div id="download">
-            <p>Download for </p> <i class="fab fa-apple" />
+            <div>Download for </div> <i class="fab fa-apple" />
           </div>
         </Button>
         {/* <Button className={"button"} href="link">

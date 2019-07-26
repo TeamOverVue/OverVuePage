@@ -4,7 +4,6 @@ import deanfchung from "../assets/dev-pics/dean-chung.png";
 import deano from "../assets/dev-pics/deano.jpg";
 import drew from "../assets/dev-pics/drew.jpg";
 import joseph from "../assets/dev-pics/joseph.jpg";
-
 export const Footer = () => {
   return (
     <div className="footer">
