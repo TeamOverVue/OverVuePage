@@ -9,6 +9,9 @@ const Section = styled.div`
   /* mobile */
   @media only screen and (max-width: 860px) {
     flex-direction: column;
+    .left {
+      flex-direction: column;
+    }
   }
   display: flex;
   margin: 5rem 12rem;
@@ -18,6 +21,7 @@ const Section = styled.div`
   /* max-width: 100%; */
   /* height: auto; */
   color: black;
+  max-width: 60%;
   h1 {
     margin-bottom: 1rem;
   }
@@ -32,6 +36,10 @@ const Section = styled.div`
     height: 1px;
     margin: 1em 0;
     width: 6em;
+  }
+
+  div {
+    margin: 1rem;
   }
 `;
 
@@ -60,19 +68,21 @@ export const Body = () => {
         />
       </Section>
       <Section>
-        <img
-          className="shadow"
-          src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/component_creation.gif"
-        />
-        <HeadTwoStyle>
-          <div>
-            <h1 className="r">Create components</h1>
-            <p className="p2">
-              Name your component. Add desired HTML elements. Build them right
-              over your design.
-            </p>
-          </div>
-        </HeadTwoStyle>
+        <div className="left">
+          <HeadTwoStyle className="summary">
+            <div>
+              <h1 className="">Create components</h1>
+              <p className="p">
+                Name your component. Add desired HTML elements. Build them right
+                over your design.
+              </p>
+            </div>
+          </HeadTwoStyle>
+          <img
+            className="shadow"
+            src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/component_creation.gif"
+          />
+        </div>
       </Section>
       <Section>
         <HeadTwoStyle>
@@ -90,20 +100,22 @@ export const Body = () => {
         />
       </Section>
       <Section>
-        <img
-          className="shadow"
-          src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/snippets-active-component.gif"
-        />
-        <HeadTwoStyle>
-          <div>
-            <h1 className="r">View live code snippets</h1>
-            <p className="p2">
-              Code snippets are auto generated when components are created.
-              Click a component in the display to see its code and HTML
-              elements.
-            </p>
-          </div>
-        </HeadTwoStyle>
+        <div className="left">
+          <HeadTwoStyle>
+            <div>
+              <h1 className="">View live code snippets</h1>
+              <p className="p">
+                Code snippets are auto generated when components are created.
+                Click a component in the display to see its code and HTML
+                elements.
+              </p>
+            </div>
+          </HeadTwoStyle>
+          <img
+            className="shadow"
+            src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/snippets-active-component.gif"
+          />
+        </div>
       </Section>
       <Section>
         <HeadTwoStyle>
