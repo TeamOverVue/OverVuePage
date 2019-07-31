@@ -58,7 +58,7 @@ export const Contribute = () => {
       <h2>Want to Contribute?</h2>
       <div>OverVue is open source. Help make Vue prototyping better!</div>
       <a class="contribute" href="https://github.com/TeamOverVue/OverVue">
-        <p>Github </p> <i class="fab fa-github" />
+        <p>GitHub </p> <i class="fab fa-github" />
       </a>
     </BottomDiv>
   );
