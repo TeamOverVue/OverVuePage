@@ -142,10 +142,19 @@ export const Header = () => {
         </div>
         <Button
           className={"button"}
-          href="https://overvue-app.s3-us-west-2.amazonaws.com/OverVue-0.0.1.dmg"
+          href="https://elasticbeanstalk-us-east-1-877269786031.s3.amazonaws.com/OverVue-2.0.0.dmg"
         >
           <div id="download">
             <div>Download for </div> <i class="fab fa-apple" />
+          </div>
+        </Button>
+        <br/>
+        <Button
+          className={"button"}
+          href="https://elasticbeanstalk-us-east-1-877269786031.s3.amazonaws.com/OverVue2.zip"
+        >
+          <div id="download">
+            <div>Download for </div> <i class="fab fa-windows" />
           </div>
         </Button>
       </motion.div>

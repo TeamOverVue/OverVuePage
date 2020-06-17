@@ -8,7 +8,7 @@ export const WebApp = () => {
       <div class="m-1">
         <iframe
           className="iframe"
-          src="https://dev.d3o6ss3lnctews.amplifyapp.com/#/"
+          src="https://d3jjiewd1t2yhm.cloudfront.net"
         />
       </div>
     </div>

@@ -68,7 +68,7 @@ export const Body = () => {
           </HeadTwoStyle>
           <img
             className="shadow"
-            src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/upload-image-drawers.gif"
+            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/upload_one_mockup.gif"
           />
         </div>
       </Section>
@@ -85,7 +85,7 @@ export const Body = () => {
           </HeadTwoStyle>
           <img
             className="shadow"
-            src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/component_creation.gif"
+            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/right_click_add_children.gif"
           />
         </div>
       </Section>
@@ -102,7 +102,7 @@ export const Body = () => {
           </HeadTwoStyle>
           <img
             className="shadow"
-            src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/HTML-elements-tree-rerender.gif"
+            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/parent_children_hierarchy.gif"
           />
         </div>
       </Section>
@@ -120,7 +120,7 @@ export const Body = () => {
           </HeadTwoStyle>
           <img
             className="shadow"
-            src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/snippets-active-component.gif"
+            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/live_code_snippet.gif"
           />
         </div>
       </Section>
@@ -137,7 +137,7 @@ export const Body = () => {
           </HeadTwoStyle>
           <img
             className="shadow"
-            src="https://raw.githubusercontent.com/jeisele2/OverVue/master/src/assets/gifs/sidebar-components-routes.gif"
+            src="https://raw.githubusercontent.com//open-source-labs/OverVue/master/src/assets/readme/add_new_route.gif"
           />
         </div>
       </Section>

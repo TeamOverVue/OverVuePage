@@ -118,6 +118,13 @@ html {
   padding: 1em;
 }
 
+.devCards{
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .team-heading {
   margin-top: 3rem;
   font-weight: 200;
