@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Button } from "./styled/Button";
 import GitHubButton from "react-github-btn";
 import { motion } from "framer-motion";
-const logo = require("../logo/overvue-logo.png");
 const svg = require("../logo/overvue-logo.svg");
 
 const HeaderStyles = styled.div`
@@ -96,12 +95,12 @@ export const Header = () => {
       opacity: 1
     }
   };
-  const [width, setWidth] = useState();
+  //const [width, setWidth] = useState();
   return (
     <HeaderStyles>
       <div class="title">
         <div>
-          <img src={svg} />
+          <img alt = "svg" src={svg} />
         </div>
         <div id="name">OverVue</div>
         <div />
@@ -142,10 +141,19 @@ export const Header = () => {
         </div>
         <Button
           className={"button"}
-          href="https://overvue-app.s3-us-west-2.amazonaws.com/OverVue-0.0.1.dmg"
+          href="https://elasticbeanstalk-us-east-1-877269786031.s3.amazonaws.com/OverVue-2.0.0.dmg"
         >
           <div id="download">
             <div>Download for </div> <i class="fab fa-apple" />
+          </div>
+        </Button>
+        <br/>
+        <Button
+          className={"button"}
+          href="https://elasticbeanstalk-us-east-1-877269786031.s3.amazonaws.com/OverVue2.zip"
+        >
+          <div id="download">
+            <div>Download for </div> <i class="fab fa-windows" />
           </div>
         </Button>
       </motion.div>
