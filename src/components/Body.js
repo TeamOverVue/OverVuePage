@@ -3,7 +3,6 @@ import HeadTwoStyle from "./styled/HeadTwoStyle";
 import { WebApp } from "./WebApp";
 import styled from "styled-components";
 import "../App.css";
-import { motion } from "framer-motion";
 
 const Section = styled.div`
   /* mobile */
@@ -67,6 +66,7 @@ export const Body = () => {
             </div>
           </HeadTwoStyle>
           <img
+            alt = "Upload gif"
             className="shadow"
             src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/upload_one_mockup.gif"
           />
@@ -84,6 +84,7 @@ export const Body = () => {
             </div>
           </HeadTwoStyle>
           <img
+            alt = "right click add"
             className="shadow"
             src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/right_click_add_children.gif"
           />
@@ -101,6 +102,7 @@ export const Body = () => {
             </div>
           </HeadTwoStyle>
           <img
+            alt = "hierarchy"
             className="shadow"
             src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/parent_children_hierarchy.gif"
           />
@@ -119,6 +121,7 @@ export const Body = () => {
             </div>
           </HeadTwoStyle>
           <img
+            alt = "code snippet"
             className="shadow"
             src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/live_code_snippet.gif"
           />
@@ -136,6 +139,7 @@ export const Body = () => {
             </div>
           </HeadTwoStyle>
           <img
+            alt = "new route"
             className="shadow"
             src="https://raw.githubusercontent.com//open-source-labs/OverVue/master/src/assets/readme/add_new_route.gif"
           />

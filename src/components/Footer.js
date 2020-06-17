@@ -16,42 +16,42 @@ export const Footer = () => {
       <h3 className="team-heading">Meet the team.</h3>
       <div className ="devCards">
         <DeveloperCard>
-          <img src={deano} className="dev-pic" />
+          <img src={deano} alt = "deano" className="dev-pic" />
           <p className="dev-name">Dean Ohashi</p>
           <a href="https://github.com/dnohashi">@dnohashi</a>
         </DeveloperCard>
         <DeveloperCard>
-          <img src={deanfchung} className="dev-pic" />
+          <img src={deanfchung} alt= "deanf" className="dev-pic" />
           <p className="dev-name">Dean Chung</p>
           <a href="https://github.com/deanfchung">@deanfchung</a>
         </DeveloperCard>
         <DeveloperCard>
-          <img src={drew} className="dev-pic" />
+          <img src={drew} alt = "drew" className="dev-pic" />
           <p className="dev-name">Drew Nguyen</p>
           <a href="https://github.com/drewngyen">@drewngyen</a>
         </DeveloperCard>
         <DeveloperCard>
-          <img src={joseph} className="dev-pic" />
+          <img src={joseph} alt = "joseph" className="dev-pic" />
           <p className="dev-name">Joseph Eisele</p>
           <a href="https://github.com/jeisele2">@jeisele</a>
         </DeveloperCard>
         <DeveloperCard>
-          <img src={alex} className="dev-pic" />
+          <img src={alex} alt = "alex" className="dev-pic" />
           <p className="dev-name">Alexander Havas</p>
           <a href="https://github.com/LOLDragoon">@LOLDragoon</a>
         </DeveloperCard>
         <DeveloperCard>
-          <img src={keriann} className="dev-pic" />
+          <img src={keriann} alt = "keriann" className="dev-pic" />
           <p className="dev-name">Keriann Lin</p>
           <a href="https://github.com/keliphan">@keliphan</a>
         </DeveloperCard>
         <DeveloperCard>
-          <img src={joju} className="dev-pic" />
+          <img src={joju} alt = "joju" className="dev-pic" />
           <p className="dev-name">Joju Olaode</p>
           <a href="https://github.com/JojuOlaode">@JojuOlaode</a>
         </DeveloperCard>
         <DeveloperCard>
-          <img src={allison} className="dev-pic" />
+          <img src={allison} alt = "allison" className="dev-pic" />
           <p className="dev-name">Allison Pratt</p>
           <a href="https://github.com/allisons11">@allisons11</a>
         </DeveloperCard>

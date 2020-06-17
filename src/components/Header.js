@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Button } from "./styled/Button";
 import GitHubButton from "react-github-btn";
 import { motion } from "framer-motion";
-const logo = require("../logo/overvue-logo.png");
 const svg = require("../logo/overvue-logo.svg");
 
 const HeaderStyles = styled.div`
@@ -96,12 +95,12 @@ export const Header = () => {
       opacity: 1
     }
   };
-  const [width, setWidth] = useState();
+  //const [width, setWidth] = useState();
   return (
     <HeaderStyles>
       <div class="title">
         <div>
-          <img src={svg} />
+          <img alt = "svg" src={svg} />
         </div>
         <div id="name">OverVue</div>
         <div />
