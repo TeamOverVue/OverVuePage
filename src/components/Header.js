@@ -46,11 +46,21 @@ const HeaderStyles = styled.div`
     margin-right: 0.75em;
     font-weight: 600;
   }
-  @media only screen and (max-width: 700px) {
+  @media only screen and (max-width: 830px) {
+    .title {
+      margin:  0px;
+    }
     #name {
       font-size: 2.6rem;
     }
-    height: 100vh;
+  }
+  @media only screen and (max-width: 700px){
+    .subtitle {
+      margin .5em;
+    }
+    img {
+      max-height: 100px;
+    }
   }
   @media only screen and (max-width: 400px) {
     margin: 0 auto;
