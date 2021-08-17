@@ -10,6 +10,7 @@ import keriann from "../assets/dev-pics/keri_overvue.png"
 import allison from "../assets/dev-pics/allison1.jpg"
 import { Contribute } from "./Contribute";
 
+// functionality for loading developer cards components, and the contribute components 
 export const Footer = () => {
   return (
     <div className="footer">
@@ -55,8 +56,28 @@ export const Footer = () => {
           <p className="dev-name">Allison Pratt</p>
           <a href="https://github.com/allisons11">@allisons11</a>
         </DeveloperCard>
+        <DeveloperCard>
+          <img src={allison} alt = "faraz" className="dev-pic" />
+          <p className="dev-name">Faraz Moallemi</p>
+          <a href="https://github.com/farazmoallemi">@farazmoallemi</a>
+        </DeveloperCard>
+        <DeveloperCard>
+          <img src={allison} alt = "sean" className="dev-pic" />
+          <p className="dev-name">Sean Grace</p>
+          <a href="https://github.com/ziggrace">@ziggrace</a>
+        </DeveloperCard>
+        <DeveloperCard>
+          <img src={allison} alt = "terry" className="dev-pic" />
+          <p className="dev-name">Terry L. Tilley</p>
+          <a href="https://github.com/codeByCandlelight">@codeByCandlelight</a>
+        </DeveloperCard>
+        <DeveloperCard>
+          <img src={allison} alt = "nicholas" className="dev-pic" />
+          <p className="dev-name">Nicholas Schillaci</p>
+          <a href="https://github.com/Schillaci767">@Schillaci767</a>
+        </DeveloperCard>
       </div>
-      <Contribute />
+      <Contribute/>
     </div>
   );
 };

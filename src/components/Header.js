@@ -5,6 +5,9 @@ import GitHubButton from "react-github-btn";
 import { motion } from "framer-motion";
 const svg = require("../logo/overvue-logo.svg");
 
+// functionality and styling for git hub starring, 
+// downloading application for windows and mac
+// Main title and delay of words appearing
 const HeaderStyles = styled.div`
   display: flex;
   flex-direction: column;

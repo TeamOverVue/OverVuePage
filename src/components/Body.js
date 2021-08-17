@@ -4,6 +4,7 @@ import { WebApp } from "./WebApp";
 import styled from "styled-components";
 import "../App.css";
 
+// styling and functionality for overall content
 const Section = styled.div`
   /* mobile */
   @media only screen and (max-width: 860px) {
@@ -76,7 +77,7 @@ export const Body = () => {
         <div className="left">
           <HeadTwoStyle>
             <div>
-              <h1 className="">Create components</h1>
+              <h1>Create components</h1>
               <p className="p">
                 Name your component. Add desired HTML elements. Build them right
                 over your design.
@@ -96,7 +97,7 @@ export const Body = () => {
             <div>
               <h1>Hierarchy</h1>
               <p className="p">
-                Specify hierarchy before or after component creation. Visualize
+                Specify parent and child hierarchy before or after component creation. Visualize
                 the changes in your tree.
               </p>
             </div>
@@ -112,11 +113,47 @@ export const Body = () => {
         <div className="left">
           <HeadTwoStyle>
             <div>
-              <h1 className="">View live code snippets</h1>
+              <h1>Manage State and Actions</h1>
+              <p className="p">
+                Quickly add state and actions to the Store and view them in the Vuex Store tab. 
+                Visualize and manage state across your entire application. 
+              </p>
+            </div>
+          </HeadTwoStyle>
+          <img
+            alt = "state and actions"
+            className="shadow"
+            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/live_code_snippet.gif"
+          />
+        </div>
+      </Section>
+      <Section>
+        <div className="right">
+          <HeadTwoStyle>
+            <div>
+              <h1>Map Vuex + Add Props to Components</h1>
+              <p className="p">
+                State and Actions in the Vuex Store can now be mapped out to individual Components. 
+                Developers can also create and add props to all components as well. 
+              </p>
+            </div>
+          </HeadTwoStyle>
+          <img
+            alt = "adding props and mapping Vuex"
+            className="shadow"
+            src="https://raw.githubusercontent.com//open-source-labs/OverVue/master/src/assets/readme/add_new_route.gif"
+          />
+        </div>
+      </Section>
+      <Section>
+        <div className="left">
+          <HeadTwoStyle>
+            <div>
+              <h1>View live code snippets</h1>
               <p className="p">
                 Code snippets are auto generated when components are created.
-                Click a component in the display to see its code and HTML
-                elements.
+                Click a component in the display to see its code, HTML
+                elements, props, state, and actions.
               </p>
             </div>
           </HeadTwoStyle>
@@ -142,6 +179,61 @@ export const Body = () => {
             alt = "new route"
             className="shadow"
             src="https://raw.githubusercontent.com//open-source-labs/OverVue/master/src/assets/readme/add_new_route.gif"
+          />
+        </div>
+      </Section>
+      <Section>
+        <div className="left">
+          <HeadTwoStyle>
+            <div>
+              <h1>Edit Name</h1>
+              <p className="p">
+                Quickly add state and actions to the Store and view them in the Vuex Store tab. 
+                Visualize and manage state across your entire application. 
+              </p>
+            </div>
+          </HeadTwoStyle>
+          <img
+            alt = "edit name"
+            className="shadow"
+            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/live_code_snippet.gif"
+          />
+        </div>
+      </Section>
+      <Section>
+        <div className="right">
+          <HeadTwoStyle>
+            <div>
+              <h1>Edit State, Props, and HTML Elements</h1>
+              <p className="p">
+                State and Actions in the Vuex Store can now be mapped out to individual Components. 
+                Developers can also create and add props to all components as well. 
+              </p>
+            </div>
+          </HeadTwoStyle>
+          <img
+            alt = "edit state and props"
+            className="shadow"
+            src="https://raw.githubusercontent.com//open-source-labs/OverVue/master/src/assets/readme/add_new_route.gif"
+          />
+        </div>
+      </Section>
+      <Section>
+        <div className="left">
+          <HeadTwoStyle>
+            <div>
+              <h1>Update Layer</h1>
+              <p className="p">
+                Code snippets are auto generated when components are created.
+                Click a component in the display to see its code, HTML
+                elements, props, state, and actions.
+              </p>
+            </div>
+          </HeadTwoStyle>
+          <img
+            alt = "update layer"
+            className="shadow"
+            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/live_code_snippet.gif"
           />
         </div>
       </Section>

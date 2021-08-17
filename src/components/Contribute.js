@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+// styling and functionality of writing, OverVue link below the developer card
 const BottomDiv = styled.div`
   @media only screen and (max-width: 800px) {
     h2 {
