@@ -67,9 +67,9 @@ export const Body = () => {
             </div>
           </HeadTwoStyle>
           <img
-            alt = "Upload gif"
+            alt = "Upload img"
             className="shadow"
-            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/upload_one_mockup.gif"
+            src="https://media.giphy.com/media/NE2BtP2GuwURmn7nz0/giphy.gif?cid=790b7611e7e7d93fbe81bed53e95c796cf1ad7450fd00ccc&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
@@ -87,7 +87,7 @@ export const Body = () => {
           <img
             alt = "right click add"
             className="shadow"
-            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/right_click_add_children.gif"
+            src="https://media.giphy.com/media/WGgKFB5B2sos5dHWSU/giphy.gif?cid=790b7611a0d0b76600f60b69ee668ab96058d786cc91ec12&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
@@ -105,7 +105,7 @@ export const Body = () => {
           <img
             alt = "hierarchy"
             className="shadow"
-            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/parent_children_hierarchy.gif"
+            src="https://media.giphy.com/media/aqtFC1LMXzqE4WvhkC/giphy.gif?cid=790b7611ac4c453ca4811d95ee405fead0257c185b0352fa&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
@@ -113,17 +113,16 @@ export const Body = () => {
         <div className="left">
           <HeadTwoStyle>
             <div>
-              <h1>Manage State and Actions</h1>
+              <h1>Manage Vuex + Add Props to Components</h1>
               <p className="p">
-                Quickly add state and actions to the Store and view them in the Vuex Store tab. 
-                Visualize and manage state across your entire application. 
+                Quickly map and add State, Actions, and Props throughout the entire application.  
               </p>
             </div>
           </HeadTwoStyle>
           <img
-            alt = "state and actions"
+            alt = "adding props and mapping Vuex"
             className="shadow"
-            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/live_code_snippet.gif"
+            src="https://media.giphy.com/media/JucFNDgSDWwoKOpgH9/giphy.gif?cid=790b7611e83f35560ba4bbaf54aff733c03bea568dd3d92c&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
@@ -131,29 +130,10 @@ export const Body = () => {
         <div className="right">
           <HeadTwoStyle>
             <div>
-              <h1>Map Vuex + Add Props to Components</h1>
-              <p className="p">
-                State and Actions in the Vuex Store can now be mapped out to individual Components. 
-                Developers can also create and add props to all components as well. 
-              </p>
-            </div>
-          </HeadTwoStyle>
-          <img
-            alt = "adding props and mapping Vuex"
-            className="shadow"
-            src="https://raw.githubusercontent.com//open-source-labs/OverVue/master/src/assets/readme/add_new_route.gif"
-          />
-        </div>
-      </Section>
-      <Section>
-        <div className="left">
-          <HeadTwoStyle>
-            <div>
               <h1>View live code snippets</h1>
               <p className="p">
                 Code snippets are auto generated when components are created.
-                Click a component in the display to see its code, HTML
-                elements, props, state, and actions.
+                Click a component in the display to see its code, HTML elements, props, state, and actions.
               </p>
             </div>
           </HeadTwoStyle>
@@ -165,13 +145,13 @@ export const Body = () => {
         </div>
       </Section>
       <Section>
-        <div className="right">
+        <div className="left">
           <HeadTwoStyle>
             <div>
               <h1>Add Vue routes</h1>
               <p className="p">
                 Add new routes and view all components associated with that
-                route. Export your project to your file system when finished.
+                route.
               </p>
             </div>
           </HeadTwoStyle>
@@ -183,58 +163,33 @@ export const Body = () => {
         </div>
       </Section>
       <Section>
-        <div className="left">
-          <HeadTwoStyle>
-            <div>
-              <h1>Edit Name</h1>
-              <p className="p">
-                Quickly add state and actions to the Store and view them in the Vuex Store tab. 
-                Visualize and manage state across your entire application. 
-              </p>
-            </div>
-          </HeadTwoStyle>
-          <img
-            alt = "edit name"
-            className="shadow"
-            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/live_code_snippet.gif"
-          />
-        </div>
-      </Section>
-      <Section>
         <div className="right">
           <HeadTwoStyle>
             <div>
-              <h1>Edit State, Props, and HTML Elements</h1>
+              <h1>Edit Component Functionality</h1>
               <p className="p">
-                State and Actions in the Vuex Store can now be mapped out to individual Components. 
-                Developers can also create and add props to all components as well. 
+                Click on a component and choose the features you wish to edit.
+                View all of your changes lives in the Component Details Tab. 
               </p>
             </div>
           </HeadTwoStyle>
           <img
-            alt = "edit state and props"
+            alt = "edit component"
             className="shadow"
-            src="https://raw.githubusercontent.com//open-source-labs/OverVue/master/src/assets/readme/add_new_route.gif"
+            src="https://media.giphy.com/media/2lzk8OeNvdq8H13SUc/giphy.gif?cid=790b7611b235a350238776995e9dc73e03ff29b71e02744d&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
       <Section>
-        <div className="left">
-          <HeadTwoStyle>
-            <div>
-              <h1>Update Layer</h1>
-              <p className="p">
-                Code snippets are auto generated when components are created.
-                Click a component in the display to see its code, HTML
-                elements, props, state, and actions.
-              </p>
-            </div>
-          </HeadTwoStyle>
-          <img
-            alt = "update layer"
-            className="shadow"
-            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/live_code_snippet.gif"
-          />
+        <div>
+        <HeadTwoStyle>
+        <h1>Plus some other amazing features: </h1>
+        <br/>
+          <ul>
+            <li><h2>Update Component Layer</h2></li>
+            <li><h2>Open, Save, and Export your Project</h2></li>
+          </ul>
+        </HeadTwoStyle>
         </div>
       </Section>
       <WebApp />
