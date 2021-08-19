@@ -4,6 +4,7 @@ import { WebApp } from "./WebApp";
 import styled from "styled-components";
 import "../App.css";
 
+// styling and functionality for overall content
 const Section = styled.div`
   /* mobile */
   @media only screen and (max-width: 860px) {
@@ -66,9 +67,9 @@ export const Body = () => {
             </div>
           </HeadTwoStyle>
           <img
-            alt = "Upload gif"
+            alt = "Upload img"
             className="shadow"
-            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/upload_one_mockup.gif"
+            src="https://media.giphy.com/media/NE2BtP2GuwURmn7nz0/giphy.gif?cid=790b7611e7e7d93fbe81bed53e95c796cf1ad7450fd00ccc&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
@@ -76,7 +77,7 @@ export const Body = () => {
         <div className="left">
           <HeadTwoStyle>
             <div>
-              <h1 className="">Create components</h1>
+              <h1>Create components</h1>
               <p className="p">
                 Name your component. Add desired HTML elements. Build them right
                 over your design.
@@ -86,7 +87,7 @@ export const Body = () => {
           <img
             alt = "right click add"
             className="shadow"
-            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/right_click_add_children.gif"
+            src="https://media.giphy.com/media/WGgKFB5B2sos5dHWSU/giphy.gif?cid=790b7611a0d0b76600f60b69ee668ab96058d786cc91ec12&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
@@ -96,7 +97,7 @@ export const Body = () => {
             <div>
               <h1>Hierarchy</h1>
               <p className="p">
-                Specify hierarchy before or after component creation. Visualize
+                Specify parent and child hierarchy before or after component creation. Visualize
                 the changes in your tree.
               </p>
             </div>
@@ -104,7 +105,7 @@ export const Body = () => {
           <img
             alt = "hierarchy"
             className="shadow"
-            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/parent_children_hierarchy.gif"
+            src="https://media.giphy.com/media/aqtFC1LMXzqE4WvhkC/giphy.gif?cid=790b7611ac4c453ca4811d95ee405fead0257c185b0352fa&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
@@ -112,11 +113,27 @@ export const Body = () => {
         <div className="left">
           <HeadTwoStyle>
             <div>
-              <h1 className="">View live code snippets</h1>
+              <h1>Manage Vuex + Add Props to Components</h1>
+              <p className="p">
+                Quickly map and add State, Actions, and Props throughout the entire application.  
+              </p>
+            </div>
+          </HeadTwoStyle>
+          <img
+            alt = "adding props and mapping Vuex"
+            className="shadow"
+            src="https://media.giphy.com/media/JucFNDgSDWwoKOpgH9/giphy.gif?cid=790b7611e83f35560ba4bbaf54aff733c03bea568dd3d92c&rid=giphy.gif&ct=g"
+          />
+        </div>
+      </Section>
+      <Section>
+        <div className="right">
+          <HeadTwoStyle>
+            <div>
+              <h1>View live code snippets</h1>
               <p className="p">
                 Code snippets are auto generated when components are created.
-                Click a component in the display to see its code and HTML
-                elements.
+                Click a component in the display to see its code, HTML elements, props, state, and actions.
               </p>
             </div>
           </HeadTwoStyle>
@@ -128,13 +145,13 @@ export const Body = () => {
         </div>
       </Section>
       <Section>
-        <div className="right">
+        <div className="left">
           <HeadTwoStyle>
             <div>
               <h1>Add Vue routes</h1>
               <p className="p">
                 Add new routes and view all components associated with that
-                route. Export your project to your file system when finished.
+                route.
               </p>
             </div>
           </HeadTwoStyle>
@@ -143,6 +160,36 @@ export const Body = () => {
             className="shadow"
             src="https://raw.githubusercontent.com//open-source-labs/OverVue/master/src/assets/readme/add_new_route.gif"
           />
+        </div>
+      </Section>
+      <Section>
+        <div className="right">
+          <HeadTwoStyle>
+            <div>
+              <h1>Edit Component Functionality</h1>
+              <p className="p">
+                Click on a component and choose the features you wish to edit.
+                View all of your changes lives in the Component Details Tab. 
+              </p>
+            </div>
+          </HeadTwoStyle>
+          <img
+            alt = "edit component"
+            className="shadow"
+            src="https://media.giphy.com/media/2lzk8OeNvdq8H13SUc/giphy.gif?cid=790b7611b235a350238776995e9dc73e03ff29b71e02744d&rid=giphy.gif&ct=g"
+          />
+        </div>
+      </Section>
+      <Section>
+        <div>
+        <HeadTwoStyle>
+        <h1>Plus some other amazing features: </h1>
+        <br/>
+          <ul>
+            <li><h2>Update Component Layer</h2></li>
+            <li><h2>Open, Save, and Export your Project</h2></li>
+          </ul>
+        </HeadTwoStyle>
         </div>
       </Section>
       <WebApp />

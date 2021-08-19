@@ -5,6 +5,9 @@ import GitHubButton from "react-github-btn";
 import { motion } from "framer-motion";
 const svg = require("../logo/overvue-logo.svg");
 
+// functionality and styling for git hub starring, 
+// downloading application for windows and mac
+// Main title and delay of words appearing
 const HeaderStyles = styled.div`
   display: flex;
   flex-direction: column;
@@ -151,7 +154,7 @@ export const Header = () => {
         </div>
         <Button
           className={"button"}
-          href="https://elasticbeanstalk-us-east-1-877269786031.s3.amazonaws.com/OverVue-2.0.0.dmg"
+          href="https://elasticbeanstalk-us-west-1-249145862490.s3.us-west-1.amazonaws.com/OverVue-3.0.0.dmg"
         >
           <div id="download">
             <div>Download for </div> <i class="fab fa-apple" />
@@ -160,7 +163,7 @@ export const Header = () => {
         <br/>
         <Button
           className={"button"}
-          href="https://elasticbeanstalk-us-east-1-877269786031.s3.amazonaws.com/OverVue2.zip"
+          href="https://elasticbeanstalk-us-west-1-249145862490.s3.us-west-1.amazonaws.com/OverVue+3.0.0.zip"
         >
           <div id="download">
             <div>Download for </div> <i class="fab fa-windows" />

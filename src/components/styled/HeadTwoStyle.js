@@ -1,6 +1,7 @@
 // styled component for <h2> header
 import styled from "styled-components";
 
+// Heading of body
 const HeadTwoStyles = styled.div`
   margin: 1em;
   h2 {

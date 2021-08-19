@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+// styling for the developer card in footer
 const DeveloperCard = styled.div`
   display: inline-block;
   width: 10em;
