@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "./styled/Button";
-import GitHubButton from "react-github-btn";
 import { motion } from "framer-motion";
 const svg = require("../logo/overvue-logo.svg");
 

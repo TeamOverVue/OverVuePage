@@ -17,7 +17,6 @@ import jeffrey from "../assets/dev-pics/jeffrey.jpeg"
 import kenny from "../assets/dev-pics/kenny.jpg"
 import bender from "../assets/dev-pics/bender.jpeg"
 import sonny from "../assets/dev-pics/sonny.jpg"
-import placeholder from "../assets/dev-pics/placeholder.png"
 import { Contribute } from "./Contribute";
 
 // functionality for loading developer cards components, and the contribute components 
