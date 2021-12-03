@@ -1,6 +1,5 @@
 import React from "react";
 import HeadTwoStyle from "./styled/HeadTwoStyle";
-import { WebApp } from "./WebApp";
 import styled from "styled-components";
 import "../App.css";
 
@@ -69,7 +68,7 @@ export const Body = () => {
           <img
             alt = "Upload img"
             className="shadow"
-            src="https://media.giphy.com/media/NE2BtP2GuwURmn7nz0/giphy.gif?cid=790b7611e7e7d93fbe81bed53e95c796cf1ad7450fd00ccc&rid=giphy.gif&ct=g"
+            src="https://media1.giphy.com/media/2A2N1aUzPwzprjrFTB/giphy.gif?cid=790b7611c23aa7ebfb1f47f13e43d0a953368200facbb030&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
@@ -87,7 +86,7 @@ export const Body = () => {
           <img
             alt = "right click add"
             className="shadow"
-            src="https://media.giphy.com/media/WGgKFB5B2sos5dHWSU/giphy.gif?cid=790b7611a0d0b76600f60b69ee668ab96058d786cc91ec12&rid=giphy.gif&ct=g"
+            src="https://media0.giphy.com/media/s3RfuZ5UaiR3MmTLDT/giphy.gif?cid=790b76113318403b40a10d875dd6ba7700ee2746651281ef&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
@@ -98,14 +97,14 @@ export const Body = () => {
               <h1>Hierarchy</h1>
               <p className="p">
                 Specify parent and child hierarchy before or after component creation. Visualize
-                the changes in your tree.
+                the changes in your tree. Copy and paste any component with Ctrl/Cmd C & V hotkeys.
               </p>
             </div>
           </HeadTwoStyle>
           <img
             alt = "hierarchy"
             className="shadow"
-            src="https://media.giphy.com/media/aqtFC1LMXzqE4WvhkC/giphy.gif?cid=790b7611ac4c453ca4811d95ee405fead0257c185b0352fa&rid=giphy.gif&ct=g"
+            src="https://media1.giphy.com/media/sktDfjcd0bVlGfjULl/giphy.gif?cid=790b7611b242fd13f29944e21ab4b193486b7839abe03086&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
@@ -122,7 +121,7 @@ export const Body = () => {
           <img
             alt = "adding props and mapping Vuex"
             className="shadow"
-            src="https://media.giphy.com/media/JucFNDgSDWwoKOpgH9/giphy.gif?cid=790b7611e83f35560ba4bbaf54aff733c03bea568dd3d92c&rid=giphy.gif&ct=g"
+            src="https://media3.giphy.com/media/vT8OKdG83pvTTB2lcl/giphy.gif?cid=790b76119ea5ee6ba2a8472e2f77793a0edd0eaf99dc3114&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
@@ -140,7 +139,7 @@ export const Body = () => {
           <img
             alt = "code snippet"
             className="shadow"
-            src="https://raw.githubusercontent.com/open-source-labs/OverVue/master/src/assets/readme/live_code_snippet.gif"
+            src="https://media4.giphy.com/media/Hf00cmTQbseRr8dqPB/giphy.gif?cid=790b7611ce2368f589e1a86edca87551c5d2dfce510f8df3&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
@@ -148,17 +147,16 @@ export const Body = () => {
         <div className="left">
           <HeadTwoStyle>
             <div>
-              <h1>Add Vue routes</h1>
+              <h1>Manage routing</h1>
               <p className="p">
-                Add new routes and view all components associated with that
-                route.
+                Create, edit, and assign routes to components with ease.
               </p>
             </div>
           </HeadTwoStyle>
           <img
             alt = "new route"
             className="shadow"
-            src="https://raw.githubusercontent.com//open-source-labs/OverVue/master/src/assets/readme/add_new_route.gif"
+            src="https://media4.giphy.com/media/39kfJfsn1RE5WPaCS9/giphy.gif?cid=790b7611845be82a149a5da9a38c0c36c60b86b6d053ca97&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
@@ -169,30 +167,46 @@ export const Body = () => {
               <h1>Edit Component Functionality</h1>
               <p className="p">
                 Click on a component and choose the features you wish to edit.
-                View all of your changes lives in the Component Details Tab. 
+                View all of your changes live. 
               </p>
             </div>
           </HeadTwoStyle>
           <img
             alt = "edit component"
             className="shadow"
-            src="https://media.giphy.com/media/2lzk8OeNvdq8H13SUc/giphy.gif?cid=790b7611b235a350238776995e9dc73e03ff29b71e02744d&rid=giphy.gif&ct=g"
+            src="https://media0.giphy.com/media/GpzlfwdIzFmWZXpT1I/giphy.gif?cid=790b76112d354056726d7e5cbc3702904b0158516eb9919e&rid=giphy.gif&ct=g"
+          />
+        </div>
+      </Section>
+      <Section>
+        <div className="left">
+          <HeadTwoStyle>
+            <div>
+              <h1>Connect to Slack</h1>
+              <p className="p">
+                Log in to your Slack workspace and notify your team when changes are saved.
+              </p>
+            </div>
+          </HeadTwoStyle>
+          <img
+            alt = "slack login"
+            className="shadow"
+            src="https://media1.giphy.com/media/zAJ5sINDM15zpyzUQC/giphy.gif?cid=790b761183740797f750db09fc5efdde0ca1106b224daf59&rid=giphy.gif&ct=g"
           />
         </div>
       </Section>
       <Section>
         <div>
         <HeadTwoStyle>
-        <h1>Plus some other amazing features: </h1>
+        <h1>Additional features: </h1>
         <br/>
           <ul>
-            <li><h2>Update Component Layer</h2></li>
-            <li><h2>Open, Save, and Export your Project</h2></li>
+            <li><h2>Save and Open OverVue Project Files</h2></li>
+            <li><h2>Export IDE-Compatible Component Files</h2></li>
           </ul>
         </HeadTwoStyle>
         </div>
       </Section>
-      <WebApp />
     </div>
   );
 };

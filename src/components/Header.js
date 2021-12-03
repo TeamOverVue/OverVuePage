@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Button } from "./styled/Button";
-import GitHubButton from "react-github-btn";
 import { motion } from "framer-motion";
 const svg = require("../logo/overvue-logo.svg");
 
@@ -142,19 +141,11 @@ export const Header = () => {
         }}
       >
         <div class="title">
-          <p>Star us on GitHub!</p>
-          <GitHubButton
-            className={"githubbtn"}
-            href="https://github.com/TeamOverVue/OverVue"
-            data-icon="octicon-star"
-            aria-label="Star ntkme/github-buttons on GitHub"
-          >
-            Star
-          </GitHubButton>
+          <p>Version 4 Now Available!</p>
         </div>
         <Button
           className={"button"}
-          href="https://elasticbeanstalk-us-west-1-249145862490.s3.us-west-1.amazonaws.com/OverVue-3.0.0.dmg"
+          href="https://overvue-v4.s3.us-west-1.amazonaws.com/OverVue-4.0.0.mac.dmg"
         >
           <div id="download">
             <div>Download for </div> <i class="fab fa-apple" />
@@ -163,7 +154,7 @@ export const Header = () => {
         <br/>
         <Button
           className={"button"}
-          href="https://elasticbeanstalk-us-west-1-249145862490.s3.us-west-1.amazonaws.com/OverVue+3.0.0.zip"
+          href="https://overvue-v4.s3.us-west-1.amazonaws.com/OverVue+Setup+4.0.0.exe"
         >
           <div id="download">
             <div>Download for </div> <i class="fab fa-windows" />

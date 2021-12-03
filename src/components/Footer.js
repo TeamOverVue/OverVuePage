@@ -12,6 +12,11 @@ import faraz from "../assets/dev-pics/FarazPic.png"
 import sean from "../assets/dev-pics/SeanPic.png"
 import nicholas from "../assets/dev-pics/NicholasPic.jpeg"
 import terry from "../assets/dev-pics/TerryPic.jpg"
+import alexlu from "../assets/dev-pics/alexlu.jpg"
+import jeffrey from "../assets/dev-pics/jeffrey.jpeg"
+import kenny from "../assets/dev-pics/kenny.jpg"
+import bender from "../assets/dev-pics/bender.jpeg"
+import sonny from "../assets/dev-pics/sonny.jpg"
 import { Contribute } from "./Contribute";
 
 // functionality for loading developer cards components, and the contribute components 
@@ -79,6 +84,30 @@ export const Footer = () => {
           <img src={nicholas} alt = "nicholas" className="dev-pic" />
           <p className="dev-name">Nicholas Schillaci</p>
           <a href="https://github.com/Schillaci767">@Schillaci767</a>
+        </DeveloperCard>
+        <DeveloperCard>
+          <img src={alexlu} alt = "alexlu" className="dev-pic" />
+          <p className="dev-name">Alex Lu</p>
+          <a href="https://github.com/aleckslu">@aleckslu</a>
+        </DeveloperCard><DeveloperCard>
+          <img src={jeffrey} alt = "jeffrey" className="dev-pic" />
+          <p className="dev-name">Jeffrey Sul</p>
+          <a href="https://github.com/jeffreysul">@jeffreysul</a>
+        </DeveloperCard>
+        <DeveloperCard>
+          <img src={kenny} alt = "kenny" className="dev-pic" />
+          <p className="dev-name">Kenneth Lee</p>
+          <a href="https://github.com/kennyea">@kennyea</a>
+        </DeveloperCard>
+        <DeveloperCard>
+          <img src={bender} alt = "bender" className="dev-pic" />
+          <p className="dev-name">Ryan Bender</p>
+          <a href="https://github.com/rdbender">@rdbender</a>
+        </DeveloperCard>
+        <DeveloperCard>
+          <img src={sonny} alt = "sonny" className="dev-pic" />
+          <p className="dev-name">Sonny Nguyen</p>
+          <a href="https://github.com/sn163">@sn163</a>
         </DeveloperCard>
       </div>
       <Contribute/>
