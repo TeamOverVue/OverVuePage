@@ -86,6 +86,9 @@ const HeaderStyles = styled.div`
     font-weight: 200;
     display: flex;
   }
+  .light-font {
+    font-weight: 400;
+  }
   #demo {
     margin-right: 0px;
   }
@@ -140,9 +143,16 @@ export const Header = () => {
           default: { duration: 1 }
         }}
       >
+        {/* <div class="title">
+          <p>Version 5 Now Available!</p>
+        </div> */}
+
         <div class="title">
-          <p>Version 4 Now Available!</p>
+          <h3 class='light-font'>Version 5 Downloads</h3>
         </div>
+
+        <div></div>
+        
         <Button
           className={"button"}
           href="https://overvue-v4.s3.us-west-1.amazonaws.com/OverVue-4.0.0.mac.dmg"

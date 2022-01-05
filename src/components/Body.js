@@ -54,14 +54,35 @@ const Section = styled.div`
 
 export const Body = () => {
   return (
-    <div className="margin-tb">
+    <div className="margin-tb-small">
+        <Section>
+        <div className="right">
+          <HeadTwoStyle>
+            <div>
+              <h1>Full Vue 3 compatibility</h1>
+              <p className="p">
+                OverVue is now offering full Vue 3 support 
+                for your exports, along with the newest versions of Vue 
+                Router and Vuex - all while keeping the same features* that
+                you know and love.
+              </p>
+            </div>
+          </HeadTwoStyle>
+          {/* <img
+            alt = "Upload img"
+            className="shadow"
+            src="https://media1.giphy.com/media/2A2N1aUzPwzprjrFTB/giphy.gif?cid=790b7611c23aa7ebfb1f47f13e43d0a953368200facbb030&rid=giphy.gif&ct=g"
+          /> */}
+        </div>
+      </Section>
+
       <Section>
         <div className="right">
           <HeadTwoStyle>
             <div>
               <h1>Prototype based on UI design</h1>
               <p className="p">
-                Upload a web design of your choice to begin prototyping.
+                Upload a web design of your choice to begin prototyping. 
               </p>
             </div>
           </HeadTwoStyle>
@@ -195,7 +216,7 @@ export const Body = () => {
           />
         </div>
       </Section>
-      <Section>
+      {/* <Section>
         <div>
         <HeadTwoStyle>
         <h1>Additional features: </h1>
@@ -204,6 +225,15 @@ export const Body = () => {
             <li><h2>Save and Open OverVue Project Files</h2></li>
             <li><h2>Export IDE-Compatible Component Files</h2></li>
           </ul>
+        </HeadTwoStyle>
+        </div>
+      </Section> */}
+
+
+      <Section>
+        <div>
+        <HeadTwoStyle>
+        <div class='note-text'>* We're happy to announce that OverVue version 5 now offers full Vue 3 compatibility! However, the component tree has changed in appearance due to dependency/version upgrades.</div>
         </HeadTwoStyle>
         </div>
       </Section>
