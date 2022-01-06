@@ -34,7 +34,7 @@ const HeaderStyles = styled.div`
   .title {
     margin-top: 5rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
   }
   .subtitle {
@@ -85,6 +85,7 @@ const HeaderStyles = styled.div`
   #download {
     font-weight: 200;
     display: flex;
+    justify-content: center;
   }
   .light-font {
     font-weight: 400;
@@ -143,31 +144,25 @@ export const Header = () => {
           default: { duration: 1 }
         }}
       >
-        {/* <div class="title">
-          <p>Version 5 Now Available!</p>
-        </div> */}
-
         <div class="title">
-          <h3 class='light-font'>Version 5 Downloads</h3>
+          <p>Version 5.0 Now Available</p>
         </div>
-
-        <div></div>
         
         <Button
           className={"button"}
-          href="https://overvue-v4.s3.us-west-1.amazonaws.com/OverVue-4.0.0.mac.dmg"
+          href="https://overvue5website.s3.amazonaws.com/OverVue-5.0.0.dmg"
         >
           <div id="download">
-            <div>Download for </div> <i class="fab fa-apple" />
+            <div>Download for</div> <i class="fab fa-apple" />
           </div>
         </Button>
         <br/>
         <Button
           className={"button"}
-          href="https://overvue-v4.s3.us-west-1.amazonaws.com/OverVue+Setup+4.0.0.exe"
+          href="https://overvue5website.s3.amazonaws.com/OverVue-win32-x64.zip"
         >
           <div id="download">
-            <div>Download for </div> <i class="fab fa-windows" />
+            <div>Download for</div> <i class="fab fa-windows" />
           </div>
         </Button>
       </motion.div>

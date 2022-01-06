@@ -61,18 +61,19 @@ export const Body = () => {
             <div>
               <h1>Full Vue 3 compatibility</h1>
               <p className="p">
-                OverVue is now offering full Vue 3 support 
+                OverVue is now offering full Vue 3 support
                 for your exports, along with the newest versions of Vue 
-                Router and Vuex - all while keeping the same features* that
+                Router and Vuex, all while keeping the same features that
                 you know and love.
+                You can still save and open OverVue projects, 
+                and you can still export IDE-compatible component files. 
+                Because exports are now in Vue 3, you'll enjoy built-in TypeScript support and easy access to 
+                new functionality, such as the Composition API and transports.
+                On the developer side, application source code and dependencies have also been upgraded
+                to offer Vue 3 support, ensuring it will be valuable to the community for years to come.
               </p>
             </div>
           </HeadTwoStyle>
-          {/* <img
-            alt = "Upload img"
-            className="shadow"
-            src="https://media1.giphy.com/media/2A2N1aUzPwzprjrFTB/giphy.gif?cid=790b7611c23aa7ebfb1f47f13e43d0a953368200facbb030&rid=giphy.gif&ct=g"
-          /> */}
         </div>
       </Section>
 
