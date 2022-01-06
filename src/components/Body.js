@@ -217,27 +217,7 @@ export const Body = () => {
           />
         </div>
       </Section>
-      {/* <Section>
-        <div>
-        <HeadTwoStyle>
-        <h1>Additional features: </h1>
-        <br/>
-          <ul>
-            <li><h2>Save and Open OverVue Project Files</h2></li>
-            <li><h2>Export IDE-Compatible Component Files</h2></li>
-          </ul>
-        </HeadTwoStyle>
-        </div>
-      </Section> */}
 
-
-      <Section>
-        <div>
-        <HeadTwoStyle>
-        <div class='note-text'>* We're happy to announce that OverVue version 5 now offers full Vue 3 compatibility! However, the component tree has changed in appearance due to dependency/version upgrades.</div>
-        </HeadTwoStyle>
-        </div>
-      </Section>
     </div>
   );
 };
