@@ -94,6 +94,13 @@ html {
   align-items: center;
 }
 
+.margin-tb-small {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 
 .lowerText {
   font-size: 1.5rem;
@@ -150,4 +157,10 @@ html {
   background: black;
   -webkit-transform:scale(0.85);
   -moz-transform: scale(0.85);
+}
+
+.note-text {
+  font-size: 14px;
+  color: gray;
+  line-height: 150%;
 }

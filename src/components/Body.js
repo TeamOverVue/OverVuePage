@@ -54,14 +54,36 @@ const Section = styled.div`
 
 export const Body = () => {
   return (
-    <div className="margin-tb">
+    <div className="margin-tb-small">
+        <Section>
+        <div className="right">
+          <HeadTwoStyle>
+            <div>
+              <h1>Full Vue 3 compatibility</h1>
+              <p className="p">
+                OverVue is now offering full Vue 3 support
+                for your exports, along with the newest versions of Vue 
+                Router and Vuex, all while keeping the same features that
+                you know and love.
+                You can still save and open OverVue projects, 
+                and you can still export IDE-compatible component files. 
+                Because exports are now in Vue 3, you'll enjoy built-in TypeScript support and easy access to 
+                new functionality, such as the Composition API and transports.
+                On the developer side, application source code and dependencies have also been upgraded
+                to offer Vue 3 support, ensuring it will be valuable to the community for years to come.
+              </p>
+            </div>
+          </HeadTwoStyle>
+        </div>
+      </Section>
+
       <Section>
         <div className="right">
           <HeadTwoStyle>
             <div>
               <h1>Prototype based on UI design</h1>
               <p className="p">
-                Upload a web design of your choice to begin prototyping.
+                Upload a web design of your choice to begin prototyping. 
               </p>
             </div>
           </HeadTwoStyle>
@@ -195,18 +217,7 @@ export const Body = () => {
           />
         </div>
       </Section>
-      <Section>
-        <div>
-        <HeadTwoStyle>
-        <h1>Additional features: </h1>
-        <br/>
-          <ul>
-            <li><h2>Save and Open OverVue Project Files</h2></li>
-            <li><h2>Export IDE-Compatible Component Files</h2></li>
-          </ul>
-        </HeadTwoStyle>
-        </div>
-      </Section>
+
     </div>
   );
 };
