@@ -24,6 +24,7 @@ import gabby from "../assets/dev-pics/gabby.jpg"
 import shanon from "../assets/dev-pics/shanon.jpeg"
 import zoew from "../assets/dev-pics/zoew.png"
 import julia from "../assets/dev-pics/julia.jpeg"
+import kerolos from "../assets/dev-pics/kerolos.jpg"
 
 /** functionality for loading developer cards components, and the contribute components **/
 export const Footer = () => (
@@ -163,7 +164,7 @@ export const Footer = () => (
 
       
       <DeveloperCard>
-        <img src={zoew} alt = "zoew" className="dev-pic" />
+        <img src={kerolos} alt = "zoew" className="dev-pic" />
         <p className="dev-name">Kerolos Nesem</p>
         <a href="https://github.com/Kerolos-Nesem">@Kerolos-Nesem</a>
       </DeveloperCard>
