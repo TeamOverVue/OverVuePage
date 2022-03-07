@@ -11,18 +11,15 @@ export const Body = () => {
           <HeadTwoStyle>
             <div>
               {/* Containerize the application */}
-              <h1>Full Vue 3 compatibility</h1>
+              <h1>Exciting new updates!</h1>
               <p className="p">
                 OverVue is now offering full Vue 3 support
                 for your exports, along with the newest versions of Vue 
                 Router and Vuex, all while keeping the same features that
-                you know and love.
-                You can still save and open OverVue projects, 
-                and you can still export IDE-compatible component files. 
-                Because exports are now in Vue 3, you'll enjoy built-in TypeScript support and easy access to 
-                new functionality, such as the Composition API and transports.
-                On the developer side, application source code and dependencies have also been upgraded
-                to offer Vue 3 support, ensuring it will be valuable to the community for years to come.
+                you know and love. 
+                <br/>
+                On the developer side, all dependencies have been brought up to speed, Webpack has transitioned to Vite to speed up the development process, 
+                and the application has been containerized with Docker to bring developers the same experience regardless of operating system. 
               </p>
             </div>
           </HeadTwoStyle>
