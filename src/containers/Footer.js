@@ -23,6 +23,7 @@ import ross from "../assets/dev-pics/ross.jpg"
 import gabby from "../assets/dev-pics/gabby.jpg"
 import shanon from "../assets/dev-pics/shanon.jpeg"
 import zoew from "../assets/dev-pics/zoew.png"
+import julia from "../assets/dev-pics/julia.jpeg"
 
 /** functionality for loading developer cards components, and the contribute components **/
 export const Footer = () => (
@@ -149,7 +150,7 @@ export const Footer = () => (
       </DeveloperCard>
 
       <DeveloperCard>
-        <img src={zoew} alt = "zoew" className="dev-pic" />
+        <img src={julia} alt = "zoew" className="dev-pic" />
         <p className="dev-name">Julia Bakerink</p>
         <a href="https://github.com/jbbake">@jbbake</a>
       </DeveloperCard>
