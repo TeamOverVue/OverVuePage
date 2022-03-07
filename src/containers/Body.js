@@ -34,9 +34,9 @@ export const Body = () => {
           <HeadTwoStyle>
             <div>
               {/* Added 'Get Started' Tutorial */}
-              <h1>Prototype based on UI design</h1>
+              <h1>Import individual components</h1>
               <p className="p">
-                Upload a web design of your choice to begin prototyping. 
+              Have an existing Vue component you love and want to reuse? Import individual components directly into OverVue to expedite your prototyping process. 
               </p>
             </div>
           </HeadTwoStyle>
@@ -52,10 +52,9 @@ export const Body = () => {
           <HeadTwoStyle>
             <div>
               {/* Component Tree */}
-              <h1>Create components</h1>
+              <h1>TypeScript mode</h1>
               <p className="p">
-                Name your component. Add desired HTML elements. Build them right
-                over your design.
+              Toggle to TypeScript mode to generate code snippets and export your project or individual components in TypeScript.
               </p>
             </div>
           </HeadTwoStyle>
@@ -71,10 +70,9 @@ export const Body = () => {
           <HeadTwoStyle>
             <div>
               {/* Import/Export using TypeScript */}
-              <h1>Hierarchy</h1>
+              <h1>Note Functionality</h1>
               <p className="p">
-                Specify parent and child hierarchy before or after component creation. Visualize
-                the changes in your tree. Copy and paste any component with Ctrl/Cmd C & V hotkeys.
+              Enhance your workflow by adding notes to your components. When you export your project or components into your favorite IDE, notes will be converted into comments within your Vue files.
               </p>
             </div>
           </HeadTwoStyle>
@@ -89,9 +87,9 @@ export const Body = () => {
         <div className="left">
           <HeadTwoStyle>
             <div>
-              <h1>Manage Vuex + Add Props to Components</h1>
+              <h1>Enhanced component tree hierarchy display</h1>
               <p className="p">
-                Quickly map and add State, Actions, and Props throughout the entire application.  
+              An interactive and real-time tree display of your component hierarchy allows you to easily visualize parent-child component relationships and the Vue Router structure.  
               </p>
             </div>
           </HeadTwoStyle>
@@ -102,8 +100,8 @@ export const Body = () => {
           />
         </div>
       </Section>
-      <Section>
-        <div className="right">
+      {/* <Section>
+         <div className="right">
           <HeadTwoStyle>
             <div>
               <h1>View live code snippets</h1>
@@ -119,14 +117,14 @@ export const Body = () => {
             src="https://media4.giphy.com/media/Hf00cmTQbseRr8dqPB/giphy.gif?cid=790b7611ce2368f589e1a86edca87551c5d2dfce510f8df3&rid=giphy.gif&ct=g"
           />
         </div>
-      </Section>
-      <Section>
+      </Section> */}
+      {/* <Section>
         <div className="left">
           <HeadTwoStyle>
             <div>
               <h1>Manage routing</h1>
               <p className="p">
-                Create, edit, and assign routes to components with ease.
+             
               </p>
             </div>
           </HeadTwoStyle>
@@ -135,16 +133,15 @@ export const Body = () => {
             className="shadow"
             src="https://media4.giphy.com/media/39kfJfsn1RE5WPaCS9/giphy.gif?cid=790b7611845be82a149a5da9a38c0c36c60b86b6d053ca97&rid=giphy.gif&ct=g"
           />
-        </div>
-      </Section>
+        </div> 
+      </Section> */}
       <Section>
         <div className="right">
           <HeadTwoStyle>
             <div>
-              <h1>Edit Component Functionality</h1>
+              <h1>Refreshed user experience</h1>
               <p className="p">
-                Click on a component and choose the features you wish to edit.
-                View all of your changes live. 
+              Now with a “Get Started” tutorial, a visual queue of your HTML elements, and an overall simplified UI, OveVue is as intuitive as ever. 
               </p>
             </div>
           </HeadTwoStyle>
@@ -159,9 +156,9 @@ export const Body = () => {
         <div className="left">
           <HeadTwoStyle>
             <div>
-              <h1>Connect to Slack</h1>
+              <h1>Run on any computer</h1>
               <p className="p">
-                Log in to your Slack workspace and notify your team when changes are saved.
+              OverVue is now containerized with Docker to bring developers the same experience, regardless of your operating system.
               </p>
             </div>
           </HeadTwoStyle>

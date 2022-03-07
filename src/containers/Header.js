@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "../assets/Button";
 import { motion } from "framer-motion";
-import svg from "../assets/logo/overvue-logo.svg";
+import svg from "../assets/logo/overvue_layeredlogo.png";
+import main from "../assets/logo/overvue_trans.png";
 
 const variants = {
   hidden: { opacity: 0 },
@@ -20,10 +21,7 @@ const button = {
 export const Header = () => (
   <HeaderStyles>
     <div className="title">
-      <div>
-        <img alt = "svg" src={svg} />
-      </div>
-      <div id="name">OverVue</div>
+      <div> <img alt = "svg" src={main}/></div>
       <div />
     </div>
 
@@ -75,8 +73,8 @@ const HeaderStyles = styled.div`
   background: rgb(37, 96, 159);
   background: linear-gradient(
     107deg,
-    rgba(37, 160, 100, 1) 0%,
-    rgba(20, 55, 35, 1) 100%
+    rgb(52, 73, 94) 0%,
+    rgb(1, 4, 31) 70%
   );
   align-items: center;
   justify-content: center;

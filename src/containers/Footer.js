@@ -135,6 +135,37 @@ export const Footer = () => (
         <p className="dev-name">Zoew McGrath</p>
         <a href="https://github.com/Z-McGrath">@Z-McGrath</a>
       </DeveloperCard>
+
+      <DeveloperCard>
+        <img src={zoew} alt = "zoew" className="dev-pic" />
+        <p className="dev-name">Aram Paparian</p>
+        <a href="https://github.com/apaparian">@apaparian</a>
+      </DeveloperCard>
+
+      <DeveloperCard>
+        <img src={zoew} alt = "zoew" className="dev-pic" />
+        <p className="dev-name">Bryan Bart</p>
+        <a href="https://github.com/MrBeeAreWhy">@MrBeeAreWhy</a>
+      </DeveloperCard>
+
+      <DeveloperCard>
+        <img src={zoew} alt = "zoew" className="dev-pic" />
+        <p className="dev-name">Julia Bakerink</p>
+        <a href="https://github.com/jbbake">@jbbake</a>
+      </DeveloperCard>
+
+      <DeveloperCard>
+        <img src={zoew} alt = "zoew" className="dev-pic" />
+        <p className="dev-name">Megan Nadkarni</p>
+        <a href="https://github.com/megatera">@megatera</a>
+      </DeveloperCard>
+
+      
+      <DeveloperCard>
+        <img src={zoew} alt = "zoew" className="dev-pic" />
+        <p className="dev-name">Kerolos Nesem</p>
+        <a href="https://github.com/Kerolos-Nesem">@Kerolos-Nesem</a>
+      </DeveloperCard>
     </div>
     <Contribute/>
   </div>
