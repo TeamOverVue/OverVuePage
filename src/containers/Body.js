@@ -1,56 +1,7 @@
 import React from "react";
-import HeadTwoStyle from "./styled/HeadTwoStyle";
+import HeadTwoStyle from "../assets/HeadTwoStyle";
 import styled from "styled-components";
-import "../App.css";
-
-// styling and functionality for overall content
-const Section = styled.div`
-  /* mobile */
-  @media only screen and (max-width: 860px) {
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    .left {
-      flex-direction: column;
-    }
-    .right {
-      flex-direction: column;
-    }
-    img {
-      margin: 0.5rem 0rem;
-    }
-    h1::after {
-      margin: 1em auto;
-    }
-    margin: 2rem 12rem;
-  }
-  display: flex;
-  margin: 5rem 12rem;
-  align-items: flex-start;
-  text-align: left;
-  color: black;
-  max-width: 70vw;
-  h1 {
-    margin-bottom: 1rem;
-  }
-  p {
-    color: #666666 !important;
-    font-weight: 300;
-  }
-  h1::after {
-    background: hsla(0, 0%, 56.5%, 0.5);
-    content: "";
-    display: block;
-    height: 1px;
-    margin: 1em 0;
-    width: 6em;
-  }
-
-  img {
-    margin: 0rem 1.2rem;
-  }
-`;
+import "../assets/styles.css";
 
 export const Body = () => {
   return (
@@ -59,6 +10,7 @@ export const Body = () => {
         <div className="right">
           <HeadTwoStyle>
             <div>
+              {/* Containerize the application */}
               <h1>Full Vue 3 compatibility</h1>
               <p className="p">
                 OverVue is now offering full Vue 3 support
@@ -81,6 +33,7 @@ export const Body = () => {
         <div className="right">
           <HeadTwoStyle>
             <div>
+              {/* Added 'Get Started' Tutorial */}
               <h1>Prototype based on UI design</h1>
               <p className="p">
                 Upload a web design of your choice to begin prototyping. 
@@ -98,6 +51,7 @@ export const Body = () => {
         <div className="left">
           <HeadTwoStyle>
             <div>
+              {/* Component Tree */}
               <h1>Create components</h1>
               <p className="p">
                 Name your component. Add desired HTML elements. Build them right
@@ -116,6 +70,7 @@ export const Body = () => {
         <div className="right">
           <HeadTwoStyle>
             <div>
+              {/* Import/Export using TypeScript */}
               <h1>Hierarchy</h1>
               <p className="p">
                 Specify parent and child hierarchy before or after component creation. Visualize
@@ -221,3 +176,51 @@ export const Body = () => {
     </div>
   );
 };
+
+const Section = styled.div`
+  /* mobile */
+  @media only screen and (max-width: 860px) {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    .left {
+      flex-direction: column;
+    }
+    .right {
+      flex-direction: column;
+    }
+    img {
+      margin: 0.5rem 0rem;
+    }
+    h1::after {
+      margin: 1em auto;
+    }
+    margin: 2rem 12rem;
+  }
+  display: flex;
+  margin: 5rem 12rem;
+  align-items: flex-start;
+  text-align: left;
+  color: black;
+  max-width: 70vw;
+  h1 {
+    margin-bottom: 1rem;
+  }
+  p {
+    color: #666666 !important;
+    font-weight: 300;
+  }
+  h1::after {
+    background: hsla(0, 0%, 56.5%, 0.5);
+    content: "";
+    display: block;
+    height: 1px;
+    margin: 1em 0;
+    width: 6em;
+  }
+
+  img {
+    margin: 0rem 1.2rem;
+  }
+`;
