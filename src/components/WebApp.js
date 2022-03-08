@@ -1,12 +1,18 @@
-import React from 'react';
-import '../App.css';
+import React from "react";
+import "../App.css";
 
+// loading Demo
 export const WebApp = () => {
   return (
-    <div className="margin-tb black">
-      <h1>Sample our app!</h1>
-      <iframe className="iframe" src="https://dev.d3o6ss3lnctews.amplifyapp.com/#/">
-      </iframe>
+    <div className=" black" id="webapp">
+      <h1>Light Demo <span role="img" aria-label="point">👇</span></h1>
+      <div class="m-1">
+        <iframe
+          title ="iframe"
+          className="iframe"
+          src="https://d3jjiewd1t2yhm.cloudfront.net"
+        />
+      </div>
     </div>
-  )
-}
+  );
+};

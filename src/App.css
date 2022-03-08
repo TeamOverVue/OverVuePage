@@ -1,3 +1,49 @@
+/* macbook air */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css');
+
+@media only screen and (max-height: 766px) {
+  .header {
+    height: 100vh;
+    padding: 0px;
+    background-color: red;
+  }
+
+  div {
+    margin: 0rem;
+  }
+
+  .left .right {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 766px) {
+  #webapp {
+    display: none;
+  }
+
+  .contribute {
+    margin: 0;
+  }
+
+  .left .right {
+    margin: 0rem;
+  }
+
+  .footer {
+    padding: 1em !important;
+  }
+}
+
+.left {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.right {
+  display: flex;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,6 +53,10 @@
 body {
   padding: 0px;
 }
+
+/* body::-webkit-scrollbar {
+  display: none;
+} */
 
 html {
   padding: 0px;
@@ -26,18 +76,31 @@ html {
 
 #name {
   font-size: 8rem;
+  color: black;
+}
+
+.laptop {
+  border: 8px solid black;
+  border-radius: 30px;
+  margin: 0;
+  padding: 1rem;
+  background: black;
 }
 
 .margin-tb {
-  margin: 8rem 0;
+  margin: 6rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.header {
-  padding-bottom: 3rem;
-  height: 900px;
-  padding: 0px;
-  background-color: #142536;
+.margin-tb-small {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 
 .lowerText {
   font-size: 1.5rem;
@@ -51,8 +114,34 @@ html {
 }
 
 .footer {
-  background-color: #142536;
-  padding: 3em;
+  background: rgb(37, 96, 159);
+  background: linear-gradient(107deg,
+      rgba(37, 96, 159, 1) 0%,
+      rgba(20, 37, 54, 1) 100%);
+  padding: 1em;
+}
+
+.devCards{
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.team-heading {
+  margin-top: 3rem;
+  font-weight: 200;
+  font-size: 1.5rem;
+}
+
+.m-1 {
+  margin-top: -6rem;
+}
+
+.shadow {
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0px 6px 15px 9px rgba(72, 72, 72, 0.4);
 }
 
 .black {
@@ -63,6 +152,15 @@ html {
   border: none;
   margin-top: 2rem;
   width: 90vw;
-  height: 800px;
+  height: 1000px;
   box-shadow: 0px 8px 15px 5px rgba(66, 66, 66, 0.8);
+  background: black;
+  -webkit-transform:scale(0.85);
+  -moz-transform: scale(0.85);
+}
+
+.note-text {
+  font-size: 14px;
+  color: gray;
+  line-height: 150%;
 }
