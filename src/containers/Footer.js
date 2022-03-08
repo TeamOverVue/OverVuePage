@@ -2,6 +2,10 @@ import React from "react";
 import DeveloperCard from "../assets/DeveloperCard";
 import { Contribute } from "../components/Contribute";
 
+import ari from "../assets/dev-pics/ari.jpg";
+import aram from "../assets/dev-pics/aram.jpg";
+import bryan from "../assets/dev-pics/Bryan.png";
+import megan from "../assets/dev-pics/Megan.JPG";
 import deanfchung from "../assets/dev-pics/dean-chung.png";
 import deano from "../assets/dev-pics/deano.jpg";
 import drew from "../assets/dev-pics/drew.jpg";
@@ -139,34 +143,39 @@ export const Footer = () => (
       </DeveloperCard>
 
       <DeveloperCard>
-        <img src={zoew} alt = "zoew" className="dev-pic" />
+        <img src={aram} alt = "aram" className="dev-pic" />
         <p className="dev-name">Aram Paparian</p>
         <a href="https://github.com/apaparian">@apaparian</a>
       </DeveloperCard>
 
       <DeveloperCard>
-        <img src={zoew} alt = "zoew" className="dev-pic" />
+        <img src={bryan} alt = "bryan" className="dev-pic" />
         <p className="dev-name">Bryan Bart</p>
         <a href="https://github.com/MrBeeAreWhy">@MrBeeAreWhy</a>
       </DeveloperCard>
 
       <DeveloperCard>
-        <img src={julia} alt = "zoew" className="dev-pic" />
+        <img src={julia} alt = "julia" className="dev-pic" />
         <p className="dev-name">Julia Bakerink</p>
         <a href="https://github.com/jbbake">@jbbake</a>
       </DeveloperCard>
 
       <DeveloperCard>
-        <img src={zoew} alt = "zoew" className="dev-pic" />
+        <img src={megan} alt = "megan" className="dev-pic" />
         <p className="dev-name">Megan Nadkarni</p>
         <a href="https://github.com/megatera">@megatera</a>
       </DeveloperCard>
-
       
       <DeveloperCard>
-        <img src={kerolos} alt = "zoew" className="dev-pic" />
+        <img src={kerolos} alt = "kerolos" className="dev-pic" />
         <p className="dev-name">Kerolos Nesem</p>
         <a href="https://github.com/Kerolos-Nesem">@Kerolos-Nesem</a>
+      </DeveloperCard>
+
+      <DeveloperCard>
+        <img src={ari} alt = "ari" className="dev-pic" />
+        <p className="dev-name">Ari the Cat</p>
+        <a href="https://github.com/MrBeeAreWhy">@DatAriLyfe</a>
       </DeveloperCard>
     </div>
     <Contribute/>

@@ -7,7 +7,7 @@ export const Body = () => {
   return (
     <div className="margin-tb-small">
         <Section>
-        <div className="right">
+        <div className="left">
           <HeadTwoStyle>
             <div>
               {/* Containerize the application */}
@@ -27,7 +27,7 @@ export const Body = () => {
       </Section>
 
       <Section>
-        <div className="right">
+        <div className="left">
           <HeadTwoStyle>
             <div>
               {/* Added 'Get Started' Tutorial */}
@@ -63,7 +63,7 @@ export const Body = () => {
         </div>
       </Section>
       <Section>
-        <div className="right">
+        <div className="left">
           <HeadTwoStyle>
             <div>
               {/* Import/Export using TypeScript */}
@@ -133,7 +133,7 @@ export const Body = () => {
         </div> 
       </Section> */}
       <Section>
-        <div className="right">
+        <div className="left">
           <HeadTwoStyle>
             <div>
               <h1>Refreshed user experience</h1>
@@ -193,13 +193,13 @@ const Section = styled.div`
     margin: 2rem 12rem;
   }
   display: flex;
-  margin: 5rem 12rem;
+  margin: 4rem 12rem;
   align-items: flex-start;
   text-align: left;
   color: black;
   max-width: 70vw;
   h1 {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
   }
   p {
     color: #666666 !important;
@@ -209,9 +209,9 @@ const Section = styled.div`
     background: hsla(0, 0%, 56.5%, 0.5);
     content: "";
     display: block;
-    height: 1px;
-    margin: 1em 0;
-    width: 6em;
+    height: 1.5px;
+    margin: .5em 0 .75em;
+    width: 15em;
   }
 
   img {

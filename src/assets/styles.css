@@ -1,6 +1,11 @@
 /* macbook air */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css");
 
+body {
+  padding: 0px;
+  font-family: 'Mukta', sans-serif;
+}
+
 @media only screen and (max-height: 766px) {
   .header {
     height: 100vh;
@@ -48,10 +53,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body {
-  padding: 0px;
+  
 }
 
 /* body::-webkit-scrollbar {
@@ -70,7 +72,6 @@ html {
   text-align: center;
   align-content: center;
   justify-content: center;
-  font-family: "Quattrocento Sans", sans-serif;
   color: white;
 }
 
