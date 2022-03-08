@@ -2,6 +2,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css");
 
 body {
+  font-size: 1rem;
   padding: 0px;
   font-family: 'Mukta', sans-serif;
 }
@@ -162,7 +163,6 @@ html {
 }
 
 .note-text {
-  font-size: 14px;
   color: gray;
   line-height: 150%;
 }

@@ -18,6 +18,7 @@ const HeadTwoStyles = styled.div`
     font-weight: 200;
   }
   p {
+    font-size: 14px;
     text-align: justify;
   }
 `;
