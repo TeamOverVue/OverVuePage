@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Button } from "../assets/Button";
 import { motion } from "framer-motion";
-import svg from "../assets/logo/overvue_layeredlogo.png";
 import main from "../assets/logo/overvue_trans.png";
 
 const variants = {
@@ -21,7 +20,7 @@ const button = {
 export const Header = () => (
   <HeaderStyles>
     <div className="title">
-      <div> <img alt = "svg" src={main}/></div>
+      <div> <img alt = "main" src={main}/></div>
       <div />
     </div>
 

@@ -25,6 +25,8 @@ import shanon from "../assets/dev-pics/shanon.jpeg"
 import zoew from "../assets/dev-pics/zoew.png"
 import julia from "../assets/dev-pics/julia.jpeg"
 import kerolos from "../assets/dev-pics/kerolos.jpg"
+import bryan from "../assets/dev-pics/Bryan.png"
+import megan from "../assets/dev-pics/Megan.JPG"
 
 /** functionality for loading developer cards components, and the contribute components **/
 export const Footer = () => (
@@ -139,13 +141,13 @@ export const Footer = () => (
       </DeveloperCard>
 
       <DeveloperCard>
-        <img src={zoew} alt = "zoew" className="dev-pic" />
+        <img src={julia} alt = "zoew" className="dev-pic" />
         <p className="dev-name">Aram Paparian</p>
         <a href="https://github.com/apaparian">@apaparian</a>
       </DeveloperCard>
 
       <DeveloperCard>
-        <img src={zoew} alt = "zoew" className="dev-pic" />
+        <img src={bryan} alt = "zoew" className="dev-pic" />
         <p className="dev-name">Bryan Bart</p>
         <a href="https://github.com/MrBeeAreWhy">@MrBeeAreWhy</a>
       </DeveloperCard>
@@ -157,7 +159,7 @@ export const Footer = () => (
       </DeveloperCard>
 
       <DeveloperCard>
-        <img src={zoew} alt = "zoew" className="dev-pic" />
+        <img src={megan} alt = "zoew" className="dev-pic" />
         <p className="dev-name">Megan Nadkarni</p>
         <a href="https://github.com/megatera">@megatera</a>
       </DeveloperCard>
