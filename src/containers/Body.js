@@ -3,6 +3,35 @@ import HeadTwoStyle from "../assets/HeadTwoStyle";
 import styled from "styled-components";
 import "../assets/styles.css";
 
+<<<<<<< HEAD
+export const Body = () => {
+  return (
+    <div className="margin-tb-small">
+        <Section>
+        <div className="right">
+          <HeadTwoStyle>
+            <div>
+              {/* Containerize the application */}
+              <h1>Exciting new updates!</h1>
+              <p className="p">
+                The OverVue that you know and love is now even better. We acknowleged the lack of support of OverVue for the linux community and for V6.0 we containerized the application
+                to ensure the same great experience regardless of the OS of choice while maintaining the same features and functionality of the previous versions of OverVue. Additional to containerizing, 
+                we also felt the need to add an Import feature to allow users the ease of continuing their work on existing Vue apps. While Vue 3 supported TypeScript by default, OverVue didn't. We took
+                it upon ourselves to maximize the benefits of OverVue using Vue 3 and added TypeScript toggle to switch between JavaScript and TypeScript when exporting. Speaking of exporting, for V6.0
+                we added the ability to export components in addition to being able to export full projects to allow the user flexibility while developing. The latest version of OverVue was well put
+                together but we felt a refresh in UIUX was needed to ease the navigation of the application, as a result, we overhauled the user interface to a more pleasant and simple design. 
+                The last version of OverVue had slight hiccups in the tree visualization feature. For V6.0, the tree is back up and running better than ever with an all new interactive feature and clean layout.
+                Last but not least of the new features, we felt the need to add the ability for developers to be able to write comments in their components for an easier reference when the component/project is exported.
+                <br/>
+                <br/>
+                On the developer side, all dependencies have been brought up to speed, Webpack has transitioned to Vite to speed up the development process, 
+                and the application has been containerized with Docker to bring developers the same experience regardless of operating system. 
+              </p>
+            </div>
+          </HeadTwoStyle>
+        </div>
+      </Section>
+=======
 export const Body = () => (
   <div className="margin-tb-small">
     <Section>
@@ -24,6 +53,7 @@ export const Body = () => (
         </HeadTwoStyle>
       </div>
     </Section>
+>>>>>>> 168fac7757317cfdbb876f769a85c6f7dfe36633
 
     <Section>
       <div className="left">

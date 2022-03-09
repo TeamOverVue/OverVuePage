@@ -4,7 +4,6 @@ import { Contribute } from "../components/Contribute";
 
 import ari from "../assets/dev-pics/ari.jpg";
 import aram from "../assets/dev-pics/aram.jpg";
-import bryan from "../assets/dev-pics/Bryan.png";
 import megan from "../assets/dev-pics/Megan.JPG";
 import deanfchung from "../assets/dev-pics/dean-chung.png";
 import deano from "../assets/dev-pics/deano.jpg";
@@ -29,6 +28,8 @@ import shanon from "../assets/dev-pics/shanon.jpeg"
 import zoew from "../assets/dev-pics/zoew.png"
 import julia from "../assets/dev-pics/julia.jpeg"
 import kerolos from "../assets/dev-pics/kerolos.jpg"
+import bryan from "../assets/dev-pics/Bryan.png"
+
 
 /** functionality for loading developer cards components, and the contribute components **/
 export const Footer = () => (
@@ -143,6 +144,7 @@ export const Footer = () => (
       </DeveloperCard>
 
       <DeveloperCard>
+
         <img src={aram} alt = "aram" className="dev-pic" />
         <p className="dev-name">Aram Paparian</p>
         <a href="https://github.com/apaparian">@apaparian</a>
