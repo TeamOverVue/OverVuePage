@@ -2,7 +2,7 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css");
 
 body {
-  font-size: 1rem;
+  font-size: 1.1rem;
   padding: 0px;
   font-family: 'Mukta', sans-serif;
 }
@@ -166,4 +166,8 @@ html {
 .note-text {
   color: gray;
   line-height: 150%;
+}
+.docker-img{
+  width: 480px;
+  border: 1px solid black;
 }
