@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+// styling and functionality of writing, OverVue link below the developer card
 const BottomDiv = styled.div`
   @media only screen and (max-width: 800px) {
     h2 {
@@ -57,8 +57,8 @@ export const Contribute = () => {
     <BottomDiv>
       <h2>Want to Contribute?</h2>
       <div>OverVue is open source. Help make Vue prototyping better!</div>
-      <a class="contribute" href="https://github.com/TeamOverVue/OverVue">
-        <p>GitHub </p> <i class="fab fa-github" />
+      <a className="contribute" href="https://github.com/open-source-labs/OverVue">
+        <p>Github </p> <i className="fab fa-github" />
       </a>
     </BottomDiv>
   );

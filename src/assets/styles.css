@@ -1,5 +1,15 @@
 /* macbook air */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css");
+
+body {
+  font-size: 1.1rem;
+  padding: 0px;
+  font-family: 'Mukta', sans-serif;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+  color: white;
+}
 
 @media only screen and (max-height: 766px) {
   .header {
@@ -48,19 +58,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 
-body {
-  padding: 0px;
-}
-
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
   display: none;
-}
-
-body::-webkit-scrollbar {
-  display: none;
-}
+} */
 
 html {
   padding: 0px;
@@ -68,14 +71,6 @@ html {
 
 #logo {
   margin-top: 3rem;
-}
-
-.App {
-  text-align: center;
-  align-content: center;
-  justify-content: center;
-  font-family: 'Quattrocento Sans', sans-serif;
-  color: white;
 }
 
 #name {
@@ -98,6 +93,12 @@ html {
   align-items: center;
 }
 
+.margin-tb-small {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .lowerText {
   font-size: 1.5rem;
@@ -111,11 +112,20 @@ html {
 }
 
 .footer {
-  background: rgb(37, 96, 159);
-  background: linear-gradient(107deg,
-      rgba(37, 96, 159, 1) 0%,
-      rgba(20, 37, 54, 1) 100%);
+  background: rgb(1, 3, 131);
+  background: linear-gradient(
+    107deg,
+    rgb(52, 73, 94) 0%,
+    rgb(1, 4, 31) 70%
+  );
   padding: 1em;
+}
+
+.devCards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .team-heading {
@@ -125,13 +135,14 @@ html {
 }
 
 .m-1 {
-  margin-top: 1rem;
+  margin-top: -6rem;
 }
 
 .shadow {
   max-width: 100%;
   height: auto;
-  box-shadow: 0px 6px 15px 9px rgba(72, 72, 72, 0.4);
+  border-radius: 2px;
+  box-shadow: 2px 4px 5px rgba(52, 73, 94, 0.4);
 }
 
 .black {
@@ -142,7 +153,18 @@ html {
   border: none;
   margin-top: 2rem;
   width: 90vw;
-  height: 680px;
+  height: 1000px;
   box-shadow: 0px 8px 15px 5px rgba(66, 66, 66, 0.8);
   background: black;
+  -webkit-transform: scale(0.85);
+  -moz-transform: scale(0.85);
+}
+
+.note-text {
+  color: gray;
+  line-height: 150%;
+}
+.docker-img{
+  width: 480px;
+  border: 1px solid black;
 }
