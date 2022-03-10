@@ -31,7 +31,7 @@ export const Header = () => (
       transition={{ delay: 1 }}
       className="subtitle"
     >
-      Prototype driven development.
+      Prototype driven development
     </motion.p>
 
     <motion.div
