@@ -13,13 +13,16 @@ export const Body = () => {
               
               <h1>Exciting new updates!</h1>
               <p className="p">
-              The OverVue that you know and love is now better than ever. With a sleek new design and a refreshed user experience, OverVue 6.0 simplifies navigation and offers a
-              “Getting Started” tutorial to help expedite your prototyping workflow. OverVue is now up to date with Vue 3’s built-in TypeScript support. Your projects can easily
-              be exported with TypeScript-specific syntax and dependencies so you can quickly start developing your next app with the benefits of static typing. With OverVue 6.0, 
-              project exports will now build with Vite instead of Webpack, offering several advantages including faster compilation times, fewer dependencies, and better Vue support
-              without the need for additional libraries. Other improvements include the ability to import or export individual Vue components, an enhanced component tree diagram with
-              added interactivity , and the ability to add notes to components that export as comments in your boilerplate code. And that’s not all – we acknowledged the lack of
-              support for the Linux community.  With V6.0, we’re offering a containerized version of the application with Docker to ensure the same great experience regardless of OS.
+               The OverVue that you know and love is now better than ever. With a sleek new design and a refreshed user experience, OverVue 6.0 simplifies navigation and offers a “Getting Started” tutorial to help expedite your prototyping workflow. 
+              
+              OverVue is now up to date with Vue 3’s built-in TypeScript support. Your projects can easily be exported with TypeScript-specific syntax and dependencies so you can quickly start developing your next app with the benefits of static typing. 
+              
+              With OverVue 6.0, project exports will now build with Vite instead of Webpack, offering several advantages including faster compilation times, fewer dependencies, and better Vue support without the need for additional libraries. 
+              
+              Other improvements include the ability to import or export individual Vue components, an enhanced component tree diagram with added interactivity, and the ability to add notes to components that export as comments in your boilerplate code. 
+              
+              And that’s not all – we acknowledged the lack of support for the Linux community.  With V6.0, we’re offering a containerized version of the application with Docker to ensure the same great experience regardless of OS.
+
               </p>
             </div>
           </HeadTwoStyle>
@@ -149,7 +152,7 @@ const Section = styled.div`
   }
   p {
     color: #666666 !important;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     font-weight: 300;
   }
   h1::after {
