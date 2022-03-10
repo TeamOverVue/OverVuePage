@@ -5,6 +5,10 @@ body {
   font-size: 1.1rem;
   padding: 0px;
   font-family: 'Mukta', sans-serif;
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+  color: white;
 }
 
 @media only screen and (max-height: 766px) {
@@ -67,13 +71,6 @@ html {
 
 #logo {
   margin-top: 3rem;
-}
-
-#app {
-  text-align: center;
-  align-content: center;
-  justify-content: center;
-  color: white;
 }
 
 #name {

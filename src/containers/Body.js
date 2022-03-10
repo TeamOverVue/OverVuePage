@@ -1,7 +1,6 @@
 import React from "react";
 import HeadTwoStyle from "../assets/HeadTwoStyle";
 import styled from "styled-components";
-import "../assets/styles.css";
 import logo from "../assets/logo/docker-logo.png"
 export const Body = () => {
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import "src/assets/App.css";
+import "src/assets/styles.css";
 
 // loading Demo
 export const WebApp = () => {
