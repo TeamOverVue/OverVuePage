@@ -40,7 +40,7 @@ export const Body = () => {
         <img
           alt = "Import Component Gif"
           className="shadow"
-          src="https://media1.giphy.com/media/2A2N1aUzPwzprjrFTB/giphy.gif?cid=790b7611c23aa7ebfb1f47f13e43d0a953368200facbb030&rid=giphy.gif&ct=g"
+          src="https://media.giphy.com/media/norazcjPHnjVjKKm8R/giphy.gif"
         />
       </div>
     </Section>
