@@ -34,7 +34,7 @@ import bryanb from "../assets/dev-pics/bryanb.png"
 /** functionality for loading developer cards components, and the contribute components **/
 export const Footer = () => (
   <div className="footer">
-    <h3 className="team-heading">Meet the team.</h3>
+    <h3 className="team-heading">Meet the team</h3>
     <div className ="devCards">
       <DeveloperCard>
         <img src={deano} alt = "deano" className="dev-pic" />

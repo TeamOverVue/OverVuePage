@@ -31,7 +31,7 @@ export const Header = () => (
       transition={{ delay: 1 }}
       className="subtitle"
     >
-      Prototype driven development.
+      Prototype driven development
     </motion.p>
 
     <motion.div
@@ -46,7 +46,7 @@ export const Header = () => (
       
       <Button
         className={"button"}
-        href="https://overvue5website.s3.amazonaws.com/OverVue-5.0.0.dmg"
+        href="https://overvue6.s3.us-west-1.amazonaws.com/OverVue-6.0.0.dmg"
       >
         <div id="download">
           <div>Download for</div> <i className="fab fa-apple" />
@@ -55,7 +55,7 @@ export const Header = () => (
       <br/>
       <Button
         className={"button"}
-        href="https://overvue5website.s3.amazonaws.com/OverVue-win32-x64.zip"
+        href="https://overvue6.s3.us-west-1.amazonaws.com/OverVue-6.0-x64.rar"
       >
         <div id="download">
           <div>Download for</div> <i className="fab fa-windows" />
