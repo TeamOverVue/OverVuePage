@@ -6,10 +6,17 @@ body {
   padding: 0px;
   font-family: 'Mukta', sans-serif;
   text-align: center;
-  align-content: center;
-  justify-content: center;
+
   color: white;
 }
+
+#mainLogo {
+  width: 600px;
+  max-width: 80vw;
+  height: auto !important;
+}
+
+
 
 @media only screen and (max-height: 766px) {
   .header {
@@ -78,6 +85,10 @@ html {
   color: black;
 }
 
+.title {
+  
+}
+
 .laptop {
   border: 8px solid black;
   border-radius: 30px;
@@ -139,7 +150,7 @@ html {
 }
 
 .shadow {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   border-radius: 2px;
   box-shadow: 2px 4px 5px rgba(52, 73, 94, 0.4);
