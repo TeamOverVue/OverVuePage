@@ -20,8 +20,7 @@ const button = {
 export const Header = () => (
   <HeaderStyles>
     <div className="title">
-      <div> <img alt = "main" src={main}/></div>
-      <div />
+      <div><img alt="OverVue logo" id="mainLogo" src={main}></img></div>
     </div>
 
     <motion.p
