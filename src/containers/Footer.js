@@ -29,6 +29,11 @@ import zoew from "../assets/dev-pics/zoew.png"
 import julia from "../assets/dev-pics/julia.jpeg"
 import kerolos from "../assets/dev-pics/kerolos.jpg"
 import bryanb from "../assets/dev-pics/bryanb.png"
+import keyla from "../assets/dev-pics/keyla.jpeg"
+import johnny from "../assets/dev-pics/johnny.jpeg"
+import jace from "../assets/dev-pics/jace.jpeg"
+import katherine from "../assets/dev-pics/katherine.jpeg"
+
 
 
 /** functionality for loading developer cards components, and the contribute components **/
@@ -172,6 +177,30 @@ export const Footer = () => (
         <img src={kerolos} alt = "kerolos" className="dev-pic" />
         <p className="dev-name">Kerolos Nesem</p>
         <a href="https://github.com/Kerolos-Nesem">@Kerolos-Nesem</a>
+      </DeveloperCard>
+        
+      <DeveloperCard>
+        <img src={keyla} alt = "keyla" className="dev-pic" />
+        <p className="dev-name">Keyla Koizumi Nishimura</p>
+        <a href="https://github.com/keylakoizumin">@keylakoizumin</a>
+      </DeveloperCard>
+
+      <DeveloperCard>
+        <img src={johnny} alt = "johnny" className="dev-pic" />
+        <p className="dev-name">Johnny Chan</p>
+        <a href="https://github.com/jchan444">@jchan444</a>
+      </DeveloperCard>
+
+      <DeveloperCard>
+        <img src={jace} alt = "jace" className="dev-pic" />
+        <p className="dev-name">Jace Crowe</p>
+        <a href="https://github.com/JaceCrowe">@JaceCrowe</a>
+      </DeveloperCard>
+
+      <DeveloperCard>
+        <img src={katherine} alt = "katherine" className="dev-pic" />
+        <p className="dev-name">Katherine Kim</p>
+        <a href="https://github.com/katherinek123">@katherinek123</a>
       </DeveloperCard>
 
       <DeveloperCard>

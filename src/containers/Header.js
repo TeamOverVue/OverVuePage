@@ -40,7 +40,7 @@ export const Header = () => (
       transition={{ delay: 2, x: { type: "inertia", stiffness: 50 }, default: { duration: 1 } }}
     >
       <div className="title">
-        <p>Version 6.0 Now Available</p>
+        <p>Version 7.0 Now Available</p>
       </div>
       
       <Button
