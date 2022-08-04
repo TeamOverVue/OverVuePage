@@ -11,24 +11,25 @@ export const Body = () => {
           <div>
             <h1>Create Components</h1>
             <p className="p">
-            Start off your project by creating a component.
+            Start off your project by creating and naming your first component. Interact with it in the CSS Container.
             </p>
           </div>
         </HeadTwoStyle>
         <img
-          alt = "Create Component Gif"
+          alt = "Add html element Gif"
           className="shadow"
           src="https://media.giphy.com/media/MHqQTb5Vdtewlra4pG/giphy.gif"
         />
       </div>
     </Section>
+    
     <Section>
       <div className="left">
         <HeadTwoStyle>
           <div>
             <h1>Add and change HTML Elements</h1>
             <p className="p">
-            Add HTML elements inside your component. You can now continuously modify the specifications of your prototype until it’s perfect. 
+            Add HTML elements inside your component. You can now modify the specifications of your prototype.
             </p>
           </div>
         </HeadTwoStyle>
@@ -64,7 +65,7 @@ export const Body = () => {
           <div>
             <h1>Add Notes</h1>
             <p className="p">
-            You can add personalized messages to keep track of your components.
+            You can add personalized messages to help you keep track of your components.
             </p>
           </div>
         </HeadTwoStyle>
@@ -136,7 +137,7 @@ export const Body = () => {
           <div>
             <h1>Visualize Prototype</h1>
             <p className="p">
-            Note the project`s high level overview by visiting the Project Tree tab to observe the component’s hierarchy. 
+            Note the project's high level overview by visiting the Project Tree tab to observe the component’s hierarchy. 
             </p>
           </div>
         </HeadTwoStyle>
@@ -172,29 +173,17 @@ export const Body = () => {
           <div>
             <h1>Export boilerplate</h1>
             <p className="p">
-            Export the prototype`s code and develop the product further in an IDE. 
+            Export the prototype's code in a lightweight boilerplate and develop the product further in an IDE. 
             </p>
           </div>
         </HeadTwoStyle>
         <img
           alt = "Export boilerplate Gif"
-          className="shadow"
+          className="shadow docker-img"
           src="https://media.giphy.com/media/v8IbYTVrgFboHgpxBB/giphy.gif"
         />
       </div>
     </Section>
-
-
-
-
-
-    
-    
-    
-    
-       
-    
-
   </div>
 )};
 
