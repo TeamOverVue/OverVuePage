@@ -124,7 +124,7 @@ export const Body = () => {
             </div>
           </HeadTwoStyle>
           <img
-            alt="Child components Gif"
+            alt="Gif of adding child components"
             className="shadow"
             src="https://media.giphy.com/media/3j42CzkMDEpEFFbJZT/giphy.gif"
           />
@@ -142,7 +142,7 @@ export const Body = () => {
             </div>
           </HeadTwoStyle>
           <img
-            alt="Visualize prototype Gif"
+            alt="Gif of visualizing the prototype project tree"
             className="shadow"
             src="https://media.giphy.com/media/vncIbdxJ36uU7a1bk3/giphy.gif"
           />
@@ -160,7 +160,7 @@ export const Body = () => {
             </div>
           </HeadTwoStyle>
           <img
-            alt="Code snippet Gif"
+            alt="Gif of live rendering of code snippet"
             className="shadow"
             src="https://media.giphy.com/media/JLCUOmKfQpOmdWUf4l/giphy.gif"
           />
@@ -178,7 +178,7 @@ export const Body = () => {
             </div>
           </HeadTwoStyle>
           <img
-            alt="Export boilerplate Gif"
+            alt="Gif of exporting the prototype's boilerplate"
             className="shadow"
             src="https://media.giphy.com/media/v8IbYTVrgFboHgpxBB/giphy.gif"
           />
