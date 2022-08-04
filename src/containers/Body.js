@@ -1,7 +1,7 @@
 import React from "react";
 import HeadTwoStyle from "../assets/HeadTwoStyle";
 import styled from "styled-components";
-import logo from "../assets/logo/docker-logo.png"
+
 export const Body = () => {
   return (
     <div className="margin-tb-small">
@@ -9,108 +9,192 @@ export const Body = () => {
       <div className="left">
         <HeadTwoStyle>
           <div>
+            <h1>Create Components</h1>
+            <p className="p">
+            Start off your project by creating a component.
+            </p>
+          </div>
+        </HeadTwoStyle>
+        <img
+          alt = "Create Component Gif"
+          className="shadow"
+          src="https://media.giphy.com/media/MHqQTb5Vdtewlra4pG/giphy.gif"
+        />
+      </div>
+    </Section>
+    <Section>
+      <div className="left">
+        <HeadTwoStyle>
+          <div>
+            <h1>Add and change HTML Elements</h1>
+            <p className="p">
+            Add HTML elements inside your component. You can now continuously modify the specifications of your prototype until it’s perfect. 
+            </p>
+          </div>
+        </HeadTwoStyle>
+        <img
+          alt = "Add html element Gif"
+          className="shadow"
+          src="https://media.giphy.com/media/YyPpNuH86r25JZNd46/giphy.gif"
+        />
+      </div>
+    </Section>
 
-            <h1>Import individual components</h1>
-            <p className="p">
-            Have an existing Vue component you love and want to reuse? Import individual components directly into OverVue to expedite your prototyping process. 
-            </p>
-          </div>
-        </HeadTwoStyle>
-        <img
-          alt = "Import Component Gif"
-          className="shadow"
-          src="https://media.giphy.com/media/norazcjPHnjVjKKm8R/giphy.gif"
-        />
-      </div>
-    </Section>
     <Section>
       <div className="left">
         <HeadTwoStyle>
           <div>
-            
-            <h1>TypeScript mode</h1>
+            <h1>Add attributes to components </h1>
             <p className="p">
-            Toggle to TypeScript mode to generate code snippets and export your project or individual components in TypeScript.
+            Add a class and/or an ID attribute to the component to tailor it to your needs. 
             </p>
           </div>
         </HeadTwoStyle>
         <img
-          alt = "TypeScript Mode Gif"
+          alt = "Add component attribute Gif"
           className="shadow"
-          src="https://media.giphy.com/media/TCudPSfaW2Ln6FQ6EX/giphy.gif"
+          src="https://media.giphy.com/media/3eKBo9Qfi16mVdGIz4/giphy.gif"
         />
       </div>
     </Section>
+
     <Section>
       <div className="left">
         <HeadTwoStyle>
           <div>
-           
-            <h1>Note Functionality</h1>
+            <h1>Add Notes</h1>
             <p className="p">
-            Enhance your workflow by adding notes to your components. When you export your project or components into your favorite IDE, notes will be converted into comments within your Vue files.
+            You can add personalized messages to keep track of your components.
             </p>
           </div>
         </HeadTwoStyle>
         <img
-          alt = "Note Functionality Gif"
+          alt = "Notes Gif"
           className="shadow"
-          src="https://media.giphy.com/media/6pmSovhIVBIrfOo1Va/giphy.gif"
+          src="https://media.giphy.com/media/1ttTOYNOTYBSOoWtG1/giphy.gif"
         />
       </div>
     </Section>
+  
     <Section>
       <div className="left">
         <HeadTwoStyle>
           <div>
-            <h1>Enhanced component tree hierarchy display</h1>
+            <h1>Add Two-Way Binding or other Attributes</h1>
             <p className="p">
-            An interactive and real-time tree display of your component hierarchy allows you to easily visualize parent-child component relationships and the Vue Router structure.  
+            Options to add attributes to add specific functionality such as two way binding and class is now available.
             </p>
           </div>
         </HeadTwoStyle>
         <img
-          alt = "Components Tree Gif"
+          alt = "Add html element attribute Gif"
           className="shadow"
-          src="https://media.giphy.com/media/DJZDw5YQMQRxPB9QdB/giphy.gif"
+          src="https://media.giphy.com/media/aXMkIStyTE0jkNlRtO/giphy.gif"
         />
       </div>
     </Section>
+
+    <Section>
+      <div className="left">
+        <HeadTwoStyle>
+          <div>
+            <h1>Style HTML Elements</h1>
+            <p className="p">
+            Stylize HTML elements to visualize your product. Adjustable style options to include height, width, color, and size.
+            </p>
+          </div>
+        </HeadTwoStyle>
+        <img
+          alt = "Style html elements Gif"
+          className="shadow"
+          src="https://media.giphy.com/media/Q0DYBMnuMLXoo5buvW/giphy.gif"
+        />
+      </div>
+    </Section>
+
+    <Section>
+      <div className="left">
+        <HeadTwoStyle>
+          <div>
+            <h1>Child Components</h1>
+            <p className="p">
+            Child components can be easily incorporated into the code snippet. Child components will be available to be added from the HTML element list. 
+            </p>
+          </div>
+        </HeadTwoStyle>
+        <img
+          alt = "Child components Gif"
+          className="shadow"
+          src="https://media.giphy.com/media/3j42CzkMDEpEFFbJZT/giphy.gif"
+        />
+      </div>
+    </Section>
+
+    <Section>
+      <div className="left">
+        <HeadTwoStyle>
+          <div>
+            <h1>Visualize Prototype</h1>
+            <p className="p">
+            Note the project`s high level overview by visiting the Project Tree tab to observe the component’s hierarchy. 
+            </p>
+          </div>
+        </HeadTwoStyle>
+        <img
+          alt = "Visualize prototype Gif"
+          className="shadow"
+          src="https://media.giphy.com/media/vncIbdxJ36uU7a1bk3/giphy.gif"
+        />
+      </div>
+    </Section>
+
+    <Section>
+      <div className="left">
+        <HeadTwoStyle>
+          <div>
+            <h1>Code Snippet</h1>
+            <p className="p">
+            The boilerplate code is visible at every step of prototyping and dynamically updates according to new edits.
+            </p>
+          </div>
+        </HeadTwoStyle>
+        <img
+          alt = "Code snippet Gif"
+          className="shadow"
+          src="https://media.giphy.com/media/JLCUOmKfQpOmdWUf4l/giphy.gif"
+        />
+      </div>
+    </Section>
+
+    <Section>
+      <div className="left">
+        <HeadTwoStyle>
+          <div>
+            <h1>Export boilerplate</h1>
+            <p className="p">
+            Export the prototype`s code and develop the product further in an IDE. 
+            </p>
+          </div>
+        </HeadTwoStyle>
+        <img
+          alt = "Export boilerplate Gif"
+          className="shadow"
+          src="https://media.giphy.com/media/v8IbYTVrgFboHgpxBB/giphy.gif"
+        />
+      </div>
+    </Section>
+
+
+
+
+
+    
+    
+    
+    
        
-    <Section>
-      <div className="left">
-        <HeadTwoStyle>
-          <div>
-            <h1>Refreshed user experience</h1>
-            <p className="p">
-            Now with a “Get Started” tutorial, a visual queue of your HTML elements, and an overall simplified UI, OveVue is as intuitive as ever. 
-            </p>
-          </div>
-        </HeadTwoStyle>
-        <img
-          alt = "UI Refresh Gif"
-          className="shadow"
-          src="https://media.giphy.com/media/VZTqcpFQdpW4uWJvzw/giphy.gif"
-        />
-      </div>
-    </Section>
-    <Section>
-      <div className="left">
-        <HeadTwoStyle>
-          <div>
-            <h1>Run on any computer</h1>
-            <p className="p">
-            OverVue is now containerized with Docker to bring developers the same experience, regardless of your operating system.
-            </p>
-          </div>
-        </HeadTwoStyle>
-        <img
-          alt = "Docker Logo"
-          className="shadow docker-img"
-          src={logo}
- />
-      </div>
-    </Section>
+    
+
   </div>
 )};
 
