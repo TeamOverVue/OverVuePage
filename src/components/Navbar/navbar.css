@@ -1,0 +1,37 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  padding: 16px;
+  align-items: center;
+  z-index: 999;
+}
+
+.nav__logo {
+  width: 100%;
+  max-width: 40px;
+}
+
+img {
+  width: 100%;
+}
+
+.nav__actions {
+  display: flex;
+  justify-content: space-around;
+  width: 300px;
+}
+.nav__action {
+  font-weight: 600;
+  text-decoration: none;
+  color: black;
+}
+
+.nav__github-stars {
+  font-weight: 600;
+  color: black;
+}

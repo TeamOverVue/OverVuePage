@@ -1,0 +1,18 @@
+.docs__content {
+  display: flex;
+  width: 100%;
+  color: black;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  padding: 32px;
+}
+
+h2 {
+  font-size: 48px;
+  width: 100%;
+}
+
+p {
+  font-size: 12px;
+}

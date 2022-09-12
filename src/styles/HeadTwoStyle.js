@@ -9,7 +9,7 @@ const HeadTwoStyles = styled.div`
     margin-top: -.35em;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: flex-start;
   }
   h2 {

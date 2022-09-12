@@ -1,40 +1,38 @@
 import React from "react";
-import DeveloperCard from "../assets/DeveloperCard";
+import DeveloperCard from "../styles/DeveloperCard";
 import { Contribute } from "../components/Contribute";
 
 import ari from "../assets/dev-pics/ari.jpg";
 import aram from "../assets/dev-pics/aram.jpg";
-import megan from "../assets/dev-pics/Megan.JPG";
+import megan from "../assets/dev-pics/Megan.jpeg";
 import deanfchung from "../assets/dev-pics/dean-chung.png";
 import deano from "../assets/dev-pics/deano.jpg";
 import drew from "../assets/dev-pics/drew.jpg";
 import joseph from "../assets/dev-pics/joseph.jpg";
-import alex from "../assets/dev-pics/alex.PNG";
+import alex from "../assets/dev-pics/alex.png";
 import joju from "../assets/dev-pics/joju.jpg";
-import keriann from "../assets/dev-pics/keri_overvue.png"
-import allison from "../assets/dev-pics/allison1.jpg"
-import faraz from "../assets/dev-pics/FarazPic.png"
-import sean from "../assets/dev-pics/SeanPic.png"
-import nicholas from "../assets/dev-pics/NicholasPic.jpeg"
-import terry from "../assets/dev-pics/TerryPic.jpg"
-import alexlu from "../assets/dev-pics/alexlu.jpg"
-import jeffrey from "../assets/dev-pics/jeffrey.jpeg"
-import kenny from "../assets/dev-pics/kenny.jpg"
-import bender from "../assets/dev-pics/bender.jpeg"
-import sonny from "../assets/dev-pics/sonny.jpg"
-import ross from "../assets/dev-pics/ross.jpg"
-import gabby from "../assets/dev-pics/gabby.jpg"
-import shanon from "../assets/dev-pics/shanon.jpeg"
-import zoew from "../assets/dev-pics/zoew.png"
-import julia from "../assets/dev-pics/julia.jpeg"
-import kerolos from "../assets/dev-pics/kerolos.jpg"
-import bryanb from "../assets/dev-pics/bryanb.png"
-import keyla from "../assets/dev-pics/keyla.jpeg"
-import johnny from "../assets/dev-pics/johnny.jpeg"
-import jace from "../assets/dev-pics/jace.jpeg"
-import katherine from "../assets/dev-pics/katherine.png"
-
-
+import keriann from "../assets/dev-pics/keri_overvue.png";
+import allison from "../assets/dev-pics/allison1.jpg";
+import faraz from "../assets/dev-pics/FarazPic.png";
+import sean from "../assets/dev-pics/SeanPic.png";
+import nicholas from "../assets/dev-pics/NicholasPic.jpeg";
+import terry from "../assets/dev-pics/TerryPic.jpg";
+import alexlu from "../assets/dev-pics/alexlu.jpg";
+import jeffrey from "../assets/dev-pics/jeffrey.jpeg";
+import kenny from "../assets/dev-pics/kenny.jpg";
+import bender from "../assets/dev-pics/bender.jpeg";
+import sonny from "../assets/dev-pics/sonny.jpg";
+import ross from "../assets/dev-pics/ross.jpg";
+import gabby from "../assets/dev-pics/gabby.jpg";
+import shanon from "../assets/dev-pics/shanon.jpeg";
+import zoew from "../assets/dev-pics/zoew.png";
+import julia from "../assets/dev-pics/julia.jpeg";
+import kerolos from "../assets/dev-pics/kerolos.jpg";
+import bryanb from "../assets/dev-pics/bryanb.png";
+import keyla from "../assets/dev-pics/keyla.jpeg";
+import johnny from "../assets/dev-pics/johnny.jpeg";
+import jace from "../assets/dev-pics/jace.jpeg";
+import katherine from "../assets/dev-pics/katherine.png";
 
 /** functionality for loading developer cards components, and the contribute components **/
 export const Footer = () => (
@@ -105,7 +103,8 @@ export const Footer = () => (
         <img src={alexlu} alt="alexlu" className="dev-pic" />
         <p className="dev-name">Alex Lu</p>
         <a href="https://github.com/aleckslu">@aleckslu</a>
-      </DeveloperCard><DeveloperCard>
+      </DeveloperCard>
+      <DeveloperCard>
         <img src={jeffrey} alt="jeffrey" className="dev-pic" />
         <p className="dev-name">Jeffrey Sul</p>
         <a href="https://github.com/jeffreysul">@jeffreysul</a>
@@ -149,7 +148,6 @@ export const Footer = () => (
       </DeveloperCard>
 
       <DeveloperCard>
-
         <img src={aram} alt="aram" className="dev-pic" />
         <p className="dev-name">Aram Paparian</p>
         <a href="https://github.com/apaparian">@apaparian</a>
@@ -212,4 +210,3 @@ export const Footer = () => (
     <Contribute />
   </div>
 );
-

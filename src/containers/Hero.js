@@ -1,26 +1,28 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "../assets/Button";
+import { Button } from "../styles/Button";
 import { motion } from "framer-motion";
 import main from "../assets/logo/overvue_trans.png";
 
 const variants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1 }
+  visible: { opacity: 1 },
 };
 const button = {
   hidden: { y: 20, opacity: 0 },
   visible: {
     y: 0,
-    opacity: 1
-  }
+    opacity: 1,
+  },
 };
 /** Downloads application for windows and mac
     main title and delay of words appearing  **/
-export const Header = () => (
+export const Hero = () => (
   <HeaderStyles>
     <div className="title">
-      <div><img alt="OverVue logo" id="mainLogo" src={main}></img></div>
+      <div>
+        <img alt="OverVue logo" id="mainLogo" src={main}></img>
+      </div>
     </div>
 
     <motion.p
@@ -37,12 +39,16 @@ export const Header = () => (
       initial="hidden"
       animate="visible"
       variants={button}
-      transition={{ delay: 2, x: { type: "inertia", stiffness: 50 }, default: { duration: 1 } }}
+      transition={{
+        delay: 2,
+        x: { type: "inertia", stiffness: 50 },
+        default: { duration: 1 },
+      }}
     >
       <div className="title">
         <p>Version 7.0 Now Available</p>
       </div>
-      
+
       <Button
         className={"button"}
         href="https://github.com/open-source-labs/OverVue/releases/download/v7.0.0/OverVue-Linuxv-7.0.0.dmg"
@@ -51,7 +57,7 @@ export const Header = () => (
           <div>Download for</div> <i className="fab fa-apple" />
         </div>
       </Button>
-      <br/>
+      <br />
       <Button
         className={"button"}
         href="https://github.com/open-source-labs/OverVue/releases/download/v7.0.0/OverVue-Windows-v7.0.0.zip"
@@ -131,6 +137,7 @@ const HeaderStyles = styled.div`
       flex-direction: column;
       margin: 0px;
       justify-content: center;
+      align-items: center;
     }
     p {
       margin-bottom: 1em;
