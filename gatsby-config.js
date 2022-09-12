@@ -3,8 +3,6 @@ module.exports = {
       title: `Gatsby`,
     },
     plugins: [
-    //   {
-    //     // resolve: `gatsby-plugin-sass`,
-    //   },
+
     ],
   }

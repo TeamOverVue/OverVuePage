@@ -1,8 +1,8 @@
 export const links = {
   getting_started: [
     {
-      label: "Whatever",
-      link: "/docs/whatever",
+      label: "Getting Started",
+      link: "/docs/getting-started",
     },
   ],
   features: [

@@ -1,7 +1,8 @@
 import React from "react";
 import { DocsLayout } from "../../layouts";
 import "../../styles/docs.css";
-export default function Docs() {
+
+export default function GettingStarted() {
   return (
     <DocsLayout>
       <div className="docs__content">
