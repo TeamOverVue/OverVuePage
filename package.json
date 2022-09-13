@@ -8,7 +8,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-github-btn": "^1.0.5",
-    "react-scripts": "3.0.1",
+    "react-scripts": "^5.0.1",
     "styled-components": "^4.3.2"
   },
   "scripts": {
@@ -34,5 +34,10 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://teamovervue.github.io/OverVuePage/"
+  "homepage": "https://teamovervue.github.io/OverVuePage/",
+  "devDependencies": {
+    "@testing-library/react": "^13.4.0",
+    "jest-dom": "^4.0.0",
+    "react-test-renderer": "^18.2.0"
+  }
 }
