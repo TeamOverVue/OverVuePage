@@ -9,6 +9,7 @@
   padding: 16px;
   align-items: center;
   z-index: 999;
+  border:#0f1730;
 }
 
 .nav__logo {
@@ -26,12 +27,12 @@ img {
   width: 300px;
 }
 .nav__action {
-  font-weight: 600;
+  font-weight: 350;
   text-decoration: none;
-  color: black;
+  color: #0f1730;
 }
 
 .nav__github-stars {
-  font-weight: 600;
-  color: black;
+  font-weight: 350;
+  color: #0f1730;
 }

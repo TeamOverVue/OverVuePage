@@ -6,9 +6,9 @@ import "./navbar.css";
 export default function Navbar() {
   return (
     <nav className="nav">
-      <div className="nav__logo">
+      <Link className="nav__logo" to={"/"}>
         <img src={logo} alt={"logo"} />
-      </div>
+      </Link>
       <div className="nav__actions">
         <Link className="nav__action" to={"/docs"}>
           Docs
@@ -16,7 +16,9 @@ export default function Navbar() {
         <Link className="nav__action" to={"/examples"}>
           Examples
         </Link>
-        <Link className="nav__github-stars">GITHUB STARS</Link>
+        <a href="https://github.com/open-source-labs/OverVue">
+          <img src="/Users/emma/Desktop/Codesmith/OverVueWebsite/OverVuePage/src/assets/logo/GitHub-Mark-120px-plus.png" alt="black github logo"></img>
+        </a>
       </div>
     </nav>
   );

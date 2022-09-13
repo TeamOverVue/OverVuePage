@@ -1,8 +1,12 @@
 export const links = {
-  getting_started: [
+  'getting_started': [
     {
-      label: "Getting Started",
-      link: "/docs/getting-started",
+      label: "Installation",
+      link: "/docs/installation",
+    },
+    {
+      label: "Core Features",
+      link: "/docs/core-features",
     },
   ],
   features: [

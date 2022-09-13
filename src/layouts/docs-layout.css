@@ -11,5 +11,6 @@
   display: grid;
   grid-template-columns: 300px 1fr;
   margin-top: 70px;
+  color: #0f1730;
 }
 
