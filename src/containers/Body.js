@@ -1,5 +1,5 @@
 import React from "react";
-import HeadTwoStyle from "../assets/HeadTwoStyle";
+import HeadTwoStyle from "../styles/HeadTwoStyle";
 import styled from "styled-components";
 
 export const Body = () => {
@@ -11,7 +11,8 @@ export const Body = () => {
             <div>
               <h1>Create Components</h1>
               <p className="p">
-                Start off your project by creating and naming your first component. Interact with it in the CSS Container.
+                Quickly start your project by creating and naming your first
+                component. Interact with it in the CSS Container.
               </p>
             </div>
           </HeadTwoStyle>
@@ -29,7 +30,8 @@ export const Body = () => {
             <div>
               <h1>Add and change HTML Elements</h1>
               <p className="p">
-                Add HTML elements inside your component. You can now modify the specifications of your prototype.
+                Add HTML elements inside your component. You can now modify the
+                specifications of your prototype.
               </p>
             </div>
           </HeadTwoStyle>
@@ -47,7 +49,8 @@ export const Body = () => {
             <div>
               <h1>Add attributes to components </h1>
               <p className="p">
-                Add a class and/or an ID attribute to the component to tailor it to your needs.
+                Add a class and/or an ID attribute to the component to tailor it
+                to your needs.
               </p>
             </div>
           </HeadTwoStyle>
@@ -65,7 +68,8 @@ export const Body = () => {
             <div>
               <h1>Add Notes</h1>
               <p className="p">
-                You can add personalized messages to help you keep track of your components.
+                You can add personalized messages to help you keep track of your
+                components.
               </p>
             </div>
           </HeadTwoStyle>
@@ -83,7 +87,8 @@ export const Body = () => {
             <div>
               <h1>Add Two-Way Binding or other Attributes</h1>
               <p className="p">
-                Options to add attributes to add specific functionality such as two way binding and class is now available.
+                Options to add attributes to add specific functionality such as
+                two way binding and class is now available.
               </p>
             </div>
           </HeadTwoStyle>
@@ -101,7 +106,8 @@ export const Body = () => {
             <div>
               <h1>Style HTML Elements</h1>
               <p className="p">
-                Stylize HTML elements to visualize your product. Adjustable style options to include height, width, color, and size.
+                Stylize HTML elements to visualize your product. Adjustable
+                style options to include height, width, color, and size.
               </p>
             </div>
           </HeadTwoStyle>
@@ -119,7 +125,9 @@ export const Body = () => {
             <div>
               <h1>Child Components</h1>
               <p className="p">
-                Child components can be easily incorporated into the code snippet. Child components will be available to be added from the HTML element list.
+                Child components can be easily incorporated into the code
+                snippet. Child components will be available to be added from the
+                HTML element list.
               </p>
             </div>
           </HeadTwoStyle>
@@ -137,7 +145,8 @@ export const Body = () => {
             <div>
               <h1>Visualize Prototype</h1>
               <p className="p">
-                Note the project's high level overview by visiting the Project Tree tab to observe the component’s hierarchy.
+                Note the project's high level overview by visiting the Project
+                Tree tab to observe the component’s hierarchy.
               </p>
             </div>
           </HeadTwoStyle>
@@ -155,7 +164,8 @@ export const Body = () => {
             <div>
               <h1>Code Snippet</h1>
               <p className="p">
-                The boilerplate code is visible at every step of prototyping and dynamically updates according to new edits.
+                The boilerplate code is visible at every step of prototyping and
+                dynamically updates according to new edits.
               </p>
             </div>
           </HeadTwoStyle>
@@ -173,7 +183,8 @@ export const Body = () => {
             <div>
               <h1>Export boilerplate</h1>
               <p className="p">
-                Export the prototype's code in a lightweight boilerplate and develop the product further in an IDE.
+                Export the prototype's code in a lightweight boilerplate and
+                develop the product further in an IDE.
               </p>
             </div>
           </HeadTwoStyle>
@@ -185,7 +196,7 @@ export const Body = () => {
         </div>
       </Section>
     </div>
-  )
+  );
 };
 
 const Section = styled.div`
@@ -210,15 +221,14 @@ const Section = styled.div`
     content: "";
     display: block;
     height: 1.5px;
-    margin: .5em 0 .75em;
-   
+    margin: 0.5em 0 0.75em;
   }
   img {
     margin: 0rem 1.2rem;
     width: 630px;
     max-width: 90vw;
   }
-  
+
   @media only screen and (max-width: 1400px) {
     max-width: 100%;
     display: flex;
@@ -244,5 +254,4 @@ const Section = styled.div`
       margin: 1em auto;
     }
   }
-
-`
+`;
