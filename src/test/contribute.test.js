@@ -1,15 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Contribute} from '../components/Contribute';
+import { render, screen } from "@testing-library/react";
+import { Contribute } from '../components/Contribute';
+import '@testing-library/jest-dom';
 
-import { render } from '@testing-library/react';
-import "jest-dom/extend-expect";
-
-it("renders without crashing", () => {
-    const div = document.createElement("div");
-    ReactDOM.render(<Contribute />, div);
-})
-
-it("renders button correctly", () => {
-    render(<Contribute />)
-})
+describe('Contribute component', () => {
+    it("renders without crashing", () => {
+        render(<Contribute />);
+        const contributeButton = screen.getByText("Want to Contribute?");
+        expect(contributeButton).toBeInTheDocument();
+    })
+});
