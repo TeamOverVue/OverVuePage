@@ -6,7 +6,8 @@
   top: 0;
   left: 0;
   width: 100vw;
-  padding: 16px;
+  height: 48px;
+  padding: 8px;
   align-items: center;
   z-index: 999;
   border:#0f1730;
@@ -25,6 +26,7 @@ img {
   display: flex;
   justify-content: space-around;
   width: 300px;
+  color: #0f1730;
 }
 .nav__action {
   font-weight: 350;
