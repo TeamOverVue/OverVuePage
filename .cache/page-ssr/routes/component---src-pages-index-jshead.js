@@ -430,193 +430,200 @@ exports.shallowCompare = shallowCompare;
 
 /***/ }),
 
-/***/ "./node_modules/@popmotion/easing/dist/easing.es.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/@popmotion/easing/dist/easing.es.js ***!
-  \**********************************************************/
+/***/ "./node_modules/framer-motion/dist/es/animation/utils/default-transitions.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/animation/utils/default-transitions.js ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "anticipate": () => (/* binding */ anticipate),
-/* harmony export */   "backIn": () => (/* binding */ backIn),
-/* harmony export */   "backInOut": () => (/* binding */ backInOut),
-/* harmony export */   "backOut": () => (/* binding */ backOut),
-/* harmony export */   "bounceIn": () => (/* binding */ bounceIn),
-/* harmony export */   "bounceInOut": () => (/* binding */ bounceInOut),
-/* harmony export */   "bounceOut": () => (/* binding */ bounceOut),
-/* harmony export */   "circIn": () => (/* binding */ circIn),
-/* harmony export */   "circInOut": () => (/* binding */ circInOut),
-/* harmony export */   "circOut": () => (/* binding */ circOut),
-/* harmony export */   "createAnticipateEasing": () => (/* binding */ createAnticipateEasing),
-/* harmony export */   "createBackIn": () => (/* binding */ createBackIn),
-/* harmony export */   "createExpoIn": () => (/* binding */ createExpoIn),
-/* harmony export */   "createMirroredEasing": () => (/* binding */ createMirroredEasing),
-/* harmony export */   "createReversedEasing": () => (/* binding */ createReversedEasing),
-/* harmony export */   "cubicBezier": () => (/* binding */ cubicBezier),
-/* harmony export */   "easeIn": () => (/* binding */ easeIn),
-/* harmony export */   "easeInOut": () => (/* binding */ easeInOut),
-/* harmony export */   "easeOut": () => (/* binding */ easeOut),
-/* harmony export */   "linear": () => (/* binding */ linear),
-/* harmony export */   "mirrored": () => (/* binding */ mirrored),
-/* harmony export */   "reversed": () => (/* binding */ reversed)
+/* harmony export */   "criticallyDampedSpring": () => (/* binding */ criticallyDampedSpring),
+/* harmony export */   "getDefaultTransition": () => (/* binding */ getDefaultTransition),
+/* harmony export */   "linearTween": () => (/* binding */ linearTween),
+/* harmony export */   "underDampedSpring": () => (/* binding */ underDampedSpring)
 /* harmony export */ });
-var DEFAULT_OVERSHOOT_STRENGTH = 1.525;
-var reversed = function (easing) {
-    return function (p) {
-        return 1 - easing(1 - p);
-    };
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _is_keyframes_target_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./is-keyframes-target.js */ "./node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.js");
+
+
+
+var underDampedSpring = function () { return ({
+    type: "spring",
+    stiffness: 500,
+    damping: 25,
+    restDelta: 0.5,
+    restSpeed: 10,
+}); };
+var criticallyDampedSpring = function (to) { return ({
+    type: "spring",
+    stiffness: 550,
+    damping: to === 0 ? 2 * Math.sqrt(550) : 30,
+    restDelta: 0.01,
+    restSpeed: 10,
+}); };
+var linearTween = function () { return ({
+    type: "keyframes",
+    ease: "linear",
+    duration: 0.3,
+}); };
+var keyframes = function (values) { return ({
+    type: "keyframes",
+    duration: 0.8,
+    values: values,
+}); };
+var defaultTransitions = {
+    x: underDampedSpring,
+    y: underDampedSpring,
+    z: underDampedSpring,
+    rotate: underDampedSpring,
+    rotateX: underDampedSpring,
+    rotateY: underDampedSpring,
+    rotateZ: underDampedSpring,
+    scaleX: criticallyDampedSpring,
+    scaleY: criticallyDampedSpring,
+    scale: criticallyDampedSpring,
+    opacity: linearTween,
+    backgroundColor: linearTween,
+    color: linearTween,
+    default: criticallyDampedSpring,
 };
-var mirrored = function (easing) {
-    return function (p) {
-        return p <= 0.5 ? easing(2 * p) / 2 : (2 - easing(2 * (1 - p))) / 2;
-    };
+var getDefaultTransition = function (valueKey, to) {
+    var transitionFactory;
+    if ((0,_is_keyframes_target_js__WEBPACK_IMPORTED_MODULE_0__.isKeyframesTarget)(to)) {
+        transitionFactory = keyframes;
+    }
+    else {
+        transitionFactory =
+            defaultTransitions[valueKey] || defaultTransitions.default;
+    }
+    return (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({ to: to }, transitionFactory(to));
 };
-var createReversedEasing = reversed;
-var createMirroredEasing = mirrored;
-var createExpoIn = function (power) {
-    return function (p) {
-        return Math.pow(p, power);
-    };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/animation/utils/easing.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/animation/utils/easing.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "easingDefinitionToFunction": () => (/* binding */ easingDefinitionToFunction),
+/* harmony export */   "isEasingArray": () => (/* binding */ isEasingArray)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/easing/index.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/easing/cubic-bezier.js");
+
+
+
+
+var easingLookup = {
+    linear: popmotion__WEBPACK_IMPORTED_MODULE_1__.linear,
+    easeIn: popmotion__WEBPACK_IMPORTED_MODULE_1__.easeIn,
+    easeInOut: popmotion__WEBPACK_IMPORTED_MODULE_1__.easeInOut,
+    easeOut: popmotion__WEBPACK_IMPORTED_MODULE_1__.easeOut,
+    circIn: popmotion__WEBPACK_IMPORTED_MODULE_1__.circIn,
+    circInOut: popmotion__WEBPACK_IMPORTED_MODULE_1__.circInOut,
+    circOut: popmotion__WEBPACK_IMPORTED_MODULE_1__.circOut,
+    backIn: popmotion__WEBPACK_IMPORTED_MODULE_1__.backIn,
+    backInOut: popmotion__WEBPACK_IMPORTED_MODULE_1__.backInOut,
+    backOut: popmotion__WEBPACK_IMPORTED_MODULE_1__.backOut,
+    anticipate: popmotion__WEBPACK_IMPORTED_MODULE_1__.anticipate,
+    bounceIn: popmotion__WEBPACK_IMPORTED_MODULE_1__.bounceIn,
+    bounceInOut: popmotion__WEBPACK_IMPORTED_MODULE_1__.bounceInOut,
+    bounceOut: popmotion__WEBPACK_IMPORTED_MODULE_1__.bounceOut,
 };
-var createBackIn = function (power) {
-    return function (p) {
-        return p * p * ((power + 1) * p - power);
-    };
+var easingDefinitionToFunction = function (definition) {
+    if (Array.isArray(definition)) {
+        // If cubic bezier definition, create bezier curve
+        (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.invariant)(definition.length === 4, "Cubic bezier arrays must contain four numerical values.");
+        var _a = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__read)(definition, 4), x1 = _a[0], y1 = _a[1], x2 = _a[2], y2 = _a[3];
+        return (0,popmotion__WEBPACK_IMPORTED_MODULE_3__.cubicBezier)(x1, y1, x2, y2);
+    }
+    else if (typeof definition === "string") {
+        // Else lookup from table
+        (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.invariant)(easingLookup[definition] !== undefined, "Invalid easing type '" + definition + "'");
+        return easingLookup[definition];
+    }
+    return definition;
 };
-var createAnticipateEasing = function (power) {
-    var backEasing = createBackIn(power);
-    return function (p) {
-        return (p *= 2) < 1 ? 0.5 * backEasing(p) : 0.5 * (2 - Math.pow(2, -10 * (p - 1)));
-    };
+var isEasingArray = function (ease) {
+    return Array.isArray(ease) && typeof ease[0] !== "number";
 };
-var linear = function (p) {
-    return p;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/animation/utils/is-animatable.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/animation/utils/is-animatable.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isAnimatable": () => (/* binding */ isAnimatable)
+/* harmony export */ });
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/complex/index.js");
+
+
+/**
+ * Check if a value is animatable. Examples:
+ *
+ * ✅: 100, "100px", "#fff"
+ * ❌: "block", "url(2.jpg)"
+ * @param value
+ *
+ * @internal
+ */
+var isAnimatable = function (key, value) {
+    // If the list of keys tat might be non-animatable grows, replace with Set
+    if (key === "zIndex")
+        return false;
+    // If it's a number or a keyframes array, we can animate it. We might at some point
+    // need to do a deep isAnimatable check of keyframes, or let Popmotion handle this,
+    // but for now lets leave it like this for performance reasons
+    if (typeof value === "number" || Array.isArray(value))
+        return true;
+    if (typeof value === "string" && // It's animatable if we have a string
+        style_value_types__WEBPACK_IMPORTED_MODULE_0__.complex.test(value) && // And it contains numbers and/or colors
+        !value.startsWith("url(") // Unless it starts with "url("
+    ) {
+        return true;
+    }
+    return false;
 };
-var easeIn = /*#__PURE__*/createExpoIn(2);
-var easeOut = /*#__PURE__*/reversed(easeIn);
-var easeInOut = /*#__PURE__*/mirrored(easeIn);
-var circIn = function (p) {
-    return 1 - Math.sin(Math.acos(p));
-};
-var circOut = /*#__PURE__*/reversed(circIn);
-var circInOut = /*#__PURE__*/mirrored(circOut);
-var backIn = /*#__PURE__*/createBackIn(DEFAULT_OVERSHOOT_STRENGTH);
-var backOut = /*#__PURE__*/reversed(backIn);
-var backInOut = /*#__PURE__*/mirrored(backIn);
-var anticipate = /*#__PURE__*/createAnticipateEasing(DEFAULT_OVERSHOOT_STRENGTH);
-var BOUNCE_FIRST_THRESHOLD = 4.0 / 11.0;
-var BOUNCE_SECOND_THRESHOLD = 8.0 / 11.0;
-var BOUNCE_THIRD_THRESHOLD = 9.0 / 10.0;
-var ca = 4356.0 / 361.0;
-var cb = 35442.0 / 1805.0;
-var cc = 16061.0 / 1805.0;
-var bounceOut = function (p) {
-    var p2 = p * p;
-    return p < BOUNCE_FIRST_THRESHOLD ? 7.5625 * p2 : p < BOUNCE_SECOND_THRESHOLD ? 9.075 * p2 - 9.9 * p + 3.4 : p < BOUNCE_THIRD_THRESHOLD ? ca * p2 - cb * p + cc : 10.8 * p * p - 20.52 * p + 10.72;
-};
-var bounceIn = function (p) {
-    return 1.0 - bounceOut(1.0 - p);
-};
-var bounceInOut = function (p) {
-    return p < 0.5 ? 0.5 * (1.0 - bounceOut(1.0 - p * 2.0)) : 0.5 * bounceOut(p * 2.0 - 1.0) + 0.5;
-};
-var NEWTON_ITERATIONS = 8;
-var NEWTON_MIN_SLOPE = 0.001;
-var SUBDIVISION_PRECISION = 0.0000001;
-var SUBDIVISION_MAX_ITERATIONS = 10;
-var K_SPLINE_TABLE_SIZE = 11;
-var K_SAMPLE_STEP_SIZE = 1.0 / (K_SPLINE_TABLE_SIZE - 1.0);
-var FLOAT_32_SUPPORTED = typeof Float32Array !== 'undefined';
-var a = function (a1, a2) {
-    return 1.0 - 3.0 * a2 + 3.0 * a1;
-};
-var b = function (a1, a2) {
-    return 3.0 * a2 - 6.0 * a1;
-};
-var c = function (a1) {
-    return 3.0 * a1;
-};
-var getSlope = function (t, a1, a2) {
-    return 3.0 * a(a1, a2) * t * t + 2.0 * b(a1, a2) * t + c(a1);
-};
-var calcBezier = function (t, a1, a2) {
-    return ((a(a1, a2) * t + b(a1, a2)) * t + c(a1)) * t;
-};
-function cubicBezier(mX1, mY1, mX2, mY2) {
-    var sampleValues = FLOAT_32_SUPPORTED ? new Float32Array(K_SPLINE_TABLE_SIZE) : new Array(K_SPLINE_TABLE_SIZE);
-    var binarySubdivide = function (aX, aA, aB) {
-        var i = 0;
-        var currentX;
-        var currentT;
-        do {
-            currentT = aA + (aB - aA) / 2.0;
-            currentX = calcBezier(currentT, mX1, mX2) - aX;
-            if (currentX > 0.0) {
-                aB = currentT;
-            } else {
-                aA = currentT;
-            }
-        } while (Math.abs(currentX) > SUBDIVISION_PRECISION && ++i < SUBDIVISION_MAX_ITERATIONS);
-        return currentT;
-    };
-    var newtonRaphsonIterate = function (aX, aGuessT) {
-        var i = 0;
-        var currentSlope = 0;
-        var currentX;
-        for (; i < NEWTON_ITERATIONS; ++i) {
-            currentSlope = getSlope(aGuessT, mX1, mX2);
-            if (currentSlope === 0.0) {
-                return aGuessT;
-            }
-            currentX = calcBezier(aGuessT, mX1, mX2) - aX;
-            aGuessT -= currentX / currentSlope;
-        }
-        return aGuessT;
-    };
-    var calcSampleValues = function () {
-        for (var i = 0; i < K_SPLINE_TABLE_SIZE; ++i) {
-            sampleValues[i] = calcBezier(i * K_SAMPLE_STEP_SIZE, mX1, mX2);
-        }
-    };
-    var getTForX = function (aX) {
-        var intervalStart = 0.0;
-        var currentSample = 1;
-        var lastSample = K_SPLINE_TABLE_SIZE - 1;
-        var dist = 0.0;
-        var guessForT = 0.0;
-        var initialSlope = 0.0;
-        for (; currentSample !== lastSample && sampleValues[currentSample] <= aX; ++currentSample) {
-            intervalStart += K_SAMPLE_STEP_SIZE;
-        }
-        --currentSample;
-        dist = (aX - sampleValues[currentSample]) / (sampleValues[currentSample + 1] - sampleValues[currentSample]);
-        guessForT = intervalStart + dist * K_SAMPLE_STEP_SIZE;
-        initialSlope = getSlope(guessForT, mX1, mX2);
-        if (initialSlope >= NEWTON_MIN_SLOPE) {
-            return newtonRaphsonIterate(aX, guessForT);
-        } else if (initialSlope === 0.0) {
-            return guessForT;
-        } else {
-            return binarySubdivide(aX, intervalStart, intervalStart + K_SAMPLE_STEP_SIZE);
-        }
-    };
-    calcSampleValues();
-    var resolver = function (aX) {
-        var returnValue;
-        if (mX1 === mY1 && mX2 === mY2) {
-            returnValue = aX;
-        } else if (aX === 0) {
-            returnValue = 0;
-        } else if (aX === 1) {
-            returnValue = 1;
-        } else {
-            returnValue = calcBezier(getTForX(aX), mY1, mY2);
-        }
-        return returnValue;
-    };
-    return resolver;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/animation/utils/is-animation-controls.js":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/animation/utils/is-animation-controls.js ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isAnimationControls": () => (/* binding */ isAnimationControls)
+/* harmony export */ });
+function isAnimationControls(v) {
+    return typeof v === "object" && typeof v.start === "function";
 }
 
 
@@ -624,529 +631,2201 @@ function cubicBezier(mX1, mY1, mX2, mY2) {
 
 /***/ }),
 
-/***/ "./node_modules/@popmotion/popcorn/dist/popcorn.es.js":
+/***/ "./node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.js ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isKeyframesTarget": () => (/* binding */ isKeyframesTarget)
+/* harmony export */ });
+var isKeyframesTarget = function (v) {
+    return Array.isArray(v);
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/animation/utils/transitions.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/animation/utils/transitions.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "convertTransitionToAnimationOptions": () => (/* binding */ convertTransitionToAnimationOptions),
+/* harmony export */   "getDelayFromTransition": () => (/* binding */ getDelayFromTransition),
+/* harmony export */   "getPopmotionAnimationOptions": () => (/* binding */ getPopmotionAnimationOptions),
+/* harmony export */   "getValueTransition": () => (/* binding */ getValueTransition),
+/* harmony export */   "getZeroUnit": () => (/* binding */ getZeroUnit),
+/* harmony export */   "hydrateKeyframes": () => (/* binding */ hydrateKeyframes),
+/* harmony export */   "isTransitionDefined": () => (/* binding */ isTransitionDefined),
+/* harmony export */   "isZero": () => (/* binding */ isZero),
+/* harmony export */   "startAnimation": () => (/* binding */ startAnimation)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/animations/inertia.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/animations/index.js");
+/* harmony import */ var _utils_time_conversion_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/time-conversion.js */ "./node_modules/framer-motion/dist/es/utils/time-conversion.js");
+/* harmony import */ var _easing_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./easing.js */ "./node_modules/framer-motion/dist/es/animation/utils/easing.js");
+/* harmony import */ var _is_animatable_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./is-animatable.js */ "./node_modules/framer-motion/dist/es/animation/utils/is-animatable.js");
+/* harmony import */ var _default_transitions_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./default-transitions.js */ "./node_modules/framer-motion/dist/es/animation/utils/default-transitions.js");
+/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
+/* harmony import */ var _render_dom_value_types_animatable_none_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../render/dom/value-types/animatable-none.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.js");
+
+
+
+
+
+
+
+
+
+/**
+ * Decide whether a transition is defined on a given Transition.
+ * This filters out orchestration options and returns true
+ * if any options are left.
+ */
+function isTransitionDefined(_a) {
+    _a.when; _a.delay; _a.delayChildren; _a.staggerChildren; _a.staggerDirection; _a.repeat; _a.repeatType; _a.repeatDelay; _a.from; var transition = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__rest)(_a, ["when", "delay", "delayChildren", "staggerChildren", "staggerDirection", "repeat", "repeatType", "repeatDelay", "from"]);
+    return !!Object.keys(transition).length;
+}
+var legacyRepeatWarning = false;
+/**
+ * Convert Framer Motion's Transition type into Popmotion-compatible options.
+ */
+function convertTransitionToAnimationOptions(_a) {
+    var ease = _a.ease, times = _a.times, yoyo = _a.yoyo, flip = _a.flip, loop = _a.loop, transition = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__rest)(_a, ["ease", "times", "yoyo", "flip", "loop"]);
+    var options = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, transition);
+    if (times)
+        options["offset"] = times;
+    /**
+     * Convert any existing durations from seconds to milliseconds
+     */
+    if (transition.duration)
+        options["duration"] = (0,_utils_time_conversion_js__WEBPACK_IMPORTED_MODULE_2__.secondsToMilliseconds)(transition.duration);
+    if (transition.repeatDelay)
+        options.repeatDelay = (0,_utils_time_conversion_js__WEBPACK_IMPORTED_MODULE_2__.secondsToMilliseconds)(transition.repeatDelay);
+    /**
+     * Map easing names to Popmotion's easing functions
+     */
+    if (ease) {
+        options["ease"] = (0,_easing_js__WEBPACK_IMPORTED_MODULE_3__.isEasingArray)(ease)
+            ? ease.map(_easing_js__WEBPACK_IMPORTED_MODULE_3__.easingDefinitionToFunction)
+            : (0,_easing_js__WEBPACK_IMPORTED_MODULE_3__.easingDefinitionToFunction)(ease);
+    }
+    /**
+     * Support legacy transition API
+     */
+    if (transition.type === "tween")
+        options.type = "keyframes";
+    /**
+     * TODO: These options are officially removed from the API.
+     */
+    if (yoyo || loop || flip) {
+        (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.warning)(!legacyRepeatWarning, "yoyo, loop and flip have been removed from the API. Replace with repeat and repeatType options.");
+        legacyRepeatWarning = true;
+        if (yoyo) {
+            options.repeatType = "reverse";
+        }
+        else if (loop) {
+            options.repeatType = "loop";
+        }
+        else if (flip) {
+            options.repeatType = "mirror";
+        }
+        options.repeat = loop || yoyo || flip || transition.repeat;
+    }
+    /**
+     * TODO: Popmotion 9 has the ability to automatically detect whether to use
+     * a keyframes or spring animation, but does so by detecting velocity and other spring options.
+     * It'd be good to introduce a similar thing here.
+     */
+    if (transition.type !== "spring")
+        options.type = "keyframes";
+    return options;
+}
+/**
+ * Get the delay for a value by checking Transition with decreasing specificity.
+ */
+function getDelayFromTransition(transition, key) {
+    var _a;
+    var valueTransition = getValueTransition(transition, key) || {};
+    return (_a = valueTransition.delay) !== null && _a !== void 0 ? _a : 0;
+}
+function hydrateKeyframes(options) {
+    if (Array.isArray(options.to) && options.to[0] === null) {
+        options.to = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArray)([], (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__read)(options.to));
+        options.to[0] = options.from;
+    }
+    return options;
+}
+function getPopmotionAnimationOptions(transition, options, key) {
+    var _a;
+    if (Array.isArray(options.to)) {
+        (_a = transition.duration) !== null && _a !== void 0 ? _a : (transition.duration = 0.8);
+    }
+    hydrateKeyframes(options);
+    /**
+     * Get a default transition if none is determined to be defined.
+     */
+    if (!isTransitionDefined(transition)) {
+        transition = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, transition), (0,_default_transitions_js__WEBPACK_IMPORTED_MODULE_4__.getDefaultTransition)(key, options.to));
+    }
+    return (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, options), convertTransitionToAnimationOptions(transition));
+}
+/**
+ *
+ */
+function getAnimation(key, value, target, transition, onComplete) {
+    var _a;
+    var valueTransition = getValueTransition(transition, key);
+    var origin = (_a = valueTransition.from) !== null && _a !== void 0 ? _a : value.get();
+    var isTargetAnimatable = (0,_is_animatable_js__WEBPACK_IMPORTED_MODULE_5__.isAnimatable)(key, target);
+    if (origin === "none" && isTargetAnimatable && typeof target === "string") {
+        /**
+         * If we're trying to animate from "none", try and get an animatable version
+         * of the target. This could be improved to work both ways.
+         */
+        origin = (0,_render_dom_value_types_animatable_none_js__WEBPACK_IMPORTED_MODULE_6__.getAnimatableNone)(key, target);
+    }
+    else if (isZero(origin) && typeof target === "string") {
+        origin = getZeroUnit(target);
+    }
+    else if (!Array.isArray(target) &&
+        isZero(target) &&
+        typeof origin === "string") {
+        target = getZeroUnit(origin);
+    }
+    var isOriginAnimatable = (0,_is_animatable_js__WEBPACK_IMPORTED_MODULE_5__.isAnimatable)(key, origin);
+    (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.warning)(isOriginAnimatable === isTargetAnimatable, "You are trying to animate " + key + " from \"" + origin + "\" to \"" + target + "\". " + origin + " is not an animatable value - to enable this animation set " + origin + " to a value animatable to " + target + " via the `style` property.");
+    function start() {
+        var options = {
+            from: origin,
+            to: target,
+            velocity: value.getVelocity(),
+            onComplete: onComplete,
+            onUpdate: function (v) { return value.set(v); },
+        };
+        return valueTransition.type === "inertia" ||
+            valueTransition.type === "decay"
+            ? (0,popmotion__WEBPACK_IMPORTED_MODULE_7__.inertia)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, options), valueTransition))
+            : (0,popmotion__WEBPACK_IMPORTED_MODULE_8__.animate)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, getPopmotionAnimationOptions(valueTransition, options, key)), { onUpdate: function (v) {
+                    var _a;
+                    options.onUpdate(v);
+                    (_a = valueTransition.onUpdate) === null || _a === void 0 ? void 0 : _a.call(valueTransition, v);
+                }, onComplete: function () {
+                    var _a;
+                    options.onComplete();
+                    (_a = valueTransition.onComplete) === null || _a === void 0 ? void 0 : _a.call(valueTransition);
+                } }));
+    }
+    function set() {
+        var _a;
+        value.set(target);
+        onComplete();
+        (_a = valueTransition === null || valueTransition === void 0 ? void 0 : valueTransition.onComplete) === null || _a === void 0 ? void 0 : _a.call(valueTransition);
+        return { stop: function () { } };
+    }
+    return !isOriginAnimatable ||
+        !isTargetAnimatable ||
+        valueTransition.type === false
+        ? set
+        : start;
+}
+function isZero(value) {
+    return (value === 0 ||
+        (typeof value === "string" &&
+            parseFloat(value) === 0 &&
+            value.indexOf(" ") === -1));
+}
+function getZeroUnit(potentialUnitType) {
+    return typeof potentialUnitType === "number"
+        ? 0
+        : (0,_render_dom_value_types_animatable_none_js__WEBPACK_IMPORTED_MODULE_6__.getAnimatableNone)("", potentialUnitType);
+}
+function getValueTransition(transition, key) {
+    return transition[key] || transition["default"] || transition;
+}
+/**
+ * Start animation on a MotionValue. This function is an interface between
+ * Framer Motion and Popmotion
+ *
+ * @internal
+ */
+function startAnimation(key, value, target, transition) {
+    if (transition === void 0) { transition = {}; }
+    return value.start(function (onComplete) {
+        var delayTimer;
+        var controls;
+        var animation = getAnimation(key, value, target, transition, onComplete);
+        var delay = getDelayFromTransition(transition, key);
+        var start = function () { return (controls = animation()); };
+        if (delay) {
+            delayTimer = setTimeout(start, (0,_utils_time_conversion_js__WEBPACK_IMPORTED_MODULE_2__.secondsToMilliseconds)(delay));
+        }
+        else {
+            start();
+        }
+        return function () {
+            clearTimeout(delayTimer);
+            controls === null || controls === void 0 ? void 0 : controls.stop();
+        };
+    });
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isPresent": () => (/* binding */ isPresent),
+/* harmony export */   "useIsPresent": () => (/* binding */ useIsPresent),
+/* harmony export */   "usePresence": () => (/* binding */ usePresence)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _context_PresenceContext_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../context/PresenceContext.js */ "./node_modules/framer-motion/dist/es/context/PresenceContext.js");
+/* harmony import */ var _utils_use_constant_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/use-constant.js */ "./node_modules/framer-motion/dist/es/utils/use-constant.js");
+
+
+
+
+/**
+ * When a component is the child of `AnimatePresence`, it can use `usePresence`
+ * to access information about whether it's still present in the React tree.
+ *
+ * ```jsx
+ * import { usePresence } from "framer-motion"
+ *
+ * export const Component = () => {
+ *   const [isPresent, safeToRemove] = usePresence()
+ *
+ *   useEffect(() => {
+ *     !isPresent && setTimeout(safeToRemove, 1000)
+ *   }, [isPresent])
+ *
+ *   return <div />
+ * }
+ * ```
+ *
+ * If `isPresent` is `false`, it means that a component has been removed the tree, but
+ * `AnimatePresence` won't really remove it until `safeToRemove` has been called.
+ *
+ * @public
+ */
+function usePresence() {
+    var context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_PresenceContext_js__WEBPACK_IMPORTED_MODULE_1__.PresenceContext);
+    if (context === null)
+        return [true, null];
+    var isPresent = context.isPresent, onExitComplete = context.onExitComplete, register = context.register;
+    // It's safe to call the following hooks conditionally (after an early return) because the context will always
+    // either be null or non-null for the lifespan of the component.
+    // Replace with useOpaqueId when released in React
+    var id = useUniqueId();
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () { return register(id); }, []);
+    var safeToRemove = function () { return onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete(id); };
+    return !isPresent && onExitComplete ? [false, safeToRemove] : [true];
+}
+/**
+ * Similar to `usePresence`, except `useIsPresent` simply returns whether or not the component is present.
+ * There is no `safeToRemove` function.
+ *
+ * ```jsx
+ * import { useIsPresent } from "framer-motion"
+ *
+ * export const Component = () => {
+ *   const isPresent = useIsPresent()
+ *
+ *   useEffect(() => {
+ *     !isPresent && console.log("I've been removed!")
+ *   }, [isPresent])
+ *
+ *   return <div />
+ * }
+ * ```
+ *
+ * @public
+ */
+function useIsPresent() {
+    return isPresent((0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_PresenceContext_js__WEBPACK_IMPORTED_MODULE_1__.PresenceContext));
+}
+function isPresent(context) {
+    return context === null ? true : context.isPresent;
+}
+var counter = 0;
+var incrementId = function () { return counter++; };
+var useUniqueId = function () { return (0,_utils_use_constant_js__WEBPACK_IMPORTED_MODULE_2__.useConstant)(incrementId); };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/components/AnimateSharedLayout/types.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/components/AnimateSharedLayout/types.js ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Presence": () => (/* binding */ Presence),
+/* harmony export */   "VisibilityAction": () => (/* binding */ VisibilityAction)
+/* harmony export */ });
+/**
+ * @public
+ */
+var Presence;
+(function (Presence) {
+    Presence[Presence["Entering"] = 0] = "Entering";
+    Presence[Presence["Present"] = 1] = "Present";
+    Presence[Presence["Exiting"] = 2] = "Exiting";
+})(Presence || (Presence = {}));
+/**
+ * @public
+ */
+var VisibilityAction;
+(function (VisibilityAction) {
+    VisibilityAction[VisibilityAction["Hide"] = 0] = "Hide";
+    VisibilityAction[VisibilityAction["Show"] = 1] = "Show";
+})(VisibilityAction || (VisibilityAction = {}));
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/components/AnimateSharedLayout/utils/batcher.js":
+/*!********************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/components/AnimateSharedLayout/utils/batcher.js ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createBatcher": () => (/* binding */ createBatcher)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! framesync */ "./node_modules/framesync/dist/es/index.js");
+/* harmony import */ var _render_dom_projection_utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../render/dom/projection/utils.js */ "./node_modules/framer-motion/dist/es/render/dom/projection/utils.js");
+/* harmony import */ var _render_dom_utils_batch_layout_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../render/dom/utils/batch-layout.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/batch-layout.js");
+/* harmony import */ var _render_utils_compare_by_depth_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../render/utils/compare-by-depth.js */ "./node_modules/framer-motion/dist/es/render/utils/compare-by-depth.js");
+/* harmony import */ var _types_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../types.js */ "./node_modules/framer-motion/dist/es/components/AnimateSharedLayout/types.js");
+
+
+
+
+
+
+
+/**
+ * Default handlers for batching VisualElements
+ */
+var defaultHandler = {
+    layoutReady: function (child) { return child.notifyLayoutReady(); },
+};
+/**
+ * Create a batcher to process VisualElements
+ */
+function createBatcher() {
+    var queue = new Set();
+    return {
+        add: function (child) { return queue.add(child); },
+        flush: function (_a) {
+            var _b = _a === void 0 ? defaultHandler : _a, layoutReady = _b.layoutReady, parent = _b.parent;
+            (0,_render_dom_utils_batch_layout_js__WEBPACK_IMPORTED_MODULE_1__.batchLayout)(function (read, write) {
+                var order = Array.from(queue).sort(_render_utils_compare_by_depth_js__WEBPACK_IMPORTED_MODULE_2__.compareByDepth);
+                var ancestors = parent
+                    ? (0,_render_dom_projection_utils_js__WEBPACK_IMPORTED_MODULE_3__.collectProjectingAncestors)(parent)
+                    : [];
+                write(function () {
+                    var allElements = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__spreadArray)((0,tslib__WEBPACK_IMPORTED_MODULE_4__.__spreadArray)([], (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__read)(ancestors)), (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__read)(order));
+                    allElements.forEach(function (element) { return element.resetTransform(); });
+                });
+                read(function () {
+                    order.forEach(_render_dom_projection_utils_js__WEBPACK_IMPORTED_MODULE_3__.updateLayoutMeasurement);
+                });
+                write(function () {
+                    ancestors.forEach(function (element) { return element.restoreTransform(); });
+                    order.forEach(layoutReady);
+                });
+                read(function () {
+                    /**
+                     * After all children have started animating, ensure any Entering components are set to Present.
+                     * If we add deferred animations (set up all animations and then start them in two loops) this
+                     * could be moved to the start loop. But it needs to happen after all the animations configs
+                     * are generated in AnimateSharedLayout as this relies on presence data
+                     */
+                    order.forEach(function (child) {
+                        if (child.isPresent)
+                            child.presence = _types_js__WEBPACK_IMPORTED_MODULE_5__.Presence.Present;
+                    });
+                });
+                write(function () {
+                    /**
+                     * Starting these animations will have queued jobs on the frame loop. In some situations,
+                     * like when removing an element, these will be processed too late after the DOM is manipulated,
+                     * leaving a flash of incorrectly-projected content. By manually flushing these jobs
+                     * we ensure there's no flash.
+                     */
+                    framesync__WEBPACK_IMPORTED_MODULE_0__.flushSync.preRender();
+                    framesync__WEBPACK_IMPORTED_MODULE_0__.flushSync.render();
+                });
+                read(function () {
+                    /**
+                     * Schedule a callback at the end of the following frame to assign the latest projection
+                     * box to the prevViewportBox snapshot. Once global batching is in place this could be run
+                     * synchronously. But for now it ensures that if any nested `AnimateSharedLayout` top-level
+                     * child attempts to calculate its previous relative position against a prevViewportBox
+                     * it will be against its latest projection box instead, as the snapshot is useless beyond this
+                     * render.
+                     */
+                    framesync__WEBPACK_IMPORTED_MODULE_0__["default"].postRender(function () {
+                        return order.forEach(assignProjectionToSnapshot);
+                    });
+                    queue.clear();
+                });
+            });
+            // TODO: Need to find a layout-synchronous way of flushing this
+            (0,_render_dom_utils_batch_layout_js__WEBPACK_IMPORTED_MODULE_1__.flushLayout)();
+        },
+    };
+}
+function assignProjectionToSnapshot(child) {
+    child.prevViewportBox = child.projection.target;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/context/LayoutGroupContext.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/context/LayoutGroupContext.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "LayoutGroupContext": () => (/* binding */ LayoutGroupContext)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * @internal
+ */
+var LayoutGroupContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/context/LazyContext.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/context/LazyContext.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "LazyContext": () => (/* binding */ LazyContext)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var LazyContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({ strict: false });
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/context/MotionConfigContext.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/context/MotionConfigContext.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MotionConfigContext": () => (/* binding */ MotionConfigContext)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * @public
+ */
+var MotionConfigContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+    transformPagePoint: function (p) { return p; },
+    isStatic: false,
+});
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/context/MotionContext/create.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/context/MotionContext/create.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useCreateMotionContext": () => (/* binding */ useCreateMotionContext)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.js */ "./node_modules/framer-motion/dist/es/context/MotionContext/index.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils.js */ "./node_modules/framer-motion/dist/es/context/MotionContext/utils.js");
+
+
+
+
+function useCreateMotionContext(props, isStatic) {
+    var _a = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.getCurrentTreeVariants)(props, (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_index_js__WEBPACK_IMPORTED_MODULE_2__.MotionContext)), initial = _a.initial, animate = _a.animate;
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () { return ({ initial: initial, animate: animate }); }, 
+    /**
+     * Only break memoisation in static mode
+     */
+    isStatic
+        ? [
+            variantLabelsAsDependency(initial),
+            variantLabelsAsDependency(animate),
+        ]
+        : []);
+}
+function variantLabelsAsDependency(prop) {
+    return Array.isArray(prop) ? prop.join(" ") : prop;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/context/MotionContext/index.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/context/MotionContext/index.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MotionContext": () => (/* binding */ MotionContext),
+/* harmony export */   "useVisualElementContext": () => (/* binding */ useVisualElementContext)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var MotionContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
+function useVisualElementContext() {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MotionContext).visualElement;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/context/MotionContext/utils.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/context/MotionContext/utils.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getCurrentTreeVariants": () => (/* binding */ getCurrentTreeVariants)
+/* harmony export */ });
+/* harmony import */ var _render_utils_variants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../render/utils/variants.js */ "./node_modules/framer-motion/dist/es/render/utils/variants.js");
+
+
+function getCurrentTreeVariants(props, context) {
+    if ((0,_render_utils_variants_js__WEBPACK_IMPORTED_MODULE_0__.checkIfControllingVariants)(props)) {
+        var initial = props.initial, animate = props.animate;
+        return {
+            initial: initial === false || (0,_render_utils_variants_js__WEBPACK_IMPORTED_MODULE_0__.isVariantLabel)(initial)
+                ? initial
+                : undefined,
+            animate: (0,_render_utils_variants_js__WEBPACK_IMPORTED_MODULE_0__.isVariantLabel)(animate) ? animate : undefined,
+        };
+    }
+    return props.inherit !== false ? context : {};
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/context/PresenceContext.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/context/PresenceContext.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PresenceContext": () => (/* binding */ PresenceContext)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * @public
+ */
+var PresenceContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/context/SharedLayoutContext.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/context/SharedLayoutContext.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FramerTreeLayoutContext": () => (/* binding */ FramerTreeLayoutContext),
+/* harmony export */   "SharedLayoutContext": () => (/* binding */ SharedLayoutContext),
+/* harmony export */   "isSharedLayout": () => (/* binding */ isSharedLayout)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_AnimateSharedLayout_utils_batcher_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/AnimateSharedLayout/utils/batcher.js */ "./node_modules/framer-motion/dist/es/components/AnimateSharedLayout/utils/batcher.js");
+
+
+
+var SharedLayoutContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)((0,_components_AnimateSharedLayout_utils_batcher_js__WEBPACK_IMPORTED_MODULE_1__.createBatcher)());
+/**
+ * @internal
+ */
+var FramerTreeLayoutContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)((0,_components_AnimateSharedLayout_utils_batcher_js__WEBPACK_IMPORTED_MODULE_1__.createBatcher)());
+function isSharedLayout(context) {
+    return !!context.forceUpdate;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/events/event-info.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/events/event-info.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "extractEventInfo": () => (/* binding */ extractEventInfo),
+/* harmony export */   "getViewportPointFromEvent": () => (/* binding */ getViewportPointFromEvent),
+/* harmony export */   "wrapHandler": () => (/* binding */ wrapHandler)
+/* harmony export */ });
+/* harmony import */ var _gestures_utils_event_type_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../gestures/utils/event-type.js */ "./node_modules/framer-motion/dist/es/gestures/utils/event-type.js");
+
+
+/**
+ * Filters out events not attached to the primary pointer (currently left mouse button)
+ * @param eventHandler
+ */
+function filterPrimaryPointer(eventHandler) {
+    return function (event) {
+        var isMouseEvent = event instanceof MouseEvent;
+        var isPrimaryPointer = !isMouseEvent ||
+            (isMouseEvent && event.button === 0);
+        if (isPrimaryPointer) {
+            eventHandler(event);
+        }
+    };
+}
+var defaultPagePoint = { pageX: 0, pageY: 0 };
+function pointFromTouch(e, pointType) {
+    if (pointType === void 0) { pointType = "page"; }
+    var primaryTouch = e.touches[0] || e.changedTouches[0];
+    var point = primaryTouch || defaultPagePoint;
+    return {
+        x: point[pointType + "X"],
+        y: point[pointType + "Y"],
+    };
+}
+function pointFromMouse(point, pointType) {
+    if (pointType === void 0) { pointType = "page"; }
+    return {
+        x: point[pointType + "X"],
+        y: point[pointType + "Y"],
+    };
+}
+function extractEventInfo(event, pointType) {
+    if (pointType === void 0) { pointType = "page"; }
+    return {
+        point: (0,_gestures_utils_event_type_js__WEBPACK_IMPORTED_MODULE_0__.isTouchEvent)(event)
+            ? pointFromTouch(event, pointType)
+            : pointFromMouse(event, pointType),
+    };
+}
+function getViewportPointFromEvent(event) {
+    return extractEventInfo(event, "client");
+}
+var wrapHandler = function (handler, shouldFilterPrimaryPointer) {
+    if (shouldFilterPrimaryPointer === void 0) { shouldFilterPrimaryPointer = false; }
+    var listener = function (event) {
+        return handler(event, extractEventInfo(event));
+    };
+    return shouldFilterPrimaryPointer
+        ? filterPrimaryPointer(listener)
+        : listener;
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/events/use-dom-event.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/events/use-dom-event.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addDomEvent": () => (/* binding */ addDomEvent),
+/* harmony export */   "useDomEvent": () => (/* binding */ useDomEvent)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function addDomEvent(target, eventName, handler, options) {
+    target.addEventListener(eventName, handler, options);
+    return function () { return target.removeEventListener(eventName, handler, options); };
+}
+/**
+ * Attaches an event listener directly to the provided DOM element.
+ *
+ * Bypassing React's event system can be desirable, for instance when attaching non-passive
+ * event handlers.
+ *
+ * ```jsx
+ * const ref = useRef(null)
+ *
+ * useDomEvent(ref, 'wheel', onWheel, { passive: false })
+ *
+ * return <div ref={ref} />
+ * ```
+ *
+ * @param ref - React.RefObject that's been provided to the element you want to bind the listener to.
+ * @param eventName - Name of the event you want listen for.
+ * @param handler - Function to fire when receiving the event.
+ * @param options - Options to pass to `Event.addEventListener`.
+ *
+ * @public
+ */
+function useDomEvent(ref, eventName, handler, options) {
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+        var element = ref.current;
+        if (handler && element) {
+            return addDomEvent(element, eventName, handler, options);
+        }
+    }, [ref, eventName, handler, options]);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/events/use-pointer-event.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/events/use-pointer-event.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addPointerEvent": () => (/* binding */ addPointerEvent),
+/* harmony export */   "usePointerEvent": () => (/* binding */ usePointerEvent)
+/* harmony export */ });
+/* harmony import */ var _use_dom_event_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./use-dom-event.js */ "./node_modules/framer-motion/dist/es/events/use-dom-event.js");
+/* harmony import */ var _event_info_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./event-info.js */ "./node_modules/framer-motion/dist/es/events/event-info.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ "./node_modules/framer-motion/dist/es/events/utils.js");
+
+
+
+
+var mouseEventNames = {
+    pointerdown: "mousedown",
+    pointermove: "mousemove",
+    pointerup: "mouseup",
+    pointercancel: "mousecancel",
+    pointerover: "mouseover",
+    pointerout: "mouseout",
+    pointerenter: "mouseenter",
+    pointerleave: "mouseleave",
+};
+var touchEventNames = {
+    pointerdown: "touchstart",
+    pointermove: "touchmove",
+    pointerup: "touchend",
+    pointercancel: "touchcancel",
+};
+function getPointerEventName(name) {
+    if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.supportsPointerEvents)()) {
+        return name;
+    }
+    else if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.supportsTouchEvents)()) {
+        return touchEventNames[name];
+    }
+    else if ((0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.supportsMouseEvents)()) {
+        return mouseEventNames[name];
+    }
+    return name;
+}
+function addPointerEvent(target, eventName, handler, options) {
+    return (0,_use_dom_event_js__WEBPACK_IMPORTED_MODULE_1__.addDomEvent)(target, getPointerEventName(eventName), (0,_event_info_js__WEBPACK_IMPORTED_MODULE_2__.wrapHandler)(handler, eventName === "pointerdown"), options);
+}
+function usePointerEvent(ref, eventName, handler, options) {
+    return (0,_use_dom_event_js__WEBPACK_IMPORTED_MODULE_1__.useDomEvent)(ref, getPointerEventName(eventName), handler && (0,_event_info_js__WEBPACK_IMPORTED_MODULE_2__.wrapHandler)(handler, eventName === "pointerdown"), options);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/events/utils.js":
 /*!************************************************************!*\
-  !*** ./node_modules/@popmotion/popcorn/dist/popcorn.es.js ***!
+  !*** ./node_modules/framer-motion/dist/es/events/utils.js ***!
   \************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "angle": () => (/* binding */ angle),
-/* harmony export */   "anticipate": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.anticipate),
-/* harmony export */   "applyOffset": () => (/* binding */ applyOffset),
-/* harmony export */   "backIn": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.backIn),
-/* harmony export */   "backInOut": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.backInOut),
-/* harmony export */   "backOut": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.backOut),
-/* harmony export */   "circIn": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.circIn),
-/* harmony export */   "circInOut": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.circInOut),
-/* harmony export */   "circOut": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.circOut),
-/* harmony export */   "clamp": () => (/* binding */ clamp$1),
-/* harmony export */   "conditional": () => (/* binding */ conditional),
-/* harmony export */   "createAnticipateEasing": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.createAnticipateEasing),
-/* harmony export */   "createBackIn": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.createBackIn),
-/* harmony export */   "createExpoIn": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.createExpoIn),
-/* harmony export */   "cubicBezier": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.cubicBezier),
-/* harmony export */   "degreesToRadians": () => (/* binding */ degreesToRadians),
-/* harmony export */   "distance": () => (/* binding */ distance),
-/* harmony export */   "easeIn": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.easeIn),
-/* harmony export */   "easeInOut": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.easeInOut),
-/* harmony export */   "easeOut": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.easeOut),
-/* harmony export */   "interpolate": () => (/* binding */ interpolate),
-/* harmony export */   "isPoint": () => (/* binding */ isPoint),
-/* harmony export */   "isPoint3D": () => (/* binding */ isPoint3D),
-/* harmony export */   "linear": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.linear),
-/* harmony export */   "mirrored": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.mirrored),
-/* harmony export */   "mix": () => (/* binding */ mix),
-/* harmony export */   "mixArray": () => (/* binding */ mixArray),
-/* harmony export */   "mixColor": () => (/* binding */ mixColor),
-/* harmony export */   "mixComplex": () => (/* binding */ mixComplex),
-/* harmony export */   "mixObject": () => (/* binding */ mixObject),
-/* harmony export */   "pipe": () => (/* binding */ pipe),
-/* harmony export */   "pointFromVector": () => (/* binding */ pointFromVector),
-/* harmony export */   "progress": () => (/* binding */ progress),
-/* harmony export */   "radiansToDegrees": () => (/* binding */ radiansToDegrees),
-/* harmony export */   "reversed": () => (/* reexport safe */ _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.reversed),
-/* harmony export */   "smooth": () => (/* binding */ smooth),
-/* harmony export */   "smoothFrame": () => (/* binding */ smoothFrame),
-/* harmony export */   "snap": () => (/* binding */ snap),
-/* harmony export */   "springForce": () => (/* binding */ springForce),
-/* harmony export */   "springForceExpo": () => (/* binding */ springForceExpo),
-/* harmony export */   "springForceLinear": () => (/* binding */ springForceLinear),
-/* harmony export */   "steps": () => (/* binding */ steps),
-/* harmony export */   "toDecimal": () => (/* binding */ toDecimal),
-/* harmony export */   "velocityPerFrame": () => (/* binding */ velocityPerFrame),
-/* harmony export */   "velocityPerSecond": () => (/* binding */ velocityPerSecond),
-/* harmony export */   "wrap": () => (/* binding */ wrap$1)
+/* harmony export */   "supportsMouseEvents": () => (/* binding */ supportsMouseEvents),
+/* harmony export */   "supportsPointerEvents": () => (/* binding */ supportsPointerEvents),
+/* harmony export */   "supportsTouchEvents": () => (/* binding */ supportsTouchEvents)
 /* harmony export */ });
-/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/style-value-types.es.js");
-/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
-/* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! framesync */ "./node_modules/framesync/dist/framesync.es.js");
-/* harmony import */ var _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @popmotion/easing */ "./node_modules/@popmotion/easing/dist/easing.es.js");
+/* harmony import */ var _utils_is_browser_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/is-browser.js */ "./node_modules/framer-motion/dist/es/utils/is-browser.js");
 
 
-
-
-
-
-var zeroPoint = {
-    x: 0,
-    y: 0,
-    z: 0
+// We check for event support via functions in case they've been mocked by a testing suite.
+var supportsPointerEvents = function () {
+    return _utils_is_browser_js__WEBPACK_IMPORTED_MODULE_0__.isBrowser && window.onpointerdown === null;
 };
-var isNum = function (v) { return typeof v === 'number'; };
-
-var radiansToDegrees = (function (radians) { return (radians * 180) / Math.PI; });
-
-var angle = (function (a, b) {
-    if (b === void 0) { b = zeroPoint; }
-    return radiansToDegrees(Math.atan2(b.y - a.y, b.x - a.x));
-});
-
-var applyOffset = (function (from, to) {
-    var hasReceivedFrom = true;
-    if (to === undefined) {
-        to = from;
-        hasReceivedFrom = false;
-    }
-    return function (v) {
-        if (hasReceivedFrom) {
-            return v - from + to;
-        }
-        else {
-            from = v;
-            hasReceivedFrom = true;
-            return to;
-        }
-    };
-});
-
-var curryRange = (function (func) { return function (min, max, v) { return (v !== undefined ? func(min, max, v) : function (cv) { return func(min, max, cv); }); }; });
-
-var clamp = function (min, max, v) {
-    return Math.min(Math.max(v, min), max);
+var supportsTouchEvents = function () {
+    return _utils_is_browser_js__WEBPACK_IMPORTED_MODULE_0__.isBrowser && window.ontouchstart === null;
 };
-var clamp$1 = curryRange(clamp);
-
-var conditional = (function (check, apply) { return function (v) {
-    return check(v) ? apply(v) : v;
-}; });
-
-var degreesToRadians = (function (degrees) { return (degrees * Math.PI) / 180; });
-
-var isPoint = (function (point) {
-    return point.hasOwnProperty('x') && point.hasOwnProperty('y');
-});
-
-var isPoint3D = (function (point) {
-    return isPoint(point) && point.hasOwnProperty('z');
-});
-
-var distance1D = function (a, b) { return Math.abs(a - b); };
-var distance = (function (a, b) {
-    if (b === void 0) { b = zeroPoint; }
-    if (isNum(a) && isNum(b)) {
-        return distance1D(a, b);
-    }
-    else if (isPoint(a) && isPoint(b)) {
-        var xDelta = distance1D(a.x, b.x);
-        var yDelta = distance1D(a.y, b.y);
-        var zDelta = isPoint3D(a) && isPoint3D(b) ? distance1D(a.z, b.z) : 0;
-        return Math.sqrt(Math.pow(xDelta, 2) + Math.pow(yDelta, 2) + Math.pow(zDelta, 2));
-    }
-    return 0;
-});
-
-var progress = (function (from, to, value) {
-    var toFromDifference = to - from;
-    return toFromDifference === 0 ? 1 : (value - from) / toFromDifference;
-});
-
-var mix = (function (from, to, progress) {
-    return -progress * from + progress * to + from;
-});
-
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+var supportsMouseEvents = function () {
+    return _utils_is_browser_js__WEBPACK_IMPORTED_MODULE_0__.isBrowser && window.onmousedown === null;
 };
-
-var mixLinearColor = function (from, to, v) {
-    var fromExpo = from * from;
-    var toExpo = to * to;
-    return Math.sqrt(Math.max(0, v * (toExpo - fromExpo) + fromExpo));
-};
-var colorTypes = [style_value_types__WEBPACK_IMPORTED_MODULE_0__.hex, style_value_types__WEBPACK_IMPORTED_MODULE_0__.rgba, style_value_types__WEBPACK_IMPORTED_MODULE_0__.hsla];
-var getColorType = function (v) {
-    return colorTypes.find(function (type) { return type.test(v); });
-};
-var notAnimatable = function (color$$1) {
-    return "'" + color$$1 + "' is not an animatable color. Use the equivalent color code instead.";
-};
-var mixColor = (function (from, to) {
-    var fromColorType = getColorType(from);
-    var toColorType = getColorType(to);
-    (0,hey_listen__WEBPACK_IMPORTED_MODULE_1__.invariant)(!!fromColorType, notAnimatable(from));
-    (0,hey_listen__WEBPACK_IMPORTED_MODULE_1__.invariant)(!!toColorType, notAnimatable(to));
-    (0,hey_listen__WEBPACK_IMPORTED_MODULE_1__.invariant)(fromColorType.transform === toColorType.transform, 'Both colors must be hex/RGBA, OR both must be HSLA.');
-    var fromColor = fromColorType.parse(from);
-    var toColor = toColorType.parse(to);
-    var blended = __assign({}, fromColor);
-    var mixFunc = fromColorType === style_value_types__WEBPACK_IMPORTED_MODULE_0__.hsla ? mix : mixLinearColor;
-    return function (v) {
-        for (var key in blended) {
-            if (key !== 'alpha') {
-                blended[key] = mixFunc(fromColor[key], toColor[key], v);
-            }
-        }
-        blended.alpha = mix(fromColor.alpha, toColor.alpha, v);
-        return fromColorType.transform(blended);
-    };
-});
-
-var combineFunctions = function (a, b) { return function (v) { return b(a(v)); }; };
-var pipe = (function () {
-    var transformers = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        transformers[_i] = arguments[_i];
-    }
-    return transformers.reduce(combineFunctions);
-});
-
-function getMixer(origin, target) {
-    if (isNum(origin)) {
-        return function (v) { return mix(origin, target, v); };
-    }
-    else if (style_value_types__WEBPACK_IMPORTED_MODULE_0__.color.test(origin)) {
-        return mixColor(origin, target);
-    }
-    else {
-        return mixComplex(origin, target);
-    }
-}
-var mixArray = function (from, to) {
-    var output = from.slice();
-    var numValues = output.length;
-    var blendValue = from.map(function (fromThis, i) { return getMixer(fromThis, to[i]); });
-    return function (v) {
-        for (var i = 0; i < numValues; i++) {
-            output[i] = blendValue[i](v);
-        }
-        return output;
-    };
-};
-var mixObject = function (origin, target) {
-    var output = __assign({}, origin, target);
-    var blendValue = {};
-    for (var key in output) {
-        if (origin[key] !== undefined && target[key] !== undefined) {
-            blendValue[key] = getMixer(origin[key], target[key]);
-        }
-    }
-    return function (v) {
-        for (var key in blendValue) {
-            output[key] = blendValue[key](v);
-        }
-        return output;
-    };
-};
-function analyse(value) {
-    var parsed = style_value_types__WEBPACK_IMPORTED_MODULE_0__.complex.parse(value);
-    var numValues = parsed.length;
-    var numNumbers = 0;
-    var numRGB = 0;
-    var numHSL = 0;
-    for (var i = 0; i < numValues; i++) {
-        if (numNumbers || typeof parsed[i] === 'number') {
-            numNumbers++;
-        }
-        else {
-            if (parsed[i].hue !== undefined) {
-                numHSL++;
-            }
-            else {
-                numRGB++;
-            }
-        }
-    }
-    return { parsed: parsed, numNumbers: numNumbers, numRGB: numRGB, numHSL: numHSL };
-}
-var mixComplex = function (origin, target) {
-    var template = style_value_types__WEBPACK_IMPORTED_MODULE_0__.complex.createTransformer(target);
-    var originStats = analyse(origin);
-    var targetStats = analyse(target);
-    (0,hey_listen__WEBPACK_IMPORTED_MODULE_1__.invariant)(originStats.numHSL === targetStats.numHSL &&
-        originStats.numRGB === targetStats.numRGB &&
-        originStats.numNumbers >= targetStats.numNumbers, "Complex values '" + origin + "' and '" + target + "' too different to mix. Ensure all colors are of the same type.");
-    return pipe(mixArray(originStats.parsed, targetStats.parsed), template);
-};
-
-var mixNumber = function (from, to) { return function (p) { return mix(from, to, p); }; };
-function detectMixerFactory(v) {
-    if (typeof v === 'number') {
-        return mixNumber;
-    }
-    else if (typeof v === 'string') {
-        if (style_value_types__WEBPACK_IMPORTED_MODULE_0__.color.test(v)) {
-            return mixColor;
-        }
-        else {
-            return mixComplex;
-        }
-    }
-    else if (Array.isArray(v)) {
-        return mixArray;
-    }
-    else if (typeof v === 'object') {
-        return mixObject;
-    }
-}
-function createMixers(output, ease, customMixer) {
-    var mixers = [];
-    var mixerFactory = customMixer || detectMixerFactory(output[0]);
-    var numMixers = output.length - 1;
-    for (var i = 0; i < numMixers; i++) {
-        var mixer = mixerFactory(output[i], output[i + 1]);
-        if (ease) {
-            var easingFunction = Array.isArray(ease) ? ease[i] : ease;
-            mixer = pipe(easingFunction, mixer);
-        }
-        mixers.push(mixer);
-    }
-    return mixers;
-}
-function fastInterpolate(_a, _b) {
-    var from = _a[0], to = _a[1];
-    var mixer = _b[0];
-    return function (v) { return mixer(progress(from, to, v)); };
-}
-function slowInterpolate(input, mixers) {
-    var inputLength = input.length;
-    var lastInputIndex = inputLength - 1;
-    return function (v) {
-        var mixerIndex = 0;
-        var foundMixerIndex = false;
-        if (v <= input[0]) {
-            foundMixerIndex = true;
-        }
-        else if (v >= input[lastInputIndex]) {
-            mixerIndex = lastInputIndex - 1;
-            foundMixerIndex = true;
-        }
-        if (!foundMixerIndex) {
-            var i = 1;
-            for (; i < inputLength; i++) {
-                if (input[i] > v || i === lastInputIndex) {
-                    break;
-                }
-            }
-            mixerIndex = i - 1;
-        }
-        var progressInRange = progress(input[mixerIndex], input[mixerIndex + 1], v);
-        return mixers[mixerIndex](progressInRange);
-    };
-}
-function interpolate(input, output, _a) {
-    var _b = _a === void 0 ? {} : _a, _c = _b.clamp, clamp = _c === void 0 ? true : _c, ease = _b.ease, mixer = _b.mixer;
-    var inputLength = input.length;
-    (0,hey_listen__WEBPACK_IMPORTED_MODULE_1__.invariant)(inputLength === output.length, 'Both input and output ranges must be the same length');
-    (0,hey_listen__WEBPACK_IMPORTED_MODULE_1__.invariant)(!ease || !Array.isArray(ease) || ease.length === inputLength - 1, 'Array of easing functions must be of length `input.length - 1`, as it applies to the transitions **between** the defined values.');
-    if (input[0] > input[inputLength - 1]) {
-        input = [].concat(input);
-        output = [].concat(output);
-        input.reverse();
-        output.reverse();
-    }
-    var mixers = createMixers(output, ease, mixer);
-    var interpolator = inputLength === 2
-        ? fastInterpolate(input, mixers)
-        : slowInterpolate(input, mixers);
-    return clamp
-        ? pipe(clamp$1(input[0], input[inputLength - 1]), interpolator)
-        : interpolator;
-}
-
-var pointFromVector = (function (origin, angle, distance) {
-    angle = degreesToRadians(angle);
-    return {
-        x: distance * Math.cos(angle) + origin.x,
-        y: distance * Math.sin(angle) + origin.y
-    };
-});
-
-var toDecimal = (function (num, precision) {
-    if (precision === void 0) { precision = 2; }
-    precision = Math.pow(10, precision);
-    return Math.round(num * precision) / precision;
-});
-
-var smoothFrame = (function (prevValue, nextValue, duration, smoothing) {
-    if (smoothing === void 0) { smoothing = 0; }
-    return toDecimal(prevValue +
-        (duration * (nextValue - prevValue)) / Math.max(smoothing, duration));
-});
-
-var smooth = (function (strength) {
-    if (strength === void 0) { strength = 50; }
-    var previousValue = 0;
-    var lastUpdated = 0;
-    return function (v) {
-        var currentFramestamp = (0,framesync__WEBPACK_IMPORTED_MODULE_2__.getFrameData)().timestamp;
-        var timeDelta = currentFramestamp !== lastUpdated ? currentFramestamp - lastUpdated : 0;
-        var newValue = timeDelta
-            ? smoothFrame(previousValue, v, timeDelta, strength)
-            : previousValue;
-        lastUpdated = currentFramestamp;
-        previousValue = newValue;
-        return newValue;
-    };
-});
-
-var snap = (function (points) {
-    if (typeof points === 'number') {
-        return function (v) { return Math.round(v / points) * points; };
-    }
-    else {
-        var i_1 = 0;
-        var numPoints_1 = points.length;
-        return function (v) {
-            var lastDistance = Math.abs(points[0] - v);
-            for (i_1 = 1; i_1 < numPoints_1; i_1++) {
-                var point = points[i_1];
-                var distance = Math.abs(point - v);
-                if (distance === 0)
-                    return point;
-                if (distance > lastDistance)
-                    return points[i_1 - 1];
-                if (i_1 === numPoints_1 - 1)
-                    return point;
-                lastDistance = distance;
-            }
-        };
-    }
-});
-
-var identity = function (v) { return v; };
-var springForce = function (alterDisplacement) {
-    if (alterDisplacement === void 0) { alterDisplacement = identity; }
-    return curryRange(function (constant, origin, v) {
-        var displacement = origin - v;
-        var springModifiedDisplacement = -(0 - constant + 1) * (0 - alterDisplacement(Math.abs(displacement)));
-        return displacement <= 0
-            ? origin + springModifiedDisplacement
-            : origin - springModifiedDisplacement;
-    });
-};
-var springForceLinear = springForce();
-var springForceExpo = springForce(Math.sqrt);
-
-var velocityPerFrame = (function (xps, frameDuration) {
-    return isNum(xps) ? xps / (1000 / frameDuration) : 0;
-});
-
-var velocityPerSecond = (function (velocity, frameDuration) {
-    return frameDuration ? velocity * (1000 / frameDuration) : 0;
-});
-
-var wrap = function (min, max, v) {
-    var rangeSize = max - min;
-    return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
-};
-var wrap$1 = curryRange(wrap);
-
-var clampProgress = clamp$1(0, 1);
-var steps = (function (steps, direction) {
-    if (direction === void 0) { direction = 'end'; }
-    return function (progress) {
-        progress =
-            direction === 'end' ? Math.min(progress, 0.999) : Math.max(progress, 0.001);
-        var expanded = progress * steps;
-        var rounded = direction === 'end' ? Math.floor(expanded) : Math.ceil(expanded);
-        return clampProgress(rounded / steps);
-    };
-});
 
 
 
 
 /***/ }),
 
-/***/ "./node_modules/framer-motion/dist/framer-motion.es.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/framer-motion/dist/framer-motion.es.js ***!
-  \*************************************************************/
+/***/ "./node_modules/framer-motion/dist/es/gestures/PanSession.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/gestures/PanSession.js ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AnimatePresence": () => (/* binding */ AnimatePresence),
-/* harmony export */   "AnimationControls": () => (/* binding */ AnimationControls),
-/* harmony export */   "DragControls": () => (/* binding */ DragControls),
-/* harmony export */   "MotionContext": () => (/* binding */ MotionContext),
-/* harmony export */   "MotionPluginContext": () => (/* binding */ MotionPluginContext),
-/* harmony export */   "MotionPlugins": () => (/* binding */ MotionPlugins),
-/* harmony export */   "MotionValue": () => (/* binding */ MotionValue),
-/* harmony export */   "Point": () => (/* binding */ Point),
-/* harmony export */   "ReducedMotion": () => (/* binding */ ReducedMotion),
-/* harmony export */   "UnstableSyncLayout": () => (/* binding */ UnstableSyncLayout),
-/* harmony export */   "animationControls": () => (/* binding */ animationControls),
-/* harmony export */   "createMotionComponent": () => (/* binding */ createMotionComponent),
-/* harmony export */   "isValidMotionProp": () => (/* binding */ isValidMotionProp),
-/* harmony export */   "motion": () => (/* binding */ motion),
-/* harmony export */   "motionValue": () => (/* binding */ motionValue),
-/* harmony export */   "transform": () => (/* binding */ transform),
-/* harmony export */   "unwrapMotionValue": () => (/* binding */ unwrapMotionValue),
-/* harmony export */   "useAnimatedState": () => (/* binding */ useAnimatedState),
-/* harmony export */   "useAnimation": () => (/* binding */ useAnimation),
-/* harmony export */   "useCycle": () => (/* binding */ useCycle),
-/* harmony export */   "useDomEvent": () => (/* binding */ useDomEvent),
-/* harmony export */   "useDragControls": () => (/* binding */ useDragControls),
-/* harmony export */   "useElementScroll": () => (/* binding */ useElementScroll),
-/* harmony export */   "useExternalRef": () => (/* binding */ useExternalRef),
-/* harmony export */   "useGestures": () => (/* binding */ useGestures),
-/* harmony export */   "useInvertedScale": () => (/* binding */ useInvertedScale),
-/* harmony export */   "useMotionValue": () => (/* binding */ useMotionValue),
-/* harmony export */   "usePanGesture": () => (/* binding */ usePanGesture),
-/* harmony export */   "usePresence": () => (/* binding */ usePresence),
-/* harmony export */   "useReducedMotion": () => (/* binding */ useReducedMotion),
-/* harmony export */   "useSpring": () => (/* binding */ useSpring),
-/* harmony export */   "useTapGesture": () => (/* binding */ useTapGesture),
-/* harmony export */   "useTransform": () => (/* binding */ useTransform),
-/* harmony export */   "useViewportScroll": () => (/* binding */ useViewportScroll)
+/* harmony export */   "PanSession": () => (/* binding */ PanSession)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _utils_event_type_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/event-type.js */ "./node_modules/framer-motion/dist/es/gestures/utils/event-type.js");
+/* harmony import */ var _events_event_info_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../events/event-info.js */ "./node_modules/framer-motion/dist/es/events/event-info.js");
+/* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! framesync */ "./node_modules/framesync/dist/es/index.js");
+/* harmony import */ var _utils_time_conversion_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../utils/time-conversion.js */ "./node_modules/framer-motion/dist/es/utils/time-conversion.js");
+/* harmony import */ var _events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../events/use-pointer-event.js */ "./node_modules/framer-motion/dist/es/events/use-pointer-event.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/distance.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/pipe.js");
+
+
+
+
+
+
+
+
+/**
+ * @internal
+ */
+var PanSession = /** @class */ (function () {
+    function PanSession(event, handlers, _a) {
+        var _this = this;
+        var _b = _a === void 0 ? {} : _a, transformPagePoint = _b.transformPagePoint;
+        /**
+         * @internal
+         */
+        this.startEvent = null;
+        /**
+         * @internal
+         */
+        this.lastMoveEvent = null;
+        /**
+         * @internal
+         */
+        this.lastMoveEventInfo = null;
+        /**
+         * @internal
+         */
+        this.handlers = {};
+        this.updatePoint = function () {
+            if (!(_this.lastMoveEvent && _this.lastMoveEventInfo))
+                return;
+            var info = getPanInfo(_this.lastMoveEventInfo, _this.history);
+            var isPanStarted = _this.startEvent !== null;
+            // Only start panning if the offset is larger than 3 pixels. If we make it
+            // any larger than this we'll want to reset the pointer history
+            // on the first update to avoid visual snapping to the cursoe.
+            var isDistancePastThreshold = (0,popmotion__WEBPACK_IMPORTED_MODULE_1__.distance)(info.offset, { x: 0, y: 0 }) >= 3;
+            if (!isPanStarted && !isDistancePastThreshold)
+                return;
+            var point = info.point;
+            var timestamp = (0,framesync__WEBPACK_IMPORTED_MODULE_0__.getFrameData)().timestamp;
+            _this.history.push((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, point), { timestamp: timestamp }));
+            var _a = _this.handlers, onStart = _a.onStart, onMove = _a.onMove;
+            if (!isPanStarted) {
+                onStart && onStart(_this.lastMoveEvent, info);
+                _this.startEvent = _this.lastMoveEvent;
+            }
+            onMove && onMove(_this.lastMoveEvent, info);
+        };
+        this.handlePointerMove = function (event, info) {
+            _this.lastMoveEvent = event;
+            _this.lastMoveEventInfo = transformPoint(info, _this.transformPagePoint);
+            // Because Safari doesn't trigger mouseup events when it's above a `<select>`
+            if ((0,_utils_event_type_js__WEBPACK_IMPORTED_MODULE_3__.isMouseEvent)(event) && event.buttons === 0) {
+                _this.handlePointerUp(event, info);
+                return;
+            }
+            // Throttle mouse move event to once per frame
+            framesync__WEBPACK_IMPORTED_MODULE_0__["default"].update(_this.updatePoint, true);
+        };
+        this.handlePointerUp = function (event, info) {
+            _this.end();
+            var _a = _this.handlers, onEnd = _a.onEnd, onSessionEnd = _a.onSessionEnd;
+            var panInfo = getPanInfo(transformPoint(info, _this.transformPagePoint), _this.history);
+            if (_this.startEvent && onEnd) {
+                onEnd(event, panInfo);
+            }
+            onSessionEnd && onSessionEnd(event, panInfo);
+        };
+        // If we have more than one touch, don't start detecting this gesture
+        if ((0,_utils_event_type_js__WEBPACK_IMPORTED_MODULE_3__.isTouchEvent)(event) && event.touches.length > 1)
+            return;
+        this.handlers = handlers;
+        this.transformPagePoint = transformPagePoint;
+        var info = (0,_events_event_info_js__WEBPACK_IMPORTED_MODULE_4__.extractEventInfo)(event);
+        var initialInfo = transformPoint(info, this.transformPagePoint);
+        var point = initialInfo.point;
+        var timestamp = (0,framesync__WEBPACK_IMPORTED_MODULE_0__.getFrameData)().timestamp;
+        this.history = [(0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, point), { timestamp: timestamp })];
+        var onSessionStart = handlers.onSessionStart;
+        onSessionStart &&
+            onSessionStart(event, getPanInfo(initialInfo, this.history));
+        this.removeListeners = (0,popmotion__WEBPACK_IMPORTED_MODULE_5__.pipe)((0,_events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_6__.addPointerEvent)(window, "pointermove", this.handlePointerMove), (0,_events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_6__.addPointerEvent)(window, "pointerup", this.handlePointerUp), (0,_events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_6__.addPointerEvent)(window, "pointercancel", this.handlePointerUp));
+    }
+    PanSession.prototype.updateHandlers = function (handlers) {
+        this.handlers = handlers;
+    };
+    PanSession.prototype.end = function () {
+        this.removeListeners && this.removeListeners();
+        framesync__WEBPACK_IMPORTED_MODULE_0__.cancelSync.update(this.updatePoint);
+    };
+    return PanSession;
+}());
+function transformPoint(info, transformPagePoint) {
+    return transformPagePoint ? { point: transformPagePoint(info.point) } : info;
+}
+function subtractPoint(a, b) {
+    return { x: a.x - b.x, y: a.y - b.y };
+}
+function getPanInfo(_a, history) {
+    var point = _a.point;
+    return {
+        point: point,
+        delta: subtractPoint(point, lastDevicePoint(history)),
+        offset: subtractPoint(point, startDevicePoint(history)),
+        velocity: getVelocity(history, 0.1),
+    };
+}
+function startDevicePoint(history) {
+    return history[0];
+}
+function lastDevicePoint(history) {
+    return history[history.length - 1];
+}
+function getVelocity(history, timeDelta) {
+    if (history.length < 2) {
+        return { x: 0, y: 0 };
+    }
+    var i = history.length - 1;
+    var timestampedPoint = null;
+    var lastPoint = lastDevicePoint(history);
+    while (i >= 0) {
+        timestampedPoint = history[i];
+        if (lastPoint.timestamp - timestampedPoint.timestamp >
+            (0,_utils_time_conversion_js__WEBPACK_IMPORTED_MODULE_7__.secondsToMilliseconds)(timeDelta)) {
+            break;
+        }
+        i--;
+    }
+    if (!timestampedPoint) {
+        return { x: 0, y: 0 };
+    }
+    var time = (lastPoint.timestamp - timestampedPoint.timestamp) / 1000;
+    if (time === 0) {
+        return { x: 0, y: 0 };
+    }
+    var currentVelocity = {
+        x: (lastPoint.x - timestampedPoint.x) / time,
+        y: (lastPoint.y - timestampedPoint.y) / time,
+    };
+    if (currentVelocity.x === Infinity) {
+        currentVelocity.x = 0;
+    }
+    if (currentVelocity.y === Infinity) {
+        currentVelocity.y = 0;
+    }
+    return currentVelocity;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "VisualElementDragControls": () => (/* binding */ VisualElementDragControls),
+/* harmony export */   "elementDragControls": () => (/* binding */ elementDragControls)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
+/* harmony import */ var _PanSession_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../PanSession.js */ "./node_modules/framer-motion/dist/es/gestures/PanSession.js");
+/* harmony import */ var _utils_lock_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./utils/lock.js */ "./node_modules/framer-motion/dist/es/gestures/drag/utils/lock.js");
+/* harmony import */ var _utils_is_ref_object_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../utils/is-ref-object.js */ "./node_modules/framer-motion/dist/es/utils/is-ref-object.js");
+/* harmony import */ var _events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../events/use-pointer-event.js */ "./node_modules/framer-motion/dist/es/events/use-pointer-event.js");
+/* harmony import */ var _events_use_dom_event_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../events/use-dom-event.js */ "./node_modules/framer-motion/dist/es/events/use-dom-event.js");
+/* harmony import */ var _events_event_info_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../events/event-info.js */ "./node_modules/framer-motion/dist/es/events/event-info.js");
+/* harmony import */ var _utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/geometry/index.js */ "./node_modules/framer-motion/dist/es/utils/geometry/index.js");
+/* harmony import */ var _utils_each_axis_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../utils/each-axis.js */ "./node_modules/framer-motion/dist/es/utils/each-axis.js");
+/* harmony import */ var _utils_constraints_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./utils/constraints.js */ "./node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.js");
+/* harmony import */ var _render_dom_projection_measure_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../render/dom/projection/measure.js */ "./node_modules/framer-motion/dist/es/render/dom/projection/measure.js");
+/* harmony import */ var _utils_geometry_delta_calc_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../utils/geometry/delta-calc.js */ "./node_modules/framer-motion/dist/es/utils/geometry/delta-calc.js");
+/* harmony import */ var _animation_utils_transitions_js__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../animation/utils/transitions.js */ "./node_modules/framer-motion/dist/es/animation/utils/transitions.js");
+/* harmony import */ var _render_utils_types_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../render/utils/types.js */ "./node_modules/framer-motion/dist/es/render/utils/types.js");
+/* harmony import */ var _render_dom_projection_utils_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../render/dom/projection/utils.js */ "./node_modules/framer-motion/dist/es/render/dom/projection/utils.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/progress.js");
+/* harmony import */ var _render_dom_projection_convert_to_relative_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../render/dom/projection/convert-to-relative.js */ "./node_modules/framer-motion/dist/es/render/dom/projection/convert-to-relative.js");
+/* harmony import */ var _motion_features_layout_utils_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../motion/features/layout/utils.js */ "./node_modules/framer-motion/dist/es/motion/features/layout/utils.js");
+/* harmony import */ var _render_dom_utils_batch_layout_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../render/dom/utils/batch-layout.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/batch-layout.js");
+/* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! framesync */ "./node_modules/framesync/dist/es/index.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var elementDragControls = new WeakMap();
+/**
+ *
+ */
+var lastPointerEvent;
+var VisualElementDragControls = /** @class */ (function () {
+    function VisualElementDragControls(_a) {
+        var visualElement = _a.visualElement;
+        /**
+         * Track whether we're currently dragging.
+         *
+         * @internal
+         */
+        this.isDragging = false;
+        /**
+         * The current direction of drag, or `null` if both.
+         *
+         * @internal
+         */
+        this.currentDirection = null;
+        /**
+         * The permitted boundaries of travel, in pixels.
+         *
+         * @internal
+         */
+        this.constraints = false;
+        /**
+         * The per-axis resolved elastic values.
+         *
+         * @internal
+         */
+        this.elastic = (0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_2__.axisBox)();
+        /**
+         * A reference to the host component's latest props.
+         *
+         * @internal
+         */
+        this.props = {};
+        /**
+         * @internal
+         */
+        this.hasMutatedConstraints = false;
+        /**
+         * Track the initial position of the cursor relative to the dragging element
+         * when dragging starts as a value of 0-1 on each axis. We then use this to calculate
+         * an ideal bounding box for the VisualElement renderer to project into every frame.
+         *
+         * @internal
+         */
+        this.cursorProgress = {
+            x: 0.5,
+            y: 0.5,
+        };
+        // When updating _dragX, or _dragY instead of the VisualElement,
+        // persist their values between drag gestures.
+        this.originPoint = {};
+        // This is a reference to the global drag gesture lock, ensuring only one component
+        // can "capture" the drag of one or both axes.
+        // TODO: Look into moving this into pansession?
+        this.openGlobalLock = null;
+        /**
+         * @internal
+         */
+        this.panSession = null;
+        this.visualElement = visualElement;
+        this.visualElement.enableLayoutProjection();
+        elementDragControls.set(visualElement, this);
+    }
+    /**
+     * Instantiate a PanSession for the drag gesture
+     *
+     * @public
+     */
+    VisualElementDragControls.prototype.start = function (originEvent, _a) {
+        var _this = this;
+        var _b = _a === void 0 ? {} : _a, _c = _b.snapToCursor, snapToCursor = _c === void 0 ? false : _c, cursorProgress = _b.cursorProgress;
+        var onSessionStart = function (event) {
+            var _a;
+            // Stop any animations on both axis values immediately. This allows the user to throw and catch
+            // the component.
+            _this.stopMotion();
+            /**
+             * Save the initial point. We'll use this to calculate the pointer's position rather
+             * than the one we receive when the gesture actually starts. By then, the pointer will
+             * have already moved, and the perception will be of the pointer "slipping" across the element
+             */
+            var initialPoint = (0,_events_event_info_js__WEBPACK_IMPORTED_MODULE_3__.getViewportPointFromEvent)(event).point;
+            (_a = _this.cancelLayout) === null || _a === void 0 ? void 0 : _a.call(_this);
+            _this.cancelLayout = (0,_render_dom_utils_batch_layout_js__WEBPACK_IMPORTED_MODULE_4__.batchLayout)(function (read, write) {
+                var ancestors = (0,_render_dom_projection_utils_js__WEBPACK_IMPORTED_MODULE_5__.collectProjectingAncestors)(_this.visualElement);
+                var children = (0,_render_dom_projection_utils_js__WEBPACK_IMPORTED_MODULE_5__.collectProjectingChildren)(_this.visualElement);
+                var tree = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__spreadArray)((0,tslib__WEBPACK_IMPORTED_MODULE_6__.__spreadArray)([], (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__read)(ancestors)), (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__read)(children));
+                var hasManuallySetCursorOrigin = false;
+                /**
+                 * Apply a simple lock to the projection target. This ensures no animations
+                 * can run on the projection box while this lock is active.
+                 */
+                _this.isLayoutDrag() && _this.visualElement.lockProjectionTarget();
+                write(function () {
+                    tree.forEach(function (element) { return element.resetTransform(); });
+                });
+                read(function () {
+                    (0,_render_dom_projection_utils_js__WEBPACK_IMPORTED_MODULE_5__.updateLayoutMeasurement)(_this.visualElement);
+                    children.forEach(_render_dom_projection_utils_js__WEBPACK_IMPORTED_MODULE_5__.updateLayoutMeasurement);
+                });
+                write(function () {
+                    tree.forEach(function (element) { return element.restoreTransform(); });
+                    if (snapToCursor) {
+                        hasManuallySetCursorOrigin = _this.snapToCursor(initialPoint);
+                    }
+                });
+                read(function () {
+                    var isRelativeDrag = Boolean(_this.getAxisMotionValue("x") && !_this.isExternalDrag());
+                    if (!isRelativeDrag) {
+                        _this.visualElement.rebaseProjectionTarget(true, _this.visualElement.measureViewportBox(false));
+                    }
+                    _this.visualElement.scheduleUpdateLayoutProjection();
+                    /**
+                     * When dragging starts, we want to find where the cursor is relative to the bounding box
+                     * of the element. Every frame, we calculate a new bounding box using this relative position
+                     * and let the visualElement renderer figure out how to reproject the element into this bounding
+                     * box.
+                     *
+                     * By doing it this way, rather than applying an x/y transform directly to the element,
+                     * we can ensure the component always visually sticks to the cursor as we'd expect, even
+                     * if the DOM element itself changes layout as a result of React updates the user might
+                     * make based on the drag position.
+                     */
+                    var projection = _this.visualElement.projection;
+                    (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_7__.eachAxis)(function (axis) {
+                        if (!hasManuallySetCursorOrigin) {
+                            var _a = projection.target[axis], min = _a.min, max = _a.max;
+                            _this.cursorProgress[axis] = cursorProgress
+                                ? cursorProgress[axis]
+                                : (0,popmotion__WEBPACK_IMPORTED_MODULE_8__.progress)(min, max, initialPoint[axis]);
+                        }
+                        /**
+                         * If we have external drag MotionValues, record their origin point. On pointermove
+                         * we'll apply the pan gesture offset directly to this value.
+                         */
+                        var axisValue = _this.getAxisMotionValue(axis);
+                        if (axisValue) {
+                            _this.originPoint[axis] = axisValue.get();
+                        }
+                    });
+                });
+                write(function () {
+                    framesync__WEBPACK_IMPORTED_MODULE_1__.flushSync.update();
+                    framesync__WEBPACK_IMPORTED_MODULE_1__.flushSync.preRender();
+                    framesync__WEBPACK_IMPORTED_MODULE_1__.flushSync.render();
+                    framesync__WEBPACK_IMPORTED_MODULE_1__.flushSync.postRender();
+                });
+                read(function () { return _this.resolveDragConstraints(); });
+            });
+        };
+        var onStart = function (event, info) {
+            var _a, _b, _c;
+            // Attempt to grab the global drag gesture lock - maybe make this part of PanSession
+            var _d = _this.props, drag = _d.drag, dragPropagation = _d.dragPropagation;
+            if (drag && !dragPropagation) {
+                if (_this.openGlobalLock)
+                    _this.openGlobalLock();
+                _this.openGlobalLock = (0,_utils_lock_js__WEBPACK_IMPORTED_MODULE_9__.getGlobalLock)(drag);
+                // If we don 't have the lock, don't start dragging
+                if (!_this.openGlobalLock)
+                    return;
+            }
+            (0,_render_dom_utils_batch_layout_js__WEBPACK_IMPORTED_MODULE_4__.flushLayout)();
+            // Set current drag status
+            _this.isDragging = true;
+            _this.currentDirection = null;
+            // Fire onDragStart event
+            (_b = (_a = _this.props).onDragStart) === null || _b === void 0 ? void 0 : _b.call(_a, event, info);
+            (_c = _this.visualElement.animationState) === null || _c === void 0 ? void 0 : _c.setActive(_render_utils_types_js__WEBPACK_IMPORTED_MODULE_10__.AnimationType.Drag, true);
+        };
+        var onMove = function (event, info) {
+            var _a, _b, _c, _d;
+            var _e = _this.props, dragPropagation = _e.dragPropagation, dragDirectionLock = _e.dragDirectionLock;
+            // If we didn't successfully receive the gesture lock, early return.
+            if (!dragPropagation && !_this.openGlobalLock)
+                return;
+            var offset = info.offset;
+            // Attempt to detect drag direction if directionLock is true
+            if (dragDirectionLock && _this.currentDirection === null) {
+                _this.currentDirection = getCurrentDirection(offset);
+                // If we've successfully set a direction, notify listener
+                if (_this.currentDirection !== null) {
+                    (_b = (_a = _this.props).onDirectionLock) === null || _b === void 0 ? void 0 : _b.call(_a, _this.currentDirection);
+                }
+                return;
+            }
+            // Update each point with the latest position
+            _this.updateAxis("x", info.point, offset);
+            _this.updateAxis("y", info.point, offset);
+            // Fire onDrag event
+            (_d = (_c = _this.props).onDrag) === null || _d === void 0 ? void 0 : _d.call(_c, event, info);
+            // Update the last pointer event
+            lastPointerEvent = event;
+        };
+        var onSessionEnd = function (event, info) {
+            return _this.stop(event, info);
+        };
+        var transformPagePoint = this.props.transformPagePoint;
+        this.panSession = new _PanSession_js__WEBPACK_IMPORTED_MODULE_11__.PanSession(originEvent, {
+            onSessionStart: onSessionStart,
+            onStart: onStart,
+            onMove: onMove,
+            onSessionEnd: onSessionEnd,
+        }, { transformPagePoint: transformPagePoint });
+    };
+    VisualElementDragControls.prototype.resolveDragConstraints = function () {
+        var _this = this;
+        var _a = this.props, dragConstraints = _a.dragConstraints, dragElastic = _a.dragElastic;
+        var layout = this.visualElement.getLayoutState().layoutCorrected;
+        if (dragConstraints) {
+            this.constraints = (0,_utils_is_ref_object_js__WEBPACK_IMPORTED_MODULE_12__.isRefObject)(dragConstraints)
+                ? this.resolveRefConstraints(layout, dragConstraints)
+                : (0,_utils_constraints_js__WEBPACK_IMPORTED_MODULE_13__.calcRelativeConstraints)(layout, dragConstraints);
+        }
+        else {
+            this.constraints = false;
+        }
+        this.elastic = (0,_utils_constraints_js__WEBPACK_IMPORTED_MODULE_13__.resolveDragElastic)(dragElastic);
+        /**
+         * If we're outputting to external MotionValues, we want to rebase the measured constraints
+         * from viewport-relative to component-relative.
+         */
+        if (this.constraints && !this.hasMutatedConstraints) {
+            (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_7__.eachAxis)(function (axis) {
+                if (_this.getAxisMotionValue(axis)) {
+                    _this.constraints[axis] = (0,_utils_constraints_js__WEBPACK_IMPORTED_MODULE_13__.rebaseAxisConstraints)(layout[axis], _this.constraints[axis]);
+                }
+            });
+        }
+    };
+    VisualElementDragControls.prototype.resolveRefConstraints = function (layoutBox, constraints) {
+        var _a = this.props, onMeasureDragConstraints = _a.onMeasureDragConstraints, transformPagePoint = _a.transformPagePoint;
+        var constraintsElement = constraints.current;
+        (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.invariant)(constraintsElement !== null, "If `dragConstraints` is set as a React ref, that ref must be passed to another component's `ref` prop.");
+        this.constraintsBox = (0,_render_dom_projection_measure_js__WEBPACK_IMPORTED_MODULE_14__.getBoundingBox)(constraintsElement, transformPagePoint);
+        var measuredConstraints = (0,_utils_constraints_js__WEBPACK_IMPORTED_MODULE_13__.calcViewportConstraints)(layoutBox, this.constraintsBox);
+        /**
+         * If there's an onMeasureDragConstraints listener we call it and
+         * if different constraints are returned, set constraints to that
+         */
+        if (onMeasureDragConstraints) {
+            var userConstraints = onMeasureDragConstraints((0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_2__.convertAxisBoxToBoundingBox)(measuredConstraints));
+            this.hasMutatedConstraints = !!userConstraints;
+            if (userConstraints) {
+                measuredConstraints = (0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_2__.convertBoundingBoxToAxisBox)(userConstraints);
+            }
+        }
+        return measuredConstraints;
+    };
+    VisualElementDragControls.prototype.cancelDrag = function () {
+        var _a, _b;
+        this.visualElement.unlockProjectionTarget();
+        (_a = this.cancelLayout) === null || _a === void 0 ? void 0 : _a.call(this);
+        this.isDragging = false;
+        this.panSession && this.panSession.end();
+        this.panSession = null;
+        if (!this.props.dragPropagation && this.openGlobalLock) {
+            this.openGlobalLock();
+            this.openGlobalLock = null;
+        }
+        (_b = this.visualElement.animationState) === null || _b === void 0 ? void 0 : _b.setActive(_render_utils_types_js__WEBPACK_IMPORTED_MODULE_10__.AnimationType.Drag, false);
+    };
+    VisualElementDragControls.prototype.stop = function (event, info) {
+        var _a, _b, _c;
+        (_a = this.panSession) === null || _a === void 0 ? void 0 : _a.end();
+        this.panSession = null;
+        var isDragging = this.isDragging;
+        this.cancelDrag();
+        if (!isDragging)
+            return;
+        var velocity = info.velocity;
+        this.animateDragEnd(velocity);
+        (_c = (_b = this.props).onDragEnd) === null || _c === void 0 ? void 0 : _c.call(_b, event, info);
+    };
+    VisualElementDragControls.prototype.snapToCursor = function (point) {
+        var _this = this;
+        return (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_7__.eachAxis)(function (axis) {
+            var drag = _this.props.drag;
+            // If we're not dragging this axis, do an early return.
+            if (!shouldDrag(axis, drag, _this.currentDirection))
+                return;
+            var axisValue = _this.getAxisMotionValue(axis);
+            if (axisValue) {
+                var box = _this.visualElement.getLayoutState().layout;
+                var length_1 = box[axis].max - box[axis].min;
+                var center = box[axis].min + length_1 / 2;
+                var offset = point[axis] - center;
+                _this.originPoint[axis] = point[axis];
+                axisValue.set(offset);
+            }
+            else {
+                _this.cursorProgress[axis] = 0.5;
+                return true;
+            }
+        }).includes(true);
+    };
+    /**
+     * Update the specified axis with the latest pointer information.
+     */
+    VisualElementDragControls.prototype.updateAxis = function (axis, point, offset) {
+        var drag = this.props.drag;
+        // If we're not dragging this axis, do an early return.
+        if (!shouldDrag(axis, drag, this.currentDirection))
+            return;
+        return this.getAxisMotionValue(axis)
+            ? this.updateAxisMotionValue(axis, offset)
+            : this.updateVisualElementAxis(axis, point);
+    };
+    VisualElementDragControls.prototype.updateAxisMotionValue = function (axis, offset) {
+        var axisValue = this.getAxisMotionValue(axis);
+        if (!offset || !axisValue)
+            return;
+        var nextValue = this.originPoint[axis] + offset[axis];
+        var update = this.constraints
+            ? (0,_utils_constraints_js__WEBPACK_IMPORTED_MODULE_13__.applyConstraints)(nextValue, this.constraints[axis], this.elastic[axis])
+            : nextValue;
+        axisValue.set(update);
+    };
+    VisualElementDragControls.prototype.updateVisualElementAxis = function (axis, point) {
+        var _a;
+        // Get the actual layout bounding box of the element
+        var axisLayout = this.visualElement.getLayoutState().layout[axis];
+        // Calculate its current length. In the future we might want to lerp this to animate
+        // between lengths if the layout changes as we change the DOM
+        var axisLength = axisLayout.max - axisLayout.min;
+        // Get the initial progress that the pointer sat on this axis on gesture start.
+        var axisProgress = this.cursorProgress[axis];
+        // Calculate a new min point based on the latest pointer position, constraints and elastic
+        var min = (0,_utils_constraints_js__WEBPACK_IMPORTED_MODULE_13__.calcConstrainedMinPoint)(point[axis], axisLength, axisProgress, (_a = this.constraints) === null || _a === void 0 ? void 0 : _a[axis], this.elastic[axis]);
+        // Update the axis viewport target with this new min and the length
+        this.visualElement.setProjectionTargetAxis(axis, min, min + axisLength);
+    };
+    VisualElementDragControls.prototype.setProps = function (_a) {
+        var _b = _a.drag, drag = _b === void 0 ? false : _b, _c = _a.dragDirectionLock, dragDirectionLock = _c === void 0 ? false : _c, _d = _a.dragPropagation, dragPropagation = _d === void 0 ? false : _d, _e = _a.dragConstraints, dragConstraints = _e === void 0 ? false : _e, _f = _a.dragElastic, dragElastic = _f === void 0 ? _utils_constraints_js__WEBPACK_IMPORTED_MODULE_13__.defaultElastic : _f, _g = _a.dragMomentum, dragMomentum = _g === void 0 ? true : _g, remainingProps = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__rest)(_a, ["drag", "dragDirectionLock", "dragPropagation", "dragConstraints", "dragElastic", "dragMomentum"]);
+        this.props = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__assign)({ drag: drag,
+            dragDirectionLock: dragDirectionLock,
+            dragPropagation: dragPropagation,
+            dragConstraints: dragConstraints,
+            dragElastic: dragElastic,
+            dragMomentum: dragMomentum }, remainingProps);
+    };
+    /**
+     * Drag works differently depending on which props are provided.
+     *
+     * - If _dragX and _dragY are provided, we output the gesture delta directly to those motion values.
+     * - If the component will perform layout animations, we output the gesture to the component's
+     *      visual bounding box
+     * - Otherwise, we apply the delta to the x/y motion values.
+     */
+    VisualElementDragControls.prototype.getAxisMotionValue = function (axis) {
+        var _a = this.props, layout = _a.layout, layoutId = _a.layoutId;
+        var dragKey = "_drag" + axis.toUpperCase();
+        if (this.props[dragKey]) {
+            return this.props[dragKey];
+        }
+        else if (!layout && layoutId === undefined) {
+            return this.visualElement.getValue(axis, 0);
+        }
+    };
+    VisualElementDragControls.prototype.isLayoutDrag = function () {
+        return !this.getAxisMotionValue("x");
+    };
+    VisualElementDragControls.prototype.isExternalDrag = function () {
+        var _a = this.props, _dragX = _a._dragX, _dragY = _a._dragY;
+        return _dragX || _dragY;
+    };
+    VisualElementDragControls.prototype.animateDragEnd = function (velocity) {
+        var _this = this;
+        var _a = this.props, drag = _a.drag, dragMomentum = _a.dragMomentum, dragElastic = _a.dragElastic, dragTransition = _a.dragTransition;
+        /**
+         * Everything beyond the drag gesture should be performed with
+         * relative projection so children stay in sync with their parent element.
+         */
+        var isRelative = (0,_render_dom_projection_convert_to_relative_js__WEBPACK_IMPORTED_MODULE_15__.convertToRelativeProjection)(this.visualElement, this.isLayoutDrag() && !this.isExternalDrag());
+        /**
+         * If we had previously resolved constraints relative to the viewport,
+         * we need to also convert those to a relative coordinate space for the animation
+         */
+        var constraints = this.constraints || {};
+        if (isRelative &&
+            Object.keys(constraints).length &&
+            this.isLayoutDrag()) {
+            var projectionParent = this.visualElement.getProjectionParent();
+            if (projectionParent) {
+                var relativeConstraints_1 = (0,_motion_features_layout_utils_js__WEBPACK_IMPORTED_MODULE_16__.calcRelativeOffset)(projectionParent.projection.targetFinal, constraints);
+                (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_7__.eachAxis)(function (axis) {
+                    var _a = relativeConstraints_1[axis], min = _a.min, max = _a.max;
+                    constraints[axis] = {
+                        min: isNaN(min) ? undefined : min,
+                        max: isNaN(max) ? undefined : max,
+                    };
+                });
+            }
+        }
+        var momentumAnimations = (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_7__.eachAxis)(function (axis) {
+            var _a;
+            if (!shouldDrag(axis, drag, _this.currentDirection)) {
+                return;
+            }
+            var transition = (_a = constraints === null || constraints === void 0 ? void 0 : constraints[axis]) !== null && _a !== void 0 ? _a : {};
+            /**
+             * Overdamp the boundary spring if `dragElastic` is disabled. There's still a frame
+             * of spring animations so we should look into adding a disable spring option to `inertia`.
+             * We could do something here where we affect the `bounceStiffness` and `bounceDamping`
+             * using the value of `dragElastic`.
+             */
+            var bounceStiffness = dragElastic ? 200 : 1000000;
+            var bounceDamping = dragElastic ? 40 : 10000000;
+            var inertia = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_6__.__assign)({ type: "inertia", velocity: dragMomentum ? velocity[axis] : 0, bounceStiffness: bounceStiffness,
+                bounceDamping: bounceDamping, timeConstant: 750, restDelta: 1, restSpeed: 10 }, dragTransition), transition);
+            // If we're not animating on an externally-provided `MotionValue` we can use the
+            // component's animation controls which will handle interactions with whileHover (etc),
+            // otherwise we just have to animate the `MotionValue` itself.
+            return _this.getAxisMotionValue(axis)
+                ? _this.startAxisValueAnimation(axis, inertia)
+                : _this.visualElement.startLayoutAnimation(axis, inertia, isRelative);
+        });
+        // Run all animations and then resolve the new drag constraints.
+        return Promise.all(momentumAnimations).then(function () {
+            var _a, _b;
+            (_b = (_a = _this.props).onDragTransitionEnd) === null || _b === void 0 ? void 0 : _b.call(_a);
+        });
+    };
+    VisualElementDragControls.prototype.stopMotion = function () {
+        var _this = this;
+        (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_7__.eachAxis)(function (axis) {
+            var axisValue = _this.getAxisMotionValue(axis);
+            axisValue
+                ? axisValue.stop()
+                : _this.visualElement.stopLayoutAnimation();
+        });
+    };
+    VisualElementDragControls.prototype.startAxisValueAnimation = function (axis, transition) {
+        var axisValue = this.getAxisMotionValue(axis);
+        if (!axisValue)
+            return;
+        var currentValue = axisValue.get();
+        axisValue.set(currentValue);
+        axisValue.set(currentValue); // Set twice to hard-reset velocity
+        return (0,_animation_utils_transitions_js__WEBPACK_IMPORTED_MODULE_17__.startAnimation)(axis, axisValue, 0, transition);
+    };
+    VisualElementDragControls.prototype.scalePoint = function () {
+        var _this = this;
+        var _a = this.props, drag = _a.drag, dragConstraints = _a.dragConstraints;
+        if (!(0,_utils_is_ref_object_js__WEBPACK_IMPORTED_MODULE_12__.isRefObject)(dragConstraints) || !this.constraintsBox)
+            return;
+        // Stop any current animations as there can be some visual glitching if we resize mid animation
+        this.stopMotion();
+        // Record the relative progress of the targetBox relative to the constraintsBox
+        var boxProgress = { x: 0, y: 0 };
+        (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_7__.eachAxis)(function (axis) {
+            boxProgress[axis] = (0,_utils_geometry_delta_calc_js__WEBPACK_IMPORTED_MODULE_18__.calcOrigin)(_this.visualElement.projection.target[axis], _this.constraintsBox[axis]);
+        });
+        /**
+         * For each axis, calculate the current progress of the layout axis within the constraints.
+         * Then, using the latest layout and constraints measurements, reposition the new layout axis
+         * proportionally within the constraints.
+         */
+        this.updateConstraints(function () {
+            (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_7__.eachAxis)(function (axis) {
+                if (!shouldDrag(axis, drag, null))
+                    return;
+                // Calculate the position of the targetBox relative to the constraintsBox using the
+                // previously calculated progress
+                var _a = (0,_utils_constraints_js__WEBPACK_IMPORTED_MODULE_13__.calcPositionFromProgress)(_this.visualElement.projection.target[axis], _this.constraintsBox[axis], boxProgress[axis]), min = _a.min, max = _a.max;
+                _this.visualElement.setProjectionTargetAxis(axis, min, max);
+            });
+        });
+        /**
+         * If any other draggable components are queuing the same tasks synchronously
+         * this will wait until they've all been scheduled before flushing.
+         */
+        setTimeout(_render_dom_utils_batch_layout_js__WEBPACK_IMPORTED_MODULE_4__.flushLayout, 1);
+    };
+    VisualElementDragControls.prototype.updateConstraints = function (onReady) {
+        var _this = this;
+        this.cancelLayout = (0,_render_dom_utils_batch_layout_js__WEBPACK_IMPORTED_MODULE_4__.batchLayout)(function (read, write) {
+            var ancestors = (0,_render_dom_projection_utils_js__WEBPACK_IMPORTED_MODULE_5__.collectProjectingAncestors)(_this.visualElement);
+            write(function () {
+                return ancestors.forEach(function (element) { return element.resetTransform(); });
+            });
+            read(function () { return (0,_render_dom_projection_utils_js__WEBPACK_IMPORTED_MODULE_5__.updateLayoutMeasurement)(_this.visualElement); });
+            write(function () {
+                return ancestors.forEach(function (element) { return element.restoreTransform(); });
+            });
+            read(function () {
+                _this.resolveDragConstraints();
+            });
+            if (onReady)
+                write(onReady);
+        });
+    };
+    VisualElementDragControls.prototype.mount = function (visualElement) {
+        var _this = this;
+        var element = visualElement.getInstance();
+        /**
+         * Attach a pointerdown event listener on this DOM element to initiate drag tracking.
+         */
+        var stopPointerListener = (0,_events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_19__.addPointerEvent)(element, "pointerdown", function (event) {
+            var _a = _this.props, drag = _a.drag, _b = _a.dragListener, dragListener = _b === void 0 ? true : _b;
+            drag && dragListener && _this.start(event);
+        });
+        /**
+         * Attach a window resize listener to scale the draggable target within its defined
+         * constraints as the window resizes.
+         */
+        var stopResizeListener = (0,_events_use_dom_event_js__WEBPACK_IMPORTED_MODULE_20__.addDomEvent)(window, "resize", function () {
+            _this.scalePoint();
+        });
+        /**
+         * Ensure drag constraints are resolved correctly relative to the dragging element
+         * whenever its layout changes.
+         */
+        var stopLayoutUpdateListener = visualElement.onLayoutUpdate(function () {
+            if (_this.isDragging) {
+                _this.resolveDragConstraints();
+            }
+        });
+        /**
+         * If the previous component with this same layoutId was dragging at the time
+         * it was unmounted, we want to continue the same gesture on this component.
+         */
+        var prevDragCursor = visualElement.prevDragCursor;
+        if (prevDragCursor) {
+            this.start(lastPointerEvent, { cursorProgress: prevDragCursor });
+        }
+        /**
+         * Return a function that will teardown the drag gesture
+         */
+        return function () {
+            stopPointerListener === null || stopPointerListener === void 0 ? void 0 : stopPointerListener();
+            stopResizeListener === null || stopResizeListener === void 0 ? void 0 : stopResizeListener();
+            stopLayoutUpdateListener === null || stopLayoutUpdateListener === void 0 ? void 0 : stopLayoutUpdateListener();
+            _this.cancelDrag();
+        };
+    };
+    return VisualElementDragControls;
+}());
+function shouldDrag(direction, drag, currentDirection) {
+    return ((drag === true || drag === direction) &&
+        (currentDirection === null || currentDirection === direction));
+}
+/**
+ * Based on an x/y offset determine the current drag direction. If both axis' offsets are lower
+ * than the provided threshold, return `null`.
+ *
+ * @param offset - The x/y offset from origin.
+ * @param lockThreshold - (Optional) - the minimum absolute offset before we can determine a drag direction.
+ */
+function getCurrentDirection(offset, lockThreshold) {
+    if (lockThreshold === void 0) { lockThreshold = 10; }
+    var direction = null;
+    if (Math.abs(offset.y) > lockThreshold) {
+        direction = "y";
+    }
+    else if (Math.abs(offset.x) > lockThreshold) {
+        direction = "x";
+    }
+    return direction;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/gestures/drag/use-drag.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/gestures/drag/use-drag.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useDrag": () => (/* binding */ useDrag)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! framesync */ "./node_modules/framesync/dist/framesync.es.js");
-/* harmony import */ var _popmotion_popcorn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @popmotion/popcorn */ "./node_modules/@popmotion/popcorn/dist/popcorn.es.js");
-/* harmony import */ var stylefire__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! stylefire */ "./node_modules/stylefire/dist/stylefire.es.js");
-/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
-/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/style-value-types.es.js");
-/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/popmotion.es.js");
-/* harmony import */ var _popmotion_easing__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @popmotion/easing */ "./node_modules/@popmotion/easing/dist/easing.es.js");
+/* harmony import */ var _context_MotionConfigContext_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../context/MotionConfigContext.js */ "./node_modules/framer-motion/dist/es/context/MotionConfigContext.js");
+/* harmony import */ var _VisualElementDragControls_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./VisualElementDragControls.js */ "./node_modules/framer-motion/dist/es/gestures/drag/VisualElementDragControls.js");
+/* harmony import */ var _utils_use_constant_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/use-constant.js */ "./node_modules/framer-motion/dist/es/utils/use-constant.js");
+
+
+
+
+
+
+/**
+ * A hook that allows an element to be dragged.
+ *
+ * @internal
+ */
+function useDrag(props) {
+    var groupDragControls = props.dragControls, visualElement = props.visualElement;
+    var transformPagePoint = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_MotionConfigContext_js__WEBPACK_IMPORTED_MODULE_1__.MotionConfigContext).transformPagePoint;
+    var dragControls = (0,_utils_use_constant_js__WEBPACK_IMPORTED_MODULE_2__.useConstant)(function () {
+        return new _VisualElementDragControls_js__WEBPACK_IMPORTED_MODULE_3__.VisualElementDragControls({
+            visualElement: visualElement,
+        });
+    });
+    dragControls.setProps((0,tslib__WEBPACK_IMPORTED_MODULE_4__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_4__.__assign)({}, props), { transformPagePoint: transformPagePoint }));
+    // If we've been provided a DragControls for manual control over the drag gesture,
+    // subscribe this component to it on mount.
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () { return groupDragControls && groupDragControls.subscribe(dragControls); }, [dragControls]);
+    // Mount the drag controls with the visualElement
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () { return dragControls.mount(visualElement); }, []);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/gestures/drag/utils/constraints.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "applyConstraints": () => (/* binding */ applyConstraints),
+/* harmony export */   "calcConstrainedMinPoint": () => (/* binding */ calcConstrainedMinPoint),
+/* harmony export */   "calcPositionFromProgress": () => (/* binding */ calcPositionFromProgress),
+/* harmony export */   "calcRelativeAxisConstraints": () => (/* binding */ calcRelativeAxisConstraints),
+/* harmony export */   "calcRelativeConstraints": () => (/* binding */ calcRelativeConstraints),
+/* harmony export */   "calcViewportAxisConstraints": () => (/* binding */ calcViewportAxisConstraints),
+/* harmony export */   "calcViewportConstraints": () => (/* binding */ calcViewportConstraints),
+/* harmony export */   "defaultElastic": () => (/* binding */ defaultElastic),
+/* harmony export */   "rebaseAxisConstraints": () => (/* binding */ rebaseAxisConstraints),
+/* harmony export */   "resolveAxisElastic": () => (/* binding */ resolveAxisElastic),
+/* harmony export */   "resolveDragElastic": () => (/* binding */ resolveDragElastic),
+/* harmony export */   "resolvePointElastic": () => (/* binding */ resolvePointElastic)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/mix.js");
+
+
+
+/**
+ * Apply constraints to a point. These constraints are both physical along an
+ * axis, and an elastic factor that determines how much to constrain the point
+ * by if it does lie outside the defined parameters.
+ */
+function applyConstraints(point, _a, elastic) {
+    var min = _a.min, max = _a.max;
+    if (min !== undefined && point < min) {
+        // If we have a min point defined, and this is outside of that, constrain
+        point = elastic ? (0,popmotion__WEBPACK_IMPORTED_MODULE_0__.mix)(min, point, elastic.min) : Math.max(point, min);
+    }
+    else if (max !== undefined && point > max) {
+        // If we have a max point defined, and this is outside of that, constrain
+        point = elastic ? (0,popmotion__WEBPACK_IMPORTED_MODULE_0__.mix)(max, point, elastic.max) : Math.min(point, max);
+    }
+    return point;
+}
+/**
+ * Calculates a min projection point based on a pointer, pointer progress
+ * within the drag target, and constraints.
+ *
+ * For instance if an element was 100px width, we were dragging from 0.25
+ * along this axis, the pointer is at 200px, and there were no constraints,
+ * we would calculate a min projection point of 175px.
+ */
+function calcConstrainedMinPoint(point, length, progress, constraints, elastic) {
+    // Calculate a min point for this axis and apply it to the current pointer
+    var min = point - length * progress;
+    return constraints ? applyConstraints(min, constraints, elastic) : min;
+}
+/**
+ * Calculate constraints in terms of the viewport when defined relatively to the
+ * measured axis. This is measured from the nearest edge, so a max constraint of 200
+ * on an axis with a max value of 300 would return a constraint of 500 - axis length
+ */
+function calcRelativeAxisConstraints(axis, min, max) {
+    return {
+        min: min !== undefined ? axis.min + min : undefined,
+        max: max !== undefined
+            ? axis.max + max - (axis.max - axis.min)
+            : undefined,
+    };
+}
+/**
+ * Calculate constraints in terms of the viewport when
+ * defined relatively to the measured bounding box.
+ */
+function calcRelativeConstraints(layoutBox, _a) {
+    var top = _a.top, left = _a.left, bottom = _a.bottom, right = _a.right;
+    return {
+        x: calcRelativeAxisConstraints(layoutBox.x, left, right),
+        y: calcRelativeAxisConstraints(layoutBox.y, top, bottom),
+    };
+}
+/**
+ * Calculate viewport constraints when defined as another viewport-relative axis
+ */
+function calcViewportAxisConstraints(layoutAxis, constraintsAxis) {
+    var _a;
+    var min = constraintsAxis.min - layoutAxis.min;
+    var max = constraintsAxis.max - layoutAxis.max;
+    // If the constraints axis is actually smaller than the layout axis then we can
+    // flip the constraints
+    if (constraintsAxis.max - constraintsAxis.min <
+        layoutAxis.max - layoutAxis.min) {
+        _a = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__read)([max, min], 2), min = _a[0], max = _a[1];
+    }
+    return {
+        min: layoutAxis.min + min,
+        max: layoutAxis.min + max,
+    };
+}
+/**
+ * Calculate viewport constraints when defined as another viewport-relative box
+ */
+function calcViewportConstraints(layoutBox, constraintsBox) {
+    return {
+        x: calcViewportAxisConstraints(layoutBox.x, constraintsBox.x),
+        y: calcViewportAxisConstraints(layoutBox.y, constraintsBox.y),
+    };
+}
+/**
+ * Calculate the an axis position based on two axes and a progress value.
+ */
+function calcPositionFromProgress(axis, constraints, progress) {
+    var axisLength = axis.max - axis.min;
+    var min = (0,popmotion__WEBPACK_IMPORTED_MODULE_0__.mix)(constraints.min, constraints.max - axisLength, progress);
+    return { min: min, max: min + axisLength };
+}
+/**
+ * Rebase the calculated viewport constraints relative to the layout.min point.
+ */
+function rebaseAxisConstraints(layout, constraints) {
+    var relativeConstraints = {};
+    if (constraints.min !== undefined) {
+        relativeConstraints.min = constraints.min - layout.min;
+    }
+    if (constraints.max !== undefined) {
+        relativeConstraints.max = constraints.max - layout.min;
+    }
+    return relativeConstraints;
+}
+var defaultElastic = 0.35;
+/**
+ * Accepts a dragElastic prop and returns resolved elastic values for each axis.
+ */
+function resolveDragElastic(dragElastic) {
+    if (dragElastic === false) {
+        dragElastic = 0;
+    }
+    else if (dragElastic === true) {
+        dragElastic = defaultElastic;
+    }
+    return {
+        x: resolveAxisElastic(dragElastic, "left", "right"),
+        y: resolveAxisElastic(dragElastic, "top", "bottom"),
+    };
+}
+function resolveAxisElastic(dragElastic, minLabel, maxLabel) {
+    return {
+        min: resolvePointElastic(dragElastic, minLabel),
+        max: resolvePointElastic(dragElastic, maxLabel),
+    };
+}
+function resolvePointElastic(dragElastic, label) {
+    var _a;
+    return typeof dragElastic === "number"
+        ? dragElastic
+        : (_a = dragElastic[label]) !== null && _a !== void 0 ? _a : 0;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/gestures/drag/utils/lock.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/gestures/drag/utils/lock.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createLock": () => (/* binding */ createLock),
+/* harmony export */   "getGlobalLock": () => (/* binding */ getGlobalLock),
+/* harmony export */   "isDragActive": () => (/* binding */ isDragActive)
+/* harmony export */ });
+function createLock(name) {
+    var lock = null;
+    return function () {
+        var openLock = function () {
+            lock = null;
+        };
+        if (lock === null) {
+            lock = name;
+            return openLock;
+        }
+        return false;
+    };
+}
+var globalHorizontalLock = createLock("dragHorizontal");
+var globalVerticalLock = createLock("dragVertical");
+function getGlobalLock(drag) {
+    var lock = false;
+    if (drag === "y") {
+        lock = globalVerticalLock();
+    }
+    else if (drag === "x") {
+        lock = globalHorizontalLock();
+    }
+    else {
+        var openHorizontal_1 = globalHorizontalLock();
+        var openVertical_1 = globalVerticalLock();
+        if (openHorizontal_1 && openVertical_1) {
+            lock = function () {
+                openHorizontal_1();
+                openVertical_1();
+            };
+        }
+        else {
+            // Release the locks because we don't use them
+            if (openHorizontal_1)
+                openHorizontal_1();
+            if (openVertical_1)
+                openVertical_1();
+        }
+    }
+    return lock;
+}
+function isDragActive() {
+    // Check the gesture lock - if we get it, it means no drag gesture is active
+    // and we can safely fire the tap gesture.
+    var openGestureLock = getGlobalLock(true);
+    if (!openGestureLock)
+        return true;
+    openGestureLock();
+    return false;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/gestures/use-focus-gesture.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/gestures/use-focus-gesture.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useFocusGesture": () => (/* binding */ useFocusGesture)
+/* harmony export */ });
+/* harmony import */ var _render_utils_types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../render/utils/types.js */ "./node_modules/framer-motion/dist/es/render/utils/types.js");
+/* harmony import */ var _events_use_dom_event_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../events/use-dom-event.js */ "./node_modules/framer-motion/dist/es/events/use-dom-event.js");
+
+
+
+/**
+ *
+ * @param props
+ * @param ref
+ * @internal
+ */
+function useFocusGesture(_a) {
+    var whileFocus = _a.whileFocus, visualElement = _a.visualElement;
+    var onFocus = function () {
+        var _a;
+        (_a = visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(_render_utils_types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Focus, true);
+    };
+    var onBlur = function () {
+        var _a;
+        (_a = visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(_render_utils_types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Focus, false);
+    };
+    (0,_events_use_dom_event_js__WEBPACK_IMPORTED_MODULE_1__.useDomEvent)(visualElement, "focus", whileFocus ? onFocus : undefined);
+    (0,_events_use_dom_event_js__WEBPACK_IMPORTED_MODULE_1__.useDomEvent)(visualElement, "blur", whileFocus ? onBlur : undefined);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/gestures/use-hover-gesture.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/gestures/use-hover-gesture.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useHoverGesture": () => (/* binding */ useHoverGesture)
+/* harmony export */ });
+/* harmony import */ var _utils_event_type_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/event-type.js */ "./node_modules/framer-motion/dist/es/gestures/utils/event-type.js");
+/* harmony import */ var _render_utils_types_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../render/utils/types.js */ "./node_modules/framer-motion/dist/es/render/utils/types.js");
+/* harmony import */ var _events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../events/use-pointer-event.js */ "./node_modules/framer-motion/dist/es/events/use-pointer-event.js");
+/* harmony import */ var _drag_utils_lock_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./drag/utils/lock.js */ "./node_modules/framer-motion/dist/es/gestures/drag/utils/lock.js");
+
+
+
+
+
+function createHoverEvent(visualElement, isActive, callback) {
+    return function (event, info) {
+        var _a;
+        if (!(0,_utils_event_type_js__WEBPACK_IMPORTED_MODULE_0__.isMouseEvent)(event) || (0,_drag_utils_lock_js__WEBPACK_IMPORTED_MODULE_1__.isDragActive)())
+            return;
+        callback === null || callback === void 0 ? void 0 : callback(event, info);
+        (_a = visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(_render_utils_types_js__WEBPACK_IMPORTED_MODULE_2__.AnimationType.Hover, isActive);
+    };
+}
+function useHoverGesture(_a) {
+    var onHoverStart = _a.onHoverStart, onHoverEnd = _a.onHoverEnd, whileHover = _a.whileHover, visualElement = _a.visualElement;
+    (0,_events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_3__.usePointerEvent)(visualElement, "pointerenter", onHoverStart || whileHover
+        ? createHoverEvent(visualElement, true, onHoverStart)
+        : undefined);
+    (0,_events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_3__.usePointerEvent)(visualElement, "pointerleave", onHoverEnd || whileHover
+        ? createHoverEvent(visualElement, false, onHoverEnd)
+        : undefined);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/gestures/use-pan-gesture.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/gestures/use-pan-gesture.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "usePanGesture": () => (/* binding */ usePanGesture)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _context_MotionConfigContext_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../context/MotionConfigContext.js */ "./node_modules/framer-motion/dist/es/context/MotionConfigContext.js");
+/* harmony import */ var _utils_use_unmount_effect_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/use-unmount-effect.js */ "./node_modules/framer-motion/dist/es/utils/use-unmount-effect.js");
+/* harmony import */ var _events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../events/use-pointer-event.js */ "./node_modules/framer-motion/dist/es/events/use-pointer-event.js");
+/* harmony import */ var _PanSession_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PanSession.js */ "./node_modules/framer-motion/dist/es/gestures/PanSession.js");
+
+
+
+
+
+
+/**
+ *
+ * @param handlers -
+ * @param ref -
+ *
+ * @internalremarks
+ * Currently this sets new pan gesture functions every render. The memo route has been explored
+ * in the past but ultimately we're still creating new functions every render. An optimisation
+ * to explore is creating the pan gestures and loading them into a `ref`.
+ *
+ * @internal
+ */
+function usePanGesture(_a) {
+    var onPan = _a.onPan, onPanStart = _a.onPanStart, onPanEnd = _a.onPanEnd, onPanSessionStart = _a.onPanSessionStart, visualElement = _a.visualElement;
+    var hasPanEvents = onPan || onPanStart || onPanEnd || onPanSessionStart;
+    var panSession = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+    var transformPagePoint = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_MotionConfigContext_js__WEBPACK_IMPORTED_MODULE_1__.MotionConfigContext).transformPagePoint;
+    var handlers = {
+        onSessionStart: onPanSessionStart,
+        onStart: onPanStart,
+        onMove: onPan,
+        onEnd: function (event, info) {
+            panSession.current = null;
+            onPanEnd && onPanEnd(event, info);
+        },
+    };
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+        if (panSession.current !== null) {
+            panSession.current.updateHandlers(handlers);
+        }
+    });
+    function onPointerDown(event) {
+        panSession.current = new _PanSession_js__WEBPACK_IMPORTED_MODULE_2__.PanSession(event, handlers, {
+            transformPagePoint: transformPagePoint,
+        });
+    }
+    (0,_events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_3__.usePointerEvent)(visualElement, "pointerdown", hasPanEvents && onPointerDown);
+    (0,_utils_use_unmount_effect_js__WEBPACK_IMPORTED_MODULE_4__.useUnmountEffect)(function () { return panSession.current && panSession.current.end(); });
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/gestures/use-tap-gesture.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/gestures/use-tap-gesture.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useTapGesture": () => (/* binding */ useTapGesture)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_is_node_or_child_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/is-node-or-child.js */ "./node_modules/framer-motion/dist/es/gestures/utils/is-node-or-child.js");
+/* harmony import */ var _events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../events/use-pointer-event.js */ "./node_modules/framer-motion/dist/es/events/use-pointer-event.js");
+/* harmony import */ var _utils_use_unmount_effect_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/use-unmount-effect.js */ "./node_modules/framer-motion/dist/es/utils/use-unmount-effect.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/pipe.js");
+/* harmony import */ var _render_utils_types_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../render/utils/types.js */ "./node_modules/framer-motion/dist/es/render/utils/types.js");
+/* harmony import */ var _drag_utils_lock_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./drag/utils/lock.js */ "./node_modules/framer-motion/dist/es/gestures/drag/utils/lock.js");
 
 
 
@@ -1154,6 +2833,6456 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+/**
+ * @param handlers -
+ * @internal
+ */
+function useTapGesture(_a) {
+    var onTap = _a.onTap, onTapStart = _a.onTapStart, onTapCancel = _a.onTapCancel, whileTap = _a.whileTap, visualElement = _a.visualElement;
+    var hasPressListeners = onTap || onTapStart || onTapCancel || whileTap;
+    var isPressing = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
+    var cancelPointerEndListeners = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+    function removePointerEndListener() {
+        var _a;
+        (_a = cancelPointerEndListeners.current) === null || _a === void 0 ? void 0 : _a.call(cancelPointerEndListeners);
+        cancelPointerEndListeners.current = null;
+    }
+    function checkPointerEnd() {
+        var _a;
+        removePointerEndListener();
+        isPressing.current = false;
+        (_a = visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(_render_utils_types_js__WEBPACK_IMPORTED_MODULE_1__.AnimationType.Tap, false);
+        return !(0,_drag_utils_lock_js__WEBPACK_IMPORTED_MODULE_2__.isDragActive)();
+    }
+    function onPointerUp(event, info) {
+        if (!checkPointerEnd())
+            return;
+        /**
+         * We only count this as a tap gesture if the event.target is the same
+         * as, or a child of, this component's element
+         */
+        !(0,_utils_is_node_or_child_js__WEBPACK_IMPORTED_MODULE_3__.isNodeOrChild)(visualElement.getInstance(), event.target)
+            ? onTapCancel === null || onTapCancel === void 0 ? void 0 : onTapCancel(event, info)
+            : onTap === null || onTap === void 0 ? void 0 : onTap(event, info);
+    }
+    function onPointerCancel(event, info) {
+        if (!checkPointerEnd())
+            return;
+        onTapCancel === null || onTapCancel === void 0 ? void 0 : onTapCancel(event, info);
+    }
+    function onPointerDown(event, info) {
+        var _a;
+        removePointerEndListener();
+        if (isPressing.current)
+            return;
+        isPressing.current = true;
+        cancelPointerEndListeners.current = (0,popmotion__WEBPACK_IMPORTED_MODULE_4__.pipe)((0,_events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_5__.addPointerEvent)(window, "pointerup", onPointerUp), (0,_events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_5__.addPointerEvent)(window, "pointercancel", onPointerCancel));
+        onTapStart === null || onTapStart === void 0 ? void 0 : onTapStart(event, info);
+        (_a = visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(_render_utils_types_js__WEBPACK_IMPORTED_MODULE_1__.AnimationType.Tap, true);
+    }
+    (0,_events_use_pointer_event_js__WEBPACK_IMPORTED_MODULE_5__.usePointerEvent)(visualElement, "pointerdown", hasPressListeners ? onPointerDown : undefined);
+    (0,_utils_use_unmount_effect_js__WEBPACK_IMPORTED_MODULE_6__.useUnmountEffect)(removePointerEndListener);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/gestures/utils/event-type.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/gestures/utils/event-type.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isMouseEvent": () => (/* binding */ isMouseEvent),
+/* harmony export */   "isTouchEvent": () => (/* binding */ isTouchEvent)
+/* harmony export */ });
+function isMouseEvent(event) {
+    // PointerEvent inherits from MouseEvent so we can't use a straight instanceof check.
+    if (typeof PointerEvent !== "undefined" && event instanceof PointerEvent) {
+        return !!(event.pointerType === "mouse");
+    }
+    return event instanceof MouseEvent;
+}
+function isTouchEvent(event) {
+    var hasTouches = !!event.touches;
+    return hasTouches;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/gestures/utils/is-node-or-child.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/gestures/utils/is-node-or-child.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isNodeOrChild": () => (/* binding */ isNodeOrChild)
+/* harmony export */ });
+/**
+ * Recursively traverse up the tree to check whether the provided child node
+ * is the parent or a descendant of it.
+ *
+ * @param parent - Element to find
+ * @param child - Element to test against parent
+ */
+var isNodeOrChild = function (parent, child) {
+    if (!child) {
+        return false;
+    }
+    else if (parent === child) {
+        return true;
+    }
+    else {
+        return isNodeOrChild(parent, child.parentElement);
+    }
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/features/animations.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/features/animations.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "animations": () => (/* binding */ animations)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _animation_utils_is_animation_controls_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../animation/utils/is-animation-controls.js */ "./node_modules/framer-motion/dist/es/animation/utils/is-animation-controls.js");
+/* harmony import */ var _components_AnimatePresence_use_presence_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/AnimatePresence/use-presence.js */ "./node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.js");
+/* harmony import */ var _context_PresenceContext_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../context/PresenceContext.js */ "./node_modules/framer-motion/dist/es/context/PresenceContext.js");
+/* harmony import */ var _render_utils_animation_state_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../render/utils/animation-state.js */ "./node_modules/framer-motion/dist/es/render/utils/animation-state.js");
+/* harmony import */ var _render_utils_types_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../render/utils/types.js */ "./node_modules/framer-motion/dist/es/render/utils/types.js");
+/* harmony import */ var _utils_make_renderless_component_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/make-renderless-component.js */ "./node_modules/framer-motion/dist/es/motion/utils/make-renderless-component.js");
+
+
+
+
+
+
+
+
+
+var animations = {
+    animation: (0,_utils_make_renderless_component_js__WEBPACK_IMPORTED_MODULE_1__.makeRenderlessComponent)(function (_a) {
+        var visualElement = _a.visualElement, animate = _a.animate;
+        /**
+         * We dynamically generate the AnimationState manager as it contains a reference
+         * to the underlying animation library. We only want to load that if we load this,
+         * so people can optionally code split it out using the `m` component.
+         */
+        visualElement.animationState || (visualElement.animationState = (0,_render_utils_animation_state_js__WEBPACK_IMPORTED_MODULE_2__.createAnimationState)(visualElement));
+        /**
+         * Subscribe any provided AnimationControls to the component's VisualElement
+         */
+        if ((0,_animation_utils_is_animation_controls_js__WEBPACK_IMPORTED_MODULE_3__.isAnimationControls)(animate)) {
+            (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () { return animate.subscribe(visualElement); }, [animate]);
+        }
+    }),
+    exit: (0,_utils_make_renderless_component_js__WEBPACK_IMPORTED_MODULE_1__.makeRenderlessComponent)(function (props) {
+        var custom = props.custom, visualElement = props.visualElement;
+        var _a = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__read)((0,_components_AnimatePresence_use_presence_js__WEBPACK_IMPORTED_MODULE_5__.usePresence)(), 2), isPresent = _a[0], onExitComplete = _a[1];
+        var presenceContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_PresenceContext_js__WEBPACK_IMPORTED_MODULE_6__.PresenceContext);
+        (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+            var _a, _b;
+            var animation = (_a = visualElement.animationState) === null || _a === void 0 ? void 0 : _a.setActive(_render_utils_types_js__WEBPACK_IMPORTED_MODULE_7__.AnimationType.Exit, !isPresent, { custom: (_b = presenceContext === null || presenceContext === void 0 ? void 0 : presenceContext.custom) !== null && _b !== void 0 ? _b : custom });
+            !isPresent && (animation === null || animation === void 0 ? void 0 : animation.then(onExitComplete));
+        }, [isPresent]);
+    }),
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/features/definitions.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/features/definitions.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "featureDefinitions": () => (/* binding */ featureDefinitions),
+/* harmony export */   "loadFeatures": () => (/* binding */ loadFeatures)
+/* harmony export */ });
+var createDefinition = function (propNames) { return ({
+    isEnabled: function (props) { return propNames.some(function (name) { return !!props[name]; }); },
+}); };
+var featureDefinitions = {
+    measureLayout: createDefinition([
+        "layout",
+        "layoutId",
+        "drag",
+        "_layoutResetTransform",
+    ]),
+    animation: createDefinition([
+        "animate",
+        "exit",
+        "variants",
+        "whileHover",
+        "whileTap",
+        "whileFocus",
+        "whileDrag",
+    ]),
+    exit: createDefinition(["exit"]),
+    drag: createDefinition(["drag", "dragControls"]),
+    focus: createDefinition(["whileFocus"]),
+    hover: createDefinition(["whileHover", "onHoverStart", "onHoverEnd"]),
+    tap: createDefinition(["whileTap", "onTap", "onTapStart", "onTapCancel"]),
+    pan: createDefinition([
+        "onPan",
+        "onPanStart",
+        "onPanSessionStart",
+        "onPanEnd",
+    ]),
+    layoutAnimation: createDefinition(["layout", "layoutId"]),
+};
+function loadFeatures(features) {
+    for (var key in features) {
+        var Component = features[key];
+        if (Component !== null)
+            featureDefinitions[key].Component = Component;
+    }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/features/drag.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/features/drag.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "drag": () => (/* binding */ drag)
+/* harmony export */ });
+/* harmony import */ var _gestures_drag_use_drag_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../gestures/drag/use-drag.js */ "./node_modules/framer-motion/dist/es/gestures/drag/use-drag.js");
+/* harmony import */ var _gestures_use_pan_gesture_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../gestures/use-pan-gesture.js */ "./node_modules/framer-motion/dist/es/gestures/use-pan-gesture.js");
+/* harmony import */ var _utils_make_renderless_component_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/make-renderless-component.js */ "./node_modules/framer-motion/dist/es/motion/utils/make-renderless-component.js");
+
+
+
+
+var drag = {
+    pan: (0,_utils_make_renderless_component_js__WEBPACK_IMPORTED_MODULE_0__.makeRenderlessComponent)(_gestures_use_pan_gesture_js__WEBPACK_IMPORTED_MODULE_1__.usePanGesture),
+    drag: (0,_utils_make_renderless_component_js__WEBPACK_IMPORTED_MODULE_0__.makeRenderlessComponent)(_gestures_drag_use_drag_js__WEBPACK_IMPORTED_MODULE_2__.useDrag),
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/features/gestures.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/features/gestures.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "gestureAnimations": () => (/* binding */ gestureAnimations)
+/* harmony export */ });
+/* harmony import */ var _gestures_use_focus_gesture_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../gestures/use-focus-gesture.js */ "./node_modules/framer-motion/dist/es/gestures/use-focus-gesture.js");
+/* harmony import */ var _gestures_use_hover_gesture_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../gestures/use-hover-gesture.js */ "./node_modules/framer-motion/dist/es/gestures/use-hover-gesture.js");
+/* harmony import */ var _gestures_use_tap_gesture_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../gestures/use-tap-gesture.js */ "./node_modules/framer-motion/dist/es/gestures/use-tap-gesture.js");
+/* harmony import */ var _utils_make_renderless_component_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/make-renderless-component.js */ "./node_modules/framer-motion/dist/es/motion/utils/make-renderless-component.js");
+
+
+
+
+
+var gestureAnimations = {
+    tap: (0,_utils_make_renderless_component_js__WEBPACK_IMPORTED_MODULE_0__.makeRenderlessComponent)(_gestures_use_tap_gesture_js__WEBPACK_IMPORTED_MODULE_1__.useTapGesture),
+    focus: (0,_utils_make_renderless_component_js__WEBPACK_IMPORTED_MODULE_0__.makeRenderlessComponent)(_gestures_use_focus_gesture_js__WEBPACK_IMPORTED_MODULE_2__.useFocusGesture),
+    hover: (0,_utils_make_renderless_component_js__WEBPACK_IMPORTED_MODULE_0__.makeRenderlessComponent)(_gestures_use_hover_gesture_js__WEBPACK_IMPORTED_MODULE_3__.useHoverGesture),
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/features/layout/Animate.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/features/layout/Animate.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AnimateLayoutContextProvider": () => (/* binding */ AnimateLayoutContextProvider)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_each_axis_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../utils/each-axis.js */ "./node_modules/framer-motion/dist/es/utils/each-axis.js");
+/* harmony import */ var _animation_utils_transitions_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../animation/utils/transitions.js */ "./node_modules/framer-motion/dist/es/animation/utils/transitions.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./node_modules/framer-motion/dist/es/motion/features/layout/utils.js");
+/* harmony import */ var _components_AnimateSharedLayout_types_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../components/AnimateSharedLayout/types.js */ "./node_modules/framer-motion/dist/es/components/AnimateSharedLayout/types.js");
+/* harmony import */ var _components_AnimatePresence_use_presence_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../components/AnimatePresence/use-presence.js */ "./node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.js");
+/* harmony import */ var _utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/geometry/index.js */ "./node_modules/framer-motion/dist/es/utils/geometry/index.js");
+/* harmony import */ var _render_dom_projection_scale_correction_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../render/dom/projection/scale-correction.js */ "./node_modules/framer-motion/dist/es/render/dom/projection/scale-correction.js");
+/* harmony import */ var _render_dom_projection_default_scale_correctors_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../render/dom/projection/default-scale-correctors.js */ "./node_modules/framer-motion/dist/es/render/dom/projection/default-scale-correctors.js");
+
+
+
+
+
+
+
+
+
+
+
+var progressTarget = 1000;
+var Animate = /** @class */ (function (_super) {
+    (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__extends)(Animate, _super);
+    function Animate() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        /**
+         * A mutable object that tracks the target viewport box
+         * for the current animation frame.
+         */
+        _this.frameTarget = (0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_2__.axisBox)();
+        /**
+         * The current animation target, we use this to check whether to start
+         * a new animation or continue the existing one.
+         */
+        _this.currentAnimationTarget = (0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_2__.axisBox)();
+        /**
+         * Track whether we're animating this axis.
+         */
+        _this.isAnimating = {
+            x: false,
+            y: false,
+        };
+        _this.stopAxisAnimation = {
+            x: undefined,
+            y: undefined,
+        };
+        _this.isAnimatingTree = false;
+        _this.animate = function (target, origin, _a) {
+            if (_a === void 0) { _a = {}; }
+            var originBox = _a.originBox, targetBox = _a.targetBox, visibilityAction = _a.visibilityAction, shouldStackAnimate = _a.shouldStackAnimate, onComplete = _a.onComplete, prevParent = _a.prevParent, config = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__rest)(_a, ["originBox", "targetBox", "visibilityAction", "shouldStackAnimate", "onComplete", "prevParent"]);
+            var _b = _this.props, visualElement = _b.visualElement, layout = _b.layout;
+            /**
+             * Early return if we've been instructed not to animate this render.
+             */
+            if (shouldStackAnimate === false) {
+                _this.isAnimatingTree = false;
+                return _this.safeToRemove();
+            }
+            /**
+             * Prioritise tree animations
+             */
+            if (_this.isAnimatingTree && shouldStackAnimate !== true) {
+                return;
+            }
+            else if (shouldStackAnimate) {
+                _this.isAnimatingTree = true;
+            }
+            /**
+             * Allow the measured origin (prev bounding box) and target (actual layout) to be
+             * overridden by the provided config.
+             */
+            origin = originBox || origin;
+            target = targetBox || target;
+            /**
+             * If this element has a projecting parent, there's an opportunity to animate
+             * it relatively to that parent rather than relatively to the viewport. This
+             * allows us to add orchestrated animations.
+             */
+            var isRelative = false;
+            var projectionParent = visualElement.getProjectionParent();
+            if (projectionParent) {
+                var prevParentViewportBox = projectionParent.prevViewportBox;
+                var parentLayout = projectionParent.getLayoutState().layout;
+                /**
+                 * If we're being provided a previous parent VisualElement by AnimateSharedLayout
+                 */
+                if (prevParent) {
+                    /**
+                     * If we've been provided an explicit target box it means we're animating back
+                     * to this previous parent. So we can make a relative box by comparing to the previous
+                     * parent's layout
+                     */
+                    if (targetBox) {
+                        parentLayout = prevParent.getLayoutState().layout;
+                    }
+                    /**
+                     * Likewise if we've been provided an explicit origin box it means we're
+                     * animating out from a different element. So we should figure out where that was
+                     * on screen relative to the new parent element.
+                     */
+                    if (originBox &&
+                        !(0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.checkIfParentHasChanged)(prevParent, projectionParent) &&
+                        prevParent.prevViewportBox) {
+                        prevParentViewportBox = prevParent.prevViewportBox;
+                    }
+                }
+                if (prevParentViewportBox &&
+                    isProvidedCorrectDataForRelativeSharedLayout(prevParent, originBox, targetBox)) {
+                    isRelative = true;
+                    origin = (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.calcRelativeOffset)(prevParentViewportBox, origin);
+                    target = (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.calcRelativeOffset)(parentLayout, target);
+                }
+            }
+            var boxHasMoved = hasMoved(origin, target);
+            var animations = (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_4__.eachAxis)(function (axis) {
+                var _a, _b;
+                /**
+                 * If layout is set to "position", we can resize the origin box based on the target
+                 * box and only animate its position.
+                 */
+                if (layout === "position") {
+                    var targetLength = target[axis].max - target[axis].min;
+                    origin[axis].max = origin[axis].min + targetLength;
+                }
+                if (visualElement.projection.isTargetLocked) {
+                    return;
+                }
+                else if (visibilityAction !== undefined) {
+                    visualElement.setVisibility(visibilityAction === _components_AnimateSharedLayout_types_js__WEBPACK_IMPORTED_MODULE_5__.VisibilityAction.Show);
+                }
+                else if (boxHasMoved) {
+                    // If the box has moved, animate between it's current visual state and its
+                    // final state
+                    return _this.animateAxis(axis, target[axis], origin[axis], (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, config), { isRelative: isRelative }));
+                }
+                else {
+                    (_b = (_a = _this.stopAxisAnimation)[axis]) === null || _b === void 0 ? void 0 : _b.call(_a);
+                    // If the box has remained in the same place, immediately set the axis target
+                    // to the final desired state
+                    return visualElement.setProjectionTargetAxis(axis, target[axis].min, target[axis].max, isRelative);
+                }
+            });
+            // Force a render to ensure there's no flash of uncorrected bounding box.
+            visualElement.syncRender();
+            /**
+             * If this visualElement isn't present (ie it's been removed from the tree by the user but
+             * kept in by the tree by AnimatePresence) then call safeToRemove when all axis animations
+             * have successfully finished.
+             */
+            return Promise.all(animations).then(function () {
+                _this.isAnimatingTree = false;
+                onComplete && onComplete();
+                visualElement.notifyLayoutAnimationComplete();
+            });
+        };
+        return _this;
+    }
+    Animate.prototype.componentDidMount = function () {
+        var _this = this;
+        var visualElement = this.props.visualElement;
+        visualElement.animateMotionValue = _animation_utils_transitions_js__WEBPACK_IMPORTED_MODULE_6__.startAnimation;
+        visualElement.enableLayoutProjection();
+        this.unsubLayoutReady = visualElement.onLayoutUpdate(this.animate);
+        visualElement.layoutSafeToRemove = function () { return _this.safeToRemove(); };
+        (0,_render_dom_projection_scale_correction_js__WEBPACK_IMPORTED_MODULE_7__.addScaleCorrection)(_render_dom_projection_default_scale_correctors_js__WEBPACK_IMPORTED_MODULE_8__.defaultScaleCorrectors);
+    };
+    Animate.prototype.componentWillUnmount = function () {
+        var _this = this;
+        this.unsubLayoutReady();
+        (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_4__.eachAxis)(function (axis) { var _a, _b; return (_b = (_a = _this.stopAxisAnimation)[axis]) === null || _b === void 0 ? void 0 : _b.call(_a); });
+    };
+    /**
+     * TODO: This manually performs animations on the visualElement's layout progress
+     * values. It'd be preferable to amend the startLayoutAxisAnimation
+     * API to accept more custom animations like this.
+     */
+    Animate.prototype.animateAxis = function (axis, target, origin, _a) {
+        var _this = this;
+        var _b, _c;
+        var _d = _a === void 0 ? {} : _a, transition = _d.transition, isRelative = _d.isRelative;
+        /**
+         * If we're not animating to a new target, don't run this animation
+         */
+        if (this.isAnimating[axis] &&
+            axisIsEqual(target, this.currentAnimationTarget[axis])) {
+            return;
+        }
+        (_c = (_b = this.stopAxisAnimation)[axis]) === null || _c === void 0 ? void 0 : _c.call(_b);
+        this.isAnimating[axis] = true;
+        var visualElement = this.props.visualElement;
+        var frameTarget = this.frameTarget[axis];
+        var layoutProgress = visualElement.getProjectionAnimationProgress()[axis];
+        /**
+         * Set layout progress back to 0. We set it twice to hard-reset any velocity that might
+         * be re-incoporated into a subsequent spring animation.
+         */
+        layoutProgress.clearListeners();
+        layoutProgress.set(0);
+        layoutProgress.set(0);
+        /**
+         * Create an animation function to run once per frame. This will tween the visual bounding box from
+         * origin to target using the latest progress value.
+         */
+        var frame = function () {
+            // Convert the latest layoutProgress, which is a value from 0-1000, into a 0-1 progress
+            var p = layoutProgress.get() / progressTarget;
+            // Tween the axis and update the visualElement with the latest values
+            (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.tweenAxis)(frameTarget, origin, target, p);
+            visualElement.setProjectionTargetAxis(axis, frameTarget.min, frameTarget.max, isRelative);
+        };
+        // Synchronously run a frame to ensure there's no flash of the uncorrected bounding box.
+        frame();
+        // Create a function to stop animation on this specific axis
+        var unsubscribeProgress = layoutProgress.onChange(frame);
+        this.stopAxisAnimation[axis] = function () {
+            _this.isAnimating[axis] = false;
+            layoutProgress.stop();
+            unsubscribeProgress();
+        };
+        this.currentAnimationTarget[axis] = target;
+        var layoutTransition = transition ||
+            visualElement.getDefaultTransition() ||
+            defaultLayoutTransition;
+        // Start the animation on this axis
+        var animation = (0,_animation_utils_transitions_js__WEBPACK_IMPORTED_MODULE_6__.startAnimation)(axis === "x" ? "layoutX" : "layoutY", layoutProgress, progressTarget, layoutTransition && (0,_animation_utils_transitions_js__WEBPACK_IMPORTED_MODULE_6__.getValueTransition)(layoutTransition, "layout")).then(this.stopAxisAnimation[axis]);
+        return animation;
+    };
+    Animate.prototype.safeToRemove = function () {
+        var _a, _b;
+        (_b = (_a = this.props).safeToRemove) === null || _b === void 0 ? void 0 : _b.call(_a);
+    };
+    Animate.prototype.render = function () {
+        return null;
+    };
+    return Animate;
+}(react__WEBPACK_IMPORTED_MODULE_0__.Component));
+function AnimateLayoutContextProvider(props) {
+    var _a = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__read)((0,_components_AnimatePresence_use_presence_js__WEBPACK_IMPORTED_MODULE_9__.usePresence)(), 2), safeToRemove = _a[1];
+    return react__WEBPACK_IMPORTED_MODULE_0__.createElement(Animate, (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, props, { safeToRemove: safeToRemove }));
+}
+function hasMoved(a, b) {
+    return (!isZeroBox(a) &&
+        !isZeroBox(b) &&
+        (!axisIsEqual(a.x, b.x) || !axisIsEqual(a.y, b.y)));
+}
+var zeroAxis = { min: 0, max: 0 };
+function isZeroBox(a) {
+    return axisIsEqual(a.x, zeroAxis) && axisIsEqual(a.y, zeroAxis);
+}
+function axisIsEqual(a, b) {
+    return a.min === b.min && a.max === b.max;
+}
+var defaultLayoutTransition = {
+    duration: 0.45,
+    ease: [0.4, 0, 0.1, 1],
+};
+function isProvidedCorrectDataForRelativeSharedLayout(prevParent, originBox, targetBox) {
+    return prevParent || (!prevParent && !(originBox || targetBox));
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/features/layout/Measure.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/features/layout/Measure.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MeasureContextProvider": () => (/* binding */ MeasureContextProvider)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _context_SharedLayoutContext_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../context/SharedLayoutContext.js */ "./node_modules/framer-motion/dist/es/context/SharedLayoutContext.js");
+/* harmony import */ var _render_dom_projection_utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../render/dom/projection/utils.js */ "./node_modules/framer-motion/dist/es/render/dom/projection/utils.js");
+
+
+
+
+
+/**
+ * This component is responsible for scheduling the measuring of the motion component
+ */
+var Measure = /** @class */ (function (_super) {
+    (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__extends)(Measure, _super);
+    function Measure() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * If this is a child of a SyncContext, register the VisualElement with it on mount.
+     */
+    Measure.prototype.componentDidMount = function () {
+        var _a = this.props, syncLayout = _a.syncLayout, framerSyncLayout = _a.framerSyncLayout, visualElement = _a.visualElement;
+        (0,_context_SharedLayoutContext_js__WEBPACK_IMPORTED_MODULE_2__.isSharedLayout)(syncLayout) && syncLayout.register(visualElement);
+        (0,_context_SharedLayoutContext_js__WEBPACK_IMPORTED_MODULE_2__.isSharedLayout)(framerSyncLayout) &&
+            framerSyncLayout.register(visualElement);
+        visualElement.onUnmount(function () {
+            if ((0,_context_SharedLayoutContext_js__WEBPACK_IMPORTED_MODULE_2__.isSharedLayout)(syncLayout)) {
+                syncLayout.remove(visualElement);
+            }
+            if ((0,_context_SharedLayoutContext_js__WEBPACK_IMPORTED_MODULE_2__.isSharedLayout)(framerSyncLayout)) {
+                framerSyncLayout.remove(visualElement);
+            }
+        });
+    };
+    /**
+     * If this is a child of a SyncContext, notify it that it needs to re-render. It will then
+     * handle the snapshotting.
+     *
+     * If it is stand-alone component, add it to the batcher.
+     */
+    Measure.prototype.getSnapshotBeforeUpdate = function () {
+        var _a = this.props, syncLayout = _a.syncLayout, visualElement = _a.visualElement;
+        if ((0,_context_SharedLayoutContext_js__WEBPACK_IMPORTED_MODULE_2__.isSharedLayout)(syncLayout)) {
+            syncLayout.syncUpdate();
+        }
+        else {
+            (0,_render_dom_projection_utils_js__WEBPACK_IMPORTED_MODULE_3__.snapshotViewportBox)(visualElement);
+            syncLayout.add(visualElement);
+        }
+        return null;
+    };
+    Measure.prototype.componentDidUpdate = function () {
+        var syncLayout = this.props.syncLayout;
+        if (!(0,_context_SharedLayoutContext_js__WEBPACK_IMPORTED_MODULE_2__.isSharedLayout)(syncLayout))
+            syncLayout.flush();
+    };
+    Measure.prototype.render = function () {
+        return null;
+    };
+    return Measure;
+}((react__WEBPACK_IMPORTED_MODULE_0___default().Component)));
+function MeasureContextProvider(props) {
+    var syncLayout = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_SharedLayoutContext_js__WEBPACK_IMPORTED_MODULE_2__.SharedLayoutContext);
+    var framerSyncLayout = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_SharedLayoutContext_js__WEBPACK_IMPORTED_MODULE_2__.FramerTreeLayoutContext);
+    return (react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Measure, (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, props, { syncLayout: syncLayout, framerSyncLayout: framerSyncLayout })));
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/features/layout/index.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/features/layout/index.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "layoutAnimations": () => (/* binding */ layoutAnimations)
+/* harmony export */ });
+/* harmony import */ var _Animate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Animate.js */ "./node_modules/framer-motion/dist/es/motion/features/layout/Animate.js");
+/* harmony import */ var _Measure_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Measure.js */ "./node_modules/framer-motion/dist/es/motion/features/layout/Measure.js");
+
+
+
+var layoutAnimations = {
+    measureLayout: _Measure_js__WEBPACK_IMPORTED_MODULE_0__.MeasureContextProvider,
+    layoutAnimation: _Animate_js__WEBPACK_IMPORTED_MODULE_1__.AnimateLayoutContextProvider,
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/features/layout/utils.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/features/layout/utils.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "calcRelativeOffset": () => (/* binding */ calcRelativeOffset),
+/* harmony export */   "calcRelativeOffsetAxis": () => (/* binding */ calcRelativeOffsetAxis),
+/* harmony export */   "checkIfParentHasChanged": () => (/* binding */ checkIfParentHasChanged),
+/* harmony export */   "tweenAxis": () => (/* binding */ tweenAxis)
+/* harmony export */ });
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/mix.js");
+
+
+function tweenAxis(target, prev, next, p) {
+    target.min = (0,popmotion__WEBPACK_IMPORTED_MODULE_0__.mix)(prev.min, next.min, p);
+    target.max = (0,popmotion__WEBPACK_IMPORTED_MODULE_0__.mix)(prev.max, next.max, p);
+}
+function calcRelativeOffsetAxis(parent, child) {
+    return {
+        min: child.min - parent.min,
+        max: child.max - parent.min,
+    };
+}
+function calcRelativeOffset(parent, child) {
+    return {
+        x: calcRelativeOffsetAxis(parent.x, child.x),
+        y: calcRelativeOffsetAxis(parent.y, child.y),
+    };
+}
+function checkIfParentHasChanged(prev, next) {
+    var prevId = prev.getLayoutId();
+    var nextId = next.getLayoutId();
+    return prevId !== nextId || (nextId === undefined && prev !== next);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/features/use-features.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/features/use-features.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useFeatures": () => (/* binding */ useFeatures)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _definitions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./definitions.js */ "./node_modules/framer-motion/dist/es/motion/features/definitions.js");
+/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
+/* harmony import */ var _context_LazyContext_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../context/LazyContext.js */ "./node_modules/framer-motion/dist/es/context/LazyContext.js");
+
+
+
+
+
+
+
+var featureNames = Object.keys(_definitions_js__WEBPACK_IMPORTED_MODULE_2__.featureDefinitions);
+var numFeatures = featureNames.length;
+/**
+ * Load features via renderless components based on the provided MotionProps.
+ */
+function useFeatures(props, visualElement, preloadedFeatures) {
+    var features = [];
+    var lazyContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_LazyContext_js__WEBPACK_IMPORTED_MODULE_3__.LazyContext);
+    if (!visualElement)
+        return null;
+    /**
+     * If we're in development mode, check to make sure we're not rendering a motion component
+     * as a child of LazyMotion, as this will break the file-size benefits of using it.
+     */
+    if ( true &&
+        preloadedFeatures &&
+        lazyContext.strict) {
+        (0,hey_listen__WEBPACK_IMPORTED_MODULE_1__.invariant)(false, "You have rendered a `motion` component within a `LazyMotion` component. This will break tree shaking. Import and render a `m` component instead.");
+    }
+    for (var i = 0; i < numFeatures; i++) {
+        var name_1 = featureNames[i];
+        var _a = _definitions_js__WEBPACK_IMPORTED_MODULE_2__.featureDefinitions[name_1], isEnabled = _a.isEnabled, Component = _a.Component;
+        /**
+         * It might be possible in the future to use this moment to
+         * dynamically request functionality. In initial tests this
+         * was producing a lot of duplication amongst bundles.
+         */
+        if (isEnabled(props) && Component) {
+            features.push(react__WEBPACK_IMPORTED_MODULE_0__.createElement(Component, (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__assign)({ key: name_1 }, props, { visualElement: visualElement })));
+        }
+    }
+    return features;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/index.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createMotionComponent": () => (/* binding */ createMotionComponent)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _features_use_features_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./features/use-features.js */ "./node_modules/framer-motion/dist/es/motion/features/use-features.js");
+/* harmony import */ var _context_MotionConfigContext_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../context/MotionConfigContext.js */ "./node_modules/framer-motion/dist/es/context/MotionConfigContext.js");
+/* harmony import */ var _context_MotionContext_index_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../context/MotionContext/index.js */ "./node_modules/framer-motion/dist/es/context/MotionContext/index.js");
+/* harmony import */ var _utils_use_visual_element_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/use-visual-element.js */ "./node_modules/framer-motion/dist/es/motion/utils/use-visual-element.js");
+/* harmony import */ var _utils_use_motion_ref_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/use-motion-ref.js */ "./node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.js");
+/* harmony import */ var _context_MotionContext_create_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../context/MotionContext/create.js */ "./node_modules/framer-motion/dist/es/context/MotionContext/create.js");
+/* harmony import */ var _features_definitions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./features/definitions.js */ "./node_modules/framer-motion/dist/es/motion/features/definitions.js");
+/* harmony import */ var _utils_is_browser_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/is-browser.js */ "./node_modules/framer-motion/dist/es/utils/is-browser.js");
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Create a `motion` component.
+ *
+ * This function accepts a Component argument, which can be either a string (ie "div"
+ * for `motion.div`), or an actual React component.
+ *
+ * Alongside this is a config option which provides a way of rendering the provided
+ * component "offline", or outside the React render cycle.
+ *
+ * @internal
+ */
+function createMotionComponent(_a) {
+    var preloadedFeatures = _a.preloadedFeatures, createVisualElement = _a.createVisualElement, useRender = _a.useRender, useVisualState = _a.useVisualState, Component = _a.Component;
+    preloadedFeatures && (0,_features_definitions_js__WEBPACK_IMPORTED_MODULE_1__.loadFeatures)(preloadedFeatures);
+    function MotionComponent(props, externalRef) {
+        /**
+         * If we're rendering in a static environment, we only visually update the component
+         * as a result of a React-rerender rather than interactions or animations. This
+         * means we don't need to load additional memory structures like VisualElement,
+         * or any gesture/animation features.
+         */
+        var isStatic = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_MotionConfigContext_js__WEBPACK_IMPORTED_MODULE_2__.MotionConfigContext).isStatic;
+        var features = null;
+        /**
+         * Create the tree context. This is memoized and will only trigger renders
+         * when the current tree variant changes in static mode.
+         */
+        var context = (0,_context_MotionContext_create_js__WEBPACK_IMPORTED_MODULE_3__.useCreateMotionContext)(props, isStatic);
+        /**
+         *
+         */
+        var visualState = useVisualState(props, isStatic);
+        if (!isStatic && _utils_is_browser_js__WEBPACK_IMPORTED_MODULE_4__.isBrowser) {
+            /**
+             * Create a VisualElement for this component. A VisualElement provides a common
+             * interface to renderer-specific APIs (ie DOM/Three.js etc) as well as
+             * providing a way of rendering to these APIs outside of the React render loop
+             * for more performant animations and interactions
+             */
+            context.visualElement = (0,_utils_use_visual_element_js__WEBPACK_IMPORTED_MODULE_5__.useVisualElement)(Component, visualState, props, createVisualElement);
+            /**
+             * Load Motion gesture and animation features. These are rendered as renderless
+             * components so each feature can optionally make use of React lifecycle methods.
+             *
+             * TODO: The intention is to move these away from a React-centric to a
+             * VisualElement-centric lifecycle scheme.
+             */
+            features = (0,_features_use_features_js__WEBPACK_IMPORTED_MODULE_6__.useFeatures)(props, context.visualElement, preloadedFeatures);
+        }
+        /**
+         * The mount order and hierarchy is specific to ensure our element ref
+         * is hydrated by the time features fire their effects.
+         */
+        return (react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_context_MotionContext_index_js__WEBPACK_IMPORTED_MODULE_7__.MotionContext.Provider, { value: context }, useRender(Component, props, (0,_utils_use_motion_ref_js__WEBPACK_IMPORTED_MODULE_8__.useMotionRef)(visualState, context.visualElement, externalRef), visualState, isStatic)),
+            features));
+    }
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(MotionComponent);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.js ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isForcedMotionValue": () => (/* binding */ isForcedMotionValue)
+/* harmony export */ });
+/* harmony import */ var _render_dom_projection_scale_correction_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../render/dom/projection/scale-correction.js */ "./node_modules/framer-motion/dist/es/render/dom/projection/scale-correction.js");
+/* harmony import */ var _render_html_utils_transform_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../render/html/utils/transform.js */ "./node_modules/framer-motion/dist/es/render/html/utils/transform.js");
+
+
+
+function isForcedMotionValue(key, _a) {
+    var layout = _a.layout, layoutId = _a.layoutId;
+    return ((0,_render_html_utils_transform_js__WEBPACK_IMPORTED_MODULE_0__.isTransformProp)(key) ||
+        (0,_render_html_utils_transform_js__WEBPACK_IMPORTED_MODULE_0__.isTransformOriginProp)(key) ||
+        ((layout || layoutId !== undefined) &&
+            (!!_render_dom_projection_scale_correction_js__WEBPACK_IMPORTED_MODULE_1__.valueScaleCorrection[key] || key === "opacity")));
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/utils/make-renderless-component.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/utils/make-renderless-component.js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "makeRenderlessComponent": () => (/* binding */ makeRenderlessComponent)
+/* harmony export */ });
+var makeRenderlessComponent = function (hook) { return function (props) {
+    hook(props);
+    return null;
+}; };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/utils/use-motion-ref.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useMotionRef": () => (/* binding */ useMotionRef)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils_is_ref_object_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/is-ref-object.js */ "./node_modules/framer-motion/dist/es/utils/is-ref-object.js");
+
+
+
+/**
+ * Creates a ref function that, when called, hydrates the provided
+ * external ref and VisualElement.
+ */
+function useMotionRef(visualState, visualElement, externalRef) {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (instance) {
+        var _a;
+        instance && ((_a = visualState.mount) === null || _a === void 0 ? void 0 : _a.call(visualState, instance));
+        if (visualElement) {
+            instance
+                ? visualElement.mount(instance)
+                : visualElement.unmount();
+        }
+        if (externalRef) {
+            if (typeof externalRef === "function") {
+                externalRef(instance);
+            }
+            else if ((0,_utils_is_ref_object_js__WEBPACK_IMPORTED_MODULE_1__.isRefObject)(externalRef)) {
+                externalRef.current = instance;
+            }
+        }
+    }, 
+    /**
+     * Only pass a new ref callback to React if we've received a visual element
+     * factory. Otherwise we'll be mounting/remounting every time externalRef
+     * or other dependencies change.
+     */
+    [visualElement]);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/utils/use-visual-element.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/utils/use-visual-element.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useVisualElement": () => (/* binding */ useVisualElement)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _context_PresenceContext_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../context/PresenceContext.js */ "./node_modules/framer-motion/dist/es/context/PresenceContext.js");
+/* harmony import */ var _components_AnimatePresence_use_presence_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../components/AnimatePresence/use-presence.js */ "./node_modules/framer-motion/dist/es/components/AnimatePresence/use-presence.js");
+/* harmony import */ var _context_LayoutGroupContext_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../context/LayoutGroupContext.js */ "./node_modules/framer-motion/dist/es/context/LayoutGroupContext.js");
+/* harmony import */ var _context_MotionContext_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../context/MotionContext/index.js */ "./node_modules/framer-motion/dist/es/context/MotionContext/index.js");
+/* harmony import */ var _utils_use_isomorphic_effect_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../utils/use-isomorphic-effect.js */ "./node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.js");
+/* harmony import */ var _context_MotionConfigContext_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../context/MotionConfigContext.js */ "./node_modules/framer-motion/dist/es/context/MotionConfigContext.js");
+/* harmony import */ var _context_LazyContext_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../context/LazyContext.js */ "./node_modules/framer-motion/dist/es/context/LazyContext.js");
+
+
+
+
+
+
+
+
+
+
+function useLayoutId(_a) {
+    var layoutId = _a.layoutId;
+    var layoutGroupId = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_LayoutGroupContext_js__WEBPACK_IMPORTED_MODULE_1__.LayoutGroupContext);
+    return layoutGroupId && layoutId !== undefined
+        ? layoutGroupId + "-" + layoutId
+        : layoutId;
+}
+function useVisualElement(Component, visualState, props, createVisualElement) {
+    var config = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_MotionConfigContext_js__WEBPACK_IMPORTED_MODULE_2__.MotionConfigContext);
+    var lazyContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_LazyContext_js__WEBPACK_IMPORTED_MODULE_3__.LazyContext);
+    var parent = (0,_context_MotionContext_index_js__WEBPACK_IMPORTED_MODULE_4__.useVisualElementContext)();
+    var presenceContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_PresenceContext_js__WEBPACK_IMPORTED_MODULE_5__.PresenceContext);
+    var layoutId = useLayoutId(props);
+    var visualElementRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(undefined);
+    /**
+     * If we haven't preloaded a renderer, check to see if we have one lazy-loaded
+     */
+    if (!createVisualElement)
+        createVisualElement = lazyContext.renderer;
+    if (!visualElementRef.current && createVisualElement) {
+        visualElementRef.current = createVisualElement(Component, {
+            visualState: visualState,
+            parent: parent,
+            props: (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_6__.__assign)({}, props), { layoutId: layoutId }),
+            presenceId: presenceContext === null || presenceContext === void 0 ? void 0 : presenceContext.id,
+            blockInitialAnimation: (presenceContext === null || presenceContext === void 0 ? void 0 : presenceContext.initial) === false,
+        });
+    }
+    var visualElement = visualElementRef.current;
+    (0,_utils_use_isomorphic_effect_js__WEBPACK_IMPORTED_MODULE_7__.useIsomorphicLayoutEffect)(function () {
+        if (!visualElement)
+            return;
+        visualElement.setProps((0,tslib__WEBPACK_IMPORTED_MODULE_6__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_6__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_6__.__assign)({}, config), props), { layoutId: layoutId }));
+        visualElement.isPresent = (0,_components_AnimatePresence_use_presence_js__WEBPACK_IMPORTED_MODULE_8__.isPresent)(presenceContext);
+        visualElement.isPresenceRoot =
+            !parent || parent.presenceId !== (presenceContext === null || presenceContext === void 0 ? void 0 : presenceContext.id);
+        /**
+         * Fire a render to ensure the latest state is reflected on-screen.
+         */
+        visualElement.syncRender();
+    });
+    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+        var _a;
+        if (!visualElement)
+            return;
+        /**
+         * In a future refactor we can replace the features-as-components and
+         * have this loop through them all firing "effect" listeners
+         */
+        (_a = visualElement.animationState) === null || _a === void 0 ? void 0 : _a.animateChanges();
+    });
+    (0,_utils_use_isomorphic_effect_js__WEBPACK_IMPORTED_MODULE_7__.useIsomorphicLayoutEffect)(function () { return function () { return visualElement === null || visualElement === void 0 ? void 0 : visualElement.notifyUnmount(); }; }, []);
+    return visualElement;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/utils/use-visual-state.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/utils/use-visual-state.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "makeUseVisualState": () => (/* binding */ makeUseVisualState)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _animation_utils_is_animation_controls_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../animation/utils/is-animation-controls.js */ "./node_modules/framer-motion/dist/es/animation/utils/is-animation-controls.js");
+/* harmony import */ var _context_PresenceContext_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../context/PresenceContext.js */ "./node_modules/framer-motion/dist/es/context/PresenceContext.js");
+/* harmony import */ var _render_utils_variants_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../render/utils/variants.js */ "./node_modules/framer-motion/dist/es/render/utils/variants.js");
+/* harmony import */ var _utils_use_constant_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/use-constant.js */ "./node_modules/framer-motion/dist/es/utils/use-constant.js");
+/* harmony import */ var _value_utils_resolve_motion_value_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../value/utils/resolve-motion-value.js */ "./node_modules/framer-motion/dist/es/value/utils/resolve-motion-value.js");
+/* harmony import */ var _context_MotionContext_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../context/MotionContext/index.js */ "./node_modules/framer-motion/dist/es/context/MotionContext/index.js");
+
+
+
+
+
+
+
+
+
+function makeState(_a, props, context, presenceContext) {
+    var scrapeMotionValuesFromProps = _a.scrapeMotionValuesFromProps, createRenderState = _a.createRenderState, onMount = _a.onMount;
+    var state = {
+        latestValues: makeLatestValues(props, context, presenceContext, scrapeMotionValuesFromProps),
+        renderState: createRenderState(),
+    };
+    if (onMount) {
+        state.mount = function (instance) { return onMount(props, instance, state); };
+    }
+    return state;
+}
+var makeUseVisualState = function (config) { return function (props, isStatic) {
+    var context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_MotionContext_index_js__WEBPACK_IMPORTED_MODULE_1__.MotionContext);
+    var presenceContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context_PresenceContext_js__WEBPACK_IMPORTED_MODULE_2__.PresenceContext);
+    return isStatic
+        ? makeState(config, props, context, presenceContext)
+        : (0,_utils_use_constant_js__WEBPACK_IMPORTED_MODULE_3__.useConstant)(function () { return makeState(config, props, context, presenceContext); });
+}; };
+function makeLatestValues(props, context, presenceContext, scrapeMotionValues) {
+    var values = {};
+    var blockInitialAnimation = (presenceContext === null || presenceContext === void 0 ? void 0 : presenceContext.initial) === false;
+    var motionValues = scrapeMotionValues(props);
+    for (var key in motionValues) {
+        values[key] = (0,_value_utils_resolve_motion_value_js__WEBPACK_IMPORTED_MODULE_4__.resolveMotionValue)(motionValues[key]);
+    }
+    var initial = props.initial, animate = props.animate;
+    var isControllingVariants = (0,_render_utils_variants_js__WEBPACK_IMPORTED_MODULE_5__.checkIfControllingVariants)(props);
+    var isVariantNode = (0,_render_utils_variants_js__WEBPACK_IMPORTED_MODULE_5__.checkIfVariantNode)(props);
+    if (context &&
+        isVariantNode &&
+        !isControllingVariants &&
+        props.inherit !== false) {
+        initial !== null && initial !== void 0 ? initial : (initial = context.initial);
+        animate !== null && animate !== void 0 ? animate : (animate = context.animate);
+    }
+    var variantToSet = blockInitialAnimation || initial === false ? animate : initial;
+    if (variantToSet &&
+        typeof variantToSet !== "boolean" &&
+        !(0,_animation_utils_is_animation_controls_js__WEBPACK_IMPORTED_MODULE_6__.isAnimationControls)(variantToSet)) {
+        var list = Array.isArray(variantToSet) ? variantToSet : [variantToSet];
+        list.forEach(function (definition) {
+            var resolved = (0,_render_utils_variants_js__WEBPACK_IMPORTED_MODULE_5__.resolveVariantFromProps)(props, definition);
+            if (!resolved)
+                return;
+            var transitionEnd = resolved.transitionEnd; resolved.transition; var target = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__rest)(resolved, ["transitionEnd", "transition"]);
+            for (var key in target)
+                values[key] = target[key];
+            for (var key in transitionEnd)
+                values[key] = transitionEnd[key];
+        });
+    }
+    return values;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/motion/utils/valid-prop.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/motion/utils/valid-prop.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isValidMotionProp": () => (/* binding */ isValidMotionProp)
+/* harmony export */ });
+/**
+ * A list of all valid MotionProps.
+ *
+ * @internalremarks
+ * This doesn't throw if a `MotionProp` name is missing - it should.
+ */
+var validMotionProps = new Set([
+    "initial",
+    "animate",
+    "exit",
+    "style",
+    "variants",
+    "transition",
+    "transformTemplate",
+    "transformValues",
+    "custom",
+    "inherit",
+    "layout",
+    "layoutId",
+    "_layoutResetTransform",
+    "onLayoutAnimationComplete",
+    "onViewportBoxUpdate",
+    "onLayoutMeasure",
+    "onBeforeLayoutMeasure",
+    "onAnimationStart",
+    "onAnimationComplete",
+    "onUpdate",
+    "onDragStart",
+    "onDrag",
+    "onDragEnd",
+    "onMeasureDragConstraints",
+    "onDirectionLock",
+    "onDragTransitionEnd",
+    "drag",
+    "dragControls",
+    "dragListener",
+    "dragConstraints",
+    "dragDirectionLock",
+    "_dragX",
+    "_dragY",
+    "dragElastic",
+    "dragMomentum",
+    "dragPropagation",
+    "dragTransition",
+    "whileDrag",
+    "onPan",
+    "onPanStart",
+    "onPanEnd",
+    "onPanSessionStart",
+    "onTap",
+    "onTapStart",
+    "onTapCancel",
+    "onHoverStart",
+    "onHoverEnd",
+    "whileFocus",
+    "whileTap",
+    "whileHover",
+]);
+/**
+ * Check whether a prop name is a valid `MotionProp` key.
+ *
+ * @param key - Name of the property to check
+ * @returns `true` is key is a valid `MotionProp`.
+ *
+ * @public
+ */
+function isValidMotionProp(key) {
+    return validMotionProps.has(key);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/create-visual-element.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/create-visual-element.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createDomVisualElement": () => (/* binding */ createDomVisualElement)
+/* harmony export */ });
+/* harmony import */ var _html_visual_element_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../html/visual-element.js */ "./node_modules/framer-motion/dist/es/render/html/visual-element.js");
+/* harmony import */ var _svg_visual_element_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../svg/visual-element.js */ "./node_modules/framer-motion/dist/es/render/svg/visual-element.js");
+/* harmony import */ var _utils_is_svg_component_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/is-svg-component.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.js");
+
+
+
+
+var createDomVisualElement = function (Component, options) {
+    return (0,_utils_is_svg_component_js__WEBPACK_IMPORTED_MODULE_0__.isSVGComponent)(Component)
+        ? (0,_svg_visual_element_js__WEBPACK_IMPORTED_MODULE_1__.svgVisualElement)(options, { enableHardwareAcceleration: false })
+        : (0,_html_visual_element_js__WEBPACK_IMPORTED_MODULE_2__.htmlVisualElement)(options, { enableHardwareAcceleration: true });
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/motion-proxy.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/motion-proxy.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createMotionProxy": () => (/* binding */ createMotionProxy)
+/* harmony export */ });
+/* harmony import */ var _motion_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../motion/index.js */ "./node_modules/framer-motion/dist/es/motion/index.js");
+
+
+/**
+ * Convert any React component into a `motion` component. The provided component
+ * **must** use `React.forwardRef` to the underlying DOM component you want to animate.
+ *
+ * ```jsx
+ * const Component = React.forwardRef((props, ref) => {
+ *   return <div ref={ref} />
+ * })
+ *
+ * const MotionComponent = motion(Component)
+ * ```
+ *
+ * @public
+ */
+function createMotionProxy(createConfig) {
+    function custom(Component, customMotionComponentConfig) {
+        if (customMotionComponentConfig === void 0) { customMotionComponentConfig = {}; }
+        return (0,_motion_index_js__WEBPACK_IMPORTED_MODULE_0__.createMotionComponent)(createConfig(Component, customMotionComponentConfig));
+    }
+    /**
+     * A cache of generated `motion` components, e.g `motion.div`, `motion.input` etc.
+     * Rather than generating them anew every render.
+     */
+    var componentCache = new Map();
+    return new Proxy(custom, {
+        /**
+         * Called when `motion` is referenced with a prop: `motion.div`, `motion.input` etc.
+         * The prop name is passed through as `key` and we can use that to generate a `motion`
+         * DOM component with that name.
+         */
+        get: function (_target, key) {
+            /**
+             * If this element doesn't exist in the component cache, create it and cache.
+             */
+            if (!componentCache.has(key)) {
+                componentCache.set(key, custom(key));
+            }
+            return componentCache.get(key);
+        },
+    });
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/motion.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/motion.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createDomMotionComponent": () => (/* binding */ createDomMotionComponent),
+/* harmony export */   "motion": () => (/* binding */ motion)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _motion_index_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../motion/index.js */ "./node_modules/framer-motion/dist/es/motion/index.js");
+/* harmony import */ var _motion_proxy_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./motion-proxy.js */ "./node_modules/framer-motion/dist/es/render/dom/motion-proxy.js");
+/* harmony import */ var _utils_create_config_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/create-config.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/create-config.js");
+/* harmony import */ var _motion_features_gestures_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../motion/features/gestures.js */ "./node_modules/framer-motion/dist/es/motion/features/gestures.js");
+/* harmony import */ var _motion_features_animations_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../motion/features/animations.js */ "./node_modules/framer-motion/dist/es/motion/features/animations.js");
+/* harmony import */ var _motion_features_drag_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../motion/features/drag.js */ "./node_modules/framer-motion/dist/es/motion/features/drag.js");
+/* harmony import */ var _motion_features_layout_index_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../motion/features/layout/index.js */ "./node_modules/framer-motion/dist/es/motion/features/layout/index.js");
+/* harmony import */ var _create_visual_element_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./create-visual-element.js */ "./node_modules/framer-motion/dist/es/render/dom/create-visual-element.js");
+
+
+
+
+
+
+
+
+
+
+var featureBundle = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, _motion_features_animations_js__WEBPACK_IMPORTED_MODULE_1__.animations), _motion_features_gestures_js__WEBPACK_IMPORTED_MODULE_2__.gestureAnimations), _motion_features_drag_js__WEBPACK_IMPORTED_MODULE_3__.drag), _motion_features_layout_index_js__WEBPACK_IMPORTED_MODULE_4__.layoutAnimations);
+/**
+ * HTML & SVG components, optimised for use with gestures and animation. These can be used as
+ * drop-in replacements for any HTML & SVG component, all CSS & SVG properties are supported.
+ *
+ * @public
+ */
+var motion = /*@__PURE__*/ (0,_motion_proxy_js__WEBPACK_IMPORTED_MODULE_5__.createMotionProxy)(function (Component, config) {
+    return (0,_utils_create_config_js__WEBPACK_IMPORTED_MODULE_6__.createDomMotionConfig)(Component, config, featureBundle, _create_visual_element_js__WEBPACK_IMPORTED_MODULE_7__.createDomVisualElement);
+});
+/**
+ * Create a DOM `motion` component with the provided string. This is primarily intended
+ * as a full alternative to `motion` for consumers who have to support environments that don't
+ * support `Proxy`.
+ *
+ * ```javascript
+ * import { createDomMotionComponent } from "framer-motion"
+ *
+ * const motion = {
+ *   div: createDomMotionComponent('div')
+ * }
+ * ```
+ *
+ * @public
+ */
+function createDomMotionComponent(key) {
+    return (0,_motion_index_js__WEBPACK_IMPORTED_MODULE_8__.createMotionComponent)((0,_utils_create_config_js__WEBPACK_IMPORTED_MODULE_6__.createDomMotionConfig)(key, { forwardMotionProps: false }, featureBundle, _create_visual_element_js__WEBPACK_IMPORTED_MODULE_7__.createDomVisualElement));
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/projection/convert-to-relative.js":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/projection/convert-to-relative.js ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "convertToRelativeProjection": () => (/* binding */ convertToRelativeProjection)
+/* harmony export */ });
+/* harmony import */ var _motion_features_layout_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../motion/features/layout/utils.js */ "./node_modules/framer-motion/dist/es/motion/features/layout/utils.js");
+/* harmony import */ var _utils_each_axis_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/each-axis.js */ "./node_modules/framer-motion/dist/es/utils/each-axis.js");
+/* harmony import */ var _utils_geometry_delta_apply_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/geometry/delta-apply.js */ "./node_modules/framer-motion/dist/es/utils/geometry/delta-apply.js");
+
+
+
+
+/**
+ * Returns a boolean stating whether or not we converted the projection
+ * to relative projection.
+ */
+function convertToRelativeProjection(visualElement, isLayoutDrag) {
+    if (isLayoutDrag === void 0) { isLayoutDrag = true; }
+    var projectionParent = visualElement.getProjectionParent();
+    if (!projectionParent)
+        return false;
+    var offset;
+    if (isLayoutDrag) {
+        offset = (0,_motion_features_layout_utils_js__WEBPACK_IMPORTED_MODULE_0__.calcRelativeOffset)(projectionParent.projection.target, visualElement.projection.target);
+        (0,_utils_geometry_delta_apply_js__WEBPACK_IMPORTED_MODULE_1__.removeBoxTransforms)(offset, projectionParent.getLatestValues());
+    }
+    else {
+        offset = (0,_motion_features_layout_utils_js__WEBPACK_IMPORTED_MODULE_0__.calcRelativeOffset)(projectionParent.getLayoutState().layout, visualElement.getLayoutState().layout);
+    }
+    (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_2__.eachAxis)(function (axis) {
+        return visualElement.setProjectionTargetAxis(axis, offset[axis].min, offset[axis].max, true);
+    });
+    return true;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/projection/default-scale-correctors.js":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/projection/default-scale-correctors.js ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "correctBorderRadius": () => (/* binding */ correctBorderRadius),
+/* harmony export */   "correctBoxShadow": () => (/* binding */ correctBoxShadow),
+/* harmony export */   "defaultScaleCorrectors": () => (/* binding */ defaultScaleCorrectors),
+/* harmony export */   "pixelsToPercent": () => (/* binding */ pixelsToPercent)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/numbers/units.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/complex/index.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/mix.js");
+/* harmony import */ var _utils_css_variables_conversion_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/css-variables-conversion.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.js");
+
+
+
+
+
+function pixelsToPercent(pixels, axis) {
+    return (pixels / (axis.max - axis.min)) * 100;
+}
+/**
+ * We always correct borderRadius as a percentage rather than pixels to reduce paints.
+ * For example, if you are projecting a box that is 100px wide with a 10px borderRadius
+ * into a box that is 200px wide with a 20px borderRadius, that is actually a 10%
+ * borderRadius in both states. If we animate between the two in pixels that will trigger
+ * a paint each time. If we animate between the two in percentage we'll avoid a paint.
+ */
+function correctBorderRadius(latest, _layoutState, _a) {
+    var target = _a.target;
+    /**
+     * If latest is a string, if it's a percentage we can return immediately as it's
+     * going to be stretched appropriately. Otherwise, if it's a pixel, convert it to a number.
+     */
+    if (typeof latest === "string") {
+        if (style_value_types__WEBPACK_IMPORTED_MODULE_0__.px.test(latest)) {
+            latest = parseFloat(latest);
+        }
+        else {
+            return latest;
+        }
+    }
+    /**
+     * If latest is a number, it's a pixel value. We use the current viewportBox to calculate that
+     * pixel value as a percentage of each axis
+     */
+    var x = pixelsToPercent(latest, target.x);
+    var y = pixelsToPercent(latest, target.y);
+    return x + "% " + y + "%";
+}
+var varToken = "_$css";
+function correctBoxShadow(latest, _a) {
+    var delta = _a.delta, treeScale = _a.treeScale;
+    var original = latest;
+    /**
+     * We need to first strip and store CSS variables from the string.
+     */
+    var containsCSSVariables = latest.includes("var(");
+    var cssVariables = [];
+    if (containsCSSVariables) {
+        latest = latest.replace(_utils_css_variables_conversion_js__WEBPACK_IMPORTED_MODULE_1__.cssVariableRegex, function (match) {
+            cssVariables.push(match);
+            return varToken;
+        });
+    }
+    var shadow = style_value_types__WEBPACK_IMPORTED_MODULE_2__.complex.parse(latest);
+    // TODO: Doesn't support multiple shadows
+    if (shadow.length > 5)
+        return original;
+    var template = style_value_types__WEBPACK_IMPORTED_MODULE_2__.complex.createTransformer(latest);
+    var offset = typeof shadow[0] !== "number" ? 1 : 0;
+    // Calculate the overall context scale
+    var xScale = delta.x.scale * treeScale.x;
+    var yScale = delta.y.scale * treeScale.y;
+    shadow[0 + offset] /= xScale;
+    shadow[1 + offset] /= yScale;
+    /**
+     * Ideally we'd correct x and y scales individually, but because blur and
+     * spread apply to both we have to take a scale average and apply that instead.
+     * We could potentially improve the outcome of this by incorporating the ratio between
+     * the two scales.
+     */
+    var averageScale = (0,popmotion__WEBPACK_IMPORTED_MODULE_3__.mix)(xScale, yScale, 0.5);
+    // Blur
+    if (typeof shadow[2 + offset] === "number")
+        shadow[2 + offset] /= averageScale;
+    // Spread
+    if (typeof shadow[3 + offset] === "number")
+        shadow[3 + offset] /= averageScale;
+    var output = template(shadow);
+    if (containsCSSVariables) {
+        var i_1 = 0;
+        output = output.replace(varToken, function () {
+            var cssVariable = cssVariables[i_1];
+            i_1++;
+            return cssVariable;
+        });
+    }
+    return output;
+}
+var borderCorrectionDefinition = {
+    process: correctBorderRadius,
+};
+var defaultScaleCorrectors = {
+    borderRadius: (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_4__.__assign)({}, borderCorrectionDefinition), { applyTo: [
+            "borderTopLeftRadius",
+            "borderTopRightRadius",
+            "borderBottomLeftRadius",
+            "borderBottomRightRadius",
+        ] }),
+    borderTopLeftRadius: borderCorrectionDefinition,
+    borderTopRightRadius: borderCorrectionDefinition,
+    borderBottomLeftRadius: borderCorrectionDefinition,
+    borderBottomRightRadius: borderCorrectionDefinition,
+    boxShadow: {
+        process: correctBoxShadow,
+    },
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/projection/measure.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/projection/measure.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getBoundingBox": () => (/* binding */ getBoundingBox)
+/* harmony export */ });
+/* harmony import */ var _utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../utils/geometry/index.js */ "./node_modules/framer-motion/dist/es/utils/geometry/index.js");
+
+
+/**
+ * Measure and return the element bounding box.
+ *
+ * We convert the box into an AxisBox2D to make it easier to work with each axis
+ * individually and programmatically.
+ *
+ * This function optionally accepts a transformPagePoint function which allows us to compensate
+ * for, for instance, measuring the element within a scaled plane like a Framer devivce preview component.
+ */
+function getBoundingBox(element, transformPagePoint) {
+    var box = element.getBoundingClientRect();
+    return (0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_0__.convertBoundingBoxToAxisBox)((0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_0__.transformBoundingBox)(box, transformPagePoint));
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/projection/relative-set.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/projection/relative-set.js ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "setCurrentViewportBox": () => (/* binding */ setCurrentViewportBox)
+/* harmony export */ });
+/* harmony import */ var _motion_features_layout_utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../motion/features/layout/utils.js */ "./node_modules/framer-motion/dist/es/motion/features/layout/utils.js");
+/* harmony import */ var _utils_each_axis_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utils/each-axis.js */ "./node_modules/framer-motion/dist/es/utils/each-axis.js");
+
+
+
+function setCurrentViewportBox(visualElement) {
+    var projectionParent = visualElement.getProjectionParent();
+    if (!projectionParent) {
+        visualElement.rebaseProjectionTarget();
+        return;
+    }
+    var relativeOffset = (0,_motion_features_layout_utils_js__WEBPACK_IMPORTED_MODULE_0__.calcRelativeOffset)(projectionParent.getLayoutState().layout, visualElement.getLayoutState().layout);
+    (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_1__.eachAxis)(function (axis) {
+        visualElement.setProjectionTargetAxis(axis, relativeOffset[axis].min, relativeOffset[axis].max, true);
+    });
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/projection/scale-correction.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/projection/scale-correction.js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addScaleCorrection": () => (/* binding */ addScaleCorrection),
+/* harmony export */   "valueScaleCorrection": () => (/* binding */ valueScaleCorrection)
+/* harmony export */ });
+var valueScaleCorrection = {};
+/**
+ * @internal
+ */
+function addScaleCorrection(correctors) {
+    for (var key in correctors) {
+        valueScaleCorrection[key] = correctors[key];
+    }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/projection/utils.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/projection/utils.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "collectProjectingAncestors": () => (/* binding */ collectProjectingAncestors),
+/* harmony export */   "collectProjectingChildren": () => (/* binding */ collectProjectingChildren),
+/* harmony export */   "snapshotViewportBox": () => (/* binding */ snapshotViewportBox),
+/* harmony export */   "updateLayoutMeasurement": () => (/* binding */ updateLayoutMeasurement)
+/* harmony export */ });
+/* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! framesync */ "./node_modules/framesync/dist/es/index.js");
+/* harmony import */ var _utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/geometry/index.js */ "./node_modules/framer-motion/dist/es/utils/geometry/index.js");
+/* harmony import */ var _utils_compare_by_depth_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/compare-by-depth.js */ "./node_modules/framer-motion/dist/es/render/utils/compare-by-depth.js");
+
+
+
+
+function isProjecting(visualElement) {
+    var isEnabled = visualElement.projection.isEnabled;
+    return isEnabled || visualElement.shouldResetTransform();
+}
+function collectProjectingAncestors(visualElement, ancestors) {
+    if (ancestors === void 0) { ancestors = []; }
+    var parent = visualElement.parent;
+    if (parent)
+        collectProjectingAncestors(parent, ancestors);
+    if (isProjecting(visualElement))
+        ancestors.push(visualElement);
+    return ancestors;
+}
+function collectProjectingChildren(visualElement) {
+    var children = [];
+    var addChild = function (child) {
+        if (isProjecting(child))
+            children.push(child);
+        child.children.forEach(addChild);
+    };
+    visualElement.children.forEach(addChild);
+    return children.sort(_utils_compare_by_depth_js__WEBPACK_IMPORTED_MODULE_1__.compareByDepth);
+}
+/**
+ * Update the layoutState by measuring the DOM layout. This
+ * should be called after resetting any layout-affecting transforms.
+ */
+function updateLayoutMeasurement(visualElement) {
+    if (visualElement.shouldResetTransform())
+        return;
+    var layoutState = visualElement.getLayoutState();
+    visualElement.notifyBeforeLayoutMeasure(layoutState.layout);
+    layoutState.isHydrated = true;
+    layoutState.layout = visualElement.measureViewportBox();
+    layoutState.layoutCorrected = (0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_2__.copyAxisBox)(layoutState.layout);
+    visualElement.notifyLayoutMeasure(layoutState.layout, visualElement.prevViewportBox || layoutState.layout);
+    framesync__WEBPACK_IMPORTED_MODULE_0__["default"].update(function () { return visualElement.rebaseProjectionTarget(); });
+}
+/**
+ * Record the viewport box as it was before an expected mutation/re-render
+ */
+function snapshotViewportBox(visualElement) {
+    if (visualElement.shouldResetTransform())
+        return;
+    visualElement.prevViewportBox = visualElement.measureViewportBox(false);
+    /**
+     * Update targetBox to match the prevViewportBox. This is just to ensure
+     * that targetBox is affected by scroll in the same way as the measured box
+     */
+    visualElement.rebaseProjectionTarget(false, visualElement.prevViewportBox);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/use-render.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/use-render.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createUseRender": () => (/* binding */ createUseRender)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _html_use_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../html/use-props.js */ "./node_modules/framer-motion/dist/es/render/html/use-props.js");
+/* harmony import */ var _utils_filter_props_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/filter-props.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/filter-props.js");
+/* harmony import */ var _utils_is_svg_component_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/is-svg-component.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.js");
+/* harmony import */ var _svg_use_props_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../svg/use-props.js */ "./node_modules/framer-motion/dist/es/render/svg/use-props.js");
+
+
+
+
+
+
+
+function createUseRender(forwardMotionProps) {
+    if (forwardMotionProps === void 0) { forwardMotionProps = false; }
+    var useRender = function (Component, props, ref, _a, isStatic) {
+        var latestValues = _a.latestValues;
+        var useVisualProps = (0,_utils_is_svg_component_js__WEBPACK_IMPORTED_MODULE_1__.isSVGComponent)(Component)
+            ? _svg_use_props_js__WEBPACK_IMPORTED_MODULE_2__.useSVGProps
+            : _html_use_props_js__WEBPACK_IMPORTED_MODULE_3__.useHTMLProps;
+        var visualProps = useVisualProps(props, latestValues, isStatic);
+        var filteredProps = (0,_utils_filter_props_js__WEBPACK_IMPORTED_MODULE_4__.filterProps)(props, typeof Component === "string", forwardMotionProps);
+        var elementProps = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)({}, filteredProps), visualProps), { ref: ref });
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, elementProps);
+    };
+    return useRender;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/utils/batch-layout.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/utils/batch-layout.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "batchLayout": () => (/* binding */ batchLayout),
+/* harmony export */   "flushLayout": () => (/* binding */ flushLayout)
+/* harmony export */ });
+var unresolvedJobs = new Set();
+function pushJob(stack, job, pointer) {
+    if (!stack[pointer])
+        stack[pointer] = [];
+    stack[pointer].push(job);
+}
+function batchLayout(callback) {
+    unresolvedJobs.add(callback);
+    return function () { return unresolvedJobs.delete(callback); };
+}
+function flushLayout() {
+    if (!unresolvedJobs.size)
+        return;
+    var pointer = 0;
+    var reads = [[]];
+    var writes = [];
+    var setRead = function (job) { return pushJob(reads, job, pointer); };
+    var setWrite = function (job) {
+        pushJob(writes, job, pointer);
+        pointer++;
+    };
+    /**
+     * Resolve jobs into their array stacks
+     */
+    unresolvedJobs.forEach(function (callback) {
+        callback(setRead, setWrite);
+        pointer = 0;
+    });
+    unresolvedJobs.clear();
+    /**
+     * Execute jobs
+     */
+    var numStacks = writes.length;
+    for (var i = 0; i <= numStacks; i++) {
+        reads[i] && reads[i].forEach(executeJob);
+        writes[i] && writes[i].forEach(executeJob);
+    }
+}
+var executeJob = function (job) { return job(); };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/utils/camel-to-dash.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/utils/camel-to-dash.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "camelToDash": () => (/* binding */ camelToDash)
+/* harmony export */ });
+var CAMEL_CASE_PATTERN = /([a-z])([A-Z])/g;
+var REPLACE_TEMPLATE = "$1-$2";
+/**
+ * Convert camelCase to dash-case properties.
+ */
+var camelToDash = function (str) {
+    return str.replace(CAMEL_CASE_PATTERN, REPLACE_TEMPLATE).toLowerCase();
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/utils/create-config.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/utils/create-config.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createDomMotionConfig": () => (/* binding */ createDomMotionConfig)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _is_svg_component_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./is-svg-component.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.js");
+/* harmony import */ var _use_render_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../use-render.js */ "./node_modules/framer-motion/dist/es/render/dom/use-render.js");
+/* harmony import */ var _svg_config_motion_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../svg/config-motion.js */ "./node_modules/framer-motion/dist/es/render/svg/config-motion.js");
+/* harmony import */ var _html_config_motion_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../html/config-motion.js */ "./node_modules/framer-motion/dist/es/render/html/config-motion.js");
+
+
+
+
+
+
+function createDomMotionConfig(Component, _a, preloadedFeatures, createVisualElement) {
+    var _b = _a.forwardMotionProps, forwardMotionProps = _b === void 0 ? false : _b;
+    var baseConfig = (0,_is_svg_component_js__WEBPACK_IMPORTED_MODULE_0__.isSVGComponent)(Component)
+        ? _svg_config_motion_js__WEBPACK_IMPORTED_MODULE_1__.svgMotionConfig
+        : _html_config_motion_js__WEBPACK_IMPORTED_MODULE_2__.htmlMotionConfig;
+    return (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)({}, baseConfig), { preloadedFeatures: preloadedFeatures, useRender: (0,_use_render_js__WEBPACK_IMPORTED_MODULE_4__.createUseRender)(forwardMotionProps), createVisualElement: createVisualElement,
+        Component: Component });
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.js":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.js ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "cssVariableRegex": () => (/* binding */ cssVariableRegex),
+/* harmony export */   "parseCSSVariable": () => (/* binding */ parseCSSVariable),
+/* harmony export */   "resolveCSSVariables": () => (/* binding */ resolveCSSVariables)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
+
+
+
+function isCSSVariable(value) {
+    return typeof value === "string" && value.startsWith("var(--");
+}
+/**
+ * Parse Framer's special CSS variable format into a CSS token and a fallback.
+ *
+ * ```
+ * `var(--foo, #fff)` => [`--foo`, '#fff']
+ * ```
+ *
+ * @param current
+ */
+var cssVariableRegex = /var\((--[a-zA-Z0-9-_]+),? ?([a-zA-Z0-9 ()%#.,-]+)?\)/;
+function parseCSSVariable(current) {
+    var match = cssVariableRegex.exec(current);
+    if (!match)
+        return [,];
+    var _a = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__read)(match, 3), token = _a[1], fallback = _a[2];
+    return [token, fallback];
+}
+var maxDepth = 4;
+function getVariableValue(current, element, depth) {
+    if (depth === void 0) { depth = 1; }
+    (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.invariant)(depth <= maxDepth, "Max CSS variable fallback depth detected in property \"" + current + "\". This may indicate a circular fallback dependency.");
+    var _a = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__read)(parseCSSVariable(current), 2), token = _a[0], fallback = _a[1];
+    // No CSS variable detected
+    if (!token)
+        return;
+    // Attempt to read this CSS variable off the element
+    var resolved = window.getComputedStyle(element).getPropertyValue(token);
+    if (resolved) {
+        return resolved.trim();
+    }
+    else if (isCSSVariable(fallback)) {
+        // The fallback might itself be a CSS variable, in which case we attempt to resolve it too.
+        return getVariableValue(fallback, element, depth + 1);
+    }
+    else {
+        return fallback;
+    }
+}
+/**
+ * Resolve CSS variables from
+ *
+ * @internal
+ */
+function resolveCSSVariables(visualElement, _a, transitionEnd) {
+    var _b;
+    var target = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__rest)(_a, []);
+    var element = visualElement.getInstance();
+    if (!(element instanceof HTMLElement))
+        return { target: target, transitionEnd: transitionEnd };
+    // If `transitionEnd` isn't `undefined`, clone it. We could clone `target` and `transitionEnd`
+    // only if they change but I think this reads clearer and this isn't a performance-critical path.
+    if (transitionEnd) {
+        transitionEnd = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, transitionEnd);
+    }
+    // Go through existing `MotionValue`s and ensure any existing CSS variables are resolved
+    visualElement.forEachValue(function (value) {
+        var current = value.get();
+        if (!isCSSVariable(current))
+            return;
+        var resolved = getVariableValue(current, element);
+        if (resolved)
+            value.set(resolved);
+    });
+    // Cycle through every target property and resolve CSS variables. Currently
+    // we only read single-var properties like `var(--foo)`, not `calc(var(--foo) + 20px)`
+    for (var key in target) {
+        var current = target[key];
+        if (!isCSSVariable(current))
+            continue;
+        var resolved = getVariableValue(current, element);
+        if (!resolved)
+            continue;
+        // Clone target if it hasn't already been
+        target[key] = resolved;
+        // If the user hasn't already set this key on `transitionEnd`, set it to the unresolved
+        // CSS variable. This will ensure that after the animation the component will reflect
+        // changes in the value of the CSS variable.
+        if (transitionEnd)
+            (_b = transitionEnd[key]) !== null && _b !== void 0 ? _b : (transitionEnd[key] = current);
+    }
+    return { target: target, transitionEnd: transitionEnd };
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/utils/filter-props.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/utils/filter-props.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "filterProps": () => (/* binding */ filterProps)
+/* harmony export */ });
+/* harmony import */ var _motion_utils_valid_prop_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../motion/utils/valid-prop.js */ "./node_modules/framer-motion/dist/es/motion/utils/valid-prop.js");
+
+
+var shouldForward = function (key) { return !(0,_motion_utils_valid_prop_js__WEBPACK_IMPORTED_MODULE_0__.isValidMotionProp)(key); };
+/**
+ * Emotion and Styled Components both allow users to pass through arbitrary props to their components
+ * to dynamically generate CSS. They both use the `@emotion/is-prop-valid` package to determine which
+ * of these should be passed to the underlying DOM node.
+ *
+ * However, when styling a Motion component `styled(motion.div)`, both packages pass through *all* props
+ * as it's seen as an arbitrary component rather than a DOM node. Motion only allows arbitrary props
+ * passed through the `custom` prop so it doesn't *need* the payload or computational overhead of
+ * `@emotion/is-prop-valid`, however to fix this problem we need to use it.
+ *
+ * By making it an optionalDependency we can offer this functionality only in the situations where it's
+ * actually required.
+ */
+try {
+    var emotionIsPropValid_1 = (__webpack_require__(/*! @emotion/is-prop-valid */ "./node_modules/@emotion/is-prop-valid/dist/is-prop-valid.esm.js")["default"]);
+    shouldForward = function (key) {
+        // Handle events explicitly as Emotion validates them all as true
+        if (key.startsWith("on")) {
+            return !(0,_motion_utils_valid_prop_js__WEBPACK_IMPORTED_MODULE_0__.isValidMotionProp)(key);
+        }
+        else {
+            return emotionIsPropValid_1(key);
+        }
+    };
+}
+catch (_a) {
+    // We don't need to actually do anything here - the fallback is the existing `isPropValid`.
+}
+function filterProps(props, isDom, forwardMotionProps) {
+    var filteredProps = {};
+    for (var key in props) {
+        if (shouldForward(key) ||
+            (forwardMotionProps === true && (0,_motion_utils_valid_prop_js__WEBPACK_IMPORTED_MODULE_0__.isValidMotionProp)(key)) ||
+            (!isDom && !(0,_motion_utils_valid_prop_js__WEBPACK_IMPORTED_MODULE_0__.isValidMotionProp)(key))) {
+            filteredProps[key] = props[key];
+        }
+    }
+    return filteredProps;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/utils/is-css-variable.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/utils/is-css-variable.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isCSSVariable": () => (/* binding */ isCSSVariable)
+/* harmony export */ });
+/**
+ * Returns true if the provided key is a CSS variable
+ */
+function isCSSVariable(key) {
+    return key.startsWith("--");
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/utils/is-svg-component.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isSVGComponent": () => (/* binding */ isSVGComponent)
+/* harmony export */ });
+/* harmony import */ var _svg_lowercase_elements_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../svg/lowercase-elements.js */ "./node_modules/framer-motion/dist/es/render/svg/lowercase-elements.js");
+
+
+function isSVGComponent(Component) {
+    if (
+    /**
+     * If it's not a string, it's a custom React component. Currently we only support
+     * HTML custom React components.
+     */
+    typeof Component !== "string" ||
+        /**
+         * If it contains a dash, the element is a custom HTML webcomponent.
+         */
+        Component.includes("-")) {
+        return false;
+    }
+    else if (
+    /**
+     * If it's in our list of lowercase SVG tags, it's an SVG component
+     */
+    _svg_lowercase_elements_js__WEBPACK_IMPORTED_MODULE_0__.lowercaseSVGElements.indexOf(Component) > -1 ||
+        /**
+         * If it contains a capital letter, it's an SVG component
+         */
+        /[A-Z]/.test(Component)) {
+        return true;
+    }
+    return false;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/utils/parse-dom-variant.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/utils/parse-dom-variant.js ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "parseDomVariant": () => (/* binding */ parseDomVariant)
+/* harmony export */ });
+/* harmony import */ var _css_variables_conversion_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./css-variables-conversion.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/css-variables-conversion.js");
+/* harmony import */ var _unit_conversion_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./unit-conversion.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/unit-conversion.js");
+
+
+
+/**
+ * Parse a DOM variant to make it animatable. This involves resolving CSS variables
+ * and ensuring animations like "20%" => "calc(50vw)" are performed in pixels.
+ */
+var parseDomVariant = function (visualElement, target, origin, transitionEnd) {
+    var resolved = (0,_css_variables_conversion_js__WEBPACK_IMPORTED_MODULE_0__.resolveCSSVariables)(visualElement, target, transitionEnd);
+    target = resolved.target;
+    transitionEnd = resolved.transitionEnd;
+    return (0,_unit_conversion_js__WEBPACK_IMPORTED_MODULE_1__.unitConversion)(visualElement, target, origin, transitionEnd);
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/utils/unit-conversion.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/utils/unit-conversion.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "BoundingBoxDimension": () => (/* binding */ BoundingBoxDimension),
+/* harmony export */   "unitConversion": () => (/* binding */ unitConversion)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/numbers/index.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/numbers/units.js");
+/* harmony import */ var _animation_utils_is_keyframes_target_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../animation/utils/is-keyframes-target.js */ "./node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.js");
+/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
+/* harmony import */ var _html_utils_transform_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../html/utils/transform.js */ "./node_modules/framer-motion/dist/es/render/html/utils/transform.js");
+/* harmony import */ var _value_types_dimensions_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../value-types/dimensions.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.js");
+
+
+
+
+
+
+
+var positionalKeys = new Set([
+    "width",
+    "height",
+    "top",
+    "left",
+    "right",
+    "bottom",
+    "x",
+    "y",
+]);
+var isPositionalKey = function (key) { return positionalKeys.has(key); };
+var hasPositionalKey = function (target) {
+    return Object.keys(target).some(isPositionalKey);
+};
+var setAndResetVelocity = function (value, to) {
+    // Looks odd but setting it twice doesn't render, it'll just
+    // set both prev and current to the latest value
+    value.set(to, false);
+    value.set(to);
+};
+var isNumOrPxType = function (v) {
+    return v === style_value_types__WEBPACK_IMPORTED_MODULE_1__.number || v === style_value_types__WEBPACK_IMPORTED_MODULE_2__.px;
+};
+var BoundingBoxDimension;
+(function (BoundingBoxDimension) {
+    BoundingBoxDimension["width"] = "width";
+    BoundingBoxDimension["height"] = "height";
+    BoundingBoxDimension["left"] = "left";
+    BoundingBoxDimension["right"] = "right";
+    BoundingBoxDimension["top"] = "top";
+    BoundingBoxDimension["bottom"] = "bottom";
+})(BoundingBoxDimension || (BoundingBoxDimension = {}));
+var getPosFromMatrix = function (matrix, pos) {
+    return parseFloat(matrix.split(", ")[pos]);
+};
+var getTranslateFromMatrix = function (pos2, pos3) { return function (_bbox, _a) {
+    var transform = _a.transform;
+    if (transform === "none" || !transform)
+        return 0;
+    var matrix3d = transform.match(/^matrix3d\((.+)\)$/);
+    if (matrix3d) {
+        return getPosFromMatrix(matrix3d[1], pos3);
+    }
+    else {
+        var matrix = transform.match(/^matrix\((.+)\)$/);
+        if (matrix) {
+            return getPosFromMatrix(matrix[1], pos2);
+        }
+        else {
+            return 0;
+        }
+    }
+}; };
+var transformKeys = new Set(["x", "y", "z"]);
+var nonTranslationalTransformKeys = _html_utils_transform_js__WEBPACK_IMPORTED_MODULE_3__.transformProps.filter(function (key) { return !transformKeys.has(key); });
+function removeNonTranslationalTransform(visualElement) {
+    var removedTransforms = [];
+    nonTranslationalTransformKeys.forEach(function (key) {
+        var value = visualElement.getValue(key);
+        if (value !== undefined) {
+            removedTransforms.push([key, value.get()]);
+            value.set(key.startsWith("scale") ? 1 : 0);
+        }
+    });
+    // Apply changes to element before measurement
+    if (removedTransforms.length)
+        visualElement.syncRender();
+    return removedTransforms;
+}
+var positionalValues = {
+    // Dimensions
+    width: function (_a) {
+        var x = _a.x;
+        return x.max - x.min;
+    },
+    height: function (_a) {
+        var y = _a.y;
+        return y.max - y.min;
+    },
+    top: function (_bbox, _a) {
+        var top = _a.top;
+        return parseFloat(top);
+    },
+    left: function (_bbox, _a) {
+        var left = _a.left;
+        return parseFloat(left);
+    },
+    bottom: function (_a, _b) {
+        var y = _a.y;
+        var top = _b.top;
+        return parseFloat(top) + (y.max - y.min);
+    },
+    right: function (_a, _b) {
+        var x = _a.x;
+        var left = _b.left;
+        return parseFloat(left) + (x.max - x.min);
+    },
+    // Transform
+    x: getTranslateFromMatrix(4, 13),
+    y: getTranslateFromMatrix(5, 14),
+};
+var convertChangedValueTypes = function (target, visualElement, changedKeys) {
+    var originBbox = visualElement.measureViewportBox();
+    var element = visualElement.getInstance();
+    var elementComputedStyle = getComputedStyle(element);
+    var display = elementComputedStyle.display, top = elementComputedStyle.top, left = elementComputedStyle.left, bottom = elementComputedStyle.bottom, right = elementComputedStyle.right, transform = elementComputedStyle.transform;
+    var originComputedStyle = { top: top, left: left, bottom: bottom, right: right, transform: transform };
+    // If the element is currently set to display: "none", make it visible before
+    // measuring the target bounding box
+    if (display === "none") {
+        visualElement.setStaticValue("display", target.display || "block");
+    }
+    // Apply the latest values (as set in checkAndConvertChangedValueTypes)
+    visualElement.syncRender();
+    var targetBbox = visualElement.measureViewportBox();
+    changedKeys.forEach(function (key) {
+        // Restore styles to their **calculated computed style**, not their actual
+        // originally set style. This allows us to animate between equivalent pixel units.
+        var value = visualElement.getValue(key);
+        setAndResetVelocity(value, positionalValues[key](originBbox, originComputedStyle));
+        target[key] = positionalValues[key](targetBbox, elementComputedStyle);
+    });
+    return target;
+};
+var checkAndConvertChangedValueTypes = function (visualElement, target, origin, transitionEnd) {
+    if (origin === void 0) { origin = {}; }
+    if (transitionEnd === void 0) { transitionEnd = {}; }
+    target = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__assign)({}, target);
+    transitionEnd = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__assign)({}, transitionEnd);
+    var targetPositionalKeys = Object.keys(target).filter(isPositionalKey);
+    // We want to remove any transform values that could affect the element's bounding box before
+    // it's measured. We'll reapply these later.
+    var removedTransformValues = [];
+    var hasAttemptedToRemoveTransformValues = false;
+    var changedValueTypeKeys = [];
+    targetPositionalKeys.forEach(function (key) {
+        var value = visualElement.getValue(key);
+        if (!visualElement.hasValue(key))
+            return;
+        var from = origin[key];
+        var to = target[key];
+        var fromType = (0,_value_types_dimensions_js__WEBPACK_IMPORTED_MODULE_5__.findDimensionValueType)(from);
+        var toType;
+        // TODO: The current implementation of this basically throws an error
+        // if you try and do value conversion via keyframes. There's probably
+        // a way of doing this but the performance implications would need greater scrutiny,
+        // as it'd be doing multiple resize-remeasure operations.
+        if ((0,_animation_utils_is_keyframes_target_js__WEBPACK_IMPORTED_MODULE_6__.isKeyframesTarget)(to)) {
+            var numKeyframes = to.length;
+            for (var i = to[0] === null ? 1 : 0; i < numKeyframes; i++) {
+                if (!toType) {
+                    toType = (0,_value_types_dimensions_js__WEBPACK_IMPORTED_MODULE_5__.findDimensionValueType)(to[i]);
+                    (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.invariant)(toType === fromType ||
+                        (isNumOrPxType(fromType) && isNumOrPxType(toType)), "Keyframes must be of the same dimension as the current value");
+                }
+                else {
+                    (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.invariant)((0,_value_types_dimensions_js__WEBPACK_IMPORTED_MODULE_5__.findDimensionValueType)(to[i]) === toType, "All keyframes must be of the same type");
+                }
+            }
+        }
+        else {
+            toType = (0,_value_types_dimensions_js__WEBPACK_IMPORTED_MODULE_5__.findDimensionValueType)(to);
+        }
+        if (fromType !== toType) {
+            // If they're both just number or px, convert them both to numbers rather than
+            // relying on resize/remeasure to convert (which is wasteful in this situation)
+            if (isNumOrPxType(fromType) && isNumOrPxType(toType)) {
+                var current = value.get();
+                if (typeof current === "string") {
+                    value.set(parseFloat(current));
+                }
+                if (typeof to === "string") {
+                    target[key] = parseFloat(to);
+                }
+                else if (Array.isArray(to) && toType === style_value_types__WEBPACK_IMPORTED_MODULE_2__.px) {
+                    target[key] = to.map(parseFloat);
+                }
+            }
+            else if ((fromType === null || fromType === void 0 ? void 0 : fromType.transform) &&
+                (toType === null || toType === void 0 ? void 0 : toType.transform) &&
+                (from === 0 || to === 0)) {
+                // If one or the other value is 0, it's safe to coerce it to the
+                // type of the other without measurement
+                if (from === 0) {
+                    value.set(toType.transform(from));
+                }
+                else {
+                    target[key] = fromType.transform(to);
+                }
+            }
+            else {
+                // If we're going to do value conversion via DOM measurements, we first
+                // need to remove non-positional transform values that could affect the bbox measurements.
+                if (!hasAttemptedToRemoveTransformValues) {
+                    removedTransformValues = removeNonTranslationalTransform(visualElement);
+                    hasAttemptedToRemoveTransformValues = true;
+                }
+                changedValueTypeKeys.push(key);
+                transitionEnd[key] =
+                    transitionEnd[key] !== undefined
+                        ? transitionEnd[key]
+                        : target[key];
+                setAndResetVelocity(value, to);
+            }
+        }
+    });
+    if (changedValueTypeKeys.length) {
+        var convertedTarget = convertChangedValueTypes(target, visualElement, changedValueTypeKeys);
+        // If we removed transform values, reapply them before the next render
+        if (removedTransformValues.length) {
+            removedTransformValues.forEach(function (_a) {
+                var _b = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__read)(_a, 2), key = _b[0], value = _b[1];
+                visualElement.getValue(key).set(value);
+            });
+        }
+        // Reapply original values
+        visualElement.syncRender();
+        return { target: convertedTarget, transitionEnd: transitionEnd };
+    }
+    else {
+        return { target: target, transitionEnd: transitionEnd };
+    }
+};
+/**
+ * Convert value types for x/y/width/height/top/left/bottom/right
+ *
+ * Allows animation between `'auto'` -> `'100%'` or `0` -> `'calc(50% - 10vw)'`
+ *
+ * @internal
+ */
+function unitConversion(visualElement, target, origin, transitionEnd) {
+    return hasPositionalKey(target)
+        ? checkAndConvertChangedValueTypes(visualElement, target, origin, transitionEnd)
+        : { target: target, transitionEnd: transitionEnd };
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getAnimatableNone": () => (/* binding */ getAnimatableNone)
+/* harmony export */ });
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/complex/filter.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/complex/index.js");
+/* harmony import */ var _defaults_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./defaults.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/defaults.js");
+
+
+
+function getAnimatableNone(key, value) {
+    var _a;
+    var defaultValueType = (0,_defaults_js__WEBPACK_IMPORTED_MODULE_0__.getDefaultValueType)(key);
+    if (defaultValueType !== style_value_types__WEBPACK_IMPORTED_MODULE_1__.filter)
+        defaultValueType = style_value_types__WEBPACK_IMPORTED_MODULE_2__.complex;
+    // If value is not recognised as animatable, ie "none", create an animatable version origin based on the target
+    return (_a = defaultValueType.getAnimatableNone) === null || _a === void 0 ? void 0 : _a.call(defaultValueType, value);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/value-types/defaults.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/value-types/defaults.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "defaultValueTypes": () => (/* binding */ defaultValueTypes),
+/* harmony export */   "getDefaultValueType": () => (/* binding */ getDefaultValueType)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/color/index.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/complex/filter.js");
+/* harmony import */ var _number_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./number.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/number.js");
+
+
+
+
+/**
+ * A map of default value types for common values
+ */
+var defaultValueTypes = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, _number_js__WEBPACK_IMPORTED_MODULE_1__.numberValueTypes), { 
+    // Color props
+    color: style_value_types__WEBPACK_IMPORTED_MODULE_2__.color, backgroundColor: style_value_types__WEBPACK_IMPORTED_MODULE_2__.color, outlineColor: style_value_types__WEBPACK_IMPORTED_MODULE_2__.color, fill: style_value_types__WEBPACK_IMPORTED_MODULE_2__.color, stroke: style_value_types__WEBPACK_IMPORTED_MODULE_2__.color, 
+    // Border props
+    borderColor: style_value_types__WEBPACK_IMPORTED_MODULE_2__.color, borderTopColor: style_value_types__WEBPACK_IMPORTED_MODULE_2__.color, borderRightColor: style_value_types__WEBPACK_IMPORTED_MODULE_2__.color, borderBottomColor: style_value_types__WEBPACK_IMPORTED_MODULE_2__.color, borderLeftColor: style_value_types__WEBPACK_IMPORTED_MODULE_2__.color, filter: style_value_types__WEBPACK_IMPORTED_MODULE_3__.filter, WebkitFilter: style_value_types__WEBPACK_IMPORTED_MODULE_3__.filter });
+/**
+ * Gets the default ValueType for the provided value key
+ */
+var getDefaultValueType = function (key) { return defaultValueTypes[key]; };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "dimensionValueTypes": () => (/* binding */ dimensionValueTypes),
+/* harmony export */   "findDimensionValueType": () => (/* binding */ findDimensionValueType)
+/* harmony export */ });
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/numbers/index.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/numbers/units.js");
+/* harmony import */ var _test_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./test.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/test.js");
+/* harmony import */ var _type_auto_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./type-auto.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/type-auto.js");
+
+
+
+
+/**
+ * A list of value types commonly used for dimensions
+ */
+var dimensionValueTypes = [style_value_types__WEBPACK_IMPORTED_MODULE_0__.number, style_value_types__WEBPACK_IMPORTED_MODULE_1__.px, style_value_types__WEBPACK_IMPORTED_MODULE_1__.percent, style_value_types__WEBPACK_IMPORTED_MODULE_1__.degrees, style_value_types__WEBPACK_IMPORTED_MODULE_1__.vw, style_value_types__WEBPACK_IMPORTED_MODULE_1__.vh, _type_auto_js__WEBPACK_IMPORTED_MODULE_2__.auto];
+/**
+ * Tests a dimensional value against the list of dimension ValueTypes
+ */
+var findDimensionValueType = function (v) {
+    return dimensionValueTypes.find((0,_test_js__WEBPACK_IMPORTED_MODULE_3__.testValueType)(v));
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/value-types/find.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/value-types/find.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "findValueType": () => (/* binding */ findValueType)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/color/index.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/complex/index.js");
+/* harmony import */ var _dimensions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dimensions.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/dimensions.js");
+/* harmony import */ var _test_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./test.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/test.js");
+
+
+
+
+
+/**
+ * A list of all ValueTypes
+ */
+var valueTypes = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__spreadArray)([], (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(_dimensions_js__WEBPACK_IMPORTED_MODULE_1__.dimensionValueTypes)), [style_value_types__WEBPACK_IMPORTED_MODULE_2__.color, style_value_types__WEBPACK_IMPORTED_MODULE_3__.complex]);
+/**
+ * Tests a value against the list of ValueTypes
+ */
+var findValueType = function (v) { return valueTypes.find((0,_test_js__WEBPACK_IMPORTED_MODULE_4__.testValueType)(v)); };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/value-types/get-as-type.js":
+/*!**********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/value-types/get-as-type.js ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getValueAsType": () => (/* binding */ getValueAsType)
+/* harmony export */ });
+/**
+ * Provided a value and a ValueType, returns the value as that value type.
+ */
+var getValueAsType = function (value, type) {
+    return type && typeof value === "number"
+        ? type.transform(value)
+        : value;
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/value-types/number.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/value-types/number.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "numberValueTypes": () => (/* binding */ numberValueTypes)
+/* harmony export */ });
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/numbers/units.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/numbers/index.js");
+/* harmony import */ var _type_int_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./type-int.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/type-int.js");
+
+
+
+var numberValueTypes = {
+    // Border props
+    borderWidth: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    borderTopWidth: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    borderRightWidth: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    borderBottomWidth: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    borderLeftWidth: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    borderRadius: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    radius: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    borderTopLeftRadius: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    borderTopRightRadius: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    borderBottomRightRadius: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    borderBottomLeftRadius: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    // Positioning props
+    width: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    maxWidth: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    height: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    maxHeight: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    size: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    top: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    right: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    bottom: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    left: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    // Spacing props
+    padding: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    paddingTop: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    paddingRight: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    paddingBottom: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    paddingLeft: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    margin: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    marginTop: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    marginRight: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    marginBottom: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    marginLeft: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    // Transform props
+    rotate: style_value_types__WEBPACK_IMPORTED_MODULE_0__.degrees,
+    rotateX: style_value_types__WEBPACK_IMPORTED_MODULE_0__.degrees,
+    rotateY: style_value_types__WEBPACK_IMPORTED_MODULE_0__.degrees,
+    rotateZ: style_value_types__WEBPACK_IMPORTED_MODULE_0__.degrees,
+    scale: style_value_types__WEBPACK_IMPORTED_MODULE_1__.scale,
+    scaleX: style_value_types__WEBPACK_IMPORTED_MODULE_1__.scale,
+    scaleY: style_value_types__WEBPACK_IMPORTED_MODULE_1__.scale,
+    scaleZ: style_value_types__WEBPACK_IMPORTED_MODULE_1__.scale,
+    skew: style_value_types__WEBPACK_IMPORTED_MODULE_0__.degrees,
+    skewX: style_value_types__WEBPACK_IMPORTED_MODULE_0__.degrees,
+    skewY: style_value_types__WEBPACK_IMPORTED_MODULE_0__.degrees,
+    distance: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    translateX: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    translateY: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    translateZ: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    x: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    y: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    z: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    perspective: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    transformPerspective: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    opacity: style_value_types__WEBPACK_IMPORTED_MODULE_1__.alpha,
+    originX: style_value_types__WEBPACK_IMPORTED_MODULE_0__.progressPercentage,
+    originY: style_value_types__WEBPACK_IMPORTED_MODULE_0__.progressPercentage,
+    originZ: style_value_types__WEBPACK_IMPORTED_MODULE_0__.px,
+    // Misc
+    zIndex: _type_int_js__WEBPACK_IMPORTED_MODULE_2__.int,
+    // SVG
+    fillOpacity: style_value_types__WEBPACK_IMPORTED_MODULE_1__.alpha,
+    strokeOpacity: style_value_types__WEBPACK_IMPORTED_MODULE_1__.alpha,
+    numOctaves: _type_int_js__WEBPACK_IMPORTED_MODULE_2__.int,
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/value-types/test.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/value-types/test.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "testValueType": () => (/* binding */ testValueType)
+/* harmony export */ });
+/**
+ * Tests a provided value against a ValueType
+ */
+var testValueType = function (v) { return function (type) { return type.test(v); }; };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/value-types/type-auto.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/value-types/type-auto.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "auto": () => (/* binding */ auto)
+/* harmony export */ });
+/**
+ * ValueType for "auto"
+ */
+var auto = {
+    test: function (v) { return v === "auto"; },
+    parse: function (v) { return v; },
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/dom/value-types/type-int.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/dom/value-types/type-int.js ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "int": () => (/* binding */ int)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/numbers/index.js");
+
+
+
+var int = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, style_value_types__WEBPACK_IMPORTED_MODULE_1__.number), { transform: Math.round });
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/html/config-motion.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/html/config-motion.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "htmlMotionConfig": () => (/* binding */ htmlMotionConfig)
+/* harmony export */ });
+/* harmony import */ var _motion_utils_use_visual_state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../motion/utils/use-visual-state.js */ "./node_modules/framer-motion/dist/es/motion/utils/use-visual-state.js");
+/* harmony import */ var _utils_scrape_motion_values_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/scrape-motion-values.js */ "./node_modules/framer-motion/dist/es/render/html/utils/scrape-motion-values.js");
+/* harmony import */ var _utils_create_render_state_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/create-render-state.js */ "./node_modules/framer-motion/dist/es/render/html/utils/create-render-state.js");
+
+
+
+
+var htmlMotionConfig = {
+    useVisualState: (0,_motion_utils_use_visual_state_js__WEBPACK_IMPORTED_MODULE_0__.makeUseVisualState)({
+        scrapeMotionValuesFromProps: _utils_scrape_motion_values_js__WEBPACK_IMPORTED_MODULE_1__.scrapeMotionValuesFromProps,
+        createRenderState: _utils_create_render_state_js__WEBPACK_IMPORTED_MODULE_2__.createHtmlRenderState,
+    }),
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/html/use-props.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/html/use-props.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "copyRawValuesOnly": () => (/* binding */ copyRawValuesOnly),
+/* harmony export */   "useHTMLProps": () => (/* binding */ useHTMLProps),
+/* harmony export */   "useStyle": () => (/* binding */ useStyle)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _motion_utils_is_forced_motion_value_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../motion/utils/is-forced-motion-value.js */ "./node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.js");
+/* harmony import */ var _value_utils_is_motion_value_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../value/utils/is-motion-value.js */ "./node_modules/framer-motion/dist/es/value/utils/is-motion-value.js");
+/* harmony import */ var _utils_build_styles_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/build-styles.js */ "./node_modules/framer-motion/dist/es/render/html/utils/build-styles.js");
+/* harmony import */ var _utils_create_render_state_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/create-render-state.js */ "./node_modules/framer-motion/dist/es/render/html/utils/create-render-state.js");
+
+
+
+
+
+
+
+function copyRawValuesOnly(target, source, props) {
+    for (var key in source) {
+        if (!(0,_value_utils_is_motion_value_js__WEBPACK_IMPORTED_MODULE_1__.isMotionValue)(source[key]) && !(0,_motion_utils_is_forced_motion_value_js__WEBPACK_IMPORTED_MODULE_2__.isForcedMotionValue)(key, props)) {
+            target[key] = source[key];
+        }
+    }
+}
+function useInitialMotionValues(_a, visualState, isStatic) {
+    var transformTemplate = _a.transformTemplate;
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+        var state = (0,_utils_create_render_state_js__WEBPACK_IMPORTED_MODULE_3__.createHtmlRenderState)();
+        (0,_utils_build_styles_js__WEBPACK_IMPORTED_MODULE_4__.buildHTMLStyles)(state, visualState, undefined, undefined, { enableHardwareAcceleration: !isStatic }, transformTemplate);
+        var vars = state.vars, style = state.style;
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)({}, vars), style);
+    }, [visualState]);
+}
+function useStyle(props, visualState, isStatic) {
+    var styleProp = props.style || {};
+    var style = {};
+    /**
+     * Copy non-Motion Values straight into style
+     */
+    copyRawValuesOnly(style, styleProp, props);
+    Object.assign(style, useInitialMotionValues(props, visualState, isStatic));
+    if (props.transformValues) {
+        style = props.transformValues(style);
+    }
+    return style;
+}
+function useHTMLProps(props, visualState, isStatic) {
+    // The `any` isn't ideal but it is the type of createElement props argument
+    var htmlProps = {};
+    var style = useStyle(props, visualState, isStatic);
+    if (Boolean(props.drag)) {
+        // Disable the ghost element when a user drags
+        htmlProps.draggable = false;
+        // Disable text selection
+        style.userSelect = style.WebkitUserSelect = style.WebkitTouchCallout =
+            "none";
+        // Disable scrolling on the draggable direction
+        style.touchAction =
+            props.drag === true
+                ? "none"
+                : "pan-" + (props.drag === "x" ? "y" : "x");
+    }
+    htmlProps.style = style;
+    return htmlProps;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/html/utils/build-projection-transform.js":
+/*!********************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/html/utils/build-projection-transform.js ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "buildLayoutProjectionTransform": () => (/* binding */ buildLayoutProjectionTransform),
+/* harmony export */   "buildLayoutProjectionTransformOrigin": () => (/* binding */ buildLayoutProjectionTransformOrigin),
+/* harmony export */   "identityProjection": () => (/* binding */ identityProjection)
+/* harmony export */ });
+/* harmony import */ var _utils_state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/state.js */ "./node_modules/framer-motion/dist/es/render/utils/state.js");
+
+
+/**
+ * Build a transform style that takes a calculated delta between the element's current
+ * space on screen and projects it into the desired space.
+ */
+function buildLayoutProjectionTransform(_a, treeScale, latestTransform) {
+    var x = _a.x, y = _a.y;
+    /**
+     * The translations we use to calculate are always relative to the viewport coordinate space.
+     * But when we apply scales, we also scale the coordinate space of an element and its children.
+     * For instance if we have a treeScale (the culmination of all parent scales) of 0.5 and we need
+     * to move an element 100 pixels, we actually need to move it 200 in within that scaled space.
+     */
+    var xTranslate = x.translate / treeScale.x;
+    var yTranslate = y.translate / treeScale.y;
+    var transform = "translate3d(" + xTranslate + "px, " + yTranslate + "px, 0) ";
+    if (latestTransform) {
+        var rotate = latestTransform.rotate, rotateX = latestTransform.rotateX, rotateY = latestTransform.rotateY;
+        if (rotate)
+            transform += "rotate(" + rotate + ") ";
+        if (rotateX)
+            transform += "rotateX(" + rotateX + ") ";
+        if (rotateY)
+            transform += "rotateY(" + rotateY + ") ";
+    }
+    transform += "scale(" + x.scale + ", " + y.scale + ")";
+    return !latestTransform && transform === identityProjection ? "" : transform;
+}
+/**
+ * Take the calculated delta origin and apply it as a transform string.
+ */
+function buildLayoutProjectionTransformOrigin(_a) {
+    var deltaFinal = _a.deltaFinal;
+    return deltaFinal.x.origin * 100 + "% " + deltaFinal.y.origin * 100 + "% 0";
+}
+var identityProjection = buildLayoutProjectionTransform(_utils_state_js__WEBPACK_IMPORTED_MODULE_0__.zeroLayout.delta, _utils_state_js__WEBPACK_IMPORTED_MODULE_0__.zeroLayout.treeScale, { x: 1, y: 1 });
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/html/utils/build-styles.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/html/utils/build-styles.js ***!
+  \******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "buildHTMLStyles": () => (/* binding */ buildHTMLStyles)
+/* harmony export */ });
+/* harmony import */ var _dom_projection_scale_correction_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../dom/projection/scale-correction.js */ "./node_modules/framer-motion/dist/es/render/dom/projection/scale-correction.js");
+/* harmony import */ var _build_transform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./build-transform.js */ "./node_modules/framer-motion/dist/es/render/html/utils/build-transform.js");
+/* harmony import */ var _dom_utils_is_css_variable_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../dom/utils/is-css-variable.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/is-css-variable.js");
+/* harmony import */ var _transform_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./transform.js */ "./node_modules/framer-motion/dist/es/render/html/utils/transform.js");
+/* harmony import */ var _dom_value_types_get_as_type_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../dom/value-types/get-as-type.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/get-as-type.js");
+/* harmony import */ var _dom_value_types_number_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../dom/value-types/number.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/number.js");
+
+
+
+
+
+
+
+function buildHTMLStyles(state, latestValues, projection, layoutState, options, transformTemplate, buildProjectionTransform, buildProjectionTransformOrigin) {
+    var _a;
+    var style = state.style, vars = state.vars, transform = state.transform, transformKeys = state.transformKeys, transformOrigin = state.transformOrigin;
+    // Empty the transformKeys array. As we're throwing out refs to its items
+    // this might not be as cheap as suspected. Maybe using the array as a buffer
+    // with a manual incrementation would be better.
+    transformKeys.length = 0;
+    // Track whether we encounter any transform or transformOrigin values.
+    var hasTransform = false;
+    var hasTransformOrigin = false;
+    // Does the calculated transform essentially equal "none"?
+    var transformIsNone = true;
+    /**
+     * Loop over all our latest animated values and decide whether to handle them
+     * as a style or CSS variable.
+     *
+     * Transforms and transform origins are kept seperately for further processing.
+     */
+    for (var key in latestValues) {
+        var value = latestValues[key];
+        /**
+         * If this is a CSS variable we don't do any further processing.
+         */
+        if ((0,_dom_utils_is_css_variable_js__WEBPACK_IMPORTED_MODULE_0__.isCSSVariable)(key)) {
+            vars[key] = value;
+            continue;
+        }
+        // Convert the value to its default value type, ie 0 -> "0px"
+        var valueType = _dom_value_types_number_js__WEBPACK_IMPORTED_MODULE_1__.numberValueTypes[key];
+        var valueAsType = (0,_dom_value_types_get_as_type_js__WEBPACK_IMPORTED_MODULE_2__.getValueAsType)(value, valueType);
+        if ((0,_transform_js__WEBPACK_IMPORTED_MODULE_3__.isTransformProp)(key)) {
+            // If this is a transform, flag to enable further transform processing
+            hasTransform = true;
+            transform[key] = valueAsType;
+            transformKeys.push(key);
+            // If we already know we have a non-default transform, early return
+            if (!transformIsNone)
+                continue;
+            // Otherwise check to see if this is a default transform
+            if (value !== ((_a = valueType.default) !== null && _a !== void 0 ? _a : 0))
+                transformIsNone = false;
+        }
+        else if ((0,_transform_js__WEBPACK_IMPORTED_MODULE_3__.isTransformOriginProp)(key)) {
+            transformOrigin[key] = valueAsType;
+            // If this is a transform origin, flag and enable further transform-origin processing
+            hasTransformOrigin = true;
+        }
+        else {
+            /**
+             * If layout projection is on, and we need to perform scale correction for this
+             * value type, perform it.
+             */
+            if ((projection === null || projection === void 0 ? void 0 : projection.isHydrated) &&
+                (layoutState === null || layoutState === void 0 ? void 0 : layoutState.isHydrated) &&
+                _dom_projection_scale_correction_js__WEBPACK_IMPORTED_MODULE_4__.valueScaleCorrection[key]) {
+                var correctedValue = _dom_projection_scale_correction_js__WEBPACK_IMPORTED_MODULE_4__.valueScaleCorrection[key].process(value, layoutState, projection);
+                /**
+                 * Scale-correctable values can define a number of other values to break
+                 * down into. For instance borderRadius needs applying to borderBottomLeftRadius etc
+                 */
+                var applyTo = _dom_projection_scale_correction_js__WEBPACK_IMPORTED_MODULE_4__.valueScaleCorrection[key].applyTo;
+                if (applyTo) {
+                    var num = applyTo.length;
+                    for (var i = 0; i < num; i++) {
+                        style[applyTo[i]] = correctedValue;
+                    }
+                }
+                else {
+                    style[key] = correctedValue;
+                }
+            }
+            else {
+                style[key] = valueAsType;
+            }
+        }
+    }
+    if (layoutState &&
+        projection &&
+        buildProjectionTransform &&
+        buildProjectionTransformOrigin) {
+        style.transform = buildProjectionTransform(layoutState.deltaFinal, layoutState.treeScale, hasTransform ? transform : undefined);
+        if (transformTemplate) {
+            style.transform = transformTemplate(transform, style.transform);
+        }
+        style.transformOrigin = buildProjectionTransformOrigin(layoutState);
+    }
+    else {
+        if (hasTransform) {
+            style.transform = (0,_build_transform_js__WEBPACK_IMPORTED_MODULE_5__.buildTransform)(state, options, transformIsNone, transformTemplate);
+        }
+        if (hasTransformOrigin) {
+            style.transformOrigin = (0,_build_transform_js__WEBPACK_IMPORTED_MODULE_5__.buildTransformOrigin)(transformOrigin);
+        }
+    }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/html/utils/build-transform.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/html/utils/build-transform.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "buildTransform": () => (/* binding */ buildTransform),
+/* harmony export */   "buildTransformOrigin": () => (/* binding */ buildTransformOrigin)
+/* harmony export */ });
+/* harmony import */ var _transform_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./transform.js */ "./node_modules/framer-motion/dist/es/render/html/utils/transform.js");
+
+
+var translateAlias = {
+    x: "translateX",
+    y: "translateY",
+    z: "translateZ",
+    transformPerspective: "perspective",
+};
+/**
+ * Build a CSS transform style from individual x/y/scale etc properties.
+ *
+ * This outputs with a default order of transforms/scales/rotations, this can be customised by
+ * providing a transformTemplate function.
+ */
+function buildTransform(_a, _b, transformIsDefault, transformTemplate) {
+    var transform = _a.transform, transformKeys = _a.transformKeys;
+    var _c = _b.enableHardwareAcceleration, enableHardwareAcceleration = _c === void 0 ? true : _c, _d = _b.allowTransformNone, allowTransformNone = _d === void 0 ? true : _d;
+    // The transform string we're going to build into.
+    var transformString = "";
+    // Transform keys into their default order - this will determine the output order.
+    transformKeys.sort(_transform_js__WEBPACK_IMPORTED_MODULE_0__.sortTransformProps);
+    // Track whether the defined transform has a defined z so we don't add a
+    // second to enable hardware acceleration
+    var transformHasZ = false;
+    // Loop over each transform and build them into transformString
+    var numTransformKeys = transformKeys.length;
+    for (var i = 0; i < numTransformKeys; i++) {
+        var key = transformKeys[i];
+        transformString += (translateAlias[key] || key) + "(" + transform[key] + ") ";
+        if (key === "z")
+            transformHasZ = true;
+    }
+    if (!transformHasZ && enableHardwareAcceleration) {
+        transformString += "translateZ(0)";
+    }
+    else {
+        transformString = transformString.trim();
+    }
+    // If we have a custom `transform` template, pass our transform values and
+    // generated transformString to that before returning
+    if (transformTemplate) {
+        transformString = transformTemplate(transform, transformIsDefault ? "" : transformString);
+    }
+    else if (allowTransformNone && transformIsDefault) {
+        transformString = "none";
+    }
+    return transformString;
+}
+/**
+ * Build a transformOrigin style. Uses the same defaults as the browser for
+ * undefined origins.
+ */
+function buildTransformOrigin(_a) {
+    var _b = _a.originX, originX = _b === void 0 ? "50%" : _b, _c = _a.originY, originY = _c === void 0 ? "50%" : _c, _d = _a.originZ, originZ = _d === void 0 ? 0 : _d;
+    return originX + " " + originY + " " + originZ;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/html/utils/create-render-state.js":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/html/utils/create-render-state.js ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createHtmlRenderState": () => (/* binding */ createHtmlRenderState)
+/* harmony export */ });
+var createHtmlRenderState = function () { return ({
+    style: {},
+    transform: {},
+    transformKeys: [],
+    transformOrigin: {},
+    vars: {},
+}); };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/html/utils/render.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/html/utils/render.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderHTML": () => (/* binding */ renderHTML)
+/* harmony export */ });
+function renderHTML(element, _a) {
+    var style = _a.style, vars = _a.vars;
+    // Directly assign style into the Element's style prop. In tests Object.assign is the
+    // fastest way to assign styles.
+    Object.assign(element.style, style);
+    // Loop over any CSS variables and assign those.
+    for (var key in vars) {
+        element.style.setProperty(key, vars[key]);
+    }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/html/utils/scrape-motion-values.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/html/utils/scrape-motion-values.js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "scrapeMotionValuesFromProps": () => (/* binding */ scrapeMotionValuesFromProps)
+/* harmony export */ });
+/* harmony import */ var _motion_utils_is_forced_motion_value_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../motion/utils/is-forced-motion-value.js */ "./node_modules/framer-motion/dist/es/motion/utils/is-forced-motion-value.js");
+/* harmony import */ var _value_utils_is_motion_value_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../value/utils/is-motion-value.js */ "./node_modules/framer-motion/dist/es/value/utils/is-motion-value.js");
+
+
+
+function scrapeMotionValuesFromProps(props) {
+    var style = props.style;
+    var newValues = {};
+    for (var key in style) {
+        if ((0,_value_utils_is_motion_value_js__WEBPACK_IMPORTED_MODULE_0__.isMotionValue)(style[key]) || (0,_motion_utils_is_forced_motion_value_js__WEBPACK_IMPORTED_MODULE_1__.isForcedMotionValue)(key, props)) {
+            newValues[key] = style[key];
+        }
+    }
+    return newValues;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/html/utils/transform.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/html/utils/transform.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isTransformOriginProp": () => (/* binding */ isTransformOriginProp),
+/* harmony export */   "isTransformProp": () => (/* binding */ isTransformProp),
+/* harmony export */   "sortTransformProps": () => (/* binding */ sortTransformProps),
+/* harmony export */   "transformAxes": () => (/* binding */ transformAxes),
+/* harmony export */   "transformProps": () => (/* binding */ transformProps)
+/* harmony export */ });
+/**
+ * A list of all transformable axes. We'll use this list to generated a version
+ * of each axes for each transform.
+ */
+var transformAxes = ["", "X", "Y", "Z"];
+/**
+ * An ordered array of each transformable value. By default, transform values
+ * will be sorted to this order.
+ */
+var order = ["translate", "scale", "rotate", "skew"];
+/**
+ * Generate a list of every possible transform key.
+ */
+var transformProps = ["transformPerspective", "x", "y", "z"];
+order.forEach(function (operationKey) {
+    return transformAxes.forEach(function (axesKey) {
+        return transformProps.push(operationKey + axesKey);
+    });
+});
+/**
+ * A function to use with Array.sort to sort transform keys by their default order.
+ */
+function sortTransformProps(a, b) {
+    return transformProps.indexOf(a) - transformProps.indexOf(b);
+}
+/**
+ * A quick lookup for transform props.
+ */
+var transformPropSet = new Set(transformProps);
+function isTransformProp(key) {
+    return transformPropSet.has(key);
+}
+/**
+ * A quick lookup for transform origin props
+ */
+var transformOriginProps = new Set(["originX", "originY", "originZ"]);
+function isTransformOriginProp(key) {
+    return transformOriginProps.has(key);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/html/visual-element.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/html/visual-element.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getComputedStyle": () => (/* binding */ getComputedStyle),
+/* harmony export */   "htmlConfig": () => (/* binding */ htmlConfig),
+/* harmony export */   "htmlVisualElement": () => (/* binding */ htmlVisualElement)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../index.js */ "./node_modules/framer-motion/dist/es/render/index.js");
+/* harmony import */ var _utils_setters_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/setters.js */ "./node_modules/framer-motion/dist/es/render/utils/setters.js");
+/* harmony import */ var _dom_projection_measure_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../dom/projection/measure.js */ "./node_modules/framer-motion/dist/es/render/dom/projection/measure.js");
+/* harmony import */ var _utils_build_styles_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/build-styles.js */ "./node_modules/framer-motion/dist/es/render/html/utils/build-styles.js");
+/* harmony import */ var _dom_utils_is_css_variable_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../dom/utils/is-css-variable.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/is-css-variable.js");
+/* harmony import */ var _dom_utils_parse_dom_variant_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../dom/utils/parse-dom-variant.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/parse-dom-variant.js");
+/* harmony import */ var _utils_transform_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/transform.js */ "./node_modules/framer-motion/dist/es/render/html/utils/transform.js");
+/* harmony import */ var _utils_scrape_motion_values_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils/scrape-motion-values.js */ "./node_modules/framer-motion/dist/es/render/html/utils/scrape-motion-values.js");
+/* harmony import */ var _utils_render_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./utils/render.js */ "./node_modules/framer-motion/dist/es/render/html/utils/render.js");
+/* harmony import */ var _dom_value_types_defaults_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../dom/value-types/defaults.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/defaults.js");
+/* harmony import */ var _utils_build_projection_transform_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./utils/build-projection-transform.js */ "./node_modules/framer-motion/dist/es/render/html/utils/build-projection-transform.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getComputedStyle(element) {
+    return window.getComputedStyle(element);
+}
+var htmlConfig = {
+    treeType: "dom",
+    readValueFromInstance: function (domElement, key) {
+        if ((0,_utils_transform_js__WEBPACK_IMPORTED_MODULE_0__.isTransformProp)(key)) {
+            var defaultType = (0,_dom_value_types_defaults_js__WEBPACK_IMPORTED_MODULE_1__.getDefaultValueType)(key);
+            return defaultType ? defaultType.default || 0 : 0;
+        }
+        else {
+            var computedStyle = getComputedStyle(domElement);
+            return (((0,_dom_utils_is_css_variable_js__WEBPACK_IMPORTED_MODULE_2__.isCSSVariable)(key)
+                ? computedStyle.getPropertyValue(key)
+                : computedStyle[key]) || 0);
+        }
+    },
+    sortNodePosition: function (a, b) {
+        /**
+         * compareDocumentPosition returns a bitmask, by using the bitwise &
+         * we're returning true if 2 in that bitmask is set to true. 2 is set
+         * to true if b preceeds a.
+         */
+        return a.compareDocumentPosition(b) & 2 ? 1 : -1;
+    },
+    getBaseTarget: function (props, key) {
+        var _a;
+        return (_a = props.style) === null || _a === void 0 ? void 0 : _a[key];
+    },
+    measureViewportBox: function (element, _a) {
+        var transformPagePoint = _a.transformPagePoint;
+        return (0,_dom_projection_measure_js__WEBPACK_IMPORTED_MODULE_3__.getBoundingBox)(element, transformPagePoint);
+    },
+    /**
+     * Reset the transform on the current Element. This is called as part
+     * of a batched process across the entire layout tree. To remove this write
+     * cycle it'd be interesting to see if it's possible to "undo" all the current
+     * layout transforms up the tree in the same way this.getBoundingBoxWithoutTransforms
+     * works
+     */
+    resetTransform: function (element, domElement, props) {
+        var transformTemplate = props.transformTemplate;
+        domElement.style.transform = transformTemplate
+            ? transformTemplate({}, "")
+            : "none";
+        // Ensure that whatever happens next, we restore our transform on the next frame
+        element.scheduleRender();
+    },
+    restoreTransform: function (instance, mutableState) {
+        instance.style.transform = mutableState.style.transform;
+    },
+    removeValueFromRenderState: function (key, _a) {
+        var vars = _a.vars, style = _a.style;
+        delete vars[key];
+        delete style[key];
+    },
+    /**
+     * Ensure that HTML and Framer-specific value types like `px`->`%` and `Color`
+     * can be animated by Motion.
+     */
+    makeTargetAnimatable: function (element, _a, _b, isMounted) {
+        var transformValues = _b.transformValues;
+        if (isMounted === void 0) { isMounted = true; }
+        var transition = _a.transition, transitionEnd = _a.transitionEnd, target = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__rest)(_a, ["transition", "transitionEnd"]);
+        var origin = (0,_utils_setters_js__WEBPACK_IMPORTED_MODULE_5__.getOrigin)(target, transition || {}, element);
+        /**
+         * If Framer has provided a function to convert `Color` etc value types, convert them
+         */
+        if (transformValues) {
+            if (transitionEnd)
+                transitionEnd = transformValues(transitionEnd);
+            if (target)
+                target = transformValues(target);
+            if (origin)
+                origin = transformValues(origin);
+        }
+        if (isMounted) {
+            (0,_utils_setters_js__WEBPACK_IMPORTED_MODULE_5__.checkTargetForNewValues)(element, target, origin);
+            var parsed = (0,_dom_utils_parse_dom_variant_js__WEBPACK_IMPORTED_MODULE_6__.parseDomVariant)(element, target, origin, transitionEnd);
+            transitionEnd = parsed.transitionEnd;
+            target = parsed.target;
+        }
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__assign)({ transition: transition,
+            transitionEnd: transitionEnd }, target);
+    },
+    scrapeMotionValuesFromProps: _utils_scrape_motion_values_js__WEBPACK_IMPORTED_MODULE_7__.scrapeMotionValuesFromProps,
+    build: function (element, renderState, latestValues, projection, layoutState, options, props) {
+        if (element.isVisible !== undefined) {
+            renderState.style.visibility = element.isVisible
+                ? "visible"
+                : "hidden";
+        }
+        var isProjectionTranform = projection.isEnabled && layoutState.isHydrated;
+        (0,_utils_build_styles_js__WEBPACK_IMPORTED_MODULE_8__.buildHTMLStyles)(renderState, latestValues, projection, layoutState, options, props.transformTemplate, isProjectionTranform ? _utils_build_projection_transform_js__WEBPACK_IMPORTED_MODULE_9__.buildLayoutProjectionTransform : undefined, isProjectionTranform
+            ? _utils_build_projection_transform_js__WEBPACK_IMPORTED_MODULE_9__.buildLayoutProjectionTransformOrigin
+            : undefined);
+    },
+    render: _utils_render_js__WEBPACK_IMPORTED_MODULE_10__.renderHTML,
+};
+var htmlVisualElement = (0,_index_js__WEBPACK_IMPORTED_MODULE_11__.visualElement)(htmlConfig);
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/index.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "visualElement": () => (/* binding */ visualElement)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! framesync */ "./node_modules/framesync/dist/es/index.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/pipe.js");
+/* harmony import */ var _components_AnimateSharedLayout_types_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../components/AnimateSharedLayout/types.js */ "./node_modules/framer-motion/dist/es/components/AnimateSharedLayout/types.js");
+/* harmony import */ var _utils_each_axis_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../utils/each-axis.js */ "./node_modules/framer-motion/dist/es/utils/each-axis.js");
+/* harmony import */ var _utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../utils/geometry/index.js */ "./node_modules/framer-motion/dist/es/utils/geometry/index.js");
+/* harmony import */ var _utils_geometry_delta_apply_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/geometry/delta-apply.js */ "./node_modules/framer-motion/dist/es/utils/geometry/delta-apply.js");
+/* harmony import */ var _utils_geometry_delta_calc_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/geometry/delta-calc.js */ "./node_modules/framer-motion/dist/es/utils/geometry/delta-calc.js");
+/* harmony import */ var _value_index_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../value/index.js */ "./node_modules/framer-motion/dist/es/value/index.js");
+/* harmony import */ var _value_utils_is_motion_value_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../value/utils/is-motion-value.js */ "./node_modules/framer-motion/dist/es/value/utils/is-motion-value.js");
+/* harmony import */ var _html_utils_build_projection_transform_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./html/utils/build-projection-transform.js */ "./node_modules/framer-motion/dist/es/render/html/utils/build-projection-transform.js");
+/* harmony import */ var _utils_animation_state_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./utils/animation-state.js */ "./node_modules/framer-motion/dist/es/render/utils/animation-state.js");
+/* harmony import */ var _utils_lifecycles_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/lifecycles.js */ "./node_modules/framer-motion/dist/es/render/utils/lifecycles.js");
+/* harmony import */ var _utils_motion_values_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./utils/motion-values.js */ "./node_modules/framer-motion/dist/es/render/utils/motion-values.js");
+/* harmony import */ var _utils_projection_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./utils/projection.js */ "./node_modules/framer-motion/dist/es/render/utils/projection.js");
+/* harmony import */ var _utils_state_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/state.js */ "./node_modules/framer-motion/dist/es/render/utils/state.js");
+/* harmony import */ var _utils_flat_tree_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./utils/flat-tree.js */ "./node_modules/framer-motion/dist/es/render/utils/flat-tree.js");
+/* harmony import */ var _utils_variants_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./utils/variants.js */ "./node_modules/framer-motion/dist/es/render/utils/variants.js");
+/* harmony import */ var _dom_projection_relative_set_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./dom/projection/relative-set.js */ "./node_modules/framer-motion/dist/es/render/dom/projection/relative-set.js");
+/* harmony import */ var _utils_is_draggable_js__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./utils/is-draggable.js */ "./node_modules/framer-motion/dist/es/render/utils/is-draggable.js");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var visualElement = function (_a) {
+    var _b = _a.treeType, treeType = _b === void 0 ? "" : _b, build = _a.build, getBaseTarget = _a.getBaseTarget, makeTargetAnimatable = _a.makeTargetAnimatable, measureViewportBox = _a.measureViewportBox, renderInstance = _a.render, readValueFromInstance = _a.readValueFromInstance, resetTransform = _a.resetTransform, restoreTransform = _a.restoreTransform, removeValueFromRenderState = _a.removeValueFromRenderState, sortNodePosition = _a.sortNodePosition, scrapeMotionValuesFromProps = _a.scrapeMotionValuesFromProps;
+    return function (_a, options) {
+        var parent = _a.parent, props = _a.props, presenceId = _a.presenceId, blockInitialAnimation = _a.blockInitialAnimation, visualState = _a.visualState;
+        if (options === void 0) { options = {}; }
+        var latestValues = visualState.latestValues, renderState = visualState.renderState;
+        /**
+         * The instance of the render-specific node that will be hydrated by the
+         * exposed React ref. So for example, this visual element can host a
+         * HTMLElement, plain object, or Three.js object. The functions provided
+         * in VisualElementConfig allow us to interface with this instance.
+         */
+        var instance;
+        /**
+         * Manages the subscriptions for a visual element's lifecycle, for instance
+         * onRender and onViewportBoxUpdate.
+         */
+        var lifecycles = (0,_utils_lifecycles_js__WEBPACK_IMPORTED_MODULE_1__.createLifecycles)();
+        /**
+         *
+         */
+        var projection = (0,_utils_state_js__WEBPACK_IMPORTED_MODULE_2__.createProjectionState)();
+        /**
+         * A reference to the nearest projecting parent. This is either
+         * undefined if we haven't looked for the nearest projecting parent,
+         * false if there is no parent performing layout projection, or a reference
+         * to the projecting parent.
+         */
+        var projectionParent;
+        /**
+         * This is a reference to the visual state of the "lead" visual element.
+         * Usually, this will be this visual element. But if it shares a layoutId
+         * with other visual elements, only one of them will be designated lead by
+         * AnimateSharedLayout. All the other visual elements will take on the visual
+         * appearance of the lead while they crossfade to it.
+         */
+        var leadProjection = projection;
+        var leadLatestValues = latestValues;
+        var unsubscribeFromLeadVisualElement;
+        /**
+         * The latest layout measurements and calculated projections. This
+         * is seperate from the target projection data in visualState as
+         * many visual elements might point to the same piece of visualState as
+         * a target, whereas they might each have different layouts and thus
+         * projection calculations needed to project into the same viewport box.
+         */
+        var layoutState = (0,_utils_state_js__WEBPACK_IMPORTED_MODULE_2__.createLayoutState)();
+        /**
+         *
+         */
+        var crossfader;
+        /**
+         * Keep track of whether the viewport box has been updated since the
+         * last time the layout projection was re-calculated.
+         */
+        var hasViewportBoxUpdated = false;
+        /**
+         * A map of all motion values attached to this visual element. Motion
+         * values are source of truth for any given animated value. A motion
+         * value might be provided externally by the component via props.
+         */
+        var values = new Map();
+        /**
+         * A map of every subscription that binds the provided or generated
+         * motion values onChange listeners to this visual element.
+         */
+        var valueSubscriptions = new Map();
+        /**
+         * A reference to the previously-provided motion values as returned
+         * from scrapeMotionValuesFromProps. We use the keys in here to determine
+         * if any motion values need to be removed after props are updated.
+         */
+        var prevMotionValues = {};
+        /**
+         * x/y motion values that track the progress of initiated layout
+         * animations.
+         *
+         * TODO: Target for removal
+         */
+        var projectionTargetProgress;
+        /**
+         * When values are removed from all animation props we need to search
+         * for a fallback value to animate to. These values are tracked in baseTarget.
+         */
+        var baseTarget = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)({}, latestValues);
+        // Internal methods ========================
+        /**
+         * On mount, this will be hydrated with a callback to disconnect
+         * this visual element from its parent on unmount.
+         */
+        var removeFromVariantTree;
+        /**
+         *
+         */
+        function render() {
+            if (!instance)
+                return;
+            if (element.isProjectionReady()) {
+                /**
+                 * Apply the latest user-set transforms to the targetBox to produce the targetBoxFinal.
+                 * This is the final box that we will then project into by calculating a transform delta and
+                 * applying it to the corrected box.
+                 */
+                (0,_utils_geometry_delta_apply_js__WEBPACK_IMPORTED_MODULE_4__.applyBoxTransforms)(leadProjection.targetFinal, leadProjection.target, leadLatestValues);
+                /**
+                 * Update the delta between the corrected box and the final target box, after
+                 * user-set transforms are applied to it. This will be used by the renderer to
+                 * create a transform style that will reproject the element from its actual layout
+                 * into the desired bounding box.
+                 */
+                (0,_utils_geometry_delta_calc_js__WEBPACK_IMPORTED_MODULE_5__.updateBoxDelta)(layoutState.deltaFinal, layoutState.layoutCorrected, leadProjection.targetFinal, latestValues);
+            }
+            triggerBuild();
+            renderInstance(instance, renderState);
+        }
+        function triggerBuild() {
+            var valuesToRender = latestValues;
+            if (crossfader && crossfader.isActive()) {
+                var crossfadedValues = crossfader.getCrossfadeState(element);
+                if (crossfadedValues)
+                    valuesToRender = crossfadedValues;
+            }
+            build(element, renderState, valuesToRender, leadProjection, layoutState, options, props);
+        }
+        function update() {
+            lifecycles.notifyUpdate(latestValues);
+        }
+        function updateLayoutProjection() {
+            if (!element.isProjectionReady())
+                return;
+            var delta = layoutState.delta, treeScale = layoutState.treeScale;
+            var prevTreeScaleX = treeScale.x;
+            var prevTreeScaleY = treeScale.y;
+            var prevDeltaTransform = layoutState.deltaTransform;
+            (0,_utils_projection_js__WEBPACK_IMPORTED_MODULE_6__.updateLayoutDeltas)(layoutState, leadProjection, element.path, latestValues);
+            hasViewportBoxUpdated &&
+                element.notifyViewportBoxUpdate(leadProjection.target, delta);
+            hasViewportBoxUpdated = false;
+            var deltaTransform = (0,_html_utils_build_projection_transform_js__WEBPACK_IMPORTED_MODULE_7__.buildLayoutProjectionTransform)(delta, treeScale);
+            if (deltaTransform !== prevDeltaTransform ||
+                // Also compare calculated treeScale, for values that rely on this only for scale correction
+                prevTreeScaleX !== treeScale.x ||
+                prevTreeScaleY !== treeScale.y) {
+                element.scheduleRender();
+            }
+            layoutState.deltaTransform = deltaTransform;
+        }
+        function updateTreeLayoutProjection() {
+            element.layoutTree.forEach(fireUpdateLayoutProjection);
+        }
+        /**
+         *
+         */
+        function bindToMotionValue(key, value) {
+            var removeOnChange = value.onChange(function (latestValue) {
+                latestValues[key] = latestValue;
+                props.onUpdate && framesync__WEBPACK_IMPORTED_MODULE_0__["default"].update(update, false, true);
+            });
+            var removeOnRenderRequest = value.onRenderRequest(element.scheduleRender);
+            valueSubscriptions.set(key, function () {
+                removeOnChange();
+                removeOnRenderRequest();
+            });
+        }
+        /**
+         * Any motion values that are provided to the element when created
+         * aren't yet bound to the element, as this would technically be impure.
+         * However, we iterate through the motion values and set them to the
+         * initial values for this component.
+         *
+         * TODO: This is impure and we should look at changing this to run on mount.
+         * Doing so will break some tests but this isn't neccessarily a breaking change,
+         * more a reflection of the test.
+         */
+        var initialMotionValues = scrapeMotionValuesFromProps(props);
+        for (var key in initialMotionValues) {
+            var value = initialMotionValues[key];
+            if (latestValues[key] !== undefined && (0,_value_utils_is_motion_value_js__WEBPACK_IMPORTED_MODULE_8__.isMotionValue)(value)) {
+                value.set(latestValues[key], false);
+            }
+        }
+        /**
+         * Determine what role this visual element should take in the variant tree.
+         */
+        var isControllingVariants = (0,_utils_variants_js__WEBPACK_IMPORTED_MODULE_9__.checkIfControllingVariants)(props);
+        var isVariantNode = (0,_utils_variants_js__WEBPACK_IMPORTED_MODULE_9__.checkIfVariantNode)(props);
+        var element = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)({ treeType: treeType, 
+            /**
+             * This is a mirror of the internal instance prop, which keeps
+             * VisualElement type-compatible with React's RefObject.
+             */
+            current: null, 
+            /**
+             * The depth of this visual element within the visual element tree.
+             */
+            depth: parent ? parent.depth + 1 : 0, parent: parent, children: new Set(), 
+            /**
+             * An ancestor path back to the root visual element. This is used
+             * by layout projection to quickly recurse back up the tree.
+             */
+            path: parent ? (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__spreadArray)((0,tslib__WEBPACK_IMPORTED_MODULE_3__.__spreadArray)([], (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__read)(parent.path)), [parent]) : [], layoutTree: parent ? parent.layoutTree : new _utils_flat_tree_js__WEBPACK_IMPORTED_MODULE_10__.FlatTree(), 
+            /**
+             *
+             */
+            presenceId: presenceId,
+            projection: projection, 
+            /**
+             * If this component is part of the variant tree, it should track
+             * any children that are also part of the tree. This is essentially
+             * a shadow tree to simplify logic around how to stagger over children.
+             */
+            variantChildren: isVariantNode ? new Set() : undefined, 
+            /**
+             * Whether this instance is visible. This can be changed imperatively
+             * by AnimateSharedLayout, is analogous to CSS's visibility in that
+             * hidden elements should take up layout, and needs enacting by the configured
+             * render function.
+             */
+            isVisible: undefined, 
+            /**
+             * Normally, if a component is controlled by a parent's variants, it can
+             * rely on that ancestor to trigger animations further down the tree.
+             * However, if a component is created after its parent is mounted, the parent
+             * won't trigger that mount animation so the child needs to.
+             *
+             * TODO: This might be better replaced with a method isParentMounted
+             */
+            manuallyAnimateOnMount: Boolean(parent === null || parent === void 0 ? void 0 : parent.isMounted()), 
+            /**
+             * This can be set by AnimatePresence to force components that mount
+             * at the same time as it to mount as if they have initial={false} set.
+             */
+            blockInitialAnimation: blockInitialAnimation, 
+            /**
+             * Determine whether this component has mounted yet. This is mostly used
+             * by variant children to determine whether they need to trigger their
+             * own animations on mount.
+             */
+            isMounted: function () { return Boolean(instance); }, mount: function (newInstance) {
+                instance = element.current = newInstance;
+                element.pointTo(element);
+                if (isVariantNode && parent && !isControllingVariants) {
+                    removeFromVariantTree = parent === null || parent === void 0 ? void 0 : parent.addVariantChild(element);
+                }
+                parent === null || parent === void 0 ? void 0 : parent.children.add(element);
+            },
+            /**
+             *
+             */
+            unmount: function () {
+                framesync__WEBPACK_IMPORTED_MODULE_0__.cancelSync.update(update);
+                framesync__WEBPACK_IMPORTED_MODULE_0__.cancelSync.render(render);
+                framesync__WEBPACK_IMPORTED_MODULE_0__.cancelSync.preRender(element.updateLayoutProjection);
+                valueSubscriptions.forEach(function (remove) { return remove(); });
+                element.stopLayoutAnimation();
+                element.layoutTree.remove(element);
+                removeFromVariantTree === null || removeFromVariantTree === void 0 ? void 0 : removeFromVariantTree();
+                parent === null || parent === void 0 ? void 0 : parent.children.delete(element);
+                unsubscribeFromLeadVisualElement === null || unsubscribeFromLeadVisualElement === void 0 ? void 0 : unsubscribeFromLeadVisualElement();
+                lifecycles.clearAllListeners();
+            },
+            /**
+             * Add a child visual element to our set of children.
+             */
+            addVariantChild: function (child) {
+                var _a;
+                var closestVariantNode = element.getClosestVariantNode();
+                if (closestVariantNode) {
+                    (_a = closestVariantNode.variantChildren) === null || _a === void 0 ? void 0 : _a.add(child);
+                    return function () { return closestVariantNode.variantChildren.delete(child); };
+                }
+            },
+            sortNodePosition: function (other) {
+                /**
+                 * If these nodes aren't even of the same type we can't compare their depth.
+                 */
+                if (!sortNodePosition || treeType !== other.treeType)
+                    return 0;
+                return sortNodePosition(element.getInstance(), other.getInstance());
+            }, 
+            /**
+             * Returns the closest variant node in the tree starting from
+             * this visual element.
+             */
+            getClosestVariantNode: function () {
+                return isVariantNode ? element : parent === null || parent === void 0 ? void 0 : parent.getClosestVariantNode();
+            }, 
+            /**
+             * A method that schedules an update to layout projections throughout
+             * the tree. We inherit from the parent so there's only ever one
+             * job scheduled on the next frame - that of the root visual element.
+             */
+            scheduleUpdateLayoutProjection: parent
+                ? parent.scheduleUpdateLayoutProjection
+                : function () {
+                    return framesync__WEBPACK_IMPORTED_MODULE_0__["default"].preRender(element.updateTreeLayoutProjection, false, true);
+                }, 
+            /**
+             * Expose the latest layoutId prop.
+             */
+            getLayoutId: function () { return props.layoutId; }, 
+            /**
+             * Returns the current instance.
+             */
+            getInstance: function () { return instance; }, 
+            /**
+             * Get/set the latest static values.
+             */
+            getStaticValue: function (key) { return latestValues[key]; }, setStaticValue: function (key, value) { return (latestValues[key] = value); }, 
+            /**
+             * Returns the latest motion value state. Currently only used to take
+             * a snapshot of the visual element - perhaps this can return the whole
+             * visual state
+             */
+            getLatestValues: function () { return latestValues; }, 
+            /**
+             * Set the visiblity of the visual element. If it's changed, schedule
+             * a render to reflect these changes.
+             */
+            setVisibility: function (visibility) {
+                if (element.isVisible === visibility)
+                    return;
+                element.isVisible = visibility;
+                element.scheduleRender();
+            },
+            /**
+             * Make a target animatable by Popmotion. For instance, if we're
+             * trying to animate width from 100px to 100vw we need to measure 100vw
+             * in pixels to determine what we really need to animate to. This is also
+             * pluggable to support Framer's custom value types like Color,
+             * and CSS variables.
+             */
+            makeTargetAnimatable: function (target, canMutate) {
+                if (canMutate === void 0) { canMutate = true; }
+                return makeTargetAnimatable(element, target, props, canMutate);
+            },
+            // Motion values ========================
+            /**
+             * Add a motion value and bind it to this visual element.
+             */
+            addValue: function (key, value) {
+                // Remove existing value if it exists
+                if (element.hasValue(key))
+                    element.removeValue(key);
+                values.set(key, value);
+                latestValues[key] = value.get();
+                bindToMotionValue(key, value);
+            },
+            /**
+             * Remove a motion value and unbind any active subscriptions.
+             */
+            removeValue: function (key) {
+                var _a;
+                values.delete(key);
+                (_a = valueSubscriptions.get(key)) === null || _a === void 0 ? void 0 : _a();
+                valueSubscriptions.delete(key);
+                delete latestValues[key];
+                removeValueFromRenderState(key, renderState);
+            }, 
+            /**
+             * Check whether we have a motion value for this key
+             */
+            hasValue: function (key) { return values.has(key); }, 
+            /**
+             * Get a motion value for this key. If called with a default
+             * value, we'll create one if none exists.
+             */
+            getValue: function (key, defaultValue) {
+                var value = values.get(key);
+                if (value === undefined && defaultValue !== undefined) {
+                    value = (0,_value_index_js__WEBPACK_IMPORTED_MODULE_11__.motionValue)(defaultValue);
+                    element.addValue(key, value);
+                }
+                return value;
+            }, 
+            /**
+             * Iterate over our motion values.
+             */
+            forEachValue: function (callback) { return values.forEach(callback); }, 
+            /**
+             * If we're trying to animate to a previously unencountered value,
+             * we need to check for it in our state and as a last resort read it
+             * directly from the instance (which might have performance implications).
+             */
+            readValue: function (key) { var _a; return (_a = latestValues[key]) !== null && _a !== void 0 ? _a : readValueFromInstance(instance, key, options); }, 
+            /**
+             * Set the base target to later animate back to. This is currently
+             * only hydrated on creation and when we first read a value.
+             */
+            setBaseTarget: function (key, value) {
+                baseTarget[key] = value;
+            },
+            /**
+             * Find the base target for a value thats been removed from all animation
+             * props.
+             */
+            getBaseTarget: function (key) {
+                if (getBaseTarget) {
+                    var target = getBaseTarget(props, key);
+                    if (target !== undefined && !(0,_value_utils_is_motion_value_js__WEBPACK_IMPORTED_MODULE_8__.isMotionValue)(target))
+                        return target;
+                }
+                return baseTarget[key];
+            } }, lifecycles), { 
+            /**
+             * Build the renderer state based on the latest visual state.
+             */
+            build: function () {
+                triggerBuild();
+                return renderState;
+            },
+            /**
+             * Schedule a render on the next animation frame.
+             */
+            scheduleRender: function () {
+                framesync__WEBPACK_IMPORTED_MODULE_0__["default"].render(render, false, true);
+            }, 
+            /**
+             * Synchronously fire render. It's prefered that we batch renders but
+             * in many circumstances, like layout measurement, we need to run this
+             * synchronously. However in those instances other measures should be taken
+             * to batch reads/writes.
+             */
+            syncRender: render, 
+            /**
+             * Update the provided props. Ensure any newly-added motion values are
+             * added to our map, old ones removed, and listeners updated.
+             */
+            setProps: function (newProps) {
+                props = newProps;
+                lifecycles.updatePropListeners(newProps);
+                prevMotionValues = (0,_utils_motion_values_js__WEBPACK_IMPORTED_MODULE_12__.updateMotionValuesFromProps)(element, scrapeMotionValuesFromProps(props), prevMotionValues);
+            }, getProps: function () { return props; }, 
+            // Variants ==============================
+            /**
+             * Returns the variant definition with a given name.
+             */
+            getVariant: function (name) { var _a; return (_a = props.variants) === null || _a === void 0 ? void 0 : _a[name]; }, 
+            /**
+             * Returns the defined default transition on this component.
+             */
+            getDefaultTransition: function () { return props.transition; }, 
+            /**
+             * Used by child variant nodes to get the closest ancestor variant props.
+             */
+            getVariantContext: function (startAtParent) {
+                if (startAtParent === void 0) { startAtParent = false; }
+                if (startAtParent)
+                    return parent === null || parent === void 0 ? void 0 : parent.getVariantContext();
+                if (!isControllingVariants) {
+                    var context_1 = (parent === null || parent === void 0 ? void 0 : parent.getVariantContext()) || {};
+                    if (props.initial !== undefined) {
+                        context_1.initial = props.initial;
+                    }
+                    return context_1;
+                }
+                var context = {};
+                for (var i = 0; i < numVariantProps; i++) {
+                    var name_1 = variantProps[i];
+                    var prop = props[name_1];
+                    if ((0,_utils_variants_js__WEBPACK_IMPORTED_MODULE_9__.isVariantLabel)(prop) || prop === false) {
+                        context[name_1] = prop;
+                    }
+                }
+                return context;
+            },
+            // Layout projection ==============================
+            /**
+             * Enable layout projection for this visual element. Won't actually
+             * occur until we also have hydrated layout measurements.
+             */
+            enableLayoutProjection: function () {
+                projection.isEnabled = true;
+                element.layoutTree.add(element);
+            },
+            /**
+             * Lock the projection target, for instance when dragging, so
+             * nothing else can try and animate it.
+             */
+            lockProjectionTarget: function () {
+                projection.isTargetLocked = true;
+            },
+            unlockProjectionTarget: function () {
+                element.stopLayoutAnimation();
+                projection.isTargetLocked = false;
+            }, getLayoutState: function () { return layoutState; }, setCrossfader: function (newCrossfader) {
+                crossfader = newCrossfader;
+            }, isProjectionReady: function () {
+                return projection.isEnabled &&
+                    projection.isHydrated &&
+                    layoutState.isHydrated;
+            }, 
+            /**
+             * Start a layout animation on a given axis.
+             */
+            startLayoutAnimation: function (axis, transition, isRelative) {
+                if (isRelative === void 0) { isRelative = false; }
+                var progress = element.getProjectionAnimationProgress()[axis];
+                var _a = isRelative
+                    ? projection.relativeTarget[axis]
+                    : projection.target[axis], min = _a.min, max = _a.max;
+                var length = max - min;
+                progress.clearListeners();
+                progress.set(min);
+                progress.set(min); // Set twice to hard-reset velocity
+                progress.onChange(function (v) {
+                    element.setProjectionTargetAxis(axis, v, v + length, isRelative);
+                });
+                return element.animateMotionValue(axis, progress, 0, transition);
+            },
+            /**
+             * Stop layout animations.
+             */
+            stopLayoutAnimation: function () {
+                (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_13__.eachAxis)(function (axis) {
+                    return element.getProjectionAnimationProgress()[axis].stop();
+                });
+            },
+            /**
+             * Measure the current viewport box with or without transforms.
+             * Only measures axis-aligned boxes, rotate and skew must be manually
+             * removed with a re-render to work.
+             */
+            measureViewportBox: function (withTransform) {
+                if (withTransform === void 0) { withTransform = true; }
+                var viewportBox = measureViewportBox(instance, options);
+                if (!withTransform)
+                    (0,_utils_geometry_delta_apply_js__WEBPACK_IMPORTED_MODULE_4__.removeBoxTransforms)(viewportBox, latestValues);
+                return viewportBox;
+            },
+            /**
+             * Get the motion values tracking the layout animations on each
+             * axis. Lazy init if not already created.
+             */
+            getProjectionAnimationProgress: function () {
+                projectionTargetProgress || (projectionTargetProgress = {
+                    x: (0,_value_index_js__WEBPACK_IMPORTED_MODULE_11__.motionValue)(0),
+                    y: (0,_value_index_js__WEBPACK_IMPORTED_MODULE_11__.motionValue)(0),
+                });
+                return projectionTargetProgress;
+            },
+            /**
+             * Update the projection of a single axis. Schedule an update to
+             * the tree layout projection.
+             */
+            setProjectionTargetAxis: function (axis, min, max, isRelative) {
+                if (isRelative === void 0) { isRelative = false; }
+                var target;
+                if (isRelative) {
+                    if (!projection.relativeTarget) {
+                        projection.relativeTarget = (0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_14__.axisBox)();
+                    }
+                    target = projection.relativeTarget[axis];
+                }
+                else {
+                    projection.relativeTarget = undefined;
+                    target = projection.target[axis];
+                }
+                projection.isHydrated = true;
+                target.min = min;
+                target.max = max;
+                // Flag that we want to fire the onViewportBoxUpdate event handler
+                hasViewportBoxUpdated = true;
+                lifecycles.notifySetAxisTarget();
+            },
+            /**
+             * Rebase the projection target on top of the provided viewport box
+             * or the measured layout. This ensures that non-animating elements
+             * don't fall out of sync differences in measurements vs projections
+             * after a page scroll or other relayout.
+             */
+            rebaseProjectionTarget: function (force, box) {
+                if (box === void 0) { box = layoutState.layout; }
+                var _a = element.getProjectionAnimationProgress(), x = _a.x, y = _a.y;
+                var shouldRebase = !projection.relativeTarget &&
+                    !projection.isTargetLocked &&
+                    !x.isAnimating() &&
+                    !y.isAnimating();
+                if (force || shouldRebase) {
+                    (0,_utils_each_axis_js__WEBPACK_IMPORTED_MODULE_13__.eachAxis)(function (axis) {
+                        var _a = box[axis], min = _a.min, max = _a.max;
+                        element.setProjectionTargetAxis(axis, min, max);
+                    });
+                }
+            },
+            /**
+             * Notify the visual element that its layout is up-to-date.
+             * Currently Animate.tsx uses this to check whether a layout animation
+             * needs to be performed.
+             */
+            notifyLayoutReady: function (config) {
+                (0,_dom_projection_relative_set_js__WEBPACK_IMPORTED_MODULE_15__.setCurrentViewportBox)(element);
+                element.notifyLayoutUpdate(layoutState.layout, element.prevViewportBox || layoutState.layout, config);
+            }, 
+            /**
+             * Temporarily reset the transform of the instance.
+             */
+            resetTransform: function () { return resetTransform(element, instance, props); }, restoreTransform: function () { return restoreTransform(instance, renderState); }, updateLayoutProjection: updateLayoutProjection,
+            updateTreeLayoutProjection: function () {
+                element.layoutTree.forEach(fireResolveRelativeTargetBox);
+                /**
+                 * Schedule the projection updates at the end of the current preRender
+                 * step. This will ensure that all layout trees will first resolve
+                 * relative projection boxes into viewport boxes, and *then*
+                 * update projections.
+                 */
+                framesync__WEBPACK_IMPORTED_MODULE_0__["default"].preRender(updateTreeLayoutProjection, false, true);
+                // sync.postRender(() => element.scheduleUpdateLayoutProjection())
+            },
+            getProjectionParent: function () {
+                if (projectionParent === undefined) {
+                    var foundParent = false;
+                    // Search backwards through the tree path
+                    for (var i = element.path.length - 1; i >= 0; i--) {
+                        var ancestor = element.path[i];
+                        if (ancestor.projection.isEnabled) {
+                            foundParent = ancestor;
+                            break;
+                        }
+                    }
+                    projectionParent = foundParent;
+                }
+                return projectionParent;
+            },
+            resolveRelativeTargetBox: function () {
+                var relativeParent = element.getProjectionParent();
+                if (!projection.relativeTarget || !relativeParent)
+                    return;
+                (0,_utils_geometry_delta_calc_js__WEBPACK_IMPORTED_MODULE_5__.calcRelativeBox)(projection, relativeParent.projection);
+                if ((0,_utils_is_draggable_js__WEBPACK_IMPORTED_MODULE_16__.isDraggable)(relativeParent)) {
+                    var target = projection.target;
+                    (0,_utils_geometry_delta_apply_js__WEBPACK_IMPORTED_MODULE_4__.applyBoxTransforms)(target, target, relativeParent.getLatestValues());
+                }
+            },
+            shouldResetTransform: function () {
+                return Boolean(props._layoutResetTransform);
+            },
+            /**
+             *
+             */
+            pointTo: function (newLead) {
+                leadProjection = newLead.projection;
+                leadLatestValues = newLead.getLatestValues();
+                /**
+                 * Subscribe to lead component's layout animations
+                 */
+                unsubscribeFromLeadVisualElement === null || unsubscribeFromLeadVisualElement === void 0 ? void 0 : unsubscribeFromLeadVisualElement();
+                unsubscribeFromLeadVisualElement = (0,popmotion__WEBPACK_IMPORTED_MODULE_17__.pipe)(newLead.onSetAxisTarget(element.scheduleUpdateLayoutProjection), newLead.onLayoutAnimationComplete(function () {
+                    var _a;
+                    if (element.isPresent) {
+                        element.presence = _components_AnimateSharedLayout_types_js__WEBPACK_IMPORTED_MODULE_18__.Presence.Present;
+                    }
+                    else {
+                        (_a = element.layoutSafeToRemove) === null || _a === void 0 ? void 0 : _a.call(element);
+                    }
+                }));
+            }, 
+            // TODO: Clean this up
+            isPresent: true, presence: _components_AnimateSharedLayout_types_js__WEBPACK_IMPORTED_MODULE_18__.Presence.Entering });
+        return element;
+    };
+};
+function fireResolveRelativeTargetBox(child) {
+    child.resolveRelativeTargetBox();
+}
+function fireUpdateLayoutProjection(child) {
+    child.updateLayoutProjection();
+}
+var variantProps = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__spreadArray)(["initial"], (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__read)(_utils_animation_state_js__WEBPACK_IMPORTED_MODULE_19__.variantPriorityOrder));
+var numVariantProps = variantProps.length;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/svg/config-motion.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/svg/config-motion.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "svgMotionConfig": () => (/* binding */ svgMotionConfig)
+/* harmony export */ });
+/* harmony import */ var _utils_render_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/render.js */ "./node_modules/framer-motion/dist/es/render/svg/utils/render.js");
+/* harmony import */ var _utils_scrape_motion_values_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/scrape-motion-values.js */ "./node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.js");
+/* harmony import */ var _motion_utils_use_visual_state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../motion/utils/use-visual-state.js */ "./node_modules/framer-motion/dist/es/motion/utils/use-visual-state.js");
+/* harmony import */ var _utils_create_render_state_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/create-render-state.js */ "./node_modules/framer-motion/dist/es/render/svg/utils/create-render-state.js");
+/* harmony import */ var _utils_build_attrs_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils/build-attrs.js */ "./node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.js");
+
+
+
+
+
+
+var svgMotionConfig = {
+    useVisualState: (0,_motion_utils_use_visual_state_js__WEBPACK_IMPORTED_MODULE_0__.makeUseVisualState)({
+        scrapeMotionValuesFromProps: _utils_scrape_motion_values_js__WEBPACK_IMPORTED_MODULE_1__.scrapeMotionValuesFromProps,
+        createRenderState: _utils_create_render_state_js__WEBPACK_IMPORTED_MODULE_2__.createSvgRenderState,
+        onMount: function (props, instance, _a) {
+            var renderState = _a.renderState, latestValues = _a.latestValues;
+            try {
+                renderState.dimensions =
+                    typeof instance.getBBox ===
+                        "function"
+                        ? instance.getBBox()
+                        : instance.getBoundingClientRect();
+            }
+            catch (e) {
+                // Most likely trying to measure an unrendered element under Firefox
+                renderState.dimensions = {
+                    x: 0,
+                    y: 0,
+                    width: 0,
+                    height: 0,
+                };
+            }
+            if (isPath(instance)) {
+                renderState.totalPathLength = instance.getTotalLength();
+            }
+            (0,_utils_build_attrs_js__WEBPACK_IMPORTED_MODULE_3__.buildSVGAttrs)(renderState, latestValues, undefined, undefined, { enableHardwareAcceleration: false }, props.transformTemplate);
+            // TODO: Replace with direct assignment
+            (0,_utils_render_js__WEBPACK_IMPORTED_MODULE_4__.renderSVG)(instance, renderState);
+        },
+    }),
+};
+function isPath(element) {
+    return element.tagName === "path";
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/svg/lowercase-elements.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/svg/lowercase-elements.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "lowercaseSVGElements": () => (/* binding */ lowercaseSVGElements)
+/* harmony export */ });
+/**
+ * We keep these listed seperately as we use the lowercase tag names as part
+ * of the runtime bundle to detect SVG components
+ */
+var lowercaseSVGElements = [
+    "animate",
+    "circle",
+    "defs",
+    "desc",
+    "ellipse",
+    "g",
+    "image",
+    "line",
+    "filter",
+    "marker",
+    "mask",
+    "metadata",
+    "path",
+    "pattern",
+    "polygon",
+    "polyline",
+    "rect",
+    "stop",
+    "svg",
+    "switch",
+    "symbol",
+    "text",
+    "tspan",
+    "use",
+    "view",
+];
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/svg/use-props.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/svg/use-props.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useSVGProps": () => (/* binding */ useSVGProps)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _html_use_props_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../html/use-props.js */ "./node_modules/framer-motion/dist/es/render/html/use-props.js");
+/* harmony import */ var _utils_build_attrs_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/build-attrs.js */ "./node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.js");
+/* harmony import */ var _utils_create_render_state_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/create-render-state.js */ "./node_modules/framer-motion/dist/es/render/svg/utils/create-render-state.js");
+
+
+
+
+
+
+function useSVGProps(props, visualState) {
+    var visualProps = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+        var state = (0,_utils_create_render_state_js__WEBPACK_IMPORTED_MODULE_1__.createSvgRenderState)();
+        (0,_utils_build_attrs_js__WEBPACK_IMPORTED_MODULE_2__.buildSVGAttrs)(state, visualState, undefined, undefined, { enableHardwareAcceleration: false }, props.transformTemplate);
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)({}, state.attrs), { style: (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)({}, state.style) });
+    }, [visualState]);
+    if (props.style) {
+        var rawStyles = {};
+        (0,_html_use_props_js__WEBPACK_IMPORTED_MODULE_4__.copyRawValuesOnly)(rawStyles, props.style, props);
+        visualProps.style = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)({}, rawStyles), visualProps.style);
+    }
+    return visualProps;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "buildSVGAttrs": () => (/* binding */ buildSVGAttrs)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _html_utils_build_styles_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../html/utils/build-styles.js */ "./node_modules/framer-motion/dist/es/render/html/utils/build-styles.js");
+/* harmony import */ var _transform_origin_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./transform-origin.js */ "./node_modules/framer-motion/dist/es/render/svg/utils/transform-origin.js");
+/* harmony import */ var _path_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./path.js */ "./node_modules/framer-motion/dist/es/render/svg/utils/path.js");
+
+
+
+
+
+/**
+ * Build SVG visual attrbutes, like cx and style.transform
+ */
+function buildSVGAttrs(state, _a, projection, layoutState, options, transformTemplate, buildProjectionTransform, buildProjectionTransformOrigin) {
+    var attrX = _a.attrX, attrY = _a.attrY, originX = _a.originX, originY = _a.originY, pathLength = _a.pathLength, _b = _a.pathSpacing, pathSpacing = _b === void 0 ? 1 : _b, _c = _a.pathOffset, pathOffset = _c === void 0 ? 0 : _c, 
+    // This is object creation, which we try to avoid per-frame.
+    latest = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__rest)(_a, ["attrX", "attrY", "originX", "originY", "pathLength", "pathSpacing", "pathOffset"]);
+    (0,_html_utils_build_styles_js__WEBPACK_IMPORTED_MODULE_1__.buildHTMLStyles)(state, latest, projection, layoutState, options, transformTemplate, buildProjectionTransform, buildProjectionTransformOrigin);
+    state.attrs = state.style;
+    state.style = {};
+    var attrs = state.attrs, style = state.style, dimensions = state.dimensions, totalPathLength = state.totalPathLength;
+    /**
+     * However, we apply transforms as CSS transforms. So if we detect a transform we take it from attrs
+     * and copy it into style.
+     */
+    if (attrs.transform) {
+        if (dimensions)
+            style.transform = attrs.transform;
+        delete attrs.transform;
+    }
+    // Parse transformOrigin
+    if (dimensions &&
+        (originX !== undefined || originY !== undefined || style.transform)) {
+        style.transformOrigin = (0,_transform_origin_js__WEBPACK_IMPORTED_MODULE_2__.calcSVGTransformOrigin)(dimensions, originX !== undefined ? originX : 0.5, originY !== undefined ? originY : 0.5);
+    }
+    // Treat x/y not as shortcuts but as actual attributes
+    if (attrX !== undefined)
+        attrs.x = attrX;
+    if (attrY !== undefined)
+        attrs.y = attrY;
+    // Build SVG path if one has been measured
+    if (totalPathLength !== undefined && pathLength !== undefined) {
+        (0,_path_js__WEBPACK_IMPORTED_MODULE_3__.buildSVGPath)(attrs, totalPathLength, pathLength, pathSpacing, pathOffset, false);
+    }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/svg/utils/camel-case-attrs.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/svg/utils/camel-case-attrs.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "camelCaseAttributes": () => (/* binding */ camelCaseAttributes)
+/* harmony export */ });
+/**
+ * A set of attribute names that are always read/written as camel case.
+ */
+var camelCaseAttributes = new Set([
+    "baseFrequency",
+    "diffuseConstant",
+    "kernelMatrix",
+    "kernelUnitLength",
+    "keySplines",
+    "keyTimes",
+    "limitingConeAngle",
+    "markerHeight",
+    "markerWidth",
+    "numOctaves",
+    "targetX",
+    "targetY",
+    "surfaceScale",
+    "specularConstant",
+    "specularExponent",
+    "stdDeviation",
+    "tableValues",
+    "viewBox",
+    "gradientTransform",
+]);
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/svg/utils/create-render-state.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/svg/utils/create-render-state.js ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createSvgRenderState": () => (/* binding */ createSvgRenderState)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _html_utils_create_render_state_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../html/utils/create-render-state.js */ "./node_modules/framer-motion/dist/es/render/html/utils/create-render-state.js");
+
+
+
+var createSvgRenderState = function () { return ((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, (0,_html_utils_create_render_state_js__WEBPACK_IMPORTED_MODULE_1__.createHtmlRenderState)()), { attrs: {} })); };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/svg/utils/path.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/svg/utils/path.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "buildSVGPath": () => (/* binding */ buildSVGPath)
+/* harmony export */ });
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/numbers/units.js");
+
+
+// Convert a progress 0-1 to a pixels value based on the provided length
+var progressToPixels = function (progress, length) {
+    return style_value_types__WEBPACK_IMPORTED_MODULE_0__.px.transform(progress * length);
+};
+var dashKeys = {
+    offset: "stroke-dashoffset",
+    array: "stroke-dasharray",
+};
+var camelKeys = {
+    offset: "strokeDashoffset",
+    array: "strokeDasharray",
+};
+/**
+ * Build SVG path properties. Uses the path's measured length to convert
+ * our custom pathLength, pathSpacing and pathOffset into stroke-dashoffset
+ * and stroke-dasharray attributes.
+ *
+ * This function is mutative to reduce per-frame GC.
+ */
+function buildSVGPath(attrs, totalLength, length, spacing, offset, useDashCase) {
+    if (spacing === void 0) { spacing = 1; }
+    if (offset === void 0) { offset = 0; }
+    if (useDashCase === void 0) { useDashCase = true; }
+    // We use dash case when setting attributes directly to the DOM node and camel case
+    // when defining props on a React component.
+    var keys = useDashCase ? dashKeys : camelKeys;
+    // Build the dash offset
+    attrs[keys.offset] = progressToPixels(-offset, totalLength);
+    // Build the dash array
+    var pathLength = progressToPixels(length, totalLength);
+    var pathSpacing = progressToPixels(spacing, totalLength);
+    attrs[keys.array] = pathLength + " " + pathSpacing;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/svg/utils/render.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/svg/utils/render.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderSVG": () => (/* binding */ renderSVG)
+/* harmony export */ });
+/* harmony import */ var _dom_utils_camel_to_dash_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../dom/utils/camel-to-dash.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/camel-to-dash.js");
+/* harmony import */ var _html_utils_render_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../html/utils/render.js */ "./node_modules/framer-motion/dist/es/render/html/utils/render.js");
+/* harmony import */ var _camel_case_attrs_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./camel-case-attrs.js */ "./node_modules/framer-motion/dist/es/render/svg/utils/camel-case-attrs.js");
+
+
+
+
+function renderSVG(element, renderState) {
+    (0,_html_utils_render_js__WEBPACK_IMPORTED_MODULE_0__.renderHTML)(element, renderState);
+    for (var key in renderState.attrs) {
+        element.setAttribute(!_camel_case_attrs_js__WEBPACK_IMPORTED_MODULE_1__.camelCaseAttributes.has(key) ? (0,_dom_utils_camel_to_dash_js__WEBPACK_IMPORTED_MODULE_2__.camelToDash)(key) : key, renderState.attrs[key]);
+    }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.js":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.js ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "scrapeMotionValuesFromProps": () => (/* binding */ scrapeMotionValuesFromProps)
+/* harmony export */ });
+/* harmony import */ var _value_utils_is_motion_value_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../value/utils/is-motion-value.js */ "./node_modules/framer-motion/dist/es/value/utils/is-motion-value.js");
+/* harmony import */ var _html_utils_scrape_motion_values_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../html/utils/scrape-motion-values.js */ "./node_modules/framer-motion/dist/es/render/html/utils/scrape-motion-values.js");
+
+
+
+function scrapeMotionValuesFromProps(props) {
+    var newValues = (0,_html_utils_scrape_motion_values_js__WEBPACK_IMPORTED_MODULE_0__.scrapeMotionValuesFromProps)(props);
+    for (var key in props) {
+        if ((0,_value_utils_is_motion_value_js__WEBPACK_IMPORTED_MODULE_1__.isMotionValue)(props[key])) {
+            var targetKey = key === "x" || key === "y" ? "attr" + key.toUpperCase() : key;
+            newValues[targetKey] = props[key];
+        }
+    }
+    return newValues;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/svg/utils/transform-origin.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/svg/utils/transform-origin.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "calcSVGTransformOrigin": () => (/* binding */ calcSVGTransformOrigin)
+/* harmony export */ });
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/numbers/units.js");
+
+
+function calcOrigin(origin, offset, size) {
+    return typeof origin === "string"
+        ? origin
+        : style_value_types__WEBPACK_IMPORTED_MODULE_0__.px.transform(offset + size * origin);
+}
+/**
+ * The SVG transform origin defaults are different to CSS and is less intuitive,
+ * so we use the measured dimensions of the SVG to reconcile these.
+ */
+function calcSVGTransformOrigin(dimensions, originX, originY) {
+    var pxOriginX = calcOrigin(originX, dimensions.x, dimensions.width);
+    var pxOriginY = calcOrigin(originY, dimensions.y, dimensions.height);
+    return pxOriginX + " " + pxOriginY;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/svg/visual-element.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/svg/visual-element.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "svgVisualElement": () => (/* binding */ svgVisualElement)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../index.js */ "./node_modules/framer-motion/dist/es/render/index.js");
+/* harmony import */ var _utils_scrape_motion_values_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./utils/scrape-motion-values.js */ "./node_modules/framer-motion/dist/es/render/svg/utils/scrape-motion-values.js");
+/* harmony import */ var _html_visual_element_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../html/visual-element.js */ "./node_modules/framer-motion/dist/es/render/html/visual-element.js");
+/* harmony import */ var _utils_build_attrs_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./utils/build-attrs.js */ "./node_modules/framer-motion/dist/es/render/svg/utils/build-attrs.js");
+/* harmony import */ var _dom_utils_camel_to_dash_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../dom/utils/camel-to-dash.js */ "./node_modules/framer-motion/dist/es/render/dom/utils/camel-to-dash.js");
+/* harmony import */ var _utils_camel_case_attrs_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/camel-case-attrs.js */ "./node_modules/framer-motion/dist/es/render/svg/utils/camel-case-attrs.js");
+/* harmony import */ var _html_utils_transform_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../html/utils/transform.js */ "./node_modules/framer-motion/dist/es/render/html/utils/transform.js");
+/* harmony import */ var _utils_render_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./utils/render.js */ "./node_modules/framer-motion/dist/es/render/svg/utils/render.js");
+/* harmony import */ var _dom_value_types_defaults_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../dom/value-types/defaults.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/defaults.js");
+/* harmony import */ var _html_utils_build_projection_transform_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../html/utils/build-projection-transform.js */ "./node_modules/framer-motion/dist/es/render/html/utils/build-projection-transform.js");
+
+
+
+
+
+
+
+
+
+
+
+
+var svgVisualElement = (0,_index_js__WEBPACK_IMPORTED_MODULE_0__.visualElement)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, _html_visual_element_js__WEBPACK_IMPORTED_MODULE_2__.htmlConfig), { getBaseTarget: function (props, key) {
+        return props[key];
+    },
+    readValueFromInstance: function (domElement, key) {
+        var _a;
+        if ((0,_html_utils_transform_js__WEBPACK_IMPORTED_MODULE_3__.isTransformProp)(key)) {
+            return ((_a = (0,_dom_value_types_defaults_js__WEBPACK_IMPORTED_MODULE_4__.getDefaultValueType)(key)) === null || _a === void 0 ? void 0 : _a.default) || 0;
+        }
+        key = !_utils_camel_case_attrs_js__WEBPACK_IMPORTED_MODULE_5__.camelCaseAttributes.has(key) ? (0,_dom_utils_camel_to_dash_js__WEBPACK_IMPORTED_MODULE_6__.camelToDash)(key) : key;
+        return domElement.getAttribute(key);
+    },
+    scrapeMotionValuesFromProps: _utils_scrape_motion_values_js__WEBPACK_IMPORTED_MODULE_7__.scrapeMotionValuesFromProps,
+    build: function (_element, renderState, latestValues, projection, layoutState, options, props) {
+        var isProjectionTranform = projection.isEnabled && layoutState.isHydrated;
+        (0,_utils_build_attrs_js__WEBPACK_IMPORTED_MODULE_8__.buildSVGAttrs)(renderState, latestValues, projection, layoutState, options, props.transformTemplate, isProjectionTranform ? _html_utils_build_projection_transform_js__WEBPACK_IMPORTED_MODULE_9__.buildLayoutProjectionTransform : undefined, isProjectionTranform
+            ? _html_utils_build_projection_transform_js__WEBPACK_IMPORTED_MODULE_9__.buildLayoutProjectionTransformOrigin
+            : undefined);
+    }, render: _utils_render_js__WEBPACK_IMPORTED_MODULE_10__.renderSVG }));
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/utils/animation-state.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/utils/animation-state.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createAnimationState": () => (/* binding */ createAnimationState),
+/* harmony export */   "variantPriorityOrder": () => (/* binding */ variantPriorityOrder),
+/* harmony export */   "variantsHaveChanged": () => (/* binding */ variantsHaveChanged)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _animation_utils_is_animation_controls_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../animation/utils/is-animation-controls.js */ "./node_modules/framer-motion/dist/es/animation/utils/is-animation-controls.js");
+/* harmony import */ var _animation_utils_is_keyframes_target_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../animation/utils/is-keyframes-target.js */ "./node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.js");
+/* harmony import */ var _utils_shallow_compare_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../utils/shallow-compare.js */ "./node_modules/framer-motion/dist/es/utils/shallow-compare.js");
+/* harmony import */ var _animation_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./animation.js */ "./node_modules/framer-motion/dist/es/render/utils/animation.js");
+/* harmony import */ var _types_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./types.js */ "./node_modules/framer-motion/dist/es/render/utils/types.js");
+/* harmony import */ var _variants_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./variants.js */ "./node_modules/framer-motion/dist/es/render/utils/variants.js");
+
+
+
+
+
+
+
+
+var variantPriorityOrder = [
+    _types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Animate,
+    _types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Hover,
+    _types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Tap,
+    _types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Drag,
+    _types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Focus,
+    _types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Exit,
+];
+var reversePriorityOrder = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArray)([], (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__read)(variantPriorityOrder)).reverse();
+var numAnimationTypes = variantPriorityOrder.length;
+function animateList(visualElement) {
+    return function (animations) {
+        return Promise.all(animations.map(function (_a) {
+            var animation = _a.animation, options = _a.options;
+            return (0,_animation_js__WEBPACK_IMPORTED_MODULE_2__.animateVisualElement)(visualElement, animation, options);
+        }));
+    };
+}
+function createAnimationState(visualElement) {
+    var animate = animateList(visualElement);
+    var state = createState();
+    var allAnimatedKeys = {};
+    var isInitialRender = true;
+    /**
+     * This function will be used to reduce the animation definitions for
+     * each active animation type into an object of resolved values for it.
+     */
+    var buildResolvedTypeValues = function (acc, definition) {
+        var resolved = (0,_variants_js__WEBPACK_IMPORTED_MODULE_3__.resolveVariant)(visualElement, definition);
+        if (resolved) {
+            resolved.transition; var transitionEnd = resolved.transitionEnd, target = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__rest)(resolved, ["transition", "transitionEnd"]);
+            acc = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, acc), target), transitionEnd);
+        }
+        return acc;
+    };
+    function isAnimated(key) {
+        return allAnimatedKeys[key] !== undefined;
+    }
+    /**
+     * This just allows us to inject mocked animation functions
+     * @internal
+     */
+    function setAnimateFunction(makeAnimator) {
+        animate = makeAnimator(visualElement);
+    }
+    /**
+     * When we receive new props, we need to:
+     * 1. Create a list of protected keys for each type. This is a directory of
+     *    value keys that are currently being "handled" by types of a higher priority
+     *    so that whenever an animation is played of a given type, these values are
+     *    protected from being animated.
+     * 2. Determine if an animation type needs animating.
+     * 3. Determine if any values have been removed from a type and figure out
+     *    what to animate those to.
+     */
+    function animateChanges(options, changedActiveType) {
+        var _a;
+        var props = visualElement.getProps();
+        var context = visualElement.getVariantContext(true) || {};
+        /**
+         * A list of animations that we'll build into as we iterate through the animation
+         * types. This will get executed at the end of the function.
+         */
+        var animations = [];
+        /**
+         * Keep track of which values have been removed. Then, as we hit lower priority
+         * animation types, we can check if they contain removed values and animate to that.
+         */
+        var removedKeys = new Set();
+        /**
+         * A dictionary of all encountered keys. This is an object to let us build into and
+         * copy it without iteration. Each time we hit an animation type we set its protected
+         * keys - the keys its not allowed to animate - to the latest version of this object.
+         */
+        var encounteredKeys = {};
+        /**
+         * If a variant has been removed at a given index, and this component is controlling
+         * variant animations, we want to ensure lower-priority variants are forced to animate.
+         */
+        var removedVariantIndex = Infinity;
+        var _loop_1 = function (i) {
+            var type = reversePriorityOrder[i];
+            var typeState = state[type];
+            var prop = (_a = props[type]) !== null && _a !== void 0 ? _a : context[type];
+            var propIsVariant = (0,_variants_js__WEBPACK_IMPORTED_MODULE_3__.isVariantLabel)(prop);
+            /**
+             * If this type has *just* changed isActive status, set activeDelta
+             * to that status. Otherwise set to null.
+             */
+            var activeDelta = type === changedActiveType ? typeState.isActive : null;
+            if (activeDelta === false)
+                removedVariantIndex = i;
+            /**
+             * If this prop is an inherited variant, rather than been set directly on the
+             * component itself, we want to make sure we allow the parent to trigger animations.
+             *
+             * TODO: Can probably change this to a !isControllingVariants check
+             */
+            var isInherited = prop === context[type] && prop !== props[type] && propIsVariant;
+            /**
+             *
+             */
+            if (isInherited &&
+                isInitialRender &&
+                visualElement.manuallyAnimateOnMount) {
+                isInherited = false;
+            }
+            /**
+             * Set all encountered keys so far as the protected keys for this type. This will
+             * be any key that has been animated or otherwise handled by active, higher-priortiy types.
+             */
+            typeState.protectedKeys = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, encounteredKeys);
+            // Check if we can skip analysing this prop early
+            if (
+            // If it isn't active and hasn't *just* been set as inactive
+            (!typeState.isActive && activeDelta === null) ||
+                // If we didn't and don't have any defined prop for this animation type
+                (!prop && !typeState.prevProp) ||
+                // Or if the prop doesn't define an animation
+                (0,_animation_utils_is_animation_controls_js__WEBPACK_IMPORTED_MODULE_4__.isAnimationControls)(prop) ||
+                typeof prop === "boolean") {
+                return "continue";
+            }
+            /**
+             * As we go look through the values defined on this type, if we detect
+             * a changed value or a value that was removed in a higher priority, we set
+             * this to true and add this prop to the animation list.
+             */
+            var shouldAnimateType = variantsHaveChanged(typeState.prevProp, prop) ||
+                // If we're making this variant active, we want to always make it active
+                (type === changedActiveType &&
+                    typeState.isActive &&
+                    !isInherited &&
+                    propIsVariant) ||
+                // If we removed a higher-priority variant (i is in reverse order)
+                (i > removedVariantIndex && propIsVariant);
+            /**
+             * As animations can be set as variant lists, variants or target objects, we
+             * coerce everything to an array if it isn't one already
+             */
+            var definitionList = Array.isArray(prop) ? prop : [prop];
+            /**
+             * Build an object of all the resolved values. We'll use this in the subsequent
+             * animateChanges calls to determine whether a value has changed.
+             */
+            var resolvedValues = definitionList.reduce(buildResolvedTypeValues, {});
+            if (activeDelta === false)
+                resolvedValues = {};
+            /**
+             * Now we need to loop through all the keys in the prev prop and this prop,
+             * and decide:
+             * 1. If the value has changed, and needs animating
+             * 2. If it has been removed, and needs adding to the removedKeys set
+             * 3. If it has been removed in a higher priority type and needs animating
+             * 4. If it hasn't been removed in a higher priority but hasn't changed, and
+             *    needs adding to the type's protectedKeys list.
+             */
+            var _b = typeState.prevResolvedValues, prevResolvedValues = _b === void 0 ? {} : _b;
+            var allKeys = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, prevResolvedValues), resolvedValues);
+            var markToAnimate = function (key) {
+                shouldAnimateType = true;
+                removedKeys.delete(key);
+                typeState.needsAnimating[key] = true;
+            };
+            for (var key in allKeys) {
+                var next = resolvedValues[key];
+                var prev = prevResolvedValues[key];
+                // If we've already handled this we can just skip ahead
+                if (encounteredKeys.hasOwnProperty(key))
+                    continue;
+                /**
+                 * If the value has changed, we probably want to animate it.
+                 */
+                if (next !== prev) {
+                    /**
+                     * If both values are keyframes, we need to shallow compare them to
+                     * detect whether any value has changed. If it has, we animate it.
+                     */
+                    if ((0,_animation_utils_is_keyframes_target_js__WEBPACK_IMPORTED_MODULE_5__.isKeyframesTarget)(next) && (0,_animation_utils_is_keyframes_target_js__WEBPACK_IMPORTED_MODULE_5__.isKeyframesTarget)(prev)) {
+                        if (!(0,_utils_shallow_compare_js__WEBPACK_IMPORTED_MODULE_6__.shallowCompare)(next, prev)) {
+                            markToAnimate(key);
+                        }
+                        else {
+                            /**
+                             * If it hasn't changed, we want to ensure it doesn't animate by
+                             * adding it to the list of protected keys.
+                             */
+                            typeState.protectedKeys[key] = true;
+                        }
+                    }
+                    else if (next !== undefined) {
+                        // If next is defined and doesn't equal prev, it needs animating
+                        markToAnimate(key);
+                    }
+                    else {
+                        // If it's undefined, it's been removed.
+                        removedKeys.add(key);
+                    }
+                }
+                else if (next !== undefined && removedKeys.has(key)) {
+                    /**
+                     * If next hasn't changed and it isn't undefined, we want to check if it's
+                     * been removed by a higher priority
+                     */
+                    markToAnimate(key);
+                }
+                else {
+                    /**
+                     * If it hasn't changed, we add it to the list of protected values
+                     * to ensure it doesn't get animated.
+                     */
+                    typeState.protectedKeys[key] = true;
+                }
+            }
+            /**
+             * Update the typeState so next time animateChanges is called we can compare the
+             * latest prop and resolvedValues to these.
+             */
+            typeState.prevProp = prop;
+            typeState.prevResolvedValues = resolvedValues;
+            /**
+             *
+             */
+            if (typeState.isActive) {
+                encounteredKeys = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, encounteredKeys), resolvedValues);
+            }
+            if (isInitialRender && visualElement.blockInitialAnimation) {
+                shouldAnimateType = false;
+            }
+            /**
+             * If this is an inherited prop we want to hard-block animations
+             * TODO: Test as this should probably still handle animations triggered
+             * by removed values?
+             */
+            if (shouldAnimateType && !isInherited) {
+                animations.push.apply(animations, (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArray)([], (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__read)(definitionList.map(function (animation) { return ({
+                    animation: animation,
+                    options: (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({ type: type }, options),
+                }); }))));
+            }
+        };
+        /**
+         * Iterate through all animation types in reverse priority order. For each, we want to
+         * detect which values it's handling and whether or not they've changed (and therefore
+         * need to be animated). If any values have been removed, we want to detect those in
+         * lower priority props and flag for animation.
+         */
+        for (var i = 0; i < numAnimationTypes; i++) {
+            _loop_1(i);
+        }
+        allAnimatedKeys = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, encounteredKeys);
+        /**
+         * If there are some removed value that haven't been dealt with,
+         * we need to create a new animation that falls back either to the value
+         * defined in the style prop, or the last read value.
+         */
+        if (removedKeys.size) {
+            var fallbackAnimation_1 = {};
+            removedKeys.forEach(function (key) {
+                var fallbackTarget = visualElement.getBaseTarget(key);
+                if (fallbackTarget !== undefined) {
+                    fallbackAnimation_1[key] = fallbackTarget;
+                }
+            });
+            animations.push({ animation: fallbackAnimation_1 });
+        }
+        var shouldAnimate = Boolean(animations.length);
+        if (isInitialRender &&
+            props.initial === false &&
+            !visualElement.manuallyAnimateOnMount) {
+            shouldAnimate = false;
+        }
+        isInitialRender = false;
+        return shouldAnimate ? animate(animations) : Promise.resolve();
+    }
+    /**
+     * Change whether a certain animation type is active.
+     */
+    function setActive(type, isActive, options) {
+        var _a;
+        // If the active state hasn't changed, we can safely do nothing here
+        if (state[type].isActive === isActive)
+            return Promise.resolve();
+        // Propagate active change to children
+        (_a = visualElement.variantChildren) === null || _a === void 0 ? void 0 : _a.forEach(function (child) { var _a; return (_a = child.animationState) === null || _a === void 0 ? void 0 : _a.setActive(type, isActive); });
+        state[type].isActive = isActive;
+        return animateChanges(options, type);
+    }
+    return {
+        isAnimated: isAnimated,
+        animateChanges: animateChanges,
+        setActive: setActive,
+        setAnimateFunction: setAnimateFunction,
+        getState: function () { return state; },
+    };
+}
+function variantsHaveChanged(prev, next) {
+    if (typeof next === "string") {
+        return next !== prev;
+    }
+    else if ((0,_variants_js__WEBPACK_IMPORTED_MODULE_3__.isVariantLabels)(next)) {
+        return !(0,_utils_shallow_compare_js__WEBPACK_IMPORTED_MODULE_6__.shallowCompare)(next, prev);
+    }
+    return false;
+}
+function createTypeState(isActive) {
+    if (isActive === void 0) { isActive = false; }
+    return {
+        isActive: isActive,
+        protectedKeys: {},
+        needsAnimating: {},
+        prevResolvedValues: {},
+    };
+}
+function createState() {
+    var _a;
+    return _a = {},
+        _a[_types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Animate] = createTypeState(true),
+        _a[_types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Hover] = createTypeState(),
+        _a[_types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Tap] = createTypeState(),
+        _a[_types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Drag] = createTypeState(),
+        _a[_types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Focus] = createTypeState(),
+        _a[_types_js__WEBPACK_IMPORTED_MODULE_0__.AnimationType.Exit] = createTypeState(),
+        _a;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/utils/animation.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/utils/animation.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "animateVisualElement": () => (/* binding */ animateVisualElement),
+/* harmony export */   "sortByTreeOrder": () => (/* binding */ sortByTreeOrder),
+/* harmony export */   "stopAnimation": () => (/* binding */ stopAnimation)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _animation_utils_transitions_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../animation/utils/transitions.js */ "./node_modules/framer-motion/dist/es/animation/utils/transitions.js");
+/* harmony import */ var _setters_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./setters.js */ "./node_modules/framer-motion/dist/es/render/utils/setters.js");
+/* harmony import */ var _variants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./variants.js */ "./node_modules/framer-motion/dist/es/render/utils/variants.js");
+
+
+
+
+
+/**
+ * @internal
+ */
+function animateVisualElement(visualElement, definition, options) {
+    if (options === void 0) { options = {}; }
+    visualElement.notifyAnimationStart();
+    var animation;
+    if (Array.isArray(definition)) {
+        var animations = definition.map(function (variant) {
+            return animateVariant(visualElement, variant, options);
+        });
+        animation = Promise.all(animations);
+    }
+    else if (typeof definition === "string") {
+        animation = animateVariant(visualElement, definition, options);
+    }
+    else {
+        var resolvedDefinition = typeof definition === "function"
+            ? (0,_variants_js__WEBPACK_IMPORTED_MODULE_0__.resolveVariant)(visualElement, definition, options.custom)
+            : definition;
+        animation = animateTarget(visualElement, resolvedDefinition, options);
+    }
+    return animation.then(function () {
+        return visualElement.notifyAnimationComplete(definition);
+    });
+}
+function animateVariant(visualElement, variant, options) {
+    var _a;
+    if (options === void 0) { options = {}; }
+    var resolved = (0,_variants_js__WEBPACK_IMPORTED_MODULE_0__.resolveVariant)(visualElement, variant, options.custom);
+    var _b = (resolved || {}).transition, transition = _b === void 0 ? visualElement.getDefaultTransition() || {} : _b;
+    if (options.transitionOverride) {
+        transition = options.transitionOverride;
+    }
+    /**
+     * If we have a variant, create a callback that runs it as an animation.
+     * Otherwise, we resolve a Promise immediately for a composable no-op.
+     */
+    var getAnimation = resolved
+        ? function () { return animateTarget(visualElement, resolved, options); }
+        : function () { return Promise.resolve(); };
+    /**
+     * If we have children, create a callback that runs all their animations.
+     * Otherwise, we resolve a Promise immediately for a composable no-op.
+     */
+    var getChildAnimations = ((_a = visualElement.variantChildren) === null || _a === void 0 ? void 0 : _a.size)
+        ? function (forwardDelay) {
+            if (forwardDelay === void 0) { forwardDelay = 0; }
+            var _a = transition.delayChildren, delayChildren = _a === void 0 ? 0 : _a, staggerChildren = transition.staggerChildren, staggerDirection = transition.staggerDirection;
+            return animateChildren(visualElement, variant, delayChildren + forwardDelay, staggerChildren, staggerDirection, options);
+        }
+        : function () { return Promise.resolve(); };
+    /**
+     * If the transition explicitly defines a "when" option, we need to resolve either
+     * this animation or all children animations before playing the other.
+     */
+    var when = transition.when;
+    if (when) {
+        var _c = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__read)(when === "beforeChildren"
+            ? [getAnimation, getChildAnimations]
+            : [getChildAnimations, getAnimation], 2), first = _c[0], last = _c[1];
+        return first().then(last);
+    }
+    else {
+        return Promise.all([getAnimation(), getChildAnimations(options.delay)]);
+    }
+}
+/**
+ * @internal
+ */
+function animateTarget(visualElement, definition, _a) {
+    var _b;
+    var _c = _a === void 0 ? {} : _a, _d = _c.delay, delay = _d === void 0 ? 0 : _d, transitionOverride = _c.transitionOverride, type = _c.type;
+    var _e = visualElement.makeTargetAnimatable(definition), _f = _e.transition, transition = _f === void 0 ? visualElement.getDefaultTransition() : _f, transitionEnd = _e.transitionEnd, target = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__rest)(_e, ["transition", "transitionEnd"]);
+    if (transitionOverride)
+        transition = transitionOverride;
+    var animations = [];
+    var animationTypeState = type && ((_b = visualElement.animationState) === null || _b === void 0 ? void 0 : _b.getState()[type]);
+    for (var key in target) {
+        var value = visualElement.getValue(key);
+        var valueTarget = target[key];
+        if (!value ||
+            valueTarget === undefined ||
+            (animationTypeState &&
+                shouldBlockAnimation(animationTypeState, key))) {
+            continue;
+        }
+        var animation = (0,_animation_utils_transitions_js__WEBPACK_IMPORTED_MODULE_2__.startAnimation)(key, value, valueTarget, (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({ delay: delay }, transition));
+        animations.push(animation);
+    }
+    return Promise.all(animations).then(function () {
+        transitionEnd && (0,_setters_js__WEBPACK_IMPORTED_MODULE_3__.setTarget)(visualElement, transitionEnd);
+    });
+}
+function animateChildren(visualElement, variant, delayChildren, staggerChildren, staggerDirection, options) {
+    if (delayChildren === void 0) { delayChildren = 0; }
+    if (staggerChildren === void 0) { staggerChildren = 0; }
+    if (staggerDirection === void 0) { staggerDirection = 1; }
+    var animations = [];
+    var maxStaggerDuration = (visualElement.variantChildren.size - 1) * staggerChildren;
+    var generateStaggerDuration = staggerDirection === 1
+        ? function (i) {
+            if (i === void 0) { i = 0; }
+            return i * staggerChildren;
+        }
+        : function (i) {
+            if (i === void 0) { i = 0; }
+            return maxStaggerDuration - i * staggerChildren;
+        };
+    Array.from(visualElement.variantChildren)
+        .sort(sortByTreeOrder)
+        .forEach(function (child, i) {
+        animations.push(animateVariant(child, variant, (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, options), { delay: delayChildren + generateStaggerDuration(i) })).then(function () { return child.notifyAnimationComplete(variant); }));
+    });
+    return Promise.all(animations);
+}
+function stopAnimation(visualElement) {
+    visualElement.forEachValue(function (value) { return value.stop(); });
+}
+function sortByTreeOrder(a, b) {
+    return a.sortNodePosition(b);
+}
+/**
+ * Decide whether we should block this animation. Previously, we achieved this
+ * just by checking whether the key was listed in protectedKeys, but this
+ * posed problems if an animation was triggered by afterChildren and protectedKeys
+ * had been set to true in the meantime.
+ */
+function shouldBlockAnimation(_a, key) {
+    var protectedKeys = _a.protectedKeys, needsAnimating = _a.needsAnimating;
+    var shouldBlock = protectedKeys.hasOwnProperty(key) && needsAnimating[key] !== true;
+    needsAnimating[key] = false;
+    return shouldBlock;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/utils/compare-by-depth.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/utils/compare-by-depth.js ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "compareByDepth": () => (/* binding */ compareByDepth)
+/* harmony export */ });
+var compareByDepth = function (a, b) {
+    return a.depth - b.depth;
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/utils/flat-tree.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/utils/flat-tree.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "FlatTree": () => (/* binding */ FlatTree)
+/* harmony export */ });
+/* harmony import */ var _utils_array_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/array.js */ "./node_modules/framer-motion/dist/es/utils/array.js");
+/* harmony import */ var _compare_by_depth_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./compare-by-depth.js */ "./node_modules/framer-motion/dist/es/render/utils/compare-by-depth.js");
+
+
+
+var FlatTree = /** @class */ (function () {
+    function FlatTree() {
+        this.children = [];
+        this.isDirty = false;
+    }
+    FlatTree.prototype.add = function (child) {
+        (0,_utils_array_js__WEBPACK_IMPORTED_MODULE_0__.addUniqueItem)(this.children, child);
+        this.isDirty = true;
+    };
+    FlatTree.prototype.remove = function (child) {
+        (0,_utils_array_js__WEBPACK_IMPORTED_MODULE_0__.removeItem)(this.children, child);
+        this.isDirty = true;
+    };
+    FlatTree.prototype.forEach = function (callback) {
+        this.isDirty && this.children.sort(_compare_by_depth_js__WEBPACK_IMPORTED_MODULE_1__.compareByDepth);
+        this.isDirty = false;
+        this.children.forEach(callback);
+    };
+    return FlatTree;
+}());
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/utils/is-draggable.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/utils/is-draggable.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isDraggable": () => (/* binding */ isDraggable)
+/* harmony export */ });
+function isDraggable(visualElement) {
+    var _a = visualElement.getProps(), drag = _a.drag, _dragX = _a._dragX;
+    return drag && !_dragX;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/utils/lifecycles.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/utils/lifecycles.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createLifecycles": () => (/* binding */ createLifecycles)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _utils_subscription_manager_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/subscription-manager.js */ "./node_modules/framer-motion/dist/es/utils/subscription-manager.js");
+
+
+
+var names = [
+    "LayoutMeasure",
+    "BeforeLayoutMeasure",
+    "LayoutUpdate",
+    "ViewportBoxUpdate",
+    "Update",
+    "Render",
+    "AnimationComplete",
+    "LayoutAnimationComplete",
+    "AnimationStart",
+    "SetAxisTarget",
+    "Unmount",
+];
+function createLifecycles() {
+    var managers = names.map(function () { return new _utils_subscription_manager_js__WEBPACK_IMPORTED_MODULE_0__.SubscriptionManager(); });
+    var propSubscriptions = {};
+    var lifecycles = {
+        clearAllListeners: function () { return managers.forEach(function (manager) { return manager.clear(); }); },
+        updatePropListeners: function (props) {
+            return names.forEach(function (name) {
+                var _a;
+                (_a = propSubscriptions[name]) === null || _a === void 0 ? void 0 : _a.call(propSubscriptions);
+                var on = "on" + name;
+                var propListener = props[on];
+                if (propListener) {
+                    propSubscriptions[name] = lifecycles[on](propListener);
+                }
+            });
+        },
+    };
+    managers.forEach(function (manager, i) {
+        lifecycles["on" + names[i]] = function (handler) { return manager.add(handler); };
+        lifecycles["notify" + names[i]] = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            return manager.notify.apply(manager, (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__spreadArray)([], (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__read)(args)));
+        };
+    });
+    return lifecycles;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/utils/motion-values.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/utils/motion-values.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "updateMotionValuesFromProps": () => (/* binding */ updateMotionValuesFromProps)
+/* harmony export */ });
+/* harmony import */ var _value_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../value/index.js */ "./node_modules/framer-motion/dist/es/value/index.js");
+/* harmony import */ var _value_utils_is_motion_value_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../value/utils/is-motion-value.js */ "./node_modules/framer-motion/dist/es/value/utils/is-motion-value.js");
+
+
+
+function updateMotionValuesFromProps(element, next, prev) {
+    var _a;
+    for (var key in next) {
+        var nextValue = next[key];
+        var prevValue = prev[key];
+        if ((0,_value_utils_is_motion_value_js__WEBPACK_IMPORTED_MODULE_0__.isMotionValue)(nextValue)) {
+            /**
+             * If this is a motion value found in props or style, we want to add it
+             * to our visual element's motion value map.
+             */
+            element.addValue(key, nextValue);
+        }
+        else if ((0,_value_utils_is_motion_value_js__WEBPACK_IMPORTED_MODULE_0__.isMotionValue)(prevValue)) {
+            /**
+             * If we're swapping to a new motion value, create a new motion value
+             * from that
+             */
+            element.addValue(key, (0,_value_index_js__WEBPACK_IMPORTED_MODULE_1__.motionValue)(nextValue));
+        }
+        else if (prevValue !== nextValue) {
+            /**
+             * If this is a flat value that has changed, update the motion value
+             * or create one if it doesn't exist. We only want to do this if we're
+             * not handling the value with our animation state.
+             */
+            if (element.hasValue(key)) {
+                var existingValue = element.getValue(key);
+                // TODO: Only update values that aren't being animated or even looked at
+                !existingValue.hasAnimated && existingValue.set(nextValue);
+            }
+            else {
+                element.addValue(key, (0,_value_index_js__WEBPACK_IMPORTED_MODULE_1__.motionValue)((_a = element.getStaticValue(key)) !== null && _a !== void 0 ? _a : nextValue));
+            }
+        }
+    }
+    // Handle removed values
+    for (var key in prev) {
+        if (next[key] === undefined)
+            element.removeValue(key);
+    }
+    return next;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/utils/projection.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/utils/projection.js ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "updateLayoutDeltas": () => (/* binding */ updateLayoutDeltas)
+/* harmony export */ });
+/* harmony import */ var _utils_geometry_delta_apply_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/geometry/delta-apply.js */ "./node_modules/framer-motion/dist/es/utils/geometry/delta-apply.js");
+/* harmony import */ var _utils_geometry_delta_calc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/geometry/delta-calc.js */ "./node_modules/framer-motion/dist/es/utils/geometry/delta-calc.js");
+
+
+
+function updateLayoutDeltas(_a, _b, treePath, transformOrigin) {
+    var delta = _a.delta, layout = _a.layout, layoutCorrected = _a.layoutCorrected, treeScale = _a.treeScale;
+    var target = _b.target;
+    /**
+     * Reset the corrected box with the latest values from box, as we're then going
+     * to perform mutative operations on it.
+     */
+    (0,_utils_geometry_delta_apply_js__WEBPACK_IMPORTED_MODULE_0__.resetBox)(layoutCorrected, layout);
+    /**
+     * Apply all the parent deltas to this box to produce the corrected box. This
+     * is the layout box, as it will appear on screen as a result of the transforms of its parents.
+     */
+    (0,_utils_geometry_delta_apply_js__WEBPACK_IMPORTED_MODULE_0__.applyTreeDeltas)(layoutCorrected, treeScale, treePath);
+    /**
+     * Update the delta between the corrected box and the target box before user-set transforms were applied.
+     * This will allow us to calculate the corrected borderRadius and boxShadow to compensate
+     * for our layout reprojection, but still allow them to be scaled correctly by the user.
+     * It might be that to simplify this we may want to accept that user-set scale is also corrected
+     * and we wouldn't have to keep and calc both deltas, OR we could support a user setting
+     * to allow people to choose whether these styles are corrected based on just the
+     * layout reprojection or the final bounding box.
+     */
+    (0,_utils_geometry_delta_calc_js__WEBPACK_IMPORTED_MODULE_1__.updateBoxDelta)(delta, layoutCorrected, target, transformOrigin);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/utils/setters.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/utils/setters.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "checkTargetForNewValues": () => (/* binding */ checkTargetForNewValues),
+/* harmony export */   "getOrigin": () => (/* binding */ getOrigin),
+/* harmony export */   "getOriginFromTransition": () => (/* binding */ getOriginFromTransition),
+/* harmony export */   "setTarget": () => (/* binding */ setTarget),
+/* harmony export */   "setValues": () => (/* binding */ setValues)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/complex/index.js");
+/* harmony import */ var _utils_is_numerical_string_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/is-numerical-string.js */ "./node_modules/framer-motion/dist/es/utils/is-numerical-string.js");
+/* harmony import */ var _utils_resolve_value_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/resolve-value.js */ "./node_modules/framer-motion/dist/es/utils/resolve-value.js");
+/* harmony import */ var _value_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../value/index.js */ "./node_modules/framer-motion/dist/es/value/index.js");
+/* harmony import */ var _dom_value_types_animatable_none_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../dom/value-types/animatable-none.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/animatable-none.js");
+/* harmony import */ var _dom_value_types_find_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../dom/value-types/find.js */ "./node_modules/framer-motion/dist/es/render/dom/value-types/find.js");
+/* harmony import */ var _variants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./variants.js */ "./node_modules/framer-motion/dist/es/render/utils/variants.js");
+
+
+
+
+
+
+
+
+
+/**
+ * Set VisualElement's MotionValue, creating a new MotionValue for it if
+ * it doesn't exist.
+ */
+function setMotionValue(visualElement, key, value) {
+    if (visualElement.hasValue(key)) {
+        visualElement.getValue(key).set(value);
+    }
+    else {
+        visualElement.addValue(key, (0,_value_index_js__WEBPACK_IMPORTED_MODULE_0__.motionValue)(value));
+    }
+}
+function setTarget(visualElement, definition) {
+    var resolved = (0,_variants_js__WEBPACK_IMPORTED_MODULE_1__.resolveVariant)(visualElement, definition);
+    var _a = resolved
+        ? visualElement.makeTargetAnimatable(resolved, false)
+        : {}, _b = _a.transitionEnd, transitionEnd = _b === void 0 ? {} : _b; _a.transition; var target = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__rest)(_a, ["transitionEnd", "transition"]);
+    target = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, target), transitionEnd);
+    for (var key in target) {
+        var value = (0,_utils_resolve_value_js__WEBPACK_IMPORTED_MODULE_3__.resolveFinalValueInKeyframes)(target[key]);
+        setMotionValue(visualElement, key, value);
+    }
+}
+function setVariants(visualElement, variantLabels) {
+    var reversedLabels = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__spreadArray)([], (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__read)(variantLabels)).reverse();
+    reversedLabels.forEach(function (key) {
+        var _a;
+        var variant = visualElement.getVariant(key);
+        variant && setTarget(visualElement, variant);
+        (_a = visualElement.variantChildren) === null || _a === void 0 ? void 0 : _a.forEach(function (child) {
+            setVariants(child, variantLabels);
+        });
+    });
+}
+function setValues(visualElement, definition) {
+    if (Array.isArray(definition)) {
+        return setVariants(visualElement, definition);
+    }
+    else if (typeof definition === "string") {
+        return setVariants(visualElement, [definition]);
+    }
+    else {
+        setTarget(visualElement, definition);
+    }
+}
+function checkTargetForNewValues(visualElement, target, origin) {
+    var _a, _b, _c;
+    var _d;
+    var newValueKeys = Object.keys(target).filter(function (key) { return !visualElement.hasValue(key); });
+    var numNewValues = newValueKeys.length;
+    if (!numNewValues)
+        return;
+    for (var i = 0; i < numNewValues; i++) {
+        var key = newValueKeys[i];
+        var targetValue = target[key];
+        var value = null;
+        /**
+         * If the target is a series of keyframes, we can use the first value
+         * in the array. If this first value is null, we'll still need to read from the DOM.
+         */
+        if (Array.isArray(targetValue)) {
+            value = targetValue[0];
+        }
+        /**
+         * If the target isn't keyframes, or the first keyframe was null, we need to
+         * first check if an origin value was explicitly defined in the transition as "from",
+         * if not read the value from the DOM. As an absolute fallback, take the defined target value.
+         */
+        if (value === null) {
+            value = (_b = (_a = origin[key]) !== null && _a !== void 0 ? _a : visualElement.readValue(key)) !== null && _b !== void 0 ? _b : target[key];
+        }
+        /**
+         * If value is still undefined or null, ignore it. Preferably this would throw,
+         * but this was causing issues in Framer.
+         */
+        if (value === undefined || value === null)
+            continue;
+        if (typeof value === "string" && (0,_utils_is_numerical_string_js__WEBPACK_IMPORTED_MODULE_4__.isNumericalString)(value)) {
+            // If this is a number read as a string, ie "0" or "200", convert it to a number
+            value = parseFloat(value);
+        }
+        else if (!(0,_dom_value_types_find_js__WEBPACK_IMPORTED_MODULE_5__.findValueType)(value) && style_value_types__WEBPACK_IMPORTED_MODULE_6__.complex.test(targetValue)) {
+            value = (0,_dom_value_types_animatable_none_js__WEBPACK_IMPORTED_MODULE_7__.getAnimatableNone)(key, targetValue);
+        }
+        visualElement.addValue(key, (0,_value_index_js__WEBPACK_IMPORTED_MODULE_0__.motionValue)(value));
+        (_c = (_d = origin)[key]) !== null && _c !== void 0 ? _c : (_d[key] = value);
+        visualElement.setBaseTarget(key, value);
+    }
+}
+function getOriginFromTransition(key, transition) {
+    if (!transition)
+        return;
+    var valueTransition = transition[key] || transition["default"] || transition;
+    return valueTransition.from;
+}
+function getOrigin(target, transition, visualElement) {
+    var _a, _b;
+    var origin = {};
+    for (var key in target) {
+        origin[key] =
+            (_a = getOriginFromTransition(key, transition)) !== null && _a !== void 0 ? _a : (_b = visualElement.getValue(key)) === null || _b === void 0 ? void 0 : _b.get();
+    }
+    return origin;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/utils/state.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/utils/state.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createLayoutState": () => (/* binding */ createLayoutState),
+/* harmony export */   "createProjectionState": () => (/* binding */ createProjectionState),
+/* harmony export */   "zeroLayout": () => (/* binding */ zeroLayout)
+/* harmony export */ });
+/* harmony import */ var _utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/geometry/index.js */ "./node_modules/framer-motion/dist/es/utils/geometry/index.js");
+
+
+var createProjectionState = function () { return ({
+    isEnabled: false,
+    isHydrated: false,
+    isTargetLocked: false,
+    target: (0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_0__.axisBox)(),
+    targetFinal: (0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_0__.axisBox)(),
+}); };
+function createLayoutState() {
+    return {
+        isHydrated: false,
+        layout: (0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_0__.axisBox)(),
+        layoutCorrected: (0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_0__.axisBox)(),
+        treeScale: { x: 1, y: 1 },
+        delta: (0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_0__.delta)(),
+        deltaFinal: (0,_utils_geometry_index_js__WEBPACK_IMPORTED_MODULE_0__.delta)(),
+        deltaTransform: "",
+    };
+}
+var zeroLayout = createLayoutState();
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/utils/types.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/utils/types.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AnimationType": () => (/* binding */ AnimationType)
+/* harmony export */ });
+var AnimationType;
+(function (AnimationType) {
+    AnimationType["Animate"] = "animate";
+    AnimationType["Hover"] = "whileHover";
+    AnimationType["Tap"] = "whileTap";
+    AnimationType["Drag"] = "whileDrag";
+    AnimationType["Focus"] = "whileFocus";
+    AnimationType["Exit"] = "exit";
+})(AnimationType || (AnimationType = {}));
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/render/utils/variants.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/render/utils/variants.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "checkIfControllingVariants": () => (/* binding */ checkIfControllingVariants),
+/* harmony export */   "checkIfVariantNode": () => (/* binding */ checkIfVariantNode),
+/* harmony export */   "isVariantLabel": () => (/* binding */ isVariantLabel),
+/* harmony export */   "isVariantLabels": () => (/* binding */ isVariantLabels),
+/* harmony export */   "resolveVariant": () => (/* binding */ resolveVariant),
+/* harmony export */   "resolveVariantFromProps": () => (/* binding */ resolveVariantFromProps)
+/* harmony export */ });
+/**
+ * Decides if the supplied variable is an array of variant labels
+ */
+function isVariantLabels(v) {
+    return Array.isArray(v);
+}
+/**
+ * Decides if the supplied variable is variant label
+ */
+function isVariantLabel(v) {
+    return typeof v === "string" || isVariantLabels(v);
+}
+/**
+ * Creates an object containing the latest state of every MotionValue on a VisualElement
+ */
+function getCurrent(visualElement) {
+    var current = {};
+    visualElement.forEachValue(function (value, key) { return (current[key] = value.get()); });
+    return current;
+}
+/**
+ * Creates an object containing the latest velocity of every MotionValue on a VisualElement
+ */
+function getVelocity(visualElement) {
+    var velocity = {};
+    visualElement.forEachValue(function (value, key) { return (velocity[key] = value.getVelocity()); });
+    return velocity;
+}
+function resolveVariantFromProps(props, definition, custom, currentValues, currentVelocity) {
+    var _a;
+    if (currentValues === void 0) { currentValues = {}; }
+    if (currentVelocity === void 0) { currentVelocity = {}; }
+    if (typeof definition === "string") {
+        definition = (_a = props.variants) === null || _a === void 0 ? void 0 : _a[definition];
+    }
+    return typeof definition === "function"
+        ? definition(custom !== null && custom !== void 0 ? custom : props.custom, currentValues, currentVelocity)
+        : definition;
+}
+function resolveVariant(visualElement, definition, custom) {
+    var props = visualElement.getProps();
+    return resolveVariantFromProps(props, definition, custom !== null && custom !== void 0 ? custom : props.custom, getCurrent(visualElement), getVelocity(visualElement));
+}
+function checkIfControllingVariants(props) {
+    var _a;
+    return (typeof ((_a = props.animate) === null || _a === void 0 ? void 0 : _a.start) === "function" ||
+        isVariantLabel(props.initial) ||
+        isVariantLabel(props.animate) ||
+        isVariantLabel(props.whileHover) ||
+        isVariantLabel(props.whileDrag) ||
+        isVariantLabel(props.whileTap) ||
+        isVariantLabel(props.whileFocus) ||
+        isVariantLabel(props.exit));
+}
+function checkIfVariantNode(props) {
+    return Boolean(checkIfControllingVariants(props) || props.variants);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/array.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/array.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addUniqueItem": () => (/* binding */ addUniqueItem),
+/* harmony export */   "removeItem": () => (/* binding */ removeItem)
+/* harmony export */ });
+function addUniqueItem(arr, item) {
+    arr.indexOf(item) === -1 && arr.push(item);
+}
+function removeItem(arr, item) {
+    var index = arr.indexOf(item);
+    index > -1 && arr.splice(index, 1);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/each-axis.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/each-axis.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "eachAxis": () => (/* binding */ eachAxis)
+/* harmony export */ });
+// Call a handler once for each axis
+function eachAxis(handler) {
+    return [handler("x"), handler("y")];
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/geometry/delta-apply.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/geometry/delta-apply.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "applyAxisDelta": () => (/* binding */ applyAxisDelta),
+/* harmony export */   "applyAxisTransforms": () => (/* binding */ applyAxisTransforms),
+/* harmony export */   "applyBoxDelta": () => (/* binding */ applyBoxDelta),
+/* harmony export */   "applyBoxTransforms": () => (/* binding */ applyBoxTransforms),
+/* harmony export */   "applyPointDelta": () => (/* binding */ applyPointDelta),
+/* harmony export */   "applyTreeDeltas": () => (/* binding */ applyTreeDeltas),
+/* harmony export */   "removeAxisDelta": () => (/* binding */ removeAxisDelta),
+/* harmony export */   "removeAxisTransforms": () => (/* binding */ removeAxisTransforms),
+/* harmony export */   "removeBoxTransforms": () => (/* binding */ removeBoxTransforms),
+/* harmony export */   "removePointDelta": () => (/* binding */ removePointDelta),
+/* harmony export */   "resetAxis": () => (/* binding */ resetAxis),
+/* harmony export */   "resetBox": () => (/* binding */ resetBox),
+/* harmony export */   "scalePoint": () => (/* binding */ scalePoint)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/mix.js");
+/* harmony import */ var _render_utils_is_draggable_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../render/utils/is-draggable.js */ "./node_modules/framer-motion/dist/es/render/utils/is-draggable.js");
+
+
+
+
+/**
+ * Reset an axis to the provided origin box.
+ *
+ * This is a mutative operation.
+ */
+function resetAxis(axis, originAxis) {
+    axis.min = originAxis.min;
+    axis.max = originAxis.max;
+}
+/**
+ * Reset a box to the provided origin box.
+ *
+ * This is a mutative operation.
+ */
+function resetBox(box, originBox) {
+    resetAxis(box.x, originBox.x);
+    resetAxis(box.y, originBox.y);
+}
+/**
+ * Scales a point based on a factor and an originPoint
+ */
+function scalePoint(point, scale, originPoint) {
+    var distanceFromOrigin = point - originPoint;
+    var scaled = scale * distanceFromOrigin;
+    return originPoint + scaled;
+}
+/**
+ * Applies a translate/scale delta to a point
+ */
+function applyPointDelta(point, translate, scale, originPoint, boxScale) {
+    if (boxScale !== undefined) {
+        point = scalePoint(point, boxScale, originPoint);
+    }
+    return scalePoint(point, scale, originPoint) + translate;
+}
+/**
+ * Applies a translate/scale delta to an axis
+ */
+function applyAxisDelta(axis, translate, scale, originPoint, boxScale) {
+    if (translate === void 0) { translate = 0; }
+    if (scale === void 0) { scale = 1; }
+    axis.min = applyPointDelta(axis.min, translate, scale, originPoint, boxScale);
+    axis.max = applyPointDelta(axis.max, translate, scale, originPoint, boxScale);
+}
+/**
+ * Applies a translate/scale delta to a box
+ */
+function applyBoxDelta(box, _a) {
+    var x = _a.x, y = _a.y;
+    applyAxisDelta(box.x, x.translate, x.scale, x.originPoint);
+    applyAxisDelta(box.y, y.translate, y.scale, y.originPoint);
+}
+/**
+ * Apply a transform to an axis from the latest resolved motion values.
+ * This function basically acts as a bridge between a flat motion value map
+ * and applyAxisDelta
+ */
+function applyAxisTransforms(final, axis, transforms, _a) {
+    var _b = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
+    // Copy the current axis to the final axis before mutation
+    final.min = axis.min;
+    final.max = axis.max;
+    var axisOrigin = transforms[originKey] !== undefined ? transforms[originKey] : 0.5;
+    var originPoint = (0,popmotion__WEBPACK_IMPORTED_MODULE_1__.mix)(axis.min, axis.max, axisOrigin);
+    // Apply the axis delta to the final axis
+    applyAxisDelta(final, transforms[key], transforms[scaleKey], originPoint, transforms.scale);
+}
+/**
+ * The names of the motion values we want to apply as translation, scale and origin.
+ */
+var xKeys = ["x", "scaleX", "originX"];
+var yKeys = ["y", "scaleY", "originY"];
+/**
+ * Apply a transform to a box from the latest resolved motion values.
+ */
+function applyBoxTransforms(finalBox, box, transforms) {
+    applyAxisTransforms(finalBox.x, box.x, transforms, xKeys);
+    applyAxisTransforms(finalBox.y, box.y, transforms, yKeys);
+}
+/**
+ * Remove a delta from a point. This is essentially the steps of applyPointDelta in reverse
+ */
+function removePointDelta(point, translate, scale, originPoint, boxScale) {
+    point -= translate;
+    point = scalePoint(point, 1 / scale, originPoint);
+    if (boxScale !== undefined) {
+        point = scalePoint(point, 1 / boxScale, originPoint);
+    }
+    return point;
+}
+/**
+ * Remove a delta from an axis. This is essentially the steps of applyAxisDelta in reverse
+ */
+function removeAxisDelta(axis, translate, scale, origin, boxScale) {
+    if (translate === void 0) { translate = 0; }
+    if (scale === void 0) { scale = 1; }
+    if (origin === void 0) { origin = 0.5; }
+    var originPoint = (0,popmotion__WEBPACK_IMPORTED_MODULE_1__.mix)(axis.min, axis.max, origin) - translate;
+    axis.min = removePointDelta(axis.min, translate, scale, originPoint, boxScale);
+    axis.max = removePointDelta(axis.max, translate, scale, originPoint, boxScale);
+}
+/**
+ * Remove a transforms from an axis. This is essentially the steps of applyAxisTransforms in reverse
+ * and acts as a bridge between motion values and removeAxisDelta
+ */
+function removeAxisTransforms(axis, transforms, _a) {
+    var _b = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__read)(_a, 3), key = _b[0], scaleKey = _b[1], originKey = _b[2];
+    removeAxisDelta(axis, transforms[key], transforms[scaleKey], transforms[originKey], transforms.scale);
+}
+/**
+ * Remove a transforms from an box. This is essentially the steps of applyAxisBox in reverse
+ * and acts as a bridge between motion values and removeAxisDelta
+ */
+function removeBoxTransforms(box, transforms) {
+    removeAxisTransforms(box.x, transforms, xKeys);
+    removeAxisTransforms(box.y, transforms, yKeys);
+}
+/**
+ * Apply a tree of deltas to a box. We do this to calculate the effect of all the transforms
+ * in a tree upon our box before then calculating how to project it into our desired viewport-relative box
+ *
+ * This is the final nested loop within updateLayoutDelta for future refactoring
+ */
+function applyTreeDeltas(box, treeScale, treePath) {
+    var treeLength = treePath.length;
+    if (!treeLength)
+        return;
+    // Reset the treeScale
+    treeScale.x = treeScale.y = 1;
+    var node;
+    var delta;
+    for (var i = 0; i < treeLength; i++) {
+        node = treePath[i];
+        delta = node.getLayoutState().delta;
+        // Incoporate each ancestor's scale into a culmulative treeScale for this component
+        treeScale.x *= delta.x.scale;
+        treeScale.y *= delta.y.scale;
+        // Apply each ancestor's calculated delta into this component's recorded layout box
+        applyBoxDelta(box, delta);
+        // If this is a draggable ancestor, also incorporate the node's transform to the layout box
+        if ((0,_render_utils_is_draggable_js__WEBPACK_IMPORTED_MODULE_2__.isDraggable)(node)) {
+            applyBoxTransforms(box, box, node.getLatestValues());
+        }
+    }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/geometry/delta-calc.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/geometry/delta-calc.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "calcOrigin": () => (/* binding */ calcOrigin),
+/* harmony export */   "calcRelativeAxis": () => (/* binding */ calcRelativeAxis),
+/* harmony export */   "calcRelativeBox": () => (/* binding */ calcRelativeBox),
+/* harmony export */   "isNear": () => (/* binding */ isNear),
+/* harmony export */   "updateAxisDelta": () => (/* binding */ updateAxisDelta),
+/* harmony export */   "updateBoxDelta": () => (/* binding */ updateBoxDelta)
+/* harmony export */ });
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/clamp.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/distance.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/progress.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/mix.js");
+
+
+var clampProgress = function (v) { return (0,popmotion__WEBPACK_IMPORTED_MODULE_0__.clamp)(0, 1, v); };
+/**
+ * Returns true if the provided value is within maxDistance of the provided target
+ */
+function isNear(value, target, maxDistance) {
+    if (target === void 0) { target = 0; }
+    if (maxDistance === void 0) { maxDistance = 0.01; }
+    return (0,popmotion__WEBPACK_IMPORTED_MODULE_1__.distance)(value, target) < maxDistance;
+}
+function calcLength(axis) {
+    return axis.max - axis.min;
+}
+/**
+ * Calculate a transform origin relative to the source axis, between 0-1, that results
+ * in an asthetically pleasing scale/transform needed to project from source to target.
+ */
+function calcOrigin(source, target) {
+    var origin = 0.5;
+    var sourceLength = calcLength(source);
+    var targetLength = calcLength(target);
+    if (targetLength > sourceLength) {
+        origin = (0,popmotion__WEBPACK_IMPORTED_MODULE_2__.progress)(target.min, target.max - sourceLength, source.min);
+    }
+    else if (sourceLength > targetLength) {
+        origin = (0,popmotion__WEBPACK_IMPORTED_MODULE_2__.progress)(source.min, source.max - targetLength, target.min);
+    }
+    return clampProgress(origin);
+}
+/**
+ * Update the AxisDelta with a transform that projects source into target.
+ *
+ * The transform `origin` is optional. If not provided, it'll be automatically
+ * calculated based on the relative positions of the two bounding boxes.
+ */
+function updateAxisDelta(delta, source, target, origin) {
+    if (origin === void 0) { origin = 0.5; }
+    delta.origin = origin;
+    delta.originPoint = (0,popmotion__WEBPACK_IMPORTED_MODULE_3__.mix)(source.min, source.max, delta.origin);
+    delta.scale = calcLength(target) / calcLength(source);
+    if (isNear(delta.scale, 1, 0.0001))
+        delta.scale = 1;
+    delta.translate =
+        (0,popmotion__WEBPACK_IMPORTED_MODULE_3__.mix)(target.min, target.max, delta.origin) - delta.originPoint;
+    if (isNear(delta.translate))
+        delta.translate = 0;
+}
+/**
+ * Update the BoxDelta with a transform that projects the source into the target.
+ *
+ * The transform `origin` is optional. If not provided, it'll be automatically
+ * calculated based on the relative positions of the two bounding boxes.
+ */
+function updateBoxDelta(delta, source, target, origin) {
+    updateAxisDelta(delta.x, source.x, target.x, defaultOrigin(origin.originX));
+    updateAxisDelta(delta.y, source.y, target.y, defaultOrigin(origin.originY));
+}
+/**
+ * Currently this only accepts numerical origins, measured as 0-1, but could
+ * accept pixel values by comparing to the target axis.
+ */
+function defaultOrigin(origin) {
+    return typeof origin === "number" ? origin : 0.5;
+}
+function calcRelativeAxis(target, relative, parent) {
+    target.min = parent.min + relative.min;
+    target.max = target.min + calcLength(relative);
+}
+function calcRelativeBox(projection, parentProjection) {
+    calcRelativeAxis(projection.target.x, projection.relativeTarget.x, parentProjection.target.x);
+    calcRelativeAxis(projection.target.y, projection.relativeTarget.y, parentProjection.target.y);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/geometry/index.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/geometry/index.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "axisBox": () => (/* binding */ axisBox),
+/* harmony export */   "convertAxisBoxToBoundingBox": () => (/* binding */ convertAxisBoxToBoundingBox),
+/* harmony export */   "convertBoundingBoxToAxisBox": () => (/* binding */ convertBoundingBoxToAxisBox),
+/* harmony export */   "copyAxisBox": () => (/* binding */ copyAxisBox),
+/* harmony export */   "delta": () => (/* binding */ delta),
+/* harmony export */   "transformBoundingBox": () => (/* binding */ transformBoundingBox)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _noop_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../noop.js */ "./node_modules/framer-motion/dist/es/utils/noop.js");
+
+
+
+/**
+ * Bounding boxes tend to be defined as top, left, right, bottom. For various operations
+ * it's easier to consider each axis individually. This function returns a bounding box
+ * as a map of single-axis min/max values.
+ */
+function convertBoundingBoxToAxisBox(_a) {
+    var top = _a.top, left = _a.left, right = _a.right, bottom = _a.bottom;
+    return {
+        x: { min: left, max: right },
+        y: { min: top, max: bottom },
+    };
+}
+function convertAxisBoxToBoundingBox(_a) {
+    var x = _a.x, y = _a.y;
+    return {
+        top: y.min,
+        bottom: y.max,
+        left: x.min,
+        right: x.max,
+    };
+}
+/**
+ * Applies a TransformPoint function to a bounding box. TransformPoint is usually a function
+ * provided by Framer to allow measured points to be corrected for device scaling. This is used
+ * when measuring DOM elements and DOM event points.
+ */
+function transformBoundingBox(_a, transformPoint) {
+    var top = _a.top, left = _a.left, bottom = _a.bottom, right = _a.right;
+    if (transformPoint === void 0) { transformPoint = _noop_js__WEBPACK_IMPORTED_MODULE_0__.noop; }
+    var topLeft = transformPoint({ x: left, y: top });
+    var bottomRight = transformPoint({ x: right, y: bottom });
+    return {
+        top: topLeft.y,
+        left: topLeft.x,
+        bottom: bottomRight.y,
+        right: bottomRight.x,
+    };
+}
+/**
+ * Create an empty axis box of zero size
+ */
+function axisBox() {
+    return { x: { min: 0, max: 1 }, y: { min: 0, max: 1 } };
+}
+function copyAxisBox(box) {
+    return {
+        x: (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, box.x),
+        y: (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, box.y),
+    };
+}
+/**
+ * Create an empty box delta
+ */
+var zeroDelta = {
+    translate: 0,
+    scale: 1,
+    origin: 0,
+    originPoint: 0,
+};
+function delta() {
+    return {
+        x: (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, zeroDelta),
+        y: (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, zeroDelta),
+    };
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/is-browser.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/is-browser.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isBrowser": () => (/* binding */ isBrowser)
+/* harmony export */ });
+var isBrowser = typeof window !== "undefined";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/is-numerical-string.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/is-numerical-string.js ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isNumericalString": () => (/* binding */ isNumericalString)
+/* harmony export */ });
+/**
+ * Check if value is a numerical string, ie a string that is purely a number eg "100" or "-100.1"
+ */
+var isNumericalString = function (v) { return /^\-?\d*\.?\d+$/.test(v); };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/is-ref-object.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/is-ref-object.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isRefObject": () => (/* binding */ isRefObject)
+/* harmony export */ });
+function isRefObject(ref) {
+    return (typeof ref === "object" &&
+        Object.prototype.hasOwnProperty.call(ref, "current"));
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/noop.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/noop.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "noop": () => (/* binding */ noop)
+/* harmony export */ });
+function noop(any) {
+    return any;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/resolve-value.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/resolve-value.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isCustomValue": () => (/* binding */ isCustomValue),
+/* harmony export */   "resolveFinalValueInKeyframes": () => (/* binding */ resolveFinalValueInKeyframes)
+/* harmony export */ });
+/* harmony import */ var _animation_utils_is_keyframes_target_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../animation/utils/is-keyframes-target.js */ "./node_modules/framer-motion/dist/es/animation/utils/is-keyframes-target.js");
+
+
+var isCustomValue = function (v) {
+    return Boolean(v && typeof v === "object" && v.mix && v.toValue);
+};
+var resolveFinalValueInKeyframes = function (v) {
+    // TODO maybe throw if v.length - 1 is placeholder token?
+    return (0,_animation_utils_is_keyframes_target_js__WEBPACK_IMPORTED_MODULE_0__.isKeyframesTarget)(v) ? v[v.length - 1] || 0 : v;
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/shallow-compare.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/shallow-compare.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "shallowCompare": () => (/* binding */ shallowCompare)
+/* harmony export */ });
+function shallowCompare(next, prev) {
+    if (!Array.isArray(prev))
+        return false;
+    var prevLength = prev.length;
+    if (prevLength !== next.length)
+        return false;
+    for (var i = 0; i < prevLength; i++) {
+        if (prev[i] !== next[i])
+            return false;
+    }
+    return true;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/subscription-manager.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/subscription-manager.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "SubscriptionManager": () => (/* binding */ SubscriptionManager)
+/* harmony export */ });
+/* harmony import */ var _array_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./array.js */ "./node_modules/framer-motion/dist/es/utils/array.js");
+
+
+var SubscriptionManager = /** @class */ (function () {
+    function SubscriptionManager() {
+        this.subscriptions = [];
+    }
+    SubscriptionManager.prototype.add = function (handler) {
+        var _this = this;
+        (0,_array_js__WEBPACK_IMPORTED_MODULE_0__.addUniqueItem)(this.subscriptions, handler);
+        return function () { return (0,_array_js__WEBPACK_IMPORTED_MODULE_0__.removeItem)(_this.subscriptions, handler); };
+    };
+    SubscriptionManager.prototype.notify = function (a, b, c) {
+        var numSubscriptions = this.subscriptions.length;
+        if (!numSubscriptions)
+            return;
+        if (numSubscriptions === 1) {
+            /**
+             * If there's only a single handler we can just call it without invoking a loop.
+             */
+            this.subscriptions[0](a, b, c);
+        }
+        else {
+            for (var i = 0; i < numSubscriptions; i++) {
+                /**
+                 * Check whether the handler exists before firing as it's possible
+                 * the subscriptions were modified during this loop running.
+                 */
+                var handler = this.subscriptions[i];
+                handler && handler(a, b, c);
+            }
+        }
+    };
+    SubscriptionManager.prototype.getSize = function () {
+        return this.subscriptions.length;
+    };
+    SubscriptionManager.prototype.clear = function () {
+        this.subscriptions.length = 0;
+    };
+    return SubscriptionManager;
+}());
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/time-conversion.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/time-conversion.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "secondsToMilliseconds": () => (/* binding */ secondsToMilliseconds)
+/* harmony export */ });
+/**
+ * Converts seconds to milliseconds
+ *
+ * @param seconds - Time in seconds.
+ * @return milliseconds - Converted time in milliseconds.
+ */
+var secondsToMilliseconds = function (seconds) { return seconds * 1000; };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/use-constant.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/use-constant.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useConstant": () => (/* binding */ useConstant)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * Creates a constant value over the lifecycle of a component.
+ *
+ * Even if `useMemo` is provided an empty array as its final argument, it doesn't offer
+ * a guarantee that it won't re-run for performance reasons later on. By using `useConstant`
+ * you can ensure that initialisers don't execute twice or more.
+ */
+function useConstant(init) {
+    var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+    if (ref.current === null) {
+        ref.current = init();
+    }
+    return ref.current;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/use-isomorphic-effect.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useIsomorphicLayoutEffect": () => (/* binding */ useIsomorphicLayoutEffect)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _is_browser_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./is-browser.js */ "./node_modules/framer-motion/dist/es/utils/is-browser.js");
+
+
+
+var useIsomorphicLayoutEffect = _is_browser_js__WEBPACK_IMPORTED_MODULE_1__.isBrowser ? react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect : react__WEBPACK_IMPORTED_MODULE_0__.useEffect;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/utils/use-unmount-effect.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/utils/use-unmount-effect.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useUnmountEffect": () => (/* binding */ useUnmountEffect)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function useUnmountEffect(callback) {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () { return function () { return callback(); }; }, []);
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/value/index.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/value/index.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MotionValue": () => (/* binding */ MotionValue),
+/* harmony export */   "motionValue": () => (/* binding */ motionValue)
+/* harmony export */ });
+/* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! framesync */ "./node_modules/framesync/dist/es/index.js");
+/* harmony import */ var popmotion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! popmotion */ "./node_modules/popmotion/dist/es/utils/velocity-per-second.js");
+/* harmony import */ var _utils_subscription_manager_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/subscription-manager.js */ "./node_modules/framer-motion/dist/es/utils/subscription-manager.js");
 
 
 
@@ -1175,9 +9304,8 @@ var MotionValue = /** @class */ (function () {
      *
      * @internal
      */
-    function MotionValue(init, _a) {
+    function MotionValue(init) {
         var _this = this;
-        var _b = _a === void 0 ? {} : _a, transformer = _b.transformer, parent = _b.parent;
         /**
          * Duration, in milliseconds, since last updating frame.
          *
@@ -1191,6 +9319,24 @@ var MotionValue = /** @class */ (function () {
          */
         this.lastUpdated = 0;
         /**
+         * Functions to notify when the `MotionValue` updates.
+         *
+         * @internal
+         */
+        this.updateSubscribers = new _utils_subscription_manager_js__WEBPACK_IMPORTED_MODULE_1__.SubscriptionManager();
+        /**
+         * Functions to notify when the velocity updates.
+         *
+         * @internal
+         */
+        this.velocityUpdateSubscribers = new _utils_subscription_manager_js__WEBPACK_IMPORTED_MODULE_1__.SubscriptionManager();
+        /**
+         * Functions to notify when the `MotionValue` updates and `render` is set to `true`.
+         *
+         * @internal
+         */
+        this.renderSubscribers = new _utils_subscription_manager_js__WEBPACK_IMPORTED_MODULE_1__.SubscriptionManager();
+        /**
          * Tracks whether this value can output a velocity. Currently this is only true
          * if the value is numerical, but we might be able to widen the scope here and support
          * other value types.
@@ -1201,36 +9347,26 @@ var MotionValue = /** @class */ (function () {
         this.updateAndNotify = function (v, render) {
             if (render === void 0) { render = true; }
             _this.prev = _this.current;
-            _this.current = _this.transformer ? _this.transformer(v) : v;
-            if (_this.updateSubscribers && _this.prev !== _this.current) {
-                _this.updateSubscribers.forEach(_this.notifySubscriber);
-            }
-            if (_this.children) {
-                _this.children.forEach(_this.setChild);
-            }
-            if (render && _this.renderSubscribers) {
-                _this.renderSubscribers.forEach(_this.notifySubscriber);
-            }
+            _this.current = v;
             // Update timestamp
-            var _a = (0,framesync__WEBPACK_IMPORTED_MODULE_1__.getFrameData)(), delta = _a.delta, timestamp = _a.timestamp;
+            var _a = (0,framesync__WEBPACK_IMPORTED_MODULE_0__.getFrameData)(), delta = _a.delta, timestamp = _a.timestamp;
             if (_this.lastUpdated !== timestamp) {
                 _this.timeDelta = delta;
                 _this.lastUpdated = timestamp;
-                framesync__WEBPACK_IMPORTED_MODULE_1__["default"].postRender(_this.scheduleVelocityCheck);
+                framesync__WEBPACK_IMPORTED_MODULE_0__["default"].postRender(_this.scheduleVelocityCheck);
             }
-        };
-        /**
-         * Notify a subscriber with the latest value.
-         *
-         * This is an instanced and bound function to prevent generating a new
-         * function once per frame.
-         *
-         * @param subscriber - The subscriber to notify.
-         *
-         * @internal
-         */
-        this.notifySubscriber = function (subscriber) {
-            subscriber(_this.current);
+            // Update update subscribers
+            if (_this.prev !== _this.current) {
+                _this.updateSubscribers.notify(_this.current);
+            }
+            // Update velocity subscribers
+            if (_this.velocityUpdateSubscribers.getSize()) {
+                _this.velocityUpdateSubscribers.notify(_this.getVelocity());
+            }
+            // Update render subscribers
+            if (render) {
+                _this.renderSubscribers.notify(_this.current);
+            }
         };
         /**
          * Schedule a velocity check for the next frame.
@@ -1240,7 +9376,7 @@ var MotionValue = /** @class */ (function () {
          *
          * @internal
          */
-        this.scheduleVelocityCheck = function () { return framesync__WEBPACK_IMPORTED_MODULE_1__["default"].postRender(_this.velocityCheck); };
+        this.scheduleVelocityCheck = function () { return framesync__WEBPACK_IMPORTED_MODULE_0__["default"].postRender(_this.velocityCheck); };
         /**
          * Updates `prev` with `current` if the value hasn't been updated this frame.
          * This ensures velocity calculations return `0`.
@@ -1254,63 +9390,13 @@ var MotionValue = /** @class */ (function () {
             var timestamp = _a.timestamp;
             if (timestamp !== _this.lastUpdated) {
                 _this.prev = _this.current;
+                _this.velocityUpdateSubscribers.notify(_this.getVelocity());
             }
         };
-        /**
-         * Updates child `MotionValue`.
-         *
-         * @param child - Child `MotionValue`.
-         *
-         * @internal
-         */
-        this.setChild = function (child) { return child.set(_this.current); };
-        this.parent = parent;
-        this.transformer = transformer;
-        this.set(init, false);
+        this.hasAnimated = false;
+        this.prev = this.current = init;
         this.canTrackVelocity = isFloat(this.current);
     }
-    /**
-     * Creates a new `MotionValue` that's subscribed to the output of this one.
-     *
-     * @param config - Optional configuration options
-     *
-     * -  `transformer`: A function to transform incoming values with.
-     *
-     * @internal
-     */
-    MotionValue.prototype.addChild = function (config) {
-        if (config === void 0) { config = {}; }
-        var child = new MotionValue(this.current, (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({ parent: this }, config));
-        if (!this.children)
-            this.children = new Set();
-        this.children.add(child);
-        return child;
-    };
-    /**
-     * Stops a `MotionValue` from being subscribed to this one.
-     *
-     * @param child - The subscribed `MotionValue`
-     *
-     * @internal
-     */
-    MotionValue.prototype.removeChild = function (child) {
-        if (!this.children) {
-            return;
-        }
-        this.children.delete(child);
-    };
-    /**
-     * Subscribes a subscriber function to a subscription list.
-     *
-     * @param subscriptions - A `Set` of subscribers.
-     * @param subscription - A subscriber function.
-     */
-    MotionValue.prototype.subscribeTo = function (subscriptions, subscription) {
-        var _this = this;
-        var updateSubscriber = function () { return subscription(_this.current); };
-        subscriptions.add(updateSubscriber);
-        return function () { return subscriptions.delete(updateSubscriber); };
-    };
     /**
      * Adds a function that will be notified when the `MotionValue` is updated.
      *
@@ -1390,9 +9476,10 @@ var MotionValue = /** @class */ (function () {
      * @public
      */
     MotionValue.prototype.onChange = function (subscription) {
-        if (!this.updateSubscribers)
-            this.updateSubscribers = new Set();
-        return this.subscribeTo(this.updateSubscribers, subscription);
+        return this.updateSubscribers.add(subscription);
+    };
+    MotionValue.prototype.clearListeners = function () {
+        this.updateSubscribers.clear();
     };
     /**
      * Adds a function that will be notified when the `MotionValue` requests a render.
@@ -1403,11 +9490,9 @@ var MotionValue = /** @class */ (function () {
      * @internal
      */
     MotionValue.prototype.onRenderRequest = function (subscription) {
-        if (!this.renderSubscribers)
-            this.renderSubscribers = new Set();
         // Render immediately
-        this.notifySubscriber(subscription);
-        return this.subscribeTo(this.renderSubscribers, subscription);
+        subscription(this.get());
+        return this.renderSubscribers.add(subscription);
     };
     /**
      * Attaches a passive effect to the `MotionValue`.
@@ -1452,6 +9537,12 @@ var MotionValue = /** @class */ (function () {
         return this.current;
     };
     /**
+     * @public
+     */
+    MotionValue.prototype.getPrevious = function () {
+        return this.prev;
+    };
+    /**
      * Returns the latest velocity of `MotionValue`
      *
      * @returns - The latest velocity of `MotionValue`. Returns `0` if the state is non-numerical.
@@ -1462,7 +9553,7 @@ var MotionValue = /** @class */ (function () {
         // This could be isFloat(this.prev) && isFloat(this.current), but that would be wasteful
         return this.canTrackVelocity
             ? // These casts could be avoided if parseFloat would be typed better
-                (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_2__.velocityPerSecond)(parseFloat(this.current) -
+                (0,popmotion__WEBPACK_IMPORTED_MODULE_2__.velocityPerSecond)(parseFloat(this.current) -
                     parseFloat(this.prev), this.timeDelta)
             : 0;
     };
@@ -1482,6 +9573,7 @@ var MotionValue = /** @class */ (function () {
         var _this = this;
         this.stop();
         return new Promise(function (resolve) {
+            _this.hasAnimated = true;
             _this.stopAnimation = animation(resolve);
         }).then(function () { return _this.clearAnimation(); });
     };
@@ -1516,9 +9608,8 @@ var MotionValue = /** @class */ (function () {
      * @public
      */
     MotionValue.prototype.destroy = function () {
-        this.updateSubscribers && this.updateSubscribers.clear();
-        this.renderSubscribers && this.renderSubscribers.clear();
-        this.parent && this.parent.removeChild(this);
+        this.updateSubscribers.clear();
+        this.renderSubscribers.clear();
         this.stop();
     };
     return MotionValue;
@@ -1526,3894 +9617,50 @@ var MotionValue = /** @class */ (function () {
 /**
  * @internal
  */
-function motionValue(init, opts) {
-    return new MotionValue(init, opts);
+function motionValue(init) {
+    return new MotionValue(init);
 }
 
-/**
- * Creates a constant value over the lifecycle of a component.
- *
- * Even if `useMemo` is provided an empty array as its final argument, it doesn't offer
- * a guarantee that it won't re-run for performance reasons later on. By using `useConstant`
- * you can ensure that initialisers don't execute twice or more.
- */
-function useConstant(init) {
-    var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-    if (ref.current === null) {
-        ref.current = init();
-    }
-    return ref.current;
-}
 
+
+
+/***/ }),
+
+/***/ "./node_modules/framer-motion/dist/es/value/utils/is-motion-value.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/value/utils/is-motion-value.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isMotionValue": () => (/* binding */ isMotionValue)
+/* harmony export */ });
 var isMotionValue = function (value) {
-    return value instanceof MotionValue;
+    return value !== null && typeof value === "object" && value.getVelocity;
 };
 
-// Creating a styler factory for the `onUpdate` prop allows all values
-// to fire and the `onUpdate` prop will only fire once per frame
-var updateStyler = (0,stylefire__WEBPACK_IMPORTED_MODULE_3__.createStylerFactory)({
-    onRead: function () { return null; },
-    onRender: function (state, _a) {
-        var onUpdate = _a.onUpdate;
-        return onUpdate(state);
-    },
-});
-var MotionValuesMap = /** @class */ (function () {
-    function MotionValuesMap() {
-        this.hasMounted = false;
-        this.values = new Map();
-        this.unsubscribers = new Map();
-    }
-    MotionValuesMap.prototype.has = function (key) {
-        return this.values.has(key);
-    };
-    MotionValuesMap.prototype.set = function (key, value) {
-        this.values.set(key, value);
-        if (this.hasMounted) {
-            this.bindValueToOutput(key, value);
-        }
-    };
-    MotionValuesMap.prototype.get = function (key, defaultValue) {
-        var value = this.values.get(key);
-        if (value === undefined && defaultValue !== undefined) {
-            value = new MotionValue(defaultValue);
-            this.set(key, value);
-        }
-        return value;
-    };
-    MotionValuesMap.prototype.forEach = function (callback) {
-        return this.values.forEach(callback);
-    };
-    MotionValuesMap.prototype.bindValueToOutput = function (key, value) {
-        var _this = this;
-        var onRender = function (v) { return _this.output && _this.output(key, v); };
-        var unsubscribeOnRender = value.onRenderRequest(onRender);
-        var onChange = function (v) {
-            _this.onUpdate && _this.onUpdate.set(key, v);
-        };
-        var unsubscribeOnChange = value.onChange(onChange);
-        if (this.unsubscribers.has(key)) {
-            this.unsubscribers.get(key)();
-        }
-        this.unsubscribers.set(key, function () {
-            unsubscribeOnRender();
-            unsubscribeOnChange();
-        });
-    };
-    MotionValuesMap.prototype.setOnUpdate = function (onUpdate) {
-        this.onUpdate = undefined;
-        if (onUpdate) {
-            this.onUpdate = updateStyler({ onUpdate: onUpdate });
-        }
-    };
-    MotionValuesMap.prototype.setTransformTemplate = function (transformTemplate) {
-        if (this.transformTemplate !== transformTemplate) {
-            this.transformTemplate = transformTemplate;
-            this.updateTransformTemplate();
-        }
-    };
-    MotionValuesMap.prototype.getTransformTemplate = function () {
-        return this.transformTemplate;
-    };
-    MotionValuesMap.prototype.updateTransformTemplate = function () {
-        if (this.output) {
-            this.output("transform", this.transformTemplate);
-        }
-    };
-    MotionValuesMap.prototype.mount = function (output) {
-        var _this = this;
-        this.hasMounted = true;
-        if (output)
-            this.output = output;
-        this.values.forEach(function (value, key) { return _this.bindValueToOutput(key, value); });
-        this.updateTransformTemplate();
-    };
-    MotionValuesMap.prototype.unmount = function () {
-        var _this = this;
-        this.values.forEach(function (_value, key) {
-            var unsubscribe = _this.unsubscribers.get(key);
-            unsubscribe && unsubscribe();
-        });
-    };
-    return MotionValuesMap;
-}());
-var specialMotionValueProps = new Set(["dragOriginX", "dragOriginY"]);
-var useMotionValues = function (props) {
-    var motionValues = useConstant(function () {
-        var map = new MotionValuesMap();
-        /**
-         * Loop through every prop and add any detected `MotionValue`s. This is SVG-specific
-         * code that should be extracted, perhaps considered hollistically with `useMotionStyles`.
-         *
-         * <motion.circle cx={motionValue(0)} />
-         */
-        for (var key in props) {
-            if (isMotionValue(props[key]) &&
-                !specialMotionValueProps.has(key)) {
-                map.set(key, props[key]);
-            }
-        }
-        return map;
-    });
-    motionValues.setOnUpdate(props.onUpdate);
-    motionValues.setTransformTemplate(props.transformTemplate);
-    return motionValues;
-};
-
-var session = null;
-var syncRenderSession = {
-    isOpen: function () { return session !== null; },
-    open: function () {
-        (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(!session, "Sync render session already open");
-        session = [];
-    },
-    flush: function () {
-        (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(session !== null, "No sync render session found");
-        session && session.forEach(function (styler) { return styler.render(); });
-        session = null;
-    },
-    push: function (styler) {
-        (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(session !== null, "No sync render session found");
-        session && session.push(styler);
-    },
-};
-
-/**
- * `useEffect` gets resolved bottom-up. We defer some optional functionality to child
- * components, so to ensure everything runs correctly we export the ref-binding logic
- * to a new component rather than in `useMotionValues`.
- */
-var MountComponent = function (_a) {
-    var ref = _a.innerRef, values = _a.values, isStatic = _a.isStatic;
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-        (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(ref.current instanceof Element, "No `ref` found. Ensure components created with `motion.custom` forward refs using `React.forwardRef`");
-        var domStyler = (0,stylefire__WEBPACK_IMPORTED_MODULE_3__["default"])(ref.current, {
-            preparseOutput: false,
-            enableHardwareAcceleration: !isStatic,
-        });
-        values.mount(function (key, value) {
-            domStyler.set(key, value);
-            if (syncRenderSession.isOpen()) {
-                syncRenderSession.push(domStyler);
-            }
-        });
-        return function () { return values.unmount(); };
-    }, []);
-    return null;
-};
-var Mount = (0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(MountComponent);
-
-var createValueResolver = function (resolver) { return function (values) {
-    var resolvedValues = {};
-    values.forEach(function (value, key) { return (resolvedValues[key] = resolver(value)); });
-    return resolvedValues;
-}; };
-var resolveCurrent = createValueResolver(function (value) { return value.get(); });
-
-var transformOriginProps = new Set(["originX", "originY", "originZ"]);
-var isTransformOriginProp = function (key) { return transformOriginProps.has(key); };
-var buildStyleAttr = function (values, styleProp, isStatic) {
-    var motionValueStyles = resolveCurrent(values);
-    var transformTemplate = values.getTransformTemplate();
-    if (transformTemplate) {
-        // If `transform` has been manually set as a string, pass that through the template
-        // otherwise pass it forward to Stylefire's style property builder
-        motionValueStyles.transform = styleProp.transform
-            ? transformTemplate({}, styleProp.transform)
-            : transformTemplate;
-    }
-    return (0,stylefire__WEBPACK_IMPORTED_MODULE_3__.buildStyleProperty)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, styleProp), motionValueStyles), !isStatic);
-};
-var useMotionStyles = function (values, styleProp, isStatic, transformValues) {
-    if (styleProp === void 0) { styleProp = {}; }
-    var style = {};
-    var prevMotionStyles = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)({}).current;
-    for (var key in styleProp) {
-        var thisStyle = styleProp[key];
-        if (isMotionValue(thisStyle)) {
-            // If this is a motion value, add it to our MotionValuesMap
-            values.set(key, thisStyle);
-        }
-        else if (!isStatic &&
-            ((0,stylefire__WEBPACK_IMPORTED_MODULE_3__.isTransformProp)(key) || isTransformOriginProp(key))) {
-            // Or if it's a transform prop, create a motion value (or update an existing one)
-            // to ensure Stylefire can reconcile all the transform values together.
-            // A further iteration on this would be to create a single styler per component that gets
-            // used in the DOM renderer's buildStyleAttr *and* animations, then we would only
-            // have to convert animating values to `MotionValues` (we could probably remove this entire function).
-            // The only architectural consideration is to allow Stylefire to have elements mounted after
-            // a styler is created.
-            if (!values.has(key)) {
-                // If it doesn't exist as a motion value, create it
-                values.set(key, motionValue(thisStyle));
-            }
-            else {
-                // Otherwise only update it if it's changed from a previous render
-                if (thisStyle !== prevMotionStyles[key]) {
-                    var value = values.get(key);
-                    value.set(thisStyle);
-                }
-            }
-            prevMotionStyles[key] = thisStyle;
-        }
-        else {
-            style[key] = thisStyle;
-        }
-    }
-    return transformValues ? transformValues(style) : style;
-};
-
-var isKeyframesTarget = function (v) {
-    return Array.isArray(v);
-};
-
-var isCustomValue = function (v) {
-    return Boolean(v && typeof v === "object" && v.mix && v.toValue);
-};
-var resolveFinalValueInKeyframes = function (v) {
-    // TODO maybe throw if v.length - 1 is placeholder token?
-    return isKeyframesTarget(v) ? v[v.length - 1] || 0 : v;
-};
-
-var auto = {
-    test: function (v) { return v === "auto"; },
-    parse: function (v) { return v; },
-};
-var dimensionTypes = [style_value_types__WEBPACK_IMPORTED_MODULE_5__.number, style_value_types__WEBPACK_IMPORTED_MODULE_5__.px, style_value_types__WEBPACK_IMPORTED_MODULE_5__.percent, style_value_types__WEBPACK_IMPORTED_MODULE_5__.degrees, style_value_types__WEBPACK_IMPORTED_MODULE_5__.vw, style_value_types__WEBPACK_IMPORTED_MODULE_5__.vh, auto];
-var valueTypes = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__spreadArrays)(dimensionTypes, [style_value_types__WEBPACK_IMPORTED_MODULE_5__.color, style_value_types__WEBPACK_IMPORTED_MODULE_5__.complex]);
-var testValueType = function (v) { return function (type) { return type.test(v); }; };
-var getDimensionValueType = function (v) {
-    return dimensionTypes.find(testValueType(v));
-};
-var getValueType = function (v) { return valueTypes.find(testValueType(v)); };
-
-var underDampedSpring = function () { return ({
-    type: "spring",
-    stiffness: 500,
-    damping: 25,
-    restDelta: 0.5,
-    restSpeed: 10,
-}); };
-var overDampedSpring = function (to) { return ({
-    type: "spring",
-    stiffness: 700,
-    damping: to === 0 ? 100 : 35,
-}); };
-var linearTween = function () { return ({
-    ease: "linear",
-    duration: 0.3,
-}); };
-var keyframes = function (values) { return ({
-    type: "keyframes",
-    duration: 0.8,
-    values: values,
-}); };
-var defaultTransitions = {
-    x: underDampedSpring,
-    y: underDampedSpring,
-    z: underDampedSpring,
-    rotate: underDampedSpring,
-    rotateX: underDampedSpring,
-    rotateY: underDampedSpring,
-    rotateZ: underDampedSpring,
-    scaleX: overDampedSpring,
-    scaleY: overDampedSpring,
-    scale: overDampedSpring,
-    opacity: linearTween,
-    backgroundColor: linearTween,
-    color: linearTween,
-    default: overDampedSpring,
-};
-var getDefaultTransition = function (valueKey, to) {
-    var transitionFactory;
-    if (isKeyframesTarget(to)) {
-        transitionFactory = keyframes;
-    }
-    else {
-        transitionFactory =
-            defaultTransitions[valueKey] || defaultTransitions.default;
-    }
-    return (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({ to: to }, transitionFactory(to));
-};
-
-/**
- * A Popmotion action that accepts a single `to` prop. When it starts, it immediately
- * updates with `to` and then completes. By using this we can compose instant transitions
- * in with the same logic that applies `delay` or returns a `Promise` etc.
- *
- * Accepting `duration` is a little bit of a hack that simply defers the completetion of
- * the animation until after the duration finishes. This is for situations when you're **only**
- * animating non-animatable values and then setting something on `transitionEnd`. Really
- * you want this to fire after the "animation" finishes, rather than instantly.
- *
- * ```
- * animate={{
- *   display: 'block',
- *   transitionEnd: { display: 'none' }
- * }}
- * ```
- */
-var just = function (_a) {
-    var to = _a.to, duration = _a.duration;
-    return (0,popmotion__WEBPACK_IMPORTED_MODULE_6__.action)(function (_a) {
-        var update = _a.update, complete = _a.complete;
-        update(to);
-        duration ? (0,popmotion__WEBPACK_IMPORTED_MODULE_6__.delay)(duration).start({ complete: complete }) : complete();
-    });
-};
-
-var easingDefinitionToFunction = function (definition) {
-    if (Array.isArray(definition)) {
-        // If cubic bezier definition, create bezier curve
-        (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(definition.length === 4, "Cubic bezier arrays must contain four numerical values.");
-        var x1 = definition[0], y1 = definition[1], x2 = definition[2], y2 = definition[3];
-        return (0,_popmotion_easing__WEBPACK_IMPORTED_MODULE_7__.cubicBezier)(x1, y1, x2, y2);
-    }
-    else if (typeof definition === "string") {
-        // Else lookup from table
-        (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(_popmotion_easing__WEBPACK_IMPORTED_MODULE_7__[definition] !== undefined, "Invalid easing type '" + definition + "'");
-        return _popmotion_easing__WEBPACK_IMPORTED_MODULE_7__[definition];
-    }
-    return definition;
-};
-var isEasingArray = function (ease) {
-    return Array.isArray(ease) && typeof ease[0] !== "number";
-};
-
-var isDurationAnimation = function (v) {
-    return v.hasOwnProperty("duration") || v.hasOwnProperty("repeatDelay");
-};
-
-/**
- * Check if a value is animatable. Examples:
- *
- * ✅: 100, "100px", "#fff"
- * ❌: "block", "url(2.jpg)"
- * @param value
- *
- * @internal
- */
-var isAnimatable = function (key, value) {
-    // If the list of keys tat might be non-animatable grows, replace with Set
-    if (key === "zIndex")
-        return false;
-    // If it's a number or a keyframes array, we can animate it. We might at some point
-    // need to do a deep isAnimatable check of keyframes, or let Popmotion handle this,
-    // but for now lets leave it like this for performance reasons
-    if (typeof value === "number" || Array.isArray(value))
-        return true;
-    if (typeof value === "string" && // It's animatable if we have a string
-        style_value_types__WEBPACK_IMPORTED_MODULE_5__.complex.test(value) && // And it contains numbers and/or colors
-        !value.startsWith("url(") // Unless it starts with "url("
-    ) {
-        return true;
-    }
-    return false;
-};
-
-/**
- * Converts seconds to milliseconds
- *
- * @param seconds - Time in seconds.
- * @return milliseconds - Converted time in milliseconds.
- */
-var secondsToMilliseconds = function (seconds) { return seconds * 1000; };
-
-var transitions = { tween: popmotion__WEBPACK_IMPORTED_MODULE_6__.tween, spring: popmotion__WEBPACK_IMPORTED_MODULE_6__.spring, keyframes: popmotion__WEBPACK_IMPORTED_MODULE_6__.keyframes, inertia: popmotion__WEBPACK_IMPORTED_MODULE_6__.inertia, just: just };
-var transitionOptionParser = {
-    tween: function (opts) {
-        if (opts.ease) {
-            var ease = isEasingArray(opts.ease) ? opts.ease[0] : opts.ease;
-            opts.ease = easingDefinitionToFunction(ease);
-        }
-        return opts;
-    },
-    keyframes: function (_a) {
-        var from = _a.from, to = _a.to, velocity = _a.velocity, opts = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__rest)(_a, ["from", "to", "velocity"]);
-        if (opts.values && opts.values[0] === null) {
-            var values = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__spreadArrays)(opts.values);
-            values[0] = from;
-            opts.values = values;
-        }
-        if (opts.ease) {
-            opts.easings = isEasingArray(opts.ease)
-                ? opts.ease.map(easingDefinitionToFunction)
-                : easingDefinitionToFunction(opts.ease);
-        }
-        opts.ease = _popmotion_easing__WEBPACK_IMPORTED_MODULE_7__.linear;
-        return opts;
-    },
-};
-var isTransitionDefined = function (_a) {
-    var when = _a.when, delay = _a.delay, delayChildren = _a.delayChildren, staggerChildren = _a.staggerChildren, staggerDirection = _a.staggerDirection, transition = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__rest)(_a, ["when", "delay", "delayChildren", "staggerChildren", "staggerDirection"]);
-    return Object.keys(transition).length;
-};
-var getTransitionDefinition = function (key, to, transitionDefinition) {
-    var delay = transitionDefinition ? transitionDefinition.delay : 0;
-    // If no object, return default transition
-    // A better way to handle this would be to deconstruct out all the shared Orchestration props
-    // and see if there's any props remaining
-    if (transitionDefinition === undefined ||
-        !isTransitionDefined(transitionDefinition)) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({ delay: delay }, getDefaultTransition(key, to));
-    }
-    var valueTransitionDefinition = transitionDefinition[key] ||
-        transitionDefinition.default ||
-        transitionDefinition;
-    if (valueTransitionDefinition.type === false) {
-        return {
-            delay: valueTransitionDefinition.hasOwnProperty("delay")
-                ? valueTransitionDefinition.delay
-                : delay,
-            to: isKeyframesTarget(to)
-                ? to[to.length - 1]
-                : to,
-            type: "just",
-        };
-    }
-    else if (isKeyframesTarget(to)) {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({ values: to, duration: 0.8, delay: delay, ease: "linear" }, valueTransitionDefinition), { 
-            // This animation must be keyframes if we're animating through an array
-            type: "keyframes" });
-    }
-    else {
-        return (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({ type: "tween", to: to,
-            delay: delay }, valueTransitionDefinition);
-    }
-};
-var preprocessOptions = function (type, opts) {
-    return transitionOptionParser[type]
-        ? transitionOptionParser[type](opts)
-        : opts;
-};
-var getAnimation = function (key, value, target, transition) {
-    var origin = value.get();
-    var isOriginAnimatable = isAnimatable(key, origin);
-    var isTargetAnimatable = isAnimatable(key, target);
-    // TODO we could probably improve this check to ensure both values are of the same type -
-    // for instance 100 to #fff. This might live better in Popmotion.
-    (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.warning)(isOriginAnimatable === isTargetAnimatable, "You are trying to animate " + key + " from \"" + origin + "\" to " + target + ". \"" + origin + "\" is not an animatable value - to enable this animation set " + origin + " to a value animatable to " + target + " via the `style` property.");
-    // Parse the `transition` prop and return options for the Popmotion animation
-    var _a = getTransitionDefinition(key, target, transition), _b = _a.type, type = _b === void 0 ? "tween" : _b, transitionDefinition = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__rest)(_a, ["type"]);
-    // If this is an animatable pair of values, return an animation, otherwise use `just`
-    var actionFactory = isOriginAnimatable && isTargetAnimatable
-        ? transitions[type]
-        : just;
-    var opts = preprocessOptions(type, (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({ from: origin, velocity: value.getVelocity() }, transitionDefinition));
-    // Convert duration from Framer Motion's seconds into Popmotion's milliseconds
-    if (isDurationAnimation(opts)) {
-        if (opts.duration) {
-            opts.duration = secondsToMilliseconds(opts.duration);
-        }
-        if (opts.repeatDelay) {
-            opts.repeatDelay = secondsToMilliseconds(opts.repeatDelay);
-        }
-    }
-    return [actionFactory, opts];
-};
-/**
- * Start animation on a value. This function completely encapsulates Popmotion-specific logic.
- *
- * @internal
- */
-function startAnimation(key, value, target, _a) {
-    var _b = _a.delay, delay$1 = _b === void 0 ? 0 : _b, transition = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__rest)(_a, ["delay"]);
-    return value.start(function (complete) {
-        var activeAnimation;
-        var _a = getAnimation(key, value, target, transition), animationFactory = _a[0], _b = _a[1], valueDelay = _b.delay, options = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__rest)(_b, ["delay"]);
-        if (valueDelay !== undefined) {
-            delay$1 = valueDelay;
-        }
-        var animate = function () {
-            var animation = animationFactory(options);
-            // Bind animation opts to animation
-            activeAnimation = animation.start({
-                update: function (v) { return value.set(v); },
-                complete: complete,
-            });
-        };
-        // If we're delaying this animation, only resolve it **after** the delay to
-        // ensure the value's resolve velocity is up-to-date.
-        if (delay$1) {
-            activeAnimation = (0,popmotion__WEBPACK_IMPORTED_MODULE_6__.delay)(secondsToMilliseconds(delay$1)).start({
-                complete: animate,
-            });
-        }
-        else {
-            animate();
-        }
-        return function () {
-            if (activeAnimation)
-                activeAnimation.stop();
-        };
-    });
-}
-
-/**
- * Get the current value of every `MotionValue`
- * @param values -
- */
-var getCurrent = function (values) {
-    var current = {};
-    values.forEach(function (value, key) { return (current[key] = value.get()); });
-    return current;
-};
-/**
- * Get the current velocity of every `MotionValue`
- * @param values -
- */
-var getVelocity = function (values) {
-    var velocity = {};
-    values.forEach(function (value, key) { return (velocity[key] = value.getVelocity()); });
-    return velocity;
-};
-/**
- * Check if value is a function that returns a `Target`. A generic typeof === 'function'
- * check, just helps with typing.
- * @param p -
- */
-var isTargetResolver = function (p) {
-    return typeof p === "function";
-};
-/**
- * Check if value is a list of variant labels
- * @param v -
- */
-var isVariantLabels = function (v) { return Array.isArray(v); };
-/**
- * Check if value is a numerical string, ie "100" or "100px"
- */
-var isNumericalString = function (v) { return /^\d*\.?\d+$/.test(v); };
-/**
- * Control animations for a single component
- *
- * @internal
- */
-var ValueAnimationControls = /** @class */ (function () {
-    function ValueAnimationControls(_a) {
-        var _this = this;
-        var values = _a.values, readValueFromSource = _a.readValueFromSource, makeTargetAnimatable = _a.makeTargetAnimatable;
-        /**
-         * A reference to the component's latest props. We could probably ditch this in
-         * favour to a reference to the `custom` prop now we don't send all props through
-         * to target resolvers.
-         */
-        this.props = {};
-        /**
-         * The component's variants, as provided by `variants`
-         */
-        this.variants = {};
-        /**
-         * A set of values that we animate back to when a value is cleared of all overrides.
-         */
-        this.baseTarget = {};
-        /**
-         * A series of target overrides that we can animate to/from when overrides are set/cleared.
-         */
-        this.overrides = [];
-        /**
-         * A series of target overrides as they were originally resolved.
-         */
-        this.resolvedOverrides = [];
-        /**
-         * A Set of currently active override indexes
-         */
-        this.activeOverrides = new Set();
-        /**
-         * A Set of value keys that are currently animating.
-         */
-        this.isAnimating = new Set();
-        /**
-         * Check if the associated `MotionValueMap` has a key with the provided string.
-         * Pre-bound to the class so we can provide directly to the `filter` in `checkForNewValues`.
-         */
-        this.hasValue = function (key) { return !_this.values.has(key); };
-        this.values = values;
-        this.readValueFromSource = readValueFromSource;
-        this.makeTargetAnimatable = makeTargetAnimatable;
-        this.values.forEach(function (value, key) { return (_this.baseTarget[key] = value.get()); });
-    }
-    /**
-     * Set the reference to the component's props.
-     * @param props -
-     */
-    ValueAnimationControls.prototype.setProps = function (props) {
-        this.props = props;
-    };
-    /**
-     * Set the reference to the component's variants
-     * @param variants -
-     */
-    ValueAnimationControls.prototype.setVariants = function (variants) {
-        if (variants)
-            this.variants = variants;
-    };
-    /**
-     * Set the component's default transition
-     * @param transition -
-     */
-    ValueAnimationControls.prototype.setDefaultTransition = function (transition) {
-        if (transition)
-            this.defaultTransition = transition;
-    };
-    /**
-     * Set motion values without animation.
-     *
-     * @param definition -
-     * @param isActive -
-     */
-    ValueAnimationControls.prototype.setValues = function (definition, _a) {
-        var _this = this;
-        var _b = _a === void 0 ? {} : _a, _c = _b.isActive, isActive = _c === void 0 ? new Set() : _c, priority = _b.priority;
-        var _d = this.resolveVariant(definition), target = _d.target, transitionEnd = _d.transitionEnd;
-        target = this.transformValues((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, target), transitionEnd));
-        return Object.keys(target).forEach(function (key) {
-            if (isActive.has(key))
-                return;
-            isActive.add(key);
-            if (target) {
-                var targetValue = resolveFinalValueInKeyframes(target[key]);
-                if (_this.values.has(key)) {
-                    var value = _this.values.get(key);
-                    value && value.set(targetValue);
-                }
-                else {
-                    _this.values.set(key, motionValue(targetValue));
-                }
-                if (!priority)
-                    _this.baseTarget[key] = targetValue;
-            }
-        });
-    };
-    /**
-     * Allows `transformValues` to be set by a component that allows us to
-     * transform the values in a given `Target`. This allows Framer Library
-     * to extend Framer Motion to animate `Color` variables etc. Currently we have
-     * to manually support these extended types here in Framer Motion.
-     *
-     * @param values -
-     */
-    ValueAnimationControls.prototype.transformValues = function (values) {
-        var transformValues = this.props.transformValues;
-        return transformValues ? transformValues(values) : values;
-    };
-    /**
-     * Check a `Target` for new values we haven't animated yet, and add them
-     * to the `MotionValueMap`.
-     *
-     * Currently there's functionality here that is DOM-specific, we should allow
-     * this functionality to be injected by the factory that creates DOM-specific
-     * components.
-     *
-     * @param target -
-     */
-    ValueAnimationControls.prototype.checkForNewValues = function (target) {
-        var newValueKeys = Object.keys(target).filter(this.hasValue);
-        var numNewValues = newValueKeys.length;
-        if (!numNewValues)
-            return;
-        for (var i = 0; i < numNewValues; i++) {
-            var key = newValueKeys[i];
-            var targetValue = target[key];
-            var value = null;
-            // If this is a keyframes value, we can attempt to use the first value in the
-            // array as that's going to be the first value of the animation anyway
-            if (Array.isArray(targetValue)) {
-                value = targetValue[0];
-            }
-            // If it isn't a keyframes or the first keyframes value was set as `null`, read the
-            // value from the DOM. It might be worth investigating whether to check props (for SVG)
-            // or props.style (for HTML) if the value exists there before attempting to read.
-            if (value === null) {
-                value = this.readValueFromSource(key);
-                (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(value !== null, "No initial value for \"" + key + "\" can be inferred. Ensure an initial value for \"" + key + "\" is defined on the component.");
-            }
-            if (typeof value === "string" && isNumericalString(value)) {
-                // If this is a number read as a string, ie "0" or "200", convert it to a number
-                value = parseFloat(value);
-            }
-            else if (!getValueType(value) && style_value_types__WEBPACK_IMPORTED_MODULE_5__.complex.test(targetValue)) {
-                // If value is not recognised as animatable, ie "none", create an animatable version origin based on the target
-                value = style_value_types__WEBPACK_IMPORTED_MODULE_5__.complex.getAnimatableNone(targetValue);
-            }
-            this.values.set(key, motionValue(value));
-            this.baseTarget[key] = value;
-        }
-    };
-    /**
-     * Resolve a variant from its label or resolver into an actual `Target` we can animate to.
-     * @param variant -
-     */
-    ValueAnimationControls.prototype.resolveVariant = function (variant) {
-        if (!variant) {
-            return {
-                target: undefined,
-                transition: undefined,
-                transitionEnd: undefined,
-            };
-        }
-        if (isTargetResolver(variant)) {
-            // resolve current and velocity
-            variant = variant(this.props.custom, getCurrent(this.values), getVelocity(this.values));
-        }
-        var _a = variant.transition, transition = _a === void 0 ? this.defaultTransition : _a, transitionEnd = variant.transitionEnd, target = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__rest)(variant, ["transition", "transitionEnd"]);
-        return { transition: transition, transitionEnd: transitionEnd, target: target };
-    };
-    /**
-     * Get the highest active override priority index
-     */
-    ValueAnimationControls.prototype.getHighestPriority = function () {
-        if (!this.activeOverrides.size)
-            return 0;
-        return Math.max.apply(Math, Array.from(this.activeOverrides));
-    };
-    /**
-     * Set an override. We add this layer of indirection so if, for instance, a tap gesture
-     * starts and overrides a hover gesture, when we clear the tap gesture and fallback to the
-     * hover gesture, if that hover gesture has changed in the meantime we can go to that rather
-     * than the one that was resolved when the hover gesture animation started.
-     *
-     * @param definition -
-     * @param overrideIndex -
-     */
-    ValueAnimationControls.prototype.setOverride = function (definition, overrideIndex) {
-        this.overrides[overrideIndex] = definition;
-        if (this.children) {
-            this.children.forEach(function (child) {
-                return child.setOverride(definition, overrideIndex);
-            });
-        }
-    };
-    /**
-     * Start an override animation.
-     * @param overrideIndex -
-     */
-    ValueAnimationControls.prototype.startOverride = function (overrideIndex) {
-        var override = this.overrides[overrideIndex];
-        if (override) {
-            return this.start(override, { priority: overrideIndex });
-        }
-    };
-    /**
-     * Clear an override. We check every value we animated to in this override to see if
-     * its present on any lower-priority overrides. If not, we animate it back to its base target.
-     * @param overrideIndex -
-     */
-    ValueAnimationControls.prototype.clearOverride = function (overrideIndex) {
-        var _this = this;
-        if (this.children) {
-            this.children.forEach(function (child) { return child.clearOverride(overrideIndex); });
-        }
-        var override = this.overrides[overrideIndex];
-        if (!override)
-            return;
-        this.activeOverrides.delete(overrideIndex);
-        var highest = this.getHighestPriority();
-        this.resetIsAnimating();
-        if (highest) {
-            var highestOverride = this.overrides[highest];
-            highestOverride && this.startOverride(highest);
-        }
-        // Figure out which remaining values were affected by the override and animate those
-        var overrideTarget = this.resolvedOverrides[overrideIndex];
-        if (!overrideTarget)
-            return;
-        var remainingValues = {};
-        for (var key in this.baseTarget) {
-            if (overrideTarget[key] !== undefined) {
-                remainingValues[key] = this.baseTarget[key];
-            }
-        }
-        this.onStart();
-        this.animate(remainingValues).then(function () { return _this.onComplete(); });
-    };
-    /**
-     * Apply a target/variant without any animation
-     */
-    ValueAnimationControls.prototype.apply = function (definition) {
-        if (Array.isArray(definition)) {
-            return this.applyVariantLabels(definition);
-        }
-        else if (typeof definition === "string") {
-            return this.applyVariantLabels([definition]);
-        }
-        else {
-            this.setValues(definition);
-        }
-    };
-    /**
-     * Apply variant labels without animation
-     */
-    ValueAnimationControls.prototype.applyVariantLabels = function (variantLabelList) {
-        var _this = this;
-        var isActive = new Set();
-        var reversedList = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__spreadArrays)(variantLabelList).reverse();
-        reversedList.forEach(function (key) {
-            var _a = _this.resolveVariant(_this.variants[key]), target = _a.target, transitionEnd = _a.transitionEnd;
-            if (transitionEnd) {
-                _this.setValues(transitionEnd, { isActive: isActive });
-            }
-            if (target) {
-                _this.setValues(target, { isActive: isActive });
-            }
-            if (_this.children && _this.children.size) {
-                _this.children.forEach(function (child) {
-                    return child.applyVariantLabels(variantLabelList);
-                });
-            }
-        });
-    };
-    ValueAnimationControls.prototype.start = function (definition, opts) {
-        var _this = this;
-        if (opts === void 0) { opts = {}; }
-        if (opts.priority) {
-            this.activeOverrides.add(opts.priority);
-        }
-        this.resetIsAnimating(opts.priority);
-        var animation;
-        if (isVariantLabels(definition)) {
-            animation = this.animateVariantLabels(definition, opts);
-        }
-        else if (typeof definition === "string") {
-            animation = this.animateVariant(definition, opts);
-        }
-        else {
-            animation = this.animate(definition, opts);
-        }
-        this.onStart();
-        return animation.then(function () { return _this.onComplete(); });
-    };
-    ValueAnimationControls.prototype.animate = function (animationDefinition, _a) {
-        var _this = this;
-        var _b = _a === void 0 ? {} : _a, _c = _b.delay, delay = _c === void 0 ? 0 : _c, _d = _b.priority, priority = _d === void 0 ? 0 : _d, transitionOverride = _b.transitionOverride;
-        var _e = this.resolveVariant(animationDefinition), target = _e.target, transition = _e.transition, transitionEnd = _e.transitionEnd;
-        if (transitionOverride) {
-            transition = transitionOverride;
-        }
-        if (!target)
-            return Promise.resolve();
-        target = this.transformValues(target);
-        if (transitionEnd) {
-            transitionEnd = this.transformValues(transitionEnd);
-        }
-        this.checkForNewValues(target);
-        if (this.makeTargetAnimatable) {
-            var animatable = this.makeTargetAnimatable(target, transitionEnd);
-            target = animatable.target;
-            transitionEnd = animatable.transitionEnd;
-        }
-        if (priority) {
-            this.resolvedOverrides[priority] = target;
-        }
-        this.checkForNewValues(target);
-        var animations = [];
-        for (var key in target) {
-            var value = this.values.get(key);
-            if (!value || !target || target[key] === undefined)
-                continue;
-            var valueTarget = target[key];
-            if (!priority) {
-                this.baseTarget[key] = resolveFinalValueInKeyframes(valueTarget);
-            }
-            if (this.isAnimating.has(key))
-                continue;
-            this.isAnimating.add(key);
-            animations.push(startAnimation(key, value, valueTarget, (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({ delay: delay }, transition)));
-        }
-        var allAnimations = Promise.all(animations);
-        return transitionEnd
-            ? allAnimations.then(function () {
-                _this.setValues(transitionEnd, { priority: priority });
-            })
-            : allAnimations;
-    };
-    ValueAnimationControls.prototype.animateVariantLabels = function (variantLabels, opts) {
-        var _this = this;
-        var animations = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__spreadArrays)(variantLabels).reverse()
-            .map(function (label) { return _this.animateVariant(label, opts); });
-        return Promise.all(animations);
-    };
-    ValueAnimationControls.prototype.animateVariant = function (variantLabel, opts) {
-        var _this = this;
-        var when = false;
-        var delayChildren = 0;
-        var staggerChildren = 0;
-        var staggerDirection = 1;
-        var priority = (opts && opts.priority) || 0;
-        var variant = this.variants[variantLabel];
-        var getAnimations = variant
-            ? function () { return _this.animate(variant, opts); }
-            : function () { return Promise.resolve(); };
-        var getChildrenAnimations = this.children
-            ? function () {
-                return _this.animateChildren(variantLabel, delayChildren, staggerChildren, staggerDirection, priority);
-            }
-            : function () { return Promise.resolve(); };
-        if (variant && this.children) {
-            var transition = this.resolveVariant(variant).transition;
-            if (transition) {
-                when = transition.when || when;
-                delayChildren = transition.delayChildren || delayChildren;
-                staggerChildren = transition.staggerChildren || staggerChildren;
-                staggerDirection =
-                    transition.staggerDirection || staggerDirection;
-            }
-        }
-        if (when) {
-            var _a = when === "beforeChildren"
-                ? [getAnimations, getChildrenAnimations]
-                : [getChildrenAnimations, getAnimations], first = _a[0], last = _a[1];
-            return first().then(last);
-        }
-        else {
-            return Promise.all([getAnimations(), getChildrenAnimations()]);
-        }
-    };
-    ValueAnimationControls.prototype.animateChildren = function (variantLabel, delayChildren, staggerChildren, staggerDirection, priority) {
-        if (delayChildren === void 0) { delayChildren = 0; }
-        if (staggerChildren === void 0) { staggerChildren = 0; }
-        if (staggerDirection === void 0) { staggerDirection = 1; }
-        if (priority === void 0) { priority = 0; }
-        if (!this.children) {
-            return Promise.resolve();
-        }
-        var animations = [];
-        var maxStaggerDuration = (this.children.size - 1) * staggerChildren;
-        var generateStaggerDuration = staggerDirection === 1
-            ? function (i) { return i * staggerChildren; }
-            : function (i) { return maxStaggerDuration - i * staggerChildren; };
-        Array.from(this.children).forEach(function (childControls, i) {
-            var animation = childControls.animateVariant(variantLabel, {
-                priority: priority,
-                delay: delayChildren + generateStaggerDuration(i),
-            });
-            animations.push(animation);
-        });
-        return Promise.all(animations);
-    };
-    ValueAnimationControls.prototype.onStart = function () {
-        var onAnimationStart = this.props.onAnimationStart;
-        onAnimationStart && onAnimationStart();
-    };
-    ValueAnimationControls.prototype.onComplete = function () {
-        var onAnimationComplete = this.props.onAnimationComplete;
-        onAnimationComplete && onAnimationComplete();
-    };
-    ValueAnimationControls.prototype.checkOverrideIsAnimating = function (priority) {
-        var numOverrides = this.overrides.length;
-        for (var i = priority + 1; i < numOverrides; i++) {
-            var resolvedOverride = this.resolvedOverrides[i];
-            if (resolvedOverride) {
-                for (var key in resolvedOverride) {
-                    this.isAnimating.add(key);
-                }
-            }
-        }
-    };
-    ValueAnimationControls.prototype.resetIsAnimating = function (priority) {
-        if (priority === void 0) { priority = 0; }
-        this.isAnimating.clear();
-        // If this isn't the highest priority gesture, block the animation
-        // of anything that's currently being animated
-        if (priority < this.getHighestPriority()) {
-            this.checkOverrideIsAnimating(priority);
-        }
-        if (this.children) {
-            this.children.forEach(function (child) { return child.resetIsAnimating(priority); });
-        }
-    };
-    ValueAnimationControls.prototype.stop = function () {
-        this.values.forEach(function (value) { return value.stop(); });
-    };
-    /**
-     * Add the controls of a child component.
-     * @param controls -
-     */
-    ValueAnimationControls.prototype.addChild = function (controls) {
-        if (!this.children) {
-            this.children = new Set();
-        }
-        this.children.add(controls);
-        // We set child overrides when `setOverride` is called, but also have to do it here
-        // as the first time `setOverride` is called all the children might not have been added yet.
-        this.overrides.forEach(function (override, i) {
-            override && controls.setOverride(override, i);
-        });
-    };
-    ValueAnimationControls.prototype.removeChild = function (controls) {
-        if (!this.children) {
-            return;
-        }
-        this.children.delete(controls);
-    };
-    ValueAnimationControls.prototype.resetChildren = function () {
-        if (this.children)
-            this.children.clear();
-    };
-    return ValueAnimationControls;
-}());
-
-/**
- * Use callback either only on the initial render or on all renders. In concurrent mode
- * the "initial" render might run multiple times
- *
- * @param callback - Callback to run
- * @param isInitialOnly - Set to `true` to only run on initial render, or `false` for all renders. Defaults to `false`.
- *
- * @public
- */
-function useInitialOrEveryRender(callback, isInitialOnly) {
-    if (isInitialOnly === void 0) { isInitialOnly = false; }
-    var isInitialRender = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
-    if (!isInitialOnly || (isInitialOnly && isInitialRender.current)) {
-        callback();
-    }
-    isInitialRender.current = false;
-}
-
-/**
- * Control animations on one or more components.
- *
- * @public
- */
-var AnimationControls = /** @class */ (function () {
-    function AnimationControls() {
-        /**
-         * Track whether the host component has mounted.
-         *
-         * @internal
-         */
-        this.hasMounted = false;
-        /**
-         * Pending animations that are started before a component is mounted.
-         *
-         * @internal
-         */
-        this.pendingAnimations = [];
-        /**
-         * A collection of linked component animation controls.
-         *
-         * @internal
-         */
-        this.componentControls = new Set();
-    }
-    /**
-     * Set variants on this and all child components.
-     *
-     * @param variants - The variants to set
-     *
-     * @internal
-     */
-    AnimationControls.prototype.setVariants = function (variants) {
-        this.variants = variants;
-        this.componentControls.forEach(function (controls) {
-            return controls.setVariants(variants);
-        });
-    };
-    /**
-     * Set a default transition on this and all child components
-     *
-     * @param transition - The default transition to set
-     *
-     * @internal
-     */
-    AnimationControls.prototype.setDefaultTransition = function (transition) {
-        this.defaultTransition = transition;
-        this.componentControls.forEach(function (controls) {
-            return controls.setDefaultTransition(transition);
-        });
-    };
-    /**
-     * Subscribes a component's animation controls to this.
-     *
-     * @param controls - The controls to subscribe
-     * @returns An unsubscribe function.
-     *
-     * @internal
-     */
-    AnimationControls.prototype.subscribe = function (controls) {
-        var _this = this;
-        this.componentControls.add(controls);
-        if (this.variants)
-            controls.setVariants(this.variants);
-        if (this.defaultTransition)
-            controls.setDefaultTransition(this.defaultTransition);
-        return function () { return _this.componentControls.delete(controls); };
-    };
-    /**
-     * Starts an animation on all linked components.
-     *
-     * @remarks
-     *
-     * ```jsx
-     * controls.start("variantLabel")
-     * controls.start({
-     *   x: 0,
-     *   transition: { duration: 1 }
-     * })
-     * ```
-     *
-     * @param definition - Properties or variant label to animate to
-     * @param transition - Optional `transtion` to apply to a variant
-     * @returns - A `Promise` that resolves when all animations have completed.
-     *
-     * @public
-     */
-    AnimationControls.prototype.start = function (definition, transitionOverride) {
-        var _this = this;
-        if (this.hasMounted) {
-            var animations_1 = [];
-            this.componentControls.forEach(function (controls) {
-                var animation = controls.start(definition, {
-                    transitionOverride: transitionOverride,
-                });
-                animations_1.push(animation);
-            });
-            return Promise.all(animations_1);
-        }
-        else {
-            return new Promise(function (resolve) {
-                _this.pendingAnimations.push({
-                    animation: [definition, transitionOverride],
-                    resolve: resolve,
-                });
-            });
-        }
-    };
-    /**
-     * Instantly set to a set of properties or a variant.
-     *
-     * ```jsx
-     * // With properties
-     * controls.set({ opacity: 0 })
-     *
-     * // With variants
-     * controls.set("hidden")
-     * ```
-     *
-     * @internalremarks
-     * We could perform a similar trick to `.start` where this can be called before mount
-     * and we maintain a list of of pending actions that get applied on mount. But the
-     * expectation of `set` is that it happens synchronously and this would be difficult
-     * to do before any children have even attached themselves. It's also poor practise
-     * and we should discourage render-synchronous `.start` calls rather than lean into this.
-     *
-     * @public
-     */
-    AnimationControls.prototype.set = function (definition) {
-        (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(this.hasMounted, "controls.set() should only be called after a component has mounted. Consider calling within a useEffect hook.");
-        return this.componentControls.forEach(function (controls) {
-            return controls.apply(definition);
-        });
-    };
-    /**
-     * Stops animations on all linked components.
-     *
-     * ```jsx
-     * controls.stop()
-     * ```
-     *
-     * @public
-     */
-    AnimationControls.prototype.stop = function () {
-        this.componentControls.forEach(function (controls) { return controls.stop(); });
-    };
-    /**
-     * Initialises the animation controls.
-     *
-     * @internal
-     */
-    AnimationControls.prototype.mount = function () {
-        var _this = this;
-        this.hasMounted = true;
-        this.pendingAnimations.forEach(function (_a) {
-            var animation = _a.animation, resolve = _a.resolve;
-            return _this.start.apply(_this, animation).then(resolve);
-        });
-    };
-    /**
-     * Stops all child animations when the host component unmounts.
-     *
-     * @internal
-     */
-    AnimationControls.prototype.unmount = function () {
-        this.hasMounted = false;
-        this.stop();
-    };
-    return AnimationControls;
-}());
-/**
- * @internal
- */
-var animationControls = function () { return new AnimationControls(); };
-
-var PresenceContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);
-
-/**
- * @internal
- */
-var MotionContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-    static: false,
-});
-var isVariantLabel = function (v) {
-    return typeof v === "string" || Array.isArray(v);
-};
-var isAnimationControls = function (v) {
-    return v instanceof AnimationControls;
-};
-/**
- * Set up the context for children motion components.
- *
- * We also use this opportunity to apply `initial` values
- */
-var useMotionContext = function (parentContext, controls, values, isStatic, _a) {
-    if (isStatic === void 0) { isStatic = false; }
-    var initial = _a.initial, animate = _a.animate, variants = _a.variants, whileTap = _a.whileTap, whileHover = _a.whileHover;
-    var _b;
-    var presenceContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(PresenceContext);
-    // Override initial with that from a parent context, if defined
-    if (((_b = presenceContext) === null || _b === void 0 ? void 0 : _b.initial) !== undefined) {
-        initial = presenceContext.initial;
-    }
-    var initialState;
-    if (initial === false && !isAnimationControls(animate)) {
-        initialState = animate;
-    }
-    else if (typeof initial !== "boolean") {
-        initialState = initial;
-    }
-    // Track mounted status so children can detect whether they were present during their
-    // parent's first render
-    var hasMounted = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
-    // We propagate this component's ValueAnimationControls *if* we're being provided variants,
-    // if we're being used to control variants, or if we're being passed animation controls.
-    // Otherwise this component should be "invisible" to variant propagation. This is a slight concession
-    // to Framer X where every `Frame` is a `motion` component and it might be if we change that in the future
-    // that this restriction is removed.
-    var shouldPropagateControls = variants ||
-        isVariantLabel(animate) ||
-        isVariantLabel(whileTap) ||
-        isVariantLabel(whileHover) ||
-        isAnimationControls(animate);
-    // If this component's `initial` prop is a variant label, propagate it. Otherwise pass the parent's.
-    var targetInitial = isVariantLabel(initialState)
-        ? initialState
-        : parentContext.initial;
-    // If this is a variant tree we need to propagate the `animate` prop in case new children are added after
-    // the tree initially animates.
-    var targetAnimate = isVariantLabel(animate)
-        ? animate
-        : parentContext.animate;
-    // Only allow `initial` to trigger context re-renders if this is a `static` component (ie we're on the Framer canvas)
-    // or in another non-animation/interaction environment.
-    var initialDependency = isStatic ? targetInitial : null;
-    // Only allow `animate` to trigger context re-renders if it's a variant label. If this is an array of
-    // variant labels there's probably an optimisation to deep-compare but it might be an over-optimisation.
-    // We want to do this as we rely on React's component rendering order each render cycle to determine
-    // the new order of any child components for the `staggerChildren` functionality.
-    var animateDependency = shouldPropagateControls && isVariantLabel(targetAnimate)
-        ? targetAnimate
-        : null;
-    // The context to provide to the child. We `useMemo` because although `controls` and `initial` are
-    // unlikely to change, by making the context an object it'll be considered a new value every render.
-    // So all child motion components will re-render as a result.
-    var context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () { return ({
-        controls: shouldPropagateControls
-            ? controls
-            : parentContext.controls,
-        initial: targetInitial,
-        animate: targetAnimate,
-        values: values,
-        hasMounted: hasMounted,
-        isReducedMotion: parentContext.isReducedMotion,
-    }); }, [initialDependency, animateDependency, parentContext.isReducedMotion]);
-    // Update the `static` property every render. This is unlikely to change but also essentially free.
-    context.static = isStatic;
-    // Set initial state. If this is a static component (ie in Framer canvas), respond to updates
-    // in `initial`.
-    useInitialOrEveryRender(function () {
-        var initialToApply = initialState || parentContext.initial;
-        initialToApply && controls.apply(initialToApply);
-    }, !isStatic);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-        hasMounted.current = true;
-    }, []);
-    return context;
-};
-
-/**
- * Creates an imperative set of controls to trigger animations.
- *
- * This allows a consolidated, uniform API for animations, to be triggered by other APIs like the `animate` prop, or the gesture handlers.
- *
- * @param values
- * @param props
- * @param ref
- * @param subscribeToParentControls
- *
- * @internal
- */
-function useValueAnimationControls(config, props, subscribeToParentControls) {
-    var variants = props.variants, transition = props.transition;
-    var parentControls = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MotionContext).controls;
-    var presenceContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(PresenceContext);
-    var controls = useConstant(function () { return new ValueAnimationControls(config); });
-    // Reset and resubscribe children every render to ensure stagger order is correct
-    if (!presenceContext || presenceContext.isPresent) {
-        controls.resetChildren();
-        controls.setProps(props);
-        controls.setVariants(variants);
-        controls.setDefaultTransition(transition);
-    }
-    // We have to subscribe to the parent controls within a useEffect rather than during render,
-    // as
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-        if (subscribeToParentControls && parentControls) {
-            parentControls.addChild(controls);
-        }
-    });
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-        return function () {
-            // Remove reference to onAnimationComplete from controls. All the MotionValues
-            // are unsubscribed from this component separately. We let animations run out
-            // as they might be animating other components.
-            var onAnimationComplete = props.onAnimationComplete, unmountProps = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__rest)(props, ["onAnimationComplete"]);
-            controls.setProps(unmountProps);
-            parentControls && parentControls.removeChild(controls);
-        };
-    }, []);
-    return controls;
-}
-
-var checkShouldInheritVariant = function (_a) {
-    var animate = _a.animate, variants = _a.variants, _b = _a.inherit, inherit = _b === void 0 ? true : _b;
-    return (inherit &&
-        !!variants &&
-        (!animate || animate instanceof AnimationControls));
-};
-
-/**
- * Uses the ref that is passed in, or creates a new one
- * @param external - External ref
- * @internal
- */
-function useExternalRef(externalRef) {
-    // We're conditionally calling `useRef` here which is sort of naughty as hooks
-    // shouldn't be called conditionally. However, Framer Motion will break if this
-    // condition changes anyway. It might be possible to use an invariant here to
-    // make it explicit, but I expect changing `ref` is not normal behaviour.
-    var ref = !externalRef || typeof externalRef === "function"
-        ? (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null)
-        : externalRef;
-    // Handle `ref` functions. Again, calling the hook conditionally is kind of naughty
-    // but `ref` types changing between renders would break Motion anyway. If we receive
-    // bug reports about this, we should track the provided ref and throw an invariant
-    // rather than move the conditional to inside the useEffect as this will be fired
-    // for every Frame component within Framer.
-    if (externalRef && typeof externalRef === "function") {
-        (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-            externalRef(ref.current);
-            return function () { return externalRef(null); };
-        }, []);
-    }
-    return ref;
-}
-
-/**
- * @internal
- */
-var createMotionComponent = function (_a) {
-    var getValueControlsConfig = _a.getValueControlsConfig, loadFunctionalityComponents = _a.loadFunctionalityComponents, renderComponent = _a.renderComponent;
-    function MotionComponent(props, externalRef) {
-        var ref = useExternalRef(externalRef);
-        var parentContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MotionContext);
-        var isStatic = parentContext.static || props.static || false;
-        var values = useMotionValues(props);
-        var style = useMotionStyles(values, props.style, isStatic, props.transformValues);
-        var shouldInheritVariant = checkShouldInheritVariant(props);
-        var controlsConfig = useConstant(function () {
-            return getValueControlsConfig(ref, values);
-        });
-        var controls = useValueAnimationControls(controlsConfig, props, shouldInheritVariant);
-        var context = useMotionContext(parentContext, controls, values, isStatic, props);
-        var functionality = isStatic
-            ? null
-            : loadFunctionalityComponents(ref, values, props, parentContext, controls, shouldInheritVariant);
-        var renderedComponent = renderComponent(ref, style, values, props, isStatic);
-        return ((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-            (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MotionContext.Provider, { value: context }, renderedComponent),
-            (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null,
-                (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Mount, { innerRef: ref, values: values, isStatic: isStatic }),
-                functionality)));
-    }
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(MotionComponent);
-};
-
-/**
- * @internal
- */
-var htmlElements = [
-    "a",
-    "abbr",
-    "address",
-    "area",
-    "article",
-    "aside",
-    "audio",
-    "b",
-    "base",
-    "bdi",
-    "bdo",
-    "big",
-    "blockquote",
-    "body",
-    "br",
-    "button",
-    "canvas",
-    "caption",
-    "cite",
-    "code",
-    "col",
-    "colgroup",
-    "data",
-    "datalist",
-    "dd",
-    "del",
-    "details",
-    "dfn",
-    "dialog",
-    "div",
-    "dl",
-    "dt",
-    "em",
-    "embed",
-    "fieldset",
-    "figcaption",
-    "figure",
-    "footer",
-    "form",
-    "h1",
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "h6",
-    "head",
-    "header",
-    "hgroup",
-    "hr",
-    "html",
-    "i",
-    "iframe",
-    "img",
-    "input",
-    "ins",
-    "kbd",
-    "keygen",
-    "label",
-    "legend",
-    "li",
-    "link",
-    "main",
-    "map",
-    "mark",
-    "menu",
-    "menuitem",
-    "meta",
-    "meter",
-    "nav",
-    "noscript",
-    "object",
-    "ol",
-    "optgroup",
-    "option",
-    "output",
-    "p",
-    "param",
-    "picture",
-    "pre",
-    "progress",
-    "q",
-    "rp",
-    "rt",
-    "ruby",
-    "s",
-    "samp",
-    "script",
-    "section",
-    "select",
-    "small",
-    "source",
-    "span",
-    "strong",
-    "style",
-    "sub",
-    "summary",
-    "sup",
-    "table",
-    "tbody",
-    "td",
-    "textarea",
-    "tfoot",
-    "th",
-    "thead",
-    "time",
-    "title",
-    "tr",
-    "track",
-    "u",
-    "ul",
-    "var",
-    "video",
-    "wbr",
-    "webview",
-];
-/**
- * @internal
- */
-var svgElements = [
-    "animate",
-    "circle",
-    "clipPath",
-    "defs",
-    "desc",
-    "ellipse",
-    "feBlend",
-    "feColorMatrix",
-    "feComponentTransfer",
-    "feComposite",
-    "feConvolveMatrix",
-    "feDiffuseLighting",
-    "feDisplacementMap",
-    "feDistantLight",
-    "feDropShadow",
-    "feFlood",
-    "feFuncA",
-    "feFuncB",
-    "feFuncG",
-    "feFuncR",
-    "feGaussianBlur",
-    "feImage",
-    "feMerge",
-    "feMergeNode",
-    "feMorphology",
-    "feOffset",
-    "fePointLight",
-    "feSpecularLighting",
-    "feSpotLight",
-    "feTile",
-    "feTurbulence",
-    "filter",
-    "foreignObject",
-    "g",
-    "image",
-    "line",
-    "linearGradient",
-    "marker",
-    "mask",
-    "metadata",
-    "path",
-    "pattern",
-    "polygon",
-    "polyline",
-    "radialGradient",
-    "rect",
-    "stop",
-    "svg",
-    "switch",
-    "symbol",
-    "text",
-    "textPath",
-    "tspan",
-    "use",
-    "view",
-];
-
-/**
- * @internal
- */
-var MotionPluginContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-    transformPagePoint: function (p) { return p; },
-});
-/**
- * @remarks For now I think this should remain a private API for our own use
- * until we can figure out a nicer way of allowing people to add these
- *
- * @internal
- */
-function MotionPlugins(_a) {
-    var children = _a.children, props = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__rest)(_a, ["children"]);
-    var pluginContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MotionPluginContext);
-    var value = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, pluginContext)).current;
-    // Mutative to prevent triggering rerenders in all listening
-    // components every time this component renders
-    for (var key in props) {
-        value[key] = props[key];
-    }
-    return ((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MotionPluginContext.Provider, { value: value }, children));
-}
-
-function useUnmountEffect(callback) {
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () { return function () { return callback(); }; }, []);
-}
-
-function addDomEvent(target, eventName, handler, options) {
-    if (!handler)
-        return;
-    target.addEventListener(eventName, handler, options);
-    return function () { return target.removeEventListener(eventName, handler, options); };
-}
-/**
- * Attaches an event listener directly to the provided DOM element.
- *
- * Bypassing React's event system can be desirable, for instance when attaching non-passive
- * event handlers.
- *
- * ```jsx
- * const ref = useRef(null)
- *
- * useDomEvent(ref, 'wheel', onWheel, { passive: false })
- *
- * return <div ref={ref} />
- * ```
- *
- * @param ref - React.RefObject that's been provided to the element you want to bind the listener to.
- * @param eventName - Name of the event you want listen for.
- * @param handler - Function to fire when receiving the event.
- * @param options - Options to pass to `Event.addEventListener`.
- *
- * @public
- */
-function useDomEvent(ref, eventName, handler, options) {
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-        var element = ref.current;
-        if (handler && element) {
-            return addDomEvent(element, eventName, handler, options);
-        }
-    }, [ref, eventName, handler, options]);
-}
-
-function isMouseEvent(event) {
-    // PointerEvent inherits from MouseEvent so we can't use a straight instanceof check.
-    if (typeof PointerEvent !== "undefined" && event instanceof PointerEvent) {
-        return !!(event.pointerType === "mouse");
-    }
-    return event instanceof MouseEvent;
-}
-function isTouchEvent(event) {
-    var hasTouches = !!event.touches;
-    return hasTouches;
-}
-
-/**
- * Filters out events not attached to the primary pointer (currently left mouse button)
- * @param eventHandler
- */
-function filterPrimaryPointer(eventHandler) {
-    if (!eventHandler)
-        return undefined;
-    return function (event) {
-        var isMouseEvent = event instanceof MouseEvent;
-        var isPrimaryPointer = !isMouseEvent ||
-            (isMouseEvent && event.button === 0);
-        if (isPrimaryPointer) {
-            eventHandler(event);
-        }
-    };
-}
-var defaultPagePoint = { pageX: 0, pageY: 0 };
-function pointFromTouch(e) {
-    var primaryTouch = e.touches[0] || e.changedTouches[0];
-    var _a = primaryTouch || defaultPagePoint, pageX = _a.pageX, pageY = _a.pageY;
-    return { x: pageX, y: pageY };
-}
-function pointFromMouse(_a) {
-    var _b = _a.pageX, pageX = _b === void 0 ? 0 : _b, _c = _a.pageY, pageY = _c === void 0 ? 0 : _c;
-    return { x: pageX, y: pageY };
-}
-function extractEventInfo(event) {
-    return {
-        point: isTouchEvent(event)
-            ? pointFromTouch(event)
-            : pointFromMouse(event),
-    };
-}
-var wrapHandler = function (handler, shouldFilterPrimaryPointer) {
-    if (shouldFilterPrimaryPointer === void 0) { shouldFilterPrimaryPointer = false; }
-    if (!handler)
-        return;
-    var listener = function (event) { return handler(event, extractEventInfo(event)); };
-    return shouldFilterPrimaryPointer
-        ? filterPrimaryPointer(listener)
-        : listener;
-};
-
-var isBrowser = typeof window !== "undefined";
-// We check for event support via functions in case they've been mocked by a testing suite.
-var supportsPointerEvents = function () {
-    return isBrowser && window.onpointerdown === null;
-};
-var supportsTouchEvents = function () {
-    return isBrowser && window.ontouchstart === null;
-};
-var supportsMouseEvents = function () {
-    return isBrowser && window.onmousedown === null;
-};
-
-var mouseEventNames = {
-    pointerdown: "mousedown",
-    pointermove: "mousemove",
-    pointerup: "mouseup",
-    pointercancel: "mousecancel",
-    pointerover: "mouseover",
-    pointerout: "mouseout",
-    pointerenter: "mouseenter",
-    pointerleave: "mouseleave",
-};
-var touchEventNames = {
-    pointerdown: "touchstart",
-    pointermove: "touchmove",
-    pointerup: "touchend",
-    pointercancel: "touchcancel",
-};
-function getPointerEventName(name) {
-    if (supportsPointerEvents()) {
-        return name;
-    }
-    else if (supportsTouchEvents()) {
-        return touchEventNames[name];
-    }
-    else if (supportsMouseEvents()) {
-        return mouseEventNames[name];
-    }
-    return name;
-}
-function addPointerEvent(target, eventName, handler, options) {
-    return addDomEvent(target, getPointerEventName(eventName), wrapHandler(handler, eventName === "pointerdown"), options);
-}
-function usePointerEvent(ref, eventName, handler, options) {
-    return useDomEvent(ref, getPointerEventName(eventName), wrapHandler(handler, eventName === "pointerdown"), options);
-}
-
-/** @public */
-var Point;
-(function (Point) {
-    /** @beta */
-    Point.subtract = function (a, b) {
-        return { x: a.x - b.x, y: a.y - b.y };
-    };
-    /** @beta */
-    Point.relativeTo = function (idOrElem) {
-        var elem;
-        var getElem = function () {
-            // Caching element here could be leaky because of React lifecycle
-            if (elem !== undefined)
-                return elem;
-            if (typeof idOrElem === "string") {
-                elem = document.getElementById(idOrElem);
-            }
-            else {
-                elem = idOrElem;
-            }
-            return elem;
-        };
-        return function (_a) {
-            var x = _a.x, y = _a.y;
-            var localElem = getElem();
-            if (!localElem)
-                return undefined;
-            var rect = localElem.getBoundingClientRect();
-            return {
-                x: x - rect.left - window.scrollX,
-                y: y - rect.top - window.scrollY,
-            };
-        };
-    };
-})(Point || (Point = {}));
-
-var isViewportScrollBlocked = false;
-var isBrowser$1 = typeof window !== "undefined";
-if (isBrowser$1) {
-    document.addEventListener("touchmove", function (event) {
-        if (isViewportScrollBlocked) {
-            event.preventDefault();
-        }
-    }, { passive: false });
-}
-var blockViewportScroll = function () { return (isViewportScrollBlocked = true); };
-var unblockViewportScroll = function () { return (isViewportScrollBlocked = false); };
-
-/**
- * @internal
- */
-var PanSession = /** @class */ (function () {
-    function PanSession(event, handlers, _a) {
-        var _this = this;
-        var transformPagePoint = (_a === void 0 ? {} : _a).transformPagePoint;
-        /**
-         * @internal
-         */
-        this.startEvent = null;
-        /**
-         * @internal
-         */
-        this.lastMoveEvent = null;
-        /**
-         * @internal
-         */
-        this.lastMoveEventInfo = null;
-        /**
-         * @internal
-         */
-        this.handlers = {};
-        this.updatePoint = function () {
-            if (!(_this.lastMoveEvent && _this.lastMoveEventInfo))
-                return;
-            var info = getPanInfo(_this.lastMoveEventInfo, _this.history);
-            var isPanStarted = _this.startEvent !== null;
-            // Only start panning if the offset is larger than 3 pixels. If we make it
-            // any larger than this we'll want to reset the pointer history
-            // on the first update to avoid visual snapping to the cursoe.
-            var isDistancePastThreshold = (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_2__.distance)(info.offset, { x: 0, y: 0 }) >= 3;
-            if (!isPanStarted && !isDistancePastThreshold)
-                return;
-            var point = info.point;
-            var timestamp = (0,framesync__WEBPACK_IMPORTED_MODULE_1__.getFrameData)().timestamp;
-            _this.history.push((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, point), { timestamp: timestamp }));
-            var _a = _this.handlers, onStart = _a.onStart, onMove = _a.onMove;
-            if (!isPanStarted) {
-                onStart && onStart(_this.lastMoveEvent, info);
-                _this.startEvent = _this.lastMoveEvent;
-            }
-            onMove && onMove(_this.lastMoveEvent, info);
-        };
-        // If we have more than one touch, don't start detecting this gesture
-        if (isTouchEvent(event) && event.touches.length > 1)
-            return;
-        this.handlers = handlers;
-        this.transformPagePoint = transformPagePoint;
-        var info = extractEventInfo(event);
-        var initialInfo = transformPoint(info, this.transformPagePoint);
-        var point = initialInfo.point;
-        var timestamp = (0,framesync__WEBPACK_IMPORTED_MODULE_1__.getFrameData)().timestamp;
-        this.history = [(0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, point), { timestamp: timestamp })];
-        var onSessionStart = handlers.onSessionStart;
-        onSessionStart &&
-            onSessionStart(event, getPanInfo(initialInfo, this.history));
-        var removeOnPointerMove = addPointerEvent(window, "pointermove", function (event, info) { return _this.handlePointerMove(event, info); });
-        var removeOnPointerUp = addPointerEvent(window, "pointerup", function (event, info) { return _this.handlePointerUp(event, info); });
-        this.removeListeners = function () {
-            removeOnPointerMove && removeOnPointerMove();
-            removeOnPointerUp && removeOnPointerUp();
-        };
-    }
-    PanSession.prototype.handlePointerMove = function (event, info) {
-        this.lastMoveEvent = event;
-        this.lastMoveEventInfo = transformPoint(info, this.transformPagePoint);
-        // Because Safari doesn't trigger mouseup events when it's above a `<select>`
-        if (isMouseEvent(event) && event.buttons === 0) {
-            this.handlePointerUp(event, info);
-            return;
-        }
-        // Throttle mouse move event to once per frame
-        framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(this.updatePoint, true);
-    };
-    PanSession.prototype.handlePointerUp = function (event, info) {
-        this.end();
-        var onEnd = this.handlers.onEnd;
-        if (!onEnd)
-            return;
-        var panInfo = getPanInfo(transformPoint(info, this.transformPagePoint), this.history);
-        onEnd && onEnd(event, panInfo);
-    };
-    PanSession.prototype.updateHandlers = function (handlers) {
-        this.handlers = handlers;
-    };
-    PanSession.prototype.end = function () {
-        this.removeListeners && this.removeListeners();
-        framesync__WEBPACK_IMPORTED_MODULE_1__.cancelSync.update(this.updatePoint);
-        unblockViewportScroll();
-    };
-    return PanSession;
-}());
-function transformPoint(info, transformPagePoint) {
-    return transformPagePoint ? { point: transformPagePoint(info.point) } : info;
-}
-function getPanInfo(_a, history) {
-    var point = _a.point;
-    return {
-        point: point,
-        delta: Point.subtract(point, lastDevicePoint(history)),
-        offset: Point.subtract(point, startDevicePoint(history)),
-        velocity: getVelocity$1(history, 0.1),
-    };
-}
-function startDevicePoint(history) {
-    return history[0];
-}
-function lastDevicePoint(history) {
-    return history[history.length - 1];
-}
-function getVelocity$1(history, timeDelta) {
-    if (history.length < 2) {
-        return { x: 0, y: 0 };
-    }
-    var i = history.length - 1;
-    var timestampedPoint = null;
-    var lastPoint = lastDevicePoint(history);
-    while (i >= 0) {
-        timestampedPoint = history[i];
-        if (lastPoint.timestamp - timestampedPoint.timestamp >
-            secondsToMilliseconds(timeDelta)) {
-            break;
-        }
-        i--;
-    }
-    if (!timestampedPoint) {
-        return { x: 0, y: 0 };
-    }
-    var time = (lastPoint.timestamp - timestampedPoint.timestamp) / 1000;
-    if (time === 0) {
-        return { x: 0, y: 0 };
-    }
-    var currentVelocity = {
-        x: (lastPoint.x - timestampedPoint.x) / time,
-        y: (lastPoint.y - timestampedPoint.y) / time,
-    };
-    if (currentVelocity.x === Infinity) {
-        currentVelocity.x = 0;
-    }
-    if (currentVelocity.y === Infinity) {
-        currentVelocity.y = 0;
-    }
-    return currentVelocity;
-}
-
-/**
- *
- * @param handlers -
- * @param ref -
- *
- * @internalremarks
- * Currently this sets new pan gesture functions every render. The memo route has been explored
- * in the past but ultimately we're still creating new functions every render. An optimisation
- * to explore is creating the pan gestures and loading them into a `ref`.
- *
- * @internal
- */
-function usePanGesture(_a, ref) {
-    var onPan = _a.onPan, onPanStart = _a.onPanStart, onPanEnd = _a.onPanEnd, onPanSessionStart = _a.onPanSessionStart;
-    var hasPanEvents = onPan || onPanStart || onPanEnd || onPanSessionStart;
-    var panSession = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-    var transformPagePoint = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MotionPluginContext).transformPagePoint;
-    var handlers = {
-        onSessionStart: onPanSessionStart,
-        onStart: onPanStart,
-        onMove: onPan,
-        onEnd: function (event, info) {
-            panSession.current = null;
-            onPanEnd && onPanEnd(event, info);
-        },
-    };
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-        if (panSession.current !== null) {
-            panSession.current.updateHandlers(handlers);
-        }
-    });
-    function onPointerDown(event) {
-        panSession.current = new PanSession(event, handlers, {
-            transformPagePoint: transformPagePoint,
-        });
-    }
-    usePointerEvent(ref, "pointerdown", hasPanEvents && onPointerDown);
-    useUnmountEffect(function () { return panSession.current && panSession.current.end(); });
-}
-
-/**
- * Recursively traverse up the tree to check whether the provided child node
- * is the parent or a descendant of it.
- *
- * @param parent - Element to find
- * @param child - Element to test against parent
- */
-var isNodeOrChild = function (parent, child) {
-    if (!child) {
-        return false;
-    }
-    else if (parent === child) {
-        return true;
-    }
-    else {
-        return isNodeOrChild(parent, child.parentElement);
-    }
-};
-
-var order = ["whileHover", "whileTap", "whileDrag"];
-var getGesturePriority = function (gesture) {
-    return order.indexOf(gesture) + 1;
-};
-
-function createLock(name) {
-    var lock = null;
-    return function () {
-        var openLock = function () {
-            lock = null;
-        };
-        if (lock === null) {
-            lock = name;
-            return openLock;
-        }
-        return false;
-    };
-}
-var globalHorizontalLock = createLock("dragHorizontal");
-var globalVerticalLock = createLock("dragVertical");
-function getGlobalLock(drag) {
-    var lock = false;
-    if (drag === "y") {
-        lock = globalVerticalLock();
-    }
-    else if (drag === "x") {
-        lock = globalHorizontalLock();
-    }
-    else {
-        var openHorizontal_1 = globalHorizontalLock();
-        var openVertical_1 = globalVerticalLock();
-        if (openHorizontal_1 && openVertical_1) {
-            lock = function () {
-                openHorizontal_1();
-                openVertical_1();
-            };
-        }
-        else {
-            // Release the locks because we don't use them
-            if (openHorizontal_1)
-                openHorizontal_1();
-            if (openVertical_1)
-                openVertical_1();
-        }
-    }
-    return lock;
-}
-
-var tapGesturePriority = getGesturePriority("whileTap");
-/**
- * @param handlers -
- * @internal
- */
-function useTapGesture(_a, ref) {
-    var onTap = _a.onTap, onTapStart = _a.onTapStart, onTapCancel = _a.onTapCancel, whileTap = _a.whileTap, controls = _a.controls;
-    var hasTapListeners = onTap || onTapStart || onTapCancel || whileTap;
-    var isTapping = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
-    var cancelPointerEventListener = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-    function removePointerUp() {
-        cancelPointerEventListener.current &&
-            cancelPointerEventListener.current();
-        cancelPointerEventListener.current = null;
-    }
-    if (whileTap && controls) {
-        controls.setOverride(whileTap, tapGesturePriority);
-    }
-    // We load this event handler into a ref so we can later refer to
-    // onPointerUp.current which will always have reference to the latest props
-    var onPointerUp = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-    onPointerUp.current = function (event, info) {
-        var element = ref.current;
-        removePointerUp();
-        if (!isTapping.current || !element)
-            return;
-        isTapping.current = false;
-        if (controls && whileTap) {
-            controls.clearOverride(tapGesturePriority);
-        }
-        // Check the gesture lock - if we get it, it means no drag gesture is active
-        // and we can safely fire the tap gesture.
-        var openGestureLock = getGlobalLock(true);
-        if (!openGestureLock)
-            return;
-        openGestureLock();
-        if (!isNodeOrChild(element, event.target)) {
-            onTapCancel && onTapCancel(event, info);
-        }
-        else {
-            onTap && onTap(event, info);
-        }
-    };
-    function onPointerDown(event, info) {
-        removePointerUp();
-        cancelPointerEventListener.current = addPointerEvent(window, "pointerup", function (event, info) { return onPointerUp.current(event, info); });
-        var element = ref.current;
-        if (!element || isTapping.current)
-            return;
-        isTapping.current = true;
-        onTapStart && onTapStart(event, info);
-        if (controls && whileTap) {
-            controls.startOverride(tapGesturePriority);
-        }
-    }
-    usePointerEvent(ref, "pointerdown", hasTapListeners ? onPointerDown : undefined);
-    useUnmountEffect(removePointerUp);
-}
-
-var hoverPriority = getGesturePriority("whileHover");
-var filterTouch = function (listener) { return function (event, info) {
-    if (isMouseEvent(event))
-        listener(event, info);
-}; };
-/**
- *
- * @param props
- * @param ref
- * @internal
- */
-function useHoverGesture(_a, ref) {
-    var whileHover = _a.whileHover, onHoverStart = _a.onHoverStart, onHoverEnd = _a.onHoverEnd, controls = _a.controls;
-    if (whileHover && controls) {
-        controls.setOverride(whileHover, hoverPriority);
-    }
-    usePointerEvent(ref, "pointerenter", filterTouch(function (event, info) {
-        if (onHoverStart)
-            onHoverStart(event, info);
-        if (whileHover && controls) {
-            controls.startOverride(hoverPriority);
-        }
-    }));
-    usePointerEvent(ref, "pointerleave", filterTouch(function (event, info) {
-        if (onHoverEnd)
-            onHoverEnd(event, info);
-        if (whileHover && controls) {
-            controls.clearOverride(hoverPriority);
-        }
-    }));
-}
-
-/**
- * Add pan and tap gesture recognition to an element.
- *
- * @param props - Gesture event handlers
- * @param ref - React `ref` containing a DOM `Element`
- * @public
- */
-function useGestures(props, ref) {
-    usePanGesture(props, ref);
-    useTapGesture(props, ref);
-    useHoverGesture(props, ref);
-}
-
-var makeRenderlessComponent = function (hook) { return function (props) {
-    hook(props);
-    return null;
-}; };
-
-var gestureProps = [
-    "onPan",
-    "onPanStart",
-    "onPanEnd",
-    "onPanSessionStart",
-    "onTap",
-    "onTapStart",
-    "onTapCancel",
-    "whileTap",
-    "whileHover",
-    "onHoverStart",
-    "onHoverEnd",
-];
-var Gestures = {
-    key: "gestures",
-    shouldRender: function (props) {
-        return gestureProps.some(function (key) { return props.hasOwnProperty(key); });
-    },
-    Component: makeRenderlessComponent(function (_a) {
-        var innerRef = _a.innerRef, props = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__rest)(_a, ["innerRef"]);
-        useGestures(props, innerRef);
-    }),
-};
-
-var isRefObject = function (ref) {
-    return typeof ref === "object" && ref.hasOwnProperty("current");
-};
-
-var noop = function (v) { return v; };
-var ComponentDragControls = /** @class */ (function () {
-    function ComponentDragControls(_a) {
-        var ref = _a.ref, values = _a.values, controls = _a.controls;
-        /**
-         * Track whether we're currently dragging.
-         *
-         * @internal
-         */
-        this.isDragging = false;
-        /**
-         * The current direction of drag, or `null` if both.
-         *
-         * @internal
-         */
-        this.currentDirection = null;
-        /**
-         * The permitted t/r/b/l boundaries of travel, in pixels.
-         *
-         * @internal
-         */
-        this.constraints = false;
-        /**
-         * A reference to the host component's latest props.
-         *
-         * @internal
-         */
-        this.props = {
-            transformPagePoint: noop,
-        };
-        /**
-         * References to the MotionValues used for tracking the current dragged point.
-         *
-         * @internal
-         */
-        this.point = {};
-        /**
-         * The origin point for the current drag gesture.
-         *
-         * @internal
-         */
-        this.origin = {
-            x: motionValue(0),
-            y: motionValue(0),
-        };
-        // This is a reference to the global drag gesture lock, ensuring only one component
-        // can "capture" the drag of one or both axes.
-        // TODO: Look into moving this into pansession?
-        this.openGlobalLock = null;
-        /**
-         * @internal
-         */
-        this.panSession = null;
-        /**
-         * A reference to the previous constraints bounding box
-         *
-         * @internal
-         */
-        this.prevConstraintsBox = {
-            width: 0,
-            height: 0,
-            x: 0,
-            y: 0,
-        };
-        this.ref = ref;
-        this.values = values;
-        this.controls = controls;
-    }
-    /**
-     * Start dragging the host component.
-     *
-     * @param event - The originating pointer event.
-     * @param options -
-     *
-     * @public
-     */
-    ComponentDragControls.prototype.start = function (originEvent, _a) {
-        var _this = this;
-        var _b = (_a === void 0 ? {} : _a).snapToCursor, snapToCursor = _b === void 0 ? false : _b;
-        snapToCursor && this.snapToCursor(originEvent);
-        var onSessionStart = function () {
-            // Initiate viewport scroll blocking on touch start. This is a very aggressive approach
-            // which has come out of the difficulty in us being able to do this once a scroll gesture
-            // has initiated in mobile browsers. This means if there's a horizontally-scrolling carousel
-            // on a page we can't let a user scroll the page itself from it. Ideally what we'd do is
-            // trigger this once we've got a scroll direction determined. This approach sort-of worked
-            // but if the component was dragged too far in a single frame page scrolling would initiate.
-            blockViewportScroll();
-            // Stop any animations on both axis values immediately. This allows the user to throw and catch
-            // the component.
-            bothAxis(function (axis) {
-                var axisPoint = _this.point[axis];
-                axisPoint && axisPoint.stop();
-            });
-        };
-        var onStart = function (event, info) {
-            // If constraints are an element, resolve them again in case they've updated.
-            if (_this.constraintsNeedResolution) {
-                var _a = _this.props, dragConstraints = _a.dragConstraints, transformPagePoint_1 = _a.transformPagePoint;
-                _this.constraints = calculateConstraintsFromDom(dragConstraints, _this.ref, _this.point, transformPagePoint_1);
-                _this.applyConstraintsToPoint();
-            }
-            // Set point origin and stop any existing animations.
-            bothAxis(function (axis) {
-                var axisPoint = _this.point[axis];
-                if (!axisPoint)
-                    return;
-                _this.origin[axis].set(axisPoint.get());
-            });
-            // Attempt to grab the global drag gesture lock - maybe make this part of PanSession
-            var _b = _this.props, drag = _b.drag, dragPropagation = _b.dragPropagation;
-            if (drag && !dragPropagation) {
-                if (_this.openGlobalLock)
-                    _this.openGlobalLock();
-                _this.openGlobalLock = getGlobalLock(drag);
-                if (!_this.openGlobalLock)
-                    return;
-            }
-            _this.isDragging = true;
-            _this.currentDirection = null;
-            var onDragStart = _this.props.onDragStart;
-            onDragStart &&
-                onDragStart(event, convertPanToDrag(info, _this.point));
-        };
-        var onMove = function (event, info) {
-            var _a = _this.props, dragPropagation = _a.dragPropagation, dragDirectionLock = _a.dragDirectionLock;
-            // If we didn't successfully receive the gesture lock, early return.
-            if (!dragPropagation && !_this.openGlobalLock)
-                return;
-            var offset = info.offset;
-            // Attempt to detect drag direction if directionLock is true
-            if (dragDirectionLock && _this.currentDirection === null) {
-                _this.currentDirection = getCurrentDirection(offset);
-                // If we've successfully set a direction, notify listener
-                if (_this.currentDirection !== null) {
-                    var onDirectionLock = _this.props.onDirectionLock;
-                    onDirectionLock && onDirectionLock(_this.currentDirection);
-                }
-                return;
-            }
-            _this.updatePoint("x", offset);
-            _this.updatePoint("y", offset);
-            var onDrag = _this.props.onDrag;
-            onDrag && onDrag(event, convertPanToDrag(info, _this.point));
-        };
-        var onEnd = function (event, info) {
-            _this.stop(event, info);
-        };
-        var transformPagePoint = this.props.transformPagePoint;
-        this.panSession = new PanSession(originEvent, {
-            onSessionStart: onSessionStart,
-            onStart: onStart,
-            onMove: onMove,
-            onEnd: onEnd,
-        }, { transformPagePoint: transformPagePoint });
-    };
-    ComponentDragControls.prototype.cancelDrag = function () {
-        unblockViewportScroll();
-        this.isDragging = false;
-        this.panSession && this.panSession.end();
-        this.panSession = null;
-        if (!this.props.dragPropagation && this.openGlobalLock) {
-            this.openGlobalLock();
-            this.openGlobalLock = null;
-        }
-    };
-    ComponentDragControls.prototype.stop = function (event, info) {
-        var _a;
-        (_a = this.panSession) === null || _a === void 0 ? void 0 : _a.end();
-        this.panSession = null;
-        var isDragging = this.isDragging;
-        this.cancelDrag();
-        if (!isDragging)
-            return;
-        var _b = this.props, dragMomentum = _b.dragMomentum, dragElastic = _b.dragElastic, onDragEnd = _b.onDragEnd;
-        if (dragMomentum || dragElastic) {
-            var velocity = info.velocity;
-            this.animateDragEnd(velocity);
-        }
-        else {
-            this.recordBoxInfo(this.constraints);
-        }
-        onDragEnd && onDragEnd(event, convertPanToDrag(info, this.point));
-    };
-    ComponentDragControls.prototype.recordBoxInfo = function (constraints) {
-        if (constraints) {
-            var right = constraints.right, left = constraints.left, bottom = constraints.bottom, top_1 = constraints.top;
-            this.prevConstraintsBox.width = (right || 0) - (left || 0);
-            this.prevConstraintsBox.height = (bottom || 0) - (top_1 || 0);
-        }
-        if (this.point.x)
-            this.prevConstraintsBox.x = this.point.x.get();
-        if (this.point.y)
-            this.prevConstraintsBox.y = this.point.y.get();
-    };
-    ComponentDragControls.prototype.snapToCursor = function (event) {
-        var _this = this;
-        var transformPagePoint = this.props.transformPagePoint;
-        var point = extractEventInfo(event).point;
-        var boundingBox = getBoundingBox(this.ref, transformPagePoint);
-        var center = {
-            x: boundingBox.width / 2 + boundingBox.left + window.scrollX,
-            y: boundingBox.height / 2 + boundingBox.top + window.scrollY,
-        };
-        var offset = {
-            x: point.x - center.x,
-            y: point.y - center.y,
-        };
-        bothAxis(function (axis) {
-            var point = _this.point[axis];
-            if (!point)
-                return;
-            _this.origin[axis].set(point.get());
-        });
-        this.updatePoint("x", offset);
-        this.updatePoint("y", offset);
-    };
-    ComponentDragControls.prototype.setPoint = function (axis, value) {
-        this.point[axis] = value;
-    };
-    ComponentDragControls.prototype.updatePoint = function (axis, offset) {
-        var _a = this.props, drag = _a.drag, dragElastic = _a.dragElastic;
-        var axisPoint = this.point[axis];
-        // If we're not dragging this axis, do an early return.
-        if (!shouldDrag(axis, drag, this.currentDirection) || !axisPoint)
-            return;
-        var current = applyConstraints(axis, this.origin[axis].get() + offset[axis], this.constraints, dragElastic);
-        axisPoint.set(current);
-    };
-    ComponentDragControls.prototype.updateProps = function (_a) {
-        var _this = this;
-        var _b = _a.drag, drag = _b === void 0 ? false : _b, _c = _a.dragDirectionLock, dragDirectionLock = _c === void 0 ? false : _c, _d = _a.dragPropagation, dragPropagation = _d === void 0 ? false : _d, _e = _a.dragConstraints, dragConstraints = _e === void 0 ? false : _e, _f = _a.dragElastic, dragElastic = _f === void 0 ? true : _f, _g = _a.dragMomentum, dragMomentum = _g === void 0 ? true : _g, remainingProps = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__rest)(_a, ["drag", "dragDirectionLock", "dragPropagation", "dragConstraints", "dragElastic", "dragMomentum"]);
-        this.props = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({ drag: drag,
-            dragDirectionLock: dragDirectionLock,
-            dragPropagation: dragPropagation,
-            dragConstraints: dragConstraints,
-            dragElastic: dragElastic,
-            dragMomentum: dragMomentum }, remainingProps);
-        var _dragValueX = remainingProps._dragValueX, _dragValueY = remainingProps._dragValueY, dragOriginX = remainingProps.dragOriginX, dragOriginY = remainingProps.dragOriginY;
-        if (dragOriginX)
-            this.origin.x = dragOriginX;
-        if (dragOriginY)
-            this.origin.y = dragOriginY;
-        // Get the `MotionValue` for both draggable axes, or create them if they don't already
-        // exist on this component.
-        bothAxis(function (axis) {
-            if (!shouldDrag(axis, drag, _this.currentDirection))
-                return;
-            var defaultValue = axis === "x" ? _dragValueX : _dragValueY;
-            _this.setPoint(axis, defaultValue || _this.values.get(axis, 0));
-        });
-        // If `dragConstraints` is a React `ref`, we should resolve the constraints once the
-        // component has rendered.
-        this.constraintsNeedResolution = isRefObject(dragConstraints);
-        this.constraints = this.constraintsNeedResolution
-            ? this.constraints || false
-            : dragConstraints;
-    };
-    ComponentDragControls.prototype.applyConstraintsToPoint = function (constraints) {
-        var _this = this;
-        if (constraints === void 0) { constraints = this.constraints; }
-        return bothAxis(function (axis) {
-            var axisPoint = _this.point[axis];
-            axisPoint &&
-                !axisPoint.isAnimating() &&
-                applyConstraints(axis, axisPoint, constraints, 0);
-        });
-    };
-    ComponentDragControls.prototype.animateDragEnd = function (velocity) {
-        var _this = this;
-        var _a = this.props, drag = _a.drag, dragMomentum = _a.dragMomentum, dragElastic = _a.dragElastic, dragTransition = _a.dragTransition, _dragValueX = _a._dragValueX, _dragValueY = _a._dragValueY, _dragTransitionControls = _a._dragTransitionControls;
-        var momentumAnimations = bothAxis(function (axis) {
-            var _a;
-            if (!shouldDrag(axis, drag, _this.currentDirection)) {
-                return;
-            }
-            var transition = _this.constraints
-                ? getConstraints(axis, _this.constraints)
-                : {};
-            /**
-             * Overdamp the boundary spring if `dragElastic` is disabled. There's still a frame
-             * of spring animations so we should look into adding a disable spring option to `inertia`.
-             * We could do something here where we affect the `bounceStiffness` and `bounceDamping`
-             * using the value of `dragElastic`.
-             */
-            var bounceStiffness = dragElastic ? 200 : 1000000;
-            var bounceDamping = dragElastic ? 40 : 10000000;
-            var animationControls = _dragTransitionControls || _this.controls;
-            var inertia = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({ type: "inertia", velocity: dragMomentum ? velocity[axis] : 0, bounceStiffness: bounceStiffness,
-                bounceDamping: bounceDamping, timeConstant: 750, restDelta: 1 }, dragTransition), transition);
-            var externalAxisMotionValue = axis === "x" ? _dragValueX : _dragValueY;
-            // If we're not animating on an externally-provided `MotionValue` we can use the
-            // component's animation controls which will handle interactions with whileHover (etc),
-            // otherwise we just have to animate the `MotionValue` itself.
-            return externalAxisMotionValue
-                ? startAnimation(axis, externalAxisMotionValue, 0, inertia)
-                : animationControls.start((_a = {},
-                    _a[axis] = 0,
-                    _a.transition = inertia,
-                    _a));
-        });
-        // Run all animations and then resolve the new drag constraints.
-        return Promise.all(momentumAnimations).then(function () {
-            _this.recordBoxInfo(_this.constraints);
-            _this.scalePoint();
-            var onDragTransitionEnd = _this.props.onDragTransitionEnd;
-            onDragTransitionEnd && onDragTransitionEnd();
-        });
-    };
-    ComponentDragControls.prototype.scalePoint = function () {
-        var _this = this;
-        var _a = this.props, dragConstraints = _a.dragConstraints, transformPagePoint = _a.transformPagePoint;
-        if (!isRefObject(dragConstraints))
-            return;
-        var constraintsBox = getBoundingBox(dragConstraints, transformPagePoint);
-        var draggableBox = getBoundingBox(this.ref, transformPagePoint);
-        // Scale a point relative to the transformation of a constraints-providing element.
-        var scaleAxisPoint = function (axis, dimension) {
-            var pointToScale = _this.point[axis];
-            if (!pointToScale)
-                return;
-            // Stop any current animations as they bug out if you resize during one
-            if (pointToScale.isAnimating()) {
-                pointToScale.stop();
-                _this.recordBoxInfo();
-                return;
-            }
-            // If the previous dimension was `0` (default), set `scale` to `1` to prevent
-            // divide by zero errors.
-            var scale = _this.prevConstraintsBox[dimension]
-                ? (constraintsBox[dimension] - draggableBox[dimension]) /
-                    _this.prevConstraintsBox[dimension]
-                : 1;
-            pointToScale.set(_this.prevConstraintsBox[axis] * scale);
-        };
-        scaleAxisPoint("x", "width");
-        scaleAxisPoint("y", "height");
-    };
-    ComponentDragControls.prototype.mount = function (element) {
-        var _this = this;
-        var stopPointerListener = addPointerEvent(element, "pointerdown", function (event) {
-            var _a = _this.props, drag = _a.drag, _b = _a.dragListener, dragListener = _b === void 0 ? true : _b;
-            drag && dragListener && _this.start(event);
-        });
-        var stopResizeListener = addDomEvent(window, "resize", function () {
-            return _this.scalePoint();
-        });
-        if (this.constraintsNeedResolution) {
-            var _a = this.props, dragConstraints = _a.dragConstraints, transformPagePoint = _a.transformPagePoint;
-            var constraints = calculateConstraintsFromDom(dragConstraints, this.ref, this.point, transformPagePoint);
-            this.applyConstraintsToPoint(constraints);
-            this.recordBoxInfo(constraints);
-        }
-        else if (!this.isDragging && this.constraints) {
-            this.applyConstraintsToPoint();
-        }
-        return function () {
-            stopPointerListener && stopPointerListener();
-            stopResizeListener && stopResizeListener();
-            _this.cancelDrag();
-        };
-    };
-    return ComponentDragControls;
-}());
-// Call a handler once for each axis
-function bothAxis(handler) {
-    return [handler("x"), handler("y")];
-}
-function convertPanToDrag(info, point) {
-    return (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, info), { point: {
-            x: point.x ? point.x.get() : 0,
-            y: point.y ? point.y.get() : 0,
-        } });
-}
-function getConstraints(axis, _a) {
-    var top = _a.top, right = _a.right, bottom = _a.bottom, left = _a.left;
-    if (axis === "x") {
-        return { min: left, max: right };
-    }
-    else {
-        return { min: top, max: bottom };
-    }
-}
-function shouldDrag(direction, drag, currentDirection) {
-    return ((drag === true || drag === direction) &&
-        (currentDirection === null || currentDirection === direction));
-}
-/**
- * Based on an x/y offset determine the current drag direction. If both axis' offsets are lower
- * than the provided threshold, return `null`.
- *
- * @param offset - The x/y offset from origin.
- * @param lockThreshold - (Optional) - the minimum absolute offset before we can determine a drag direction.
- */
-function getCurrentDirection(offset, lockThreshold) {
-    if (lockThreshold === void 0) { lockThreshold = 10; }
-    var direction = null;
-    if (Math.abs(offset.y) > lockThreshold) {
-        direction = "y";
-    }
-    else if (Math.abs(offset.x) > lockThreshold) {
-        direction = "x";
-    }
-    return direction;
-}
-/**
- * Takes a parent Element and a draggable Element and returns pixel-based drag constraints.
- *
- * @param constraintsRef
- * @param draggableRef
- */
-function calculateConstraintsFromDom(constraintsRef, draggableRef, point, transformPagePoint) {
-    (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(constraintsRef.current !== null && draggableRef.current !== null, "If `dragConstraints` is set as a React ref, that ref must be passed to another component's `ref` prop.");
-    var parentBoundingBox = getBoundingBox(constraintsRef, transformPagePoint);
-    var draggableBoundingBox = getBoundingBox(draggableRef, transformPagePoint);
-    var left = parentBoundingBox.left -
-        draggableBoundingBox.left +
-        getCurrentOffset(point.x);
-    var top = parentBoundingBox.top -
-        draggableBoundingBox.top +
-        getCurrentOffset(point.y);
-    var right = parentBoundingBox.width - draggableBoundingBox.width + left;
-    var bottom = parentBoundingBox.height - draggableBoundingBox.height + top;
-    return { top: top, left: left, right: right, bottom: bottom };
-}
-function getBoundingBox(ref, transformPagePoint) {
-    var rect = ref.current.getBoundingClientRect();
-    var _a = transformPagePoint({
-        x: rect.left,
-        y: rect.top,
-    }), left = _a.x, top = _a.y;
-    var _b = transformPagePoint({
-        x: rect.width,
-        y: rect.height,
-    }), width = _b.x, height = _b.y;
-    return { left: left, top: top, width: width, height: height };
-}
-function getCurrentOffset(point) {
-    return point ? point.get() : 0;
-}
-function applyConstraints(axis, value, constraints, dragElastic) {
-    var constrainedValue = value instanceof MotionValue ? value.get() : value;
-    if (!constraints) {
-        return constrainedValue;
-    }
-    var _a = getConstraints(axis, constraints), min = _a.min, max = _a.max;
-    if (min !== undefined && constrainedValue < min) {
-        constrainedValue = dragElastic
-            ? applyOverdrag(min, constrainedValue, dragElastic)
-            : Math.max(min, constrainedValue);
-    }
-    else if (max !== undefined && constrainedValue > max) {
-        constrainedValue = dragElastic
-            ? applyOverdrag(max, constrainedValue, dragElastic)
-            : Math.min(max, constrainedValue);
-    }
-    if (value instanceof MotionValue) {
-        value.set(constrainedValue);
-    }
-    return constrainedValue;
-}
-function applyOverdrag(origin, current, dragElastic) {
-    var dragFactor = typeof dragElastic === "number" ? dragElastic : 0.35;
-    return (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_2__.mix)(origin, current, dragFactor);
-}
-
-/**
- * A hook that allows an element to be dragged.
- *
- * @param param
- * @param ref
- * @param values
- * @param controls
- *
- * @internal
- */
-function useDrag(props, ref, values, controls) {
-    var groupDragControls = props.dragControls;
-    var transformPagePoint = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MotionPluginContext).transformPagePoint;
-    var dragControls = useConstant(function () { return new ComponentDragControls({ ref: ref, values: values, controls: controls }); });
-    dragControls.updateProps((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, props), { transformPagePoint: transformPagePoint }));
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () { return groupDragControls && groupDragControls.subscribe(dragControls); }, [dragControls]);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () { return dragControls.mount(ref.current); }, []);
-}
-
-var Drag = {
-    key: "drag",
-    shouldRender: function (props) { return !!props.drag; },
-    Component: makeRenderlessComponent(function (_a) {
-        var innerRef = _a.innerRef, values = _a.values, controls = _a.controls, props = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__rest)(_a, ["innerRef", "values", "controls"]);
-        return useDrag(props, innerRef, values, controls);
-    }),
-};
-
-function isCSSVariable(value) {
-    return typeof value === "string" && value.startsWith("var(--");
-}
-/**
- * Parse Framer's special CSS variable format into a CSS token and a fallback.
- *
- * ```
- * `var(--foo, #fff)` => [`--foo`, '#fff']
- * ```
- *
- * @param current
- */
-var cssVariableRegex = /var\((--[a-zA-Z0-9-_]+),? ?([a-zA-Z0-9 ()%#.,-]+)?\)/;
-function parseCSSVariable(current) {
-    var match = cssVariableRegex.exec(current);
-    if (!match)
-        return [,];
-    var token = match[1], fallback = match[2];
-    return [token, fallback];
-}
-var maxDepth = 4;
-function getVariableValue(current, element, depth) {
-    if (depth === void 0) { depth = 1; }
-    (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(depth <= maxDepth, "Max CSS variable fallback depth detected in property \"" + current + "\". This may indicate a circular fallback dependency.");
-    var _a = parseCSSVariable(current), token = _a[0], fallback = _a[1];
-    // No CSS variable detected
-    if (!token)
-        return;
-    // Attempt to read this CSS variable off the element
-    var resolved = window.getComputedStyle(element).getPropertyValue(token);
-    if (resolved) {
-        return resolved;
-    }
-    else if (isCSSVariable(fallback)) {
-        // The fallback might itself be a CSS variable, in which case we attempt to resolve it too.
-        return getVariableValue(fallback, element, depth + 1);
-    }
-    else {
-        return fallback;
-    }
-}
-/**
- * Resolve CSS variables from
- *
- * @internal
- */
-function resolveCSSVariables(values, ref, _a, transitionEnd) {
-    var target = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__rest)(_a, []);
-    var element = ref.current;
-    if (!(element instanceof HTMLElement))
-        return { target: target, transitionEnd: transitionEnd };
-    // If `transitionEnd` isn't `undefined`, clone it. We could clone `target` and `transitionEnd`
-    // only if they change but I think this reads clearer and this isn't a performance-critical path.
-    if (transitionEnd) {
-        transitionEnd = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, transitionEnd);
-    }
-    // Go through existing `MotionValue`s and ensure any existing CSS variables are resolved
-    values.forEach(function (value) {
-        var current = value.get();
-        if (!isCSSVariable(current))
-            return;
-        var resolved = getVariableValue(current, element);
-        if (resolved)
-            value.set(resolved);
-    });
-    // Cycle through every target property and resolve CSS variables. Currently
-    // we only read single-var properties like `var(--foo)`, not `calc(var(--foo) + 20px)`
-    for (var key in target) {
-        var current = target[key];
-        if (!isCSSVariable(current))
-            continue;
-        var resolved = getVariableValue(current, element);
-        if (!resolved)
-            continue;
-        // Clone target if it hasn't already been
-        target[key] = resolved;
-        // If the user hasn't already set this key on `transitionEnd`, set it to the unresolved
-        // CSS variable. This will ensure that after the animation the component will reflect
-        // changes in the value of the CSS variable.
-        if (transitionEnd && transitionEnd[key] === undefined) {
-            transitionEnd[key] = current;
-        }
-    }
-    return { target: target, transitionEnd: transitionEnd };
-}
-
-var positionalKeys = new Set([
-    "width",
-    "height",
-    "top",
-    "left",
-    "right",
-    "bottom",
-    "x",
-    "y",
-]);
-var isPositionalKey = function (key) { return positionalKeys.has(key); };
-var hasPositionalKey = function (target) {
-    return Object.keys(target).some(isPositionalKey);
-};
-var setAndResetVelocity = function (value, to) {
-    // Looks odd but setting it twice doesn't render, it'll just
-    // set both prev and current to the latest value
-    value.set(to, false);
-    value.set(to);
-};
-var isNumOrPxType = function (v) {
-    return v === style_value_types__WEBPACK_IMPORTED_MODULE_5__.number || v === style_value_types__WEBPACK_IMPORTED_MODULE_5__.px;
-};
-var BoundingBoxDimension;
-(function (BoundingBoxDimension) {
-    BoundingBoxDimension["width"] = "width";
-    BoundingBoxDimension["height"] = "height";
-    BoundingBoxDimension["left"] = "left";
-    BoundingBoxDimension["right"] = "right";
-    BoundingBoxDimension["top"] = "top";
-    BoundingBoxDimension["bottom"] = "bottom";
-})(BoundingBoxDimension || (BoundingBoxDimension = {}));
-var getPosFromMatrix = function (matrix, pos) {
-    return parseFloat(matrix.split(", ")[pos]);
-};
-var getTranslateFromMatrix = function (pos2, pos3) { return function (_bbox, _a) {
-    var transform = _a.transform;
-    if (transform === "none" || !transform)
-        return 0;
-    var matrix3d = transform.match(/^matrix3d\((.+)\)$/);
-    if (matrix3d) {
-        return getPosFromMatrix(matrix3d[1], pos3);
-    }
-    else {
-        var matrix = transform.match(/^matrix\((.+)\)$/);
-        if (matrix) {
-            return getPosFromMatrix(matrix[1], pos2);
-        }
-        else {
-            return 0;
-        }
-    }
-}; };
-var transformKeys = new Set(["x", "y", "z"]);
-var nonTranslationalTransformKeys = stylefire__WEBPACK_IMPORTED_MODULE_3__.transformProps.filter(function (key) { return !transformKeys.has(key); });
-function removeNonTranslationalTransform(values, elementStyler) {
-    var removedTransforms = [];
-    nonTranslationalTransformKeys.forEach(function (key) {
-        var value = values.get(key);
-        if (value !== undefined) {
-            removedTransforms.push([key, value.get()]);
-            value.set(key.startsWith("scale") ? 1 : 0);
-        }
-    });
-    // Apply changes to element before measurement
-    if (removedTransforms.length)
-        elementStyler.render();
-    return removedTransforms;
-}
-var positionalValues = {
-    // Dimensions
-    width: function (_a) {
-        var width = _a.width;
-        return width;
-    },
-    height: function (_a) {
-        var height = _a.height;
-        return height;
-    },
-    top: function (_bbox, _a) {
-        var top = _a.top;
-        return parseFloat(top);
-    },
-    left: function (_bbox, _a) {
-        var left = _a.left;
-        return parseFloat(left);
-    },
-    bottom: function (_a, _b) {
-        var height = _a.height;
-        var top = _b.top;
-        return parseFloat(top) + height;
-    },
-    right: function (_a, _b) {
-        var width = _a.width;
-        var left = _b.left;
-        return parseFloat(left) + width;
-    },
-    // Transform
-    x: getTranslateFromMatrix(4, 13),
-    y: getTranslateFromMatrix(5, 14),
-};
-var convertChangedValueTypes = function (target, values, element, elementStyler, changedKeys) {
-    var originBbox = element.getBoundingClientRect();
-    var elementComputedStyle = getComputedStyle(element);
-    var display = elementComputedStyle.display, top = elementComputedStyle.top, left = elementComputedStyle.left, bottom = elementComputedStyle.bottom, right = elementComputedStyle.right, transform = elementComputedStyle.transform;
-    var originComputedStyle = { top: top, left: left, bottom: bottom, right: right, transform: transform };
-    // If the element is currently set to display: "none", make it visible before
-    // measuring the target bounding box
-    if (display === "none") {
-        elementStyler.set("display", target.display || "block");
-    }
-    // Apply the latest values (as set in checkAndConvertChangedValueTypes)
-    elementStyler.render();
-    var targetBbox = element.getBoundingClientRect();
-    changedKeys.forEach(function (key) {
-        // Restore styles to their **calculated computed style**, not their actual
-        // originally set style. This allows us to animate between equivalent pixel units.
-        var value = values.get(key);
-        setAndResetVelocity(value, positionalValues[key](originBbox, originComputedStyle));
-        target[key] = positionalValues[key](targetBbox, elementComputedStyle);
-    });
-    return target;
-};
-var checkAndConvertChangedValueTypes = function (values, ref, target, transitionEnd) {
-    if (transitionEnd === void 0) { transitionEnd = {}; }
-    target = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, target);
-    transitionEnd = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, transitionEnd);
-    var element = ref.current;
-    var elementStyler = (0,stylefire__WEBPACK_IMPORTED_MODULE_3__["default"])(element);
-    var targetPositionalKeys = Object.keys(target).filter(isPositionalKey);
-    // We want to remove any transform values that could affect the element's bounding box before
-    // it's measured. We'll reapply these later.
-    var removedTransformValues = [];
-    var hasAttemptedToRemoveTransformValues = false;
-    var changedValueTypeKeys = targetPositionalKeys.reduce(function (acc, key) {
-        var value = values.get(key);
-        if (!value)
-            return acc;
-        var from = value.get();
-        var to = target[key];
-        var fromType = getDimensionValueType(from);
-        var toType;
-        // TODO: The current implementation of this basically throws an error
-        // if you try and do value conversion via keyframes. There's probably
-        // a way of doing this but the performance implications would need greater scrutiny,
-        // as it'd be doing multiple resize-remeasure operations.
-        if (isKeyframesTarget(to)) {
-            var numKeyframes = to.length;
-            for (var i = to[0] === null ? 1 : 0; i < numKeyframes; i++) {
-                if (!toType) {
-                    toType = getDimensionValueType(to[i]);
-                    (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(toType === fromType ||
-                        (isNumOrPxType(fromType) &&
-                            isNumOrPxType(toType)), "Keyframes must be of the same dimension as the current value");
-                }
-                else {
-                    (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(getDimensionValueType(to[i]) === toType, "All keyframes must be of the same type");
-                }
-            }
-        }
-        else {
-            toType = getDimensionValueType(to);
-        }
-        if (fromType !== toType) {
-            // If they're both just number or px, convert them both to numbers rather than
-            // relying on resize/remeasure to convert (which is wasteful in this situation)
-            if (isNumOrPxType(fromType) && isNumOrPxType(toType)) {
-                var current = value.get();
-                if (typeof current === "string") {
-                    value.set(parseFloat(current));
-                }
-                if (typeof to === "string") {
-                    target[key] = parseFloat(to);
-                }
-                else if (Array.isArray(to) && toType === style_value_types__WEBPACK_IMPORTED_MODULE_5__.px) {
-                    target[key] = to.map(parseFloat);
-                }
-            }
-            else {
-                // If we're going to do value conversion via DOM measurements, we first
-                // need to remove non-positional transform values that could affect the bbox measurements.
-                if (!hasAttemptedToRemoveTransformValues) {
-                    removedTransformValues = removeNonTranslationalTransform(values, elementStyler);
-                    hasAttemptedToRemoveTransformValues = true;
-                }
-                acc.push(key);
-                transitionEnd[key] =
-                    transitionEnd[key] !== undefined
-                        ? transitionEnd[key]
-                        : target[key];
-                setAndResetVelocity(value, to);
-            }
-        }
-        return acc;
-    }, []);
-    if (changedValueTypeKeys.length) {
-        var convertedTarget = convertChangedValueTypes(target, values, element, elementStyler, changedValueTypeKeys);
-        // If we removed transform values, reapply them before the next render
-        if (removedTransformValues.length) {
-            removedTransformValues.forEach(function (_a) {
-                var key = _a[0], value = _a[1];
-                values.get(key).set(value);
-            });
-        }
-        // Reapply original values
-        elementStyler.render();
-        return { target: convertedTarget, transitionEnd: transitionEnd };
-    }
-    else {
-        return { target: target, transitionEnd: transitionEnd };
-    }
-};
-/**
- * Convert value types for x/y/width/height/top/left/bottom/right
- *
- * Allows animation between `'auto'` -> `'100%'` or `0` -> `'calc(50% - 10vw)'`
- *
- * @param values
- * @param ref
- * @param target
- * @param transitionEnd
- * @internal
- */
-function unitConversion(values, ref, target, transitionEnd) {
-    return hasPositionalKey(target)
-        ? checkAndConvertChangedValueTypes(values, ref, target, transitionEnd)
-        : { target: target, transitionEnd: transitionEnd };
-}
-
-var parseDomVariant = function (values, ref) {
-    return function (target, transitionEnd) {
-        var resolved = resolveCSSVariables(values, ref, target, transitionEnd);
-        target = resolved.target;
-        transitionEnd = resolved.transitionEnd;
-        return unitConversion(values, ref, target, transitionEnd);
-    };
-};
-
-function useForceUpdate() {
-    var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0), forcedRenderCount = _a[0], setForcedRenderCount = _a[1];
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () { return setForcedRenderCount(forcedRenderCount + 1); }, [
-        forcedRenderCount,
-    ]);
-}
-
-var SyncLayoutContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)(null);
-/**
- * When layout changes happen asynchronously to their instigating render (ie when exiting
- * children of `AnimatePresence` are removed), `SyncLayout` can wrap parent and sibling
- * components that need to animate as a result of this layout change.
- *
- * @motion
- *
- * ```jsx
- * const MyComponent = ({ isVisible }) => {
- *   return (
- *     <SyncLayout>
- *       <AnimatePresence>
- *         {isVisible && (
- *           <motion.div exit={{ opacity: 0 }} />
- *         )}
- *       </AnimatePresence>
- *       <motion.div positionTransition />
- *     </SyncLayout>
- *   )
- * }
- * ```
- *
- * @internalremarks
- *
- * The way this component works is by memoising a function and passing it down via context.
- * The function, when called, updates the local state, which is used to invalidate the
- * memoisation cache. A new function is called, performing a synced re-render of components
- * that are using the SyncLayoutContext.
- *
- * @internal
- */
-var UnstableSyncLayout = function (_a) {
-    var children = _a.children;
-    var forceUpdate = useForceUpdate();
-    return ((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(SyncLayoutContext.Provider, { value: forceUpdate }, children));
-};
-
-var _a;
-var StepName;
-(function (StepName) {
-    StepName["Prepare"] = "prepare";
-    StepName["Read"] = "read";
-    StepName["Render"] = "render";
-})(StepName || (StepName = {}));
-var stepOrder = [StepName.Prepare, StepName.Read, StepName.Render];
-var jobs = stepOrder.reduce(function (acc, key) {
-    acc[key] = [];
-    return acc;
-}, {});
-var jobsNeedProcessing = false;
-function flushCallbackList(list) {
-    var numJobs = list.length;
-    for (var i = 0; i < numJobs; i++) {
-        list[i]();
-    }
-    list.length = 0;
-}
-function flushAllJobs() {
-    if (!jobsNeedProcessing)
-        return;
-    flushCallbackList(jobs.prepare);
-    flushCallbackList(jobs.read);
-    flushCallbackList(jobs.render);
-    jobsNeedProcessing = false;
-}
-// Note: The approach of schedulng jobs during the render step is incompatible with concurrent mode
-// where multiple renders might happen without a DOM update. This would result in unneccessary batched
-// jobs. But this was already a problem with our previous approach to positionTransition.
-// Hopefully the React team offer a getSnapshotBeforeUpdate-esque hook and we can move to that.
-var createUseSyncEffect = function (stepName) { return function (callback) {
-    if (!callback)
-        return;
-    jobsNeedProcessing = true;
-    jobs[stepName].push(callback);
-}; };
-var layoutSync = (_a = {},
-    _a[StepName.Prepare] = createUseSyncEffect(StepName.Prepare),
-    _a[StepName.Read] = createUseSyncEffect(StepName.Read),
-    _a[StepName.Render] = createUseSyncEffect(StepName.Render),
-    _a.flush = flushAllJobs,
-    _a);
-
-function isHTMLElement(element) {
-    return element instanceof HTMLElement;
-}
-
-var defaultLayoutTransition = {
-    duration: 0.8,
-    ease: [0.45, 0.05, 0.19, 1.0],
-};
-var defaultPositionTransition = underDampedSpring();
-function getDefaultLayoutTransition(isPositionOnly) {
-    return isPositionOnly ? defaultPositionTransition : defaultLayoutTransition;
-}
-function isResolver(transition) {
-    return typeof transition === "function";
-}
-var axisLabels = {
-    x: {
-        id: "x",
-        size: "width",
-        min: "left",
-        max: "right",
-        origin: "originX",
-    },
-    y: {
-        id: "y",
-        size: "height",
-        min: "top",
-        max: "bottom",
-        origin: "originY",
-    },
-};
-function centerOf(min, max) {
-    return (min + max) / 2;
-}
-function calcAxisDelta(prev, next, names) {
-    var _a;
-    var sizeDelta = prev[names.size] - next[names.size];
-    var origin = 0.5;
-    // If the element has changed size we want to check whether either side is in
-    // the same position before/after the layout transition. If so, we can anchor
-    // the element to that position and only animate its size.
-    if (sizeDelta) {
-        if (prev[names.min] === next[names.min]) {
-            origin = 0;
-        }
-        else if (prev[names.max] === next[names.max]) {
-            origin = 1;
-        }
-    }
-    var delta = (_a = {},
-        _a[names.size] = sizeDelta,
-        _a[names.origin] = origin,
-        _a[names.id] = 
-        // Only measure a position delta if we haven't anchored to one side
-        origin === 0.5
-            ? centerOf(prev[names.min], prev[names.max]) -
-                centerOf(next[names.min], next[names.max])
-            : 0,
-        _a);
-    return delta;
-}
-function calcDelta(prev, next) {
-    var delta = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, calcAxisDelta(prev, next, axisLabels.x)), calcAxisDelta(prev, next, axisLabels.y));
-    return delta;
-}
-var offset = {
-    getLayout: function (_a) {
-        var offset = _a.offset;
-        return offset;
-    },
-    measure: function (element) {
-        var offsetLeft = element.offsetLeft, offsetTop = element.offsetTop, offsetWidth = element.offsetWidth, offsetHeight = element.offsetHeight;
-        return {
-            left: offsetLeft,
-            top: offsetTop,
-            right: offsetLeft + offsetWidth,
-            bottom: offsetTop + offsetHeight,
-            width: offsetWidth,
-            height: offsetHeight,
-        };
-    },
-};
-var boundingBox = {
-    getLayout: function (_a) {
-        var boundingBox = _a.boundingBox;
-        return boundingBox;
-    },
-    measure: function (element) {
-        var _a = element.getBoundingClientRect(), left = _a.left, top = _a.top, width = _a.width, height = _a.height, right = _a.right, bottom = _a.bottom;
-        return { left: left, top: top, width: width, height: height, right: right, bottom: bottom };
-    },
-};
-function readPositionStyle(element) {
-    return window.getComputedStyle(element).position;
-}
-function getLayoutType(prev, next, isPositionOnly) {
-    return isPositionOnly && prev === next ? offset : boundingBox;
-}
-function isSizeKey(key) {
-    return key === "width" || key === "height";
-}
-function getTransition(_a) {
-    var layoutTransition = _a.layoutTransition, positionTransition = _a.positionTransition;
-    return layoutTransition || positionTransition;
-}
-var LayoutAnimation = /** @class */ (function (_super) {
-    (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__extends)(LayoutAnimation, _super);
-    function LayoutAnimation() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    // Measure the current state of the DOM before it's updated, and schedule checks to see
-    // if it's changed as a result of a React render.
-    LayoutAnimation.prototype.getSnapshotBeforeUpdate = function () {
-        var _a = this.props, innerRef = _a.innerRef, positionTransition = _a.positionTransition, values = _a.values, controls = _a.controls;
-        var element = innerRef.current;
-        if (!isHTMLElement(element))
-            return;
-        var layoutTransition = getTransition(this.props);
-        var isPositionOnly = !!positionTransition;
-        var positionStyle = readPositionStyle(element);
-        var prev = {
-            offset: offset.measure(element),
-            boundingBox: boundingBox.measure(element),
-        };
-        var transform;
-        var next;
-        var compare;
-        // We split the unsetting, read and reapplication of the `transform` style prop into
-        // different steps via useSyncEffect. Multiple components might all be doing the same
-        // thing and by splitting these jobs and flushing them in batches we prevent layout thrashing.
-        layoutSync.prepare(function () {
-            // Unset the transform of all layoutTransition components so we can accurately measure
-            // the target bounding box
-            transform = element.style.transform;
-            element.style.transform = "";
-        });
-        layoutSync.read(function () {
-            // Read the target VisualInfo of all layoutTransition components
-            next = {
-                offset: offset.measure(element),
-                boundingBox: boundingBox.measure(element),
-            };
-            var nextPosition = readPositionStyle(element);
-            compare = getLayoutType(positionStyle, nextPosition, isPositionOnly);
-        });
-        layoutSync.render(function () {
-            // Reverse the layout delta of all newly laid-out layoutTransition components into their
-            // prev visual state and then animate them into their new one using transforms.
-            var prevLayout = compare.getLayout(prev);
-            var nextLayout = compare.getLayout(next);
-            var delta = calcDelta(prevLayout, nextLayout);
-            var hasAnyChanged = delta.x || delta.y || delta.width || delta.height;
-            if (!hasAnyChanged) {
-                // If layout hasn't changed, reapply the transform and get out of here.
-                transform && (element.style.transform = transform);
-                return;
-            }
-            (0,stylefire__WEBPACK_IMPORTED_MODULE_3__["default"])(element).set({
-                originX: delta.originX,
-                originY: delta.originY,
-            });
-            syncRenderSession.open();
-            var target = {};
-            var transition = {};
-            var transitionDefinition = isResolver(layoutTransition)
-                ? layoutTransition({ delta: delta })
-                : layoutTransition;
-            function makeTransition(layoutKey, transformKey, targetValue, visualOrigin) {
-                // If this dimension hasn't changed, early return
-                var deltaKey = isSizeKey(layoutKey) ? layoutKey : transformKey;
-                if (!delta[deltaKey])
-                    return;
-                var baseTransition = typeof transitionDefinition === "boolean"
-                    ? (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, getDefaultLayoutTransition(isPositionOnly)) : transitionDefinition;
-                var value = values.get(transformKey, targetValue);
-                var velocity = value.getVelocity();
-                transition[transformKey] = baseTransition[transformKey]
-                    ? (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, baseTransition[transformKey]) : (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, baseTransition);
-                if (transition[transformKey].velocity === undefined) {
-                    transition[transformKey].velocity = velocity || 0;
-                }
-                // The target value of all transforms is the default value of that prop (ie x = 0, scaleX = 1)
-                // This is because we're inverting the layout change with `transform` and then animating to `transform: none`
-                target[transformKey] = targetValue;
-                var offsetToApply = !isSizeKey(layoutKey) && compare === offset
-                    ? value.get()
-                    : 0;
-                value.set(visualOrigin + offsetToApply);
-            }
-            makeTransition("left", "x", 0, delta.x);
-            makeTransition("top", "y", 0, delta.y);
-            if (!isPositionOnly) {
-                makeTransition("width", "scaleX", 1, prev.boundingBox.width / next.boundingBox.width);
-                makeTransition("height", "scaleY", 1, prev.boundingBox.height / next.boundingBox.height);
-            }
-            target.transition = transition;
-            // Only start the transition if `transitionDefinition` isn't `false`. Otherwise we want
-            // to leave the values in their newly-inverted state and let the user cope with the rest.
-            transitionDefinition && controls.start(target);
-            // Force a render to ensure there's no visual flickering
-            syncRenderSession.flush();
-        });
-        return null;
-    };
-    LayoutAnimation.prototype.componentDidUpdate = function () {
-        layoutSync.flush();
-    };
-    LayoutAnimation.prototype.render = function () {
-        return null;
-    };
-    LayoutAnimation.contextType = SyncLayoutContext;
-    return LayoutAnimation;
-}(react__WEBPACK_IMPORTED_MODULE_0__.Component));
-var Layout = {
-    key: "layout",
-    shouldRender: function (_a) {
-        var positionTransition = _a.positionTransition, layoutTransition = _a.layoutTransition;
-        (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(!(positionTransition && layoutTransition), "Don't set both positionTransition and layoutTransition on the same component");
-        return (typeof window !== "undefined" &&
-            !!(positionTransition || layoutTransition));
-    },
-    Component: LayoutAnimation,
-};
 
-/**
- * A list of all valid MotionProps
- *
- * @internalremarks
- * This doesn't throw if a `MotionProp` name is missing - it should.
- */
-var validMotionProps = new Set([
-    "initial",
-    "animate",
-    "exit",
-    "style",
-    "variants",
-    "transition",
-    "transformTemplate",
-    "transformValues",
-    "custom",
-    "inherit",
-    "static",
-    "positionTransition",
-    "layoutTransition",
-    "onAnimationStart",
-    "onAnimationComplete",
-    "onUpdate",
-    "onDragStart",
-    "onDrag",
-    "onDragEnd",
-    "onDirectionLock",
-    "onDragTransitionEnd",
-    "drag",
-    "dragControls",
-    "dragListener",
-    "dragConstraints",
-    "dragDirectionLock",
-    "dragElastic",
-    "dragMomentum",
-    "dragPropagation",
-    "dragTransition",
-    "_dragValueX",
-    "_dragValueY",
-    "_dragTransitionControls",
-    "dragOriginX",
-    "dragOriginY",
-    "onPan",
-    "onPanStart",
-    "onPanEnd",
-    "onPanSessionStart",
-    "onTap",
-    "onTapStart",
-    "onTapCancel",
-    "whileHover",
-    "whileTap",
-    "onHoverEnd",
-    "onHoverStart",
-]);
-/**
- * Check whether a prop name is a valid `MotionProp` key.
- *
- * @param key - Name of the property to check
- * @returns `true` is key is a valid `MotionProp`.
- *
- * @public
- */
-function isValidMotionProp(key) {
-    return validMotionProps.has(key);
-}
 
-var AnimatePropType;
-(function (AnimatePropType) {
-    AnimatePropType["Target"] = "Target";
-    AnimatePropType["VariantLabel"] = "VariantLabel";
-    AnimatePropType["AnimationSubscription"] = "AnimationSubscription";
-})(AnimatePropType || (AnimatePropType = {}));
 
-function shallowCompare(next, prev) {
-    if (prev === null)
-        return false;
-    var prevLength = prev.length;
-    if (prevLength !== next.length)
-        return false;
-    for (var i = 0; i < prevLength; i++) {
-        if (prev[i] !== next[i])
-            return false;
-    }
-    return true;
-}
+/***/ }),
 
-var hasUpdated = function (prev, next) {
-    return (next !== undefined &&
-        (Array.isArray(prev) && Array.isArray(next)
-            ? !shallowCompare(next, prev)
-            : prev !== next));
-};
-function targetWithoutTransition(_a, mergeTransitionEnd) {
-    if (mergeTransitionEnd === void 0) { mergeTransitionEnd = false; }
-    var transition = _a.transition, transitionEnd = _a.transitionEnd, target = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__rest)(_a, ["transition", "transitionEnd"]);
-    return mergeTransitionEnd
-        ? (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, target), transitionEnd)
-        : target;
-}
-/**
- * Handle the `animate` prop when its an object of values, ie:
- *
- * ```jsx
- * <motion.div animate={{ opacity: 1 }} />
- * ```
- *
- * @internalremarks
- * It might be worth consolidating this with `use-variants`
- *
- * ```jsx
- * <motion.div animate="visible" />
- * ```
- *
- * @param target
- * @param controls
- * @param values
- * @param transition
- *
- * @internal
- */
-function useAnimateProp(targetAndTransition, controls, values, defaultTransition) {
-    var isInitialRender = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
-    var prevValues = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-    if (!prevValues.current) {
-        prevValues.current = targetWithoutTransition(targetAndTransition, true);
-    }
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-        var targetToAnimate = {};
-        // These are the values we're actually animating
-        var animatingTarget = targetWithoutTransition(targetAndTransition);
-        // This is the target as it'll be once transitionEnd values are applied
-        var finalTarget = targetWithoutTransition(targetAndTransition, true);
-        // Detect which values have changed between renders
-        for (var key in animatingTarget) {
-            // This value should animate on mount if this value doesn't already exist (wasn't
-            // defined in `style` or `initial`) or if it does exist and it's already changed.
-            var shouldAnimateOnMount = isInitialRender.current &&
-                (!values.has(key) ||
-                    values.get(key).get() !== finalTarget[key]);
-            // If this value has updated between renders or it's we're animating this value on mount,
-            // add it to the animate target.
-            var isValidValue = finalTarget[key] !== null;
-            var valueHasUpdated = hasUpdated(prevValues.current[key], finalTarget[key]);
-            if (isValidValue && (valueHasUpdated || shouldAnimateOnMount)) {
-                targetToAnimate[key] = animatingTarget[key];
-            }
-        }
-        isInitialRender.current = false;
-        prevValues.current = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, prevValues.current), finalTarget);
-        if (Object.keys(targetToAnimate).length) {
-            controls.start((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, targetToAnimate), { transition: targetAndTransition.transition || defaultTransition, transitionEnd: targetAndTransition.transitionEnd }));
-        }
-    }, [targetAndTransition]);
-}
-
-var labelsToArray = function (label) {
-    if (!label) {
-        return [];
-    }
-    if (Array.isArray(label)) {
-        return label;
-    }
-    return [label];
-};
-var resolveVariantLabels = function (variant) {
-    var unresolvedVariant = variant instanceof MotionValue ? variant.get() : variant;
-    return Array.from(new Set(labelsToArray(unresolvedVariant)));
-};
-/**
- * Hooks in React sometimes accept a dependency array as their final argument. (ie useEffect/useMemo)
- * When values in this array change, React re-runs the dependency. However if the array
- * contains a variable number of items, React throws an error.
- */
-var asDependencyList = function (list) { return [
-    list.join(","),
-]; };
-
-var hasVariantChanged = function (oldVariant, newVariant) {
-    return oldVariant.join(",") !== newVariant.join(",");
-};
-/**
- * Handle variants and the `animate` prop when its set as variant labels.
- *
- * @param initial - Initial variant(s)
- * @param animate - Variant(s) to animate to
- * @param inherit - `true` is inheriting animations from parent
- * @param controls - Animation controls
- *
- * @internal
- */
-function useVariants(initial, animate, inherit, controls) {
-    var targetVariants = resolveVariantLabels(animate);
-    var context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MotionContext);
-    var parentAlreadyMounted = context.hasMounted && context.hasMounted.current;
-    var hasMounted = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-        var shouldAnimate = false;
-        if (inherit) {
-            // If we're inheriting variant changes and the parent has already
-            // mounted when this component loads, we need to manually trigger
-            // this animation.
-            shouldAnimate = !!parentAlreadyMounted;
-            targetVariants = resolveVariantLabels(context.animate);
-        }
-        else {
-            shouldAnimate =
-                hasMounted.current ||
-                    hasVariantChanged(resolveVariantLabels(initial), targetVariants);
-        }
-        shouldAnimate && controls.start(targetVariants);
-        hasMounted.current = true;
-    }, asDependencyList(targetVariants));
-}
-
-/**
- * `useAnimationGroupSubscription` allows a component to subscribe to an
- * externally-created `AnimationControls`, created by the `useAnimation` hook.
- *
- * @param animation
- * @param controls
- *
- * @internal
- */
-function useAnimationGroupSubscription(animation, controls) {
-    var unsubscribe = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () { return animation.subscribe(controls); }, [
-        animation,
-    ]);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () { return function () {
-        unsubscribe && unsubscribe();
-    }; }, [unsubscribe]);
-}
-
-var _a$1, _b;
-var AnimatePropComponents = (_a$1 = {},
-    _a$1[AnimatePropType.Target] = makeRenderlessComponent(function (_a) {
-        var animate = _a.animate, controls = _a.controls, values = _a.values, transition = _a.transition;
-        return useAnimateProp(animate, controls, values, transition);
-    }),
-    _a$1[AnimatePropType.VariantLabel] = makeRenderlessComponent(function (_a) {
-        var animate = _a.animate, _b = _a.inherit, inherit = _b === void 0 ? true : _b, controls = _a.controls, initial = _a.initial;
-        return useVariants(initial, animate, inherit, controls);
-    }),
-    _a$1[AnimatePropType.AnimationSubscription] = makeRenderlessComponent(function (_a) {
-        var animate = _a.animate, controls = _a.controls;
-        return useAnimationGroupSubscription(animate, controls);
-    }),
-    _a$1);
-var isVariantLabel$1 = function (prop) {
-    return Array.isArray(prop) || typeof prop === "string";
-};
-var isAnimationSubscription = function (_a) {
-    var animate = _a.animate;
-    return animate instanceof AnimationControls;
-};
-var animationProps = ["initial", "animate", "whileTap", "whileHover"];
-var animatePropTypeTests = (_b = {},
-    _b[AnimatePropType.Target] = function (props) {
-        return (props.animate !== undefined &&
-            !isVariantLabel$1(props.animate) &&
-            !isAnimationSubscription(props));
-    },
-    _b[AnimatePropType.VariantLabel] = function (props) {
-        return (props.variants !== undefined ||
-            animationProps.some(function (key) { return typeof props[key] === "string"; }));
-    },
-    _b[AnimatePropType.AnimationSubscription] = isAnimationSubscription,
-    _b);
-var getAnimationComponent = function (props) {
-    var animatePropType = undefined;
-    for (var key in AnimatePropType) {
-        if (animatePropTypeTests[key](props)) {
-            animatePropType = key;
-        }
-    }
-    return animatePropType ? AnimatePropComponents[animatePropType] : undefined;
-};
-
-/**
- * When a component is the child of `AnimatePresence`, it can use `usePresence`
- * to access information about whether it's still present in the React tree.
- *
- * ```jsx
- * import { usePresence } from "framer-motion"
- *
- * export const Component = () => {
- *   const [isPresent, safeToRemove] = usePresence()
- *
- *   useEffect(() => {
- *     !isPresent setTimeout(safeToRemove, 1000)
- *   }, [isPresent])
- *
- *   return <div />
- * }
- * ```
- *
- * If `isPresent` is `false`, it means that a component has been removed the tree, but
- * `AnimatePresence` won't really remove it until `safeToRemove` has been called.
- *
- * @public
- */
-function usePresence() {
-    var context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(PresenceContext);
-    if (context === null)
-        return [true];
-    var isPresent = context.isPresent, onExitComplete = context.onExitComplete, register = context.register;
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(register, []);
-    return !isPresent && onExitComplete ? [false, onExitComplete] : [true];
-}
+/***/ "./node_modules/framer-motion/dist/es/value/utils/resolve-motion-value.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/framer-motion/dist/es/value/utils/resolve-motion-value.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-var Exit = {
-    key: "exit",
-    shouldRender: function (props) { return !!props.exit && !checkShouldInheritVariant(props); },
-    Component: makeRenderlessComponent(function (props) {
-        var _a;
-        var animate = props.animate, controls = props.controls, exit = props.exit;
-        var _b = usePresence(), isPresent = _b[0], onExitComplete = _b[1];
-        var presenceContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(PresenceContext);
-        var isPlayingExitAnimation = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(false);
-        var custom = ((_a = presenceContext) === null || _a === void 0 ? void 0 : _a.custom) !== undefined
-            ? presenceContext.custom
-            : props.custom;
-        (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-            if (!isPresent) {
-                if (!isPlayingExitAnimation.current && exit) {
-                    controls.setProps((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, props), { custom: custom }));
-                    controls.start(exit).then(onExitComplete);
-                }
-                isPlayingExitAnimation.current = true;
-            }
-            else if (isPlayingExitAnimation.current &&
-                animate &&
-                !(animate instanceof AnimationControls)) {
-                controls.start(animate);
-            }
-            if (isPresent) {
-                isPlayingExitAnimation.current = false;
-            }
-        }, [isPresent]);
-    }),
-};
-
-var isPropValid = function (key) { return !isValidMotionProp(key); };
-/**
- * Emotion and Styled Components both allow users to pass through arbitrary props to their components
- * to dynamically generate CSS. They both use the `@emotion/is-prop-valid` package to determine which
- * of these should be passed to the underlying DOM node.
- *
- * However, when styling a Motion component `styled(motion.div)`, both packages pass through *all* props
- * as it's seen as an arbitrary component rather than a DOM node. Motion only allows arbitrary props
- * passed through the `custom` prop so it doesn't *need* the payload or computational overhead of
- * `@emotion/is-prop-valid`, however to fix this problem we need to use it.
- *
- * By making it an optionalDependency we can offer this functionality only in the situations where it's
- * actually required.
- */
-try {
-    var emotionIsPropValid_1 = (__webpack_require__(/*! @emotion/is-prop-valid */ "./node_modules/@emotion/is-prop-valid/dist/is-prop-valid.esm.js")["default"]);
-    isPropValid = function (key) {
-        // Handle events explicitly as Emotion validates them all as true
-        if (key.startsWith("on")) {
-            return !isValidMotionProp(key);
-        }
-        else {
-            return emotionIsPropValid_1(key);
-        }
-    };
-}
-catch (_a) {
-    // We don't need to actually do anything here - the fallback is the existing `isPropValid`.
-}
-function filterValidProps(props) {
-    var domProps = {};
-    for (var key in props) {
-        if (isPropValid(key)) {
-            domProps[key] = props[key];
-        }
-    }
-    return domProps;
-}
-var buildHTMLProps = function (values, style, isStatic, isDrag) {
-    // The `any` isn't ideal but it is the type of createElement props argument
-    var props = {
-        style: buildStyleAttr(values, style, isStatic),
-    };
-    if (isDrag) {
-        // Disable text selection
-        props.style.userSelect = "none";
-        // Disable the ghost element when a user drags
-        props.draggable = false;
-    }
-    return props;
-};
-var buildSVGProps = function (values, style) {
-    var motionValueStyles = resolveCurrent(values);
-    var props = (0,stylefire__WEBPACK_IMPORTED_MODULE_3__.buildSVGAttrs)(motionValueStyles, undefined, undefined, undefined, undefined, false);
-    props.style = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, style), props.style);
-    return props;
-};
-var functionalityComponents = [Layout, Drag, Gestures, Exit];
-var numFunctionalityComponents = functionalityComponents.length;
-/**
- * Create a configuration for `motion` components that provides DOM-specific functionality.
- *
- * @internal
- */
-function createDomMotionConfig(Component) {
-    var isDOM = typeof Component === "string";
-    var isSVG = isDOM && svgElements.indexOf(Component) !== -1;
-    return {
-        renderComponent: function (ref, style, values, props, isStatic) {
-            var forwardedProps = isDOM ? filterValidProps(props) : props;
-            var staticVisualStyles = isSVG
-                ? buildSVGProps(values, style)
-                : buildHTMLProps(values, style, isStatic, !!props.drag);
-            return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, forwardedProps), { ref: ref }), staticVisualStyles));
-        },
-        /**
-         * loadFunctionalityComponents gets used by the `motion` component
-         *
-         * Each functionality component gets provided the `ref`, animation controls and the `MotionValuesMap`
-         * generated for that component, as well as all the `props` passed to it by the user.
-         *
-         * The pattern used to determine whether to load and use each piece of functionality is
-         * consistent (should render? Then push component) and could be used to extend functionality.
-         *
-         * By exposing a mutable piece of memory via an API like `extendMotionComponent` we could
-         * allow users to add `FunctionalComponentDefinition`s. This would allow us to offer file size
-         * reductions by shipping an entry point that doesn't load gesture and drag functionality, and
-         * also offer a way for users to develop plugins/other functionality. Because these functionalities
-         * are loaded as components, we can look into using Suspense for this purpose.
-         *
-         * For user-defined functionality we'd need to allow
-         *  1) User-defined prop typing (extending `P`)
-         *  2) User-defined "clean props" function that removes their plugin's props before being passed to the DOM.
-         */
-        loadFunctionalityComponents: function (ref, values, props, context, controls, inherit) {
-            var activeComponents = [];
-            // TODO: Consolidate Animation functionality loading strategy with other functionality components
-            var Animation = getAnimationComponent(props);
-            if (Animation) {
-                activeComponents.push((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Animation, { key: "animation", initial: props.initial, animate: props.animate, variants: props.variants, transition: props.transition, controls: controls, inherit: inherit, values: values }));
-            }
-            for (var i = 0; i < numFunctionalityComponents; i++) {
-                var _a = functionalityComponents[i], shouldRender = _a.shouldRender, key = _a.key, Component_1 = _a.Component;
-                if (shouldRender(props, context)) {
-                    activeComponents.push((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component_1, (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({ key: key }, props, { parentContext: context, values: values, controls: controls, innerRef: ref })));
-                }
-            }
-            return activeComponents;
-        },
-        getValueControlsConfig: function (ref, values) {
-            return {
-                values: values,
-                readValueFromSource: function (key) {
-                    return (0,stylefire__WEBPACK_IMPORTED_MODULE_3__["default"])(ref.current).get(key);
-                },
-                // TODO: This is a good second source of plugins. This function contains the CSS variable
-                // and unit conversion support. These functions share a common signature. We could make another
-                // API for adding these.
-                makeTargetAnimatable: parseDomVariant(values, ref),
-            };
-        },
-    };
-}
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "resolveMotionValue": () => (/* binding */ resolveMotionValue)
+/* harmony export */ });
+/* harmony import */ var _utils_resolve_value_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/resolve-value.js */ "./node_modules/framer-motion/dist/es/utils/resolve-value.js");
+/* harmony import */ var _is_motion_value_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./is-motion-value.js */ "./node_modules/framer-motion/dist/es/value/utils/is-motion-value.js");
 
-var htmlMotionComponents = htmlElements.reduce(function (acc, Component) {
-    var config = createDomMotionConfig(Component);
-    // Suppress "Expression produces a union type that is too complex to represent" error
-    // @ts-ignore
-    acc[Component] = createMotionComponent(config);
-    return acc;
-}, {});
-var svgMotionComponents = svgElements.reduce(function (acc, Component) {
-    // Suppress "Expression produces a union type that is too complex to represent" error
-    // @ts-ignore
-    acc[Component] = createMotionComponent(createDomMotionConfig(Component));
-    return acc;
-}, {});
-/**
- * HTML & SVG components, optimised for use with gestures and animation. These can be used as
- * drop-in replacements for any HTML & SVG component, all CSS & SVG properties are supported.
- *
- * @internalremarks
- *
- * I'd like to make it possible for these to be loaded "on demand" - to reduce bundle size by only
- * including HTML/SVG stylers, animation and/or gesture support when necessary.
- *
- * ```jsx
- * <motion.div animate={{ x: 100 }} />
- *
- * <motion.p animate={{ height: 200 }} />
- *
- * <svg><motion.circle r={10} animate={{ r: 20 }} /></svg>
- * ```
- *
- * @public
- */
-var motion = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({ 
-    /**
-     * Convert a custom React component into a `motion` component.
-     *
-     * It can also accept a string, to create [custom DOM elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements).
-     *
-     * ```jsx
-     * const Component = React.forwardRef((props: Props, ref) => {
-     *   return <div ref={ref} />
-     * })
-     *
-     * const MotionComponent = motion.custom<Props>(Component)
-     * ```
-     *
-     * @param Component -
-     */
-    custom: function custom(Component) {
-        return createMotionComponent(createDomMotionConfig(Component));
-    } }, htmlMotionComponents), svgMotionComponents);
 
-/**
- * Creates a `MotionValue` to track the state and velocity of a value.
- *
- * Usually, these are created automatically. For advanced use-cases, like use with `useTransform`, you can create `MotionValue`s externally and pass them into the animated component via the `style` prop.
- *
- * @library
- *
- * ```jsx
- * export function MyComponent() {
- *   const scale = useMotionValue(1)
- *
- *   return <Frame scale={scale} />
- * }
- * ```
- *
- * @motion
- *
- * ```jsx
- * export const MyComponent = () => {
- *   const scale = useMotionValue(1)
- *
- *   return <motion.div style={{ scale }} />
- * }
- * ```
- *
- * @param initial - The initial state.
- *
- * @public
- */
-function useMotionValue(initial) {
-    return useConstant(function () { return motionValue(initial); });
-}
 
 /**
  * If the provided value is a MotionValue, this returns the actual value, otherwise just the value itself
@@ -5422,882 +9669,11 @@ function useMotionValue(initial) {
  *
  * @internal
  */
-function unwrapMotionValue(value) {
-    var unwrappedValue = value instanceof MotionValue ? value.get() : value;
-    return isCustomValue(unwrappedValue)
+function resolveMotionValue(value) {
+    var unwrappedValue = (0,_is_motion_value_js__WEBPACK_IMPORTED_MODULE_0__.isMotionValue)(value) ? value.get() : value;
+    return (0,_utils_resolve_value_js__WEBPACK_IMPORTED_MODULE_1__.isCustomValue)(unwrappedValue)
         ? unwrappedValue.toValue()
         : unwrappedValue;
-}
-
-var isCustomValueType = function (v) {
-    return typeof v === "object" && v.mix;
-};
-var getMixer = function (v) { return (isCustomValueType(v) ? v.mix : undefined); };
-function transform() {
-    var args = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        args[_i] = arguments[_i];
-    }
-    var useImmediate = !Array.isArray(args[0]);
-    var argOffset = useImmediate ? 0 : -1;
-    var inputValue = args[0 + argOffset];
-    var inputRange = args[1 + argOffset];
-    var outputRange = args[2 + argOffset];
-    var options = args[3 + argOffset];
-    var interpolator = (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_2__.interpolate)(inputRange, outputRange, (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({ mixer: getMixer(outputRange[0]) }, options));
-    return useImmediate ? interpolator(inputValue) : interpolator;
-}
-
-var isTransformer = function (v) {
-    return typeof v === "function";
-};
-var noop$1 = function (v) { return v; };
-function useTransform(parent, customTransform, to, options) {
-    var value = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-    var comparitor = [parent];
-    var transformer = noop$1;
-    if (isTransformer(customTransform)) {
-        transformer = customTransform;
-    }
-    else if (Array.isArray(to)) {
-        var from = customTransform;
-        transformer = transform(from, to, options);
-        comparitor = [parent, from.join(","), to.join(",")];
-    }
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
-        if (value.current)
-            value.current.destroy();
-        value.current = parent.addChild({ transformer: transformer });
-        return value.current;
-    }, comparitor);
-}
-
-// Keep things reasonable and avoid scale: Infinity. In practise we might need
-// to add another value, opacity, that could interpolate scaleX/Y [0,0.01] => [0,1]
-// to simply hide content at unreasonable scales.
-var maxScale = 100000;
-var invertScale = function (scale) { return (scale > 0.001 ? 1 / scale : maxScale); };
-/**
- * Returns a `MotionValue` each for `scaleX` and `scaleY` that update with the inverse
- * of their respective parent scales.
- *
- * This is useful for undoing the distortion of content when scaling a parent component.
- *
- * By default, `useInvertedScale` will automatically fetch `scaleX` and `scaleY` from the nearest parent.
- * By passing other `MotionValue`s in as `useInvertedScale({ scaleX, scaleY })`, it will invert the output
- * of those instead.
- *
- * @motion
- *
- * ```jsx
- * const MyComponent = () => {
- *   const { scaleX, scaleY } = useInvertedScale()
- *   return <motion.div style={{ scaleX, scaleY }} />
- * }
- * ```
- *
- * @library
- *
- * ```jsx
- * function MyComponent() {
- *   const { scaleX, scaleY } = useInvertedScale()
- *   return <Frame scaleX={scaleX} scaleY={scaleY} />
- * }
- * ```
- *
- * @public
- */
-function useInvertedScale(scale) {
-    var parentScaleX = useMotionValue(1);
-    var parentScaleY = useMotionValue(1);
-    var values = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MotionContext).values;
-    (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(!!(scale || values), "If no scale values are provided, useInvertedScale must be used within a child of another motion component.");
-    if (scale) {
-        parentScaleX = scale.scaleX || parentScaleX;
-        parentScaleY = scale.scaleY || parentScaleY;
-    }
-    else if (values) {
-        parentScaleX = values.get("scaleX", 1);
-        parentScaleY = values.get("scaleY", 1);
-    }
-    var scaleX = useTransform(parentScaleX, invertScale);
-    var scaleY = useTransform(parentScaleY, invertScale);
-    return { scaleX: scaleX, scaleY: scaleY };
-}
-
-function useOnChange(value, callback) {
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () { return (isMotionValue(value) ? value.onChange(callback) : undefined); }, [value]);
-}
-
-/**
- * Creates a `MotionValue` that, when `set`, will use a spring animation to animate to its new state.
- *
- * It can either work as a stand-alone `MotionValue` by initialising it with a value, or as a subscriber
- * to another `MotionValue`.
- *
- * @remarks
- *
- * ```jsx
- * const x = useSpring(0, { stiffness: 300 })
- * const y = useSpring(x, { damping: 10 })
- * ```
- *
- * @param inputValue - `MotionValue` or number. If provided a `MotionValue`, when the input `MotionValue` changes, the created `MotionValue` will spring towards that value.
- * @param springConfig - Configuration options for the spring.
- * @returns `MotionValue`
- *
- * @public
- */
-function useSpring(source, config) {
-    if (config === void 0) { config = {}; }
-    var activeSpringAnimation = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
-    var value = useMotionValue(isMotionValue(source) ? source.get() : source);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
-        return value.attach(function (v, set) {
-            if (activeSpringAnimation.current) {
-                activeSpringAnimation.current.stop();
-            }
-            activeSpringAnimation.current = (0,popmotion__WEBPACK_IMPORTED_MODULE_6__.spring)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({ from: value.get(), to: v, velocity: value.getVelocity() }, config)).start(set);
-            return value.get();
-        });
-    }, Object.values(config));
-    useOnChange(source, function (v) { return value.set(parseFloat(v)); });
-    return value;
-}
-
-function createScrollMotionValues() {
-    return {
-        scrollX: motionValue(0),
-        scrollY: motionValue(0),
-        scrollXProgress: motionValue(0),
-        scrollYProgress: motionValue(0),
-    };
-}
-function setProgress(offset, maxOffset, value) {
-    value.set(!offset || !maxOffset ? 0 : offset / maxOffset);
-}
-function createScrollUpdater(values, getOffsets) {
-    var update = function () {
-        var _a = getOffsets(), xOffset = _a.xOffset, yOffset = _a.yOffset, xMaxOffset = _a.xMaxOffset, yMaxOffset = _a.yMaxOffset;
-        // Set absolute positions
-        values.scrollX.set(xOffset);
-        values.scrollY.set(yOffset);
-        // Set 0-1 progress
-        setProgress(xOffset, xMaxOffset, values.scrollXProgress);
-        setProgress(yOffset, yMaxOffset, values.scrollYProgress);
-    };
-    update();
-    return update;
-}
-
-var isBrowser$2 = typeof window !== "undefined";
-var useIsomorphicLayoutEffect = isBrowser$2 ? react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect : react__WEBPACK_IMPORTED_MODULE_0__.useEffect;
-
-var getElementScrollOffsets = function (element) { return function () {
-    return {
-        xOffset: element.scrollLeft,
-        yOffset: element.scrollTop,
-        xMaxOffset: element.scrollWidth - element.offsetWidth,
-        yMaxOffset: element.scrollHeight - element.offsetHeight,
-    };
-}; };
-/**
- * Returns MotionValues that update when the provided element scrolls:
- *
- * - `scrollX` — Horizontal scroll distance in pixels.
- * - `scrollY` — Vertical scroll distance in pixels.
- * - `scrollXProgress` — Horizontal scroll progress between `0` and `1`.
- * - `scrollYProgress` — Vertical scroll progress between `0` and `1`.
- *
- * @library
- *
- * ```jsx
- * import * as React from "react"
- * import {
- *   Frame,
- *   useElementScroll,
- *   useTransform
- * } from "framer"
- *
- * export function MyComponent() {
- *   const ref = React.useRef()
- *   const { scrollYProgress } = useElementScroll(ref)
- *
- *   return (
- *     <Frame ref={ref}>
- *       <Frame scaleX={scrollYProgress} />
- *     </Frame>
- *   )
- * }
- * ```
- *
- * @motion
- *
- * ```jsx
- * export const MyComponent = () => {
- *   const ref = useRef()
- *   const { scrollYProgress } = useElementScroll(ref)
- *
- *   return (
- *     <div ref={ref}>
- *       <motion.div style={{ scaleX: scrollYProgress }} />
- *     </div>
- *   )
- * }
- * ```
- *
- * @public
- */
-function useElementScroll(ref) {
-    var values = useConstant(createScrollMotionValues);
-    useIsomorphicLayoutEffect(function () {
-        var element = ref.current;
-        (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(!!element, "ref provided to useScroll must be passed into a HTML element.");
-        if (!element)
-            return;
-        var updateScrollValues = createScrollUpdater(values, getElementScrollOffsets(element));
-        var scrollListener = addDomEvent(element, "scroll", updateScrollValues, { passive: true });
-        var resizeListener = addDomEvent(element, "resize", updateScrollValues);
-        return function () {
-            scrollListener && scrollListener();
-            resizeListener && resizeListener();
-        };
-    }, []);
-    return values;
-}
-
-var viewportScrollValues = createScrollMotionValues();
-function getViewportScrollOffsets() {
-    return {
-        xOffset: window.pageXOffset,
-        yOffset: window.pageYOffset,
-        xMaxOffset: document.body.clientWidth - window.innerWidth,
-        yMaxOffset: document.body.clientHeight - window.innerHeight,
-    };
-}
-var hasListeners = false;
-function addEventListeners() {
-    hasListeners = true;
-    if (typeof window === "undefined")
-        return;
-    var updateScrollValues = createScrollUpdater(viewportScrollValues, getViewportScrollOffsets);
-    addDomEvent(window, "scroll", updateScrollValues, { passive: true });
-    addDomEvent(window, "resize", updateScrollValues);
-}
-/**
- * Returns MotionValues that update when the viewport scrolls:
- *
- * - `scrollX` — Horizontal scroll distance in pixels.
- * - `scrollY` — Vertical scroll distance in pixels.
- * - `scrollXProgress` — Horizontal scroll progress between `0` and `1`.
- * - `scrollYProgress` — Vertical scroll progress between `0` and `1`.
- *
- * @library
- *
- * ```jsx
- * import * as React from "react"
- * import {
- *   Frame,
- *   useViewportScroll,
- *   useTransform
- * } from "framer"
- *
- * export function MyComponent() {
- *   const { scrollYProgress } = useViewportScroll()
- *   return <Frame scaleX={scrollYProgress} />
- * }
- * ```
- *
- * @motion
- *
- * ```jsx
- * export const MyComponent = () => {
- *   const { scrollYProgress } = useViewportScroll()
- *   return <motion.div style={{ scaleX: scrollYProgress }} />
- * }
- * ```
- *
- * @public
- */
-function useViewportScroll() {
-    useIsomorphicLayoutEffect(function () {
-        !hasListeners && addEventListeners();
-    }, []);
-    return viewportScrollValues;
-}
-
-/**
- * Creates `AnimationControls`, which can be used to manually start, stop
- * and sequence animations on one or more components.
- *
- * The returned `AnimationControls` should be passed to the `animate` property
- * of the components you want to animate.
- *
- * These components can then be animated with the `start` method.
- *
- * @library
- *
- * ```jsx
- * import * as React from 'react'
- * import { Frame, useAnimation } from 'framer'
- *
- * export function MyComponent(props) {
- *    const controls = useAnimation()
- *
- *    controls.start({
- *        x: 100,
- *        transition: { duration: 0.5 },
- *    })
- *
- *    return <Frame animate={controls} />
- * }
- * ```
- *
- * @motion
- *
- * ```jsx
- * import * as React from 'react'
- * import { motion, useAnimation } from 'framer-motion'
- *
- * export function MyComponent(props) {
- *    const controls = useAnimation()
- *
- *    controls.start({
- *        x: 100,
- *        transition: { duration: 0.5 },
- *    })
- *
- *    return <motion.div animate={controls} />
- * }
- * ```
- *
- * @returns Animation controller with `start` and `stop` methods
- *
- * @public
- */
-function useAnimation() {
-    var animationControls = useConstant(function () { return new AnimationControls(); });
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-        animationControls.mount();
-        return function () { return animationControls.unmount(); };
-    }, []);
-    return animationControls;
-}
-
-/**
- * Experimental API.
- *
- * Makes an animated version of `useState`.
- *
- * @remarks
- *
- * When the returned state setter is called, values will be animated to their new target.
- *
- * This allows the animation of arbitrary React components.
- *
- * **Note:** When animating DOM components, it's always preferable to use the `animate` prop, as Framer
- * will bypass React's rendering cycle with one optimised for 60fps motion. This Hook is specifically
- * for animating props on arbitrary React components, or for animating text content.
- *
- * ```jsx
- * const [state, setState] = useAnimatedState({ percentage: 0 })
- *
- * return (
- *   <Graph
- *     percentage={state.percentage}
- *     onTap={() => setState({ percentage: 50 })}
- *   />
- * )
- * ```
- *
- * @internalremarks
- *
- * TODO:
- * - Make hook accept a typed version of Target that accepts any value (not just DOM values)
- * - Allow hook to accept single values. ie useAnimatedState(0)
- * - Allow providing MotionValues via initialState.
- *
- * @beta
- */
-function useAnimatedState(initialState) {
-    var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialState), animationState = _a[0], onUpdate = _a[1];
-    var config = useConstant(function () { return ({ onUpdate: onUpdate }); });
-    var values = useMotionValues(config);
-    var controls = useValueAnimationControls({
-        values: values,
-        readValueFromSource: function (key) { return animationState[key]; },
-    }, {}, false);
-    var startAnimation = useConstant(function () { return function (animationDefinition) {
-        return controls.start(animationDefinition);
-    }; });
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-        values.mount();
-        return function () { return values.unmount(); };
-    }, []);
-    return [animationState, startAnimation];
-}
-
-/**
- * Cycles through a series of visual properties. Can be used to toggle between or cycle through animations. It works similar to `useState` in React. It is provided an initial array of possible states, and returns an array of two arguments.
- *
- * @library
- *
- * ```jsx
- * import * as React from "react"
- * import { Frame, useCycle } from "framer"
- *
- * export function MyComponent() {
- *   const [x, cycleX] = useCycle(0, 50, 100)
- *
- *   return (
- *     <Frame
- *       animate={{ x: x }}
- *       onTap={() => cycleX()}
- *      />
- *    )
- * }
- * ```
- *
- * @motion
- *
- * An index value can be passed to the returned `cycle` function to cycle to a specific index.
- *
- * ```jsx
- * import * as React from "react"
- * import { motion, useCycle } from "framer-motion"
- *
- * export const MyComponent = () => {
- *   const [x, cycleX] = useCycle(0, 50, 100)
- *
- *   return (
- *     <motion.div
- *       animate={{ x: x }}
- *       onTap={() => cycleX()}
- *      />
- *    )
- * }
- * ```
- *
- * @param items - items to cycle through
- * @returns [currentState, cycleState]
- *
- * @public
- */
-function useCycle() {
-    var items = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        items[_i] = arguments[_i];
-    }
-    // TODO: After Framer X beta, remove this warning
-    (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.warning)(items.length > 1, "useCycle syntax has changed. `useCycle([0, 1, 2])` becomes `useCycle(0, 1, 2)`");
-    var index = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
-    var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(items[index.current]), item = _a[0], setItem = _a[1];
-    return [
-        item,
-        function (next) {
-            index.current =
-                typeof next !== "number"
-                    ? (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_2__.wrap)(0, items.length, index.current + 1)
-                    : next;
-            setItem(items[index.current]);
-        },
-    ];
-}
-
-/**
- * Can manually trigger a drag gesture on one or more `drag`-enabled `motion` components.
- *
- * @library
- *
- * ```jsx
- * const dragControls = useDragControls()
- *
- * function startDrag(event) {
- *   dragControls.start(event, { snapToCursor: true })
- * }
- *
- * return (
- *   <>
- *     <Frame onTapStart={startDrag} />
- *     <Frame drag="x" dragControls={dragControls} />
- *   </>
- * )
- * ```
- *
- * @motion
- *
- * ```jsx
- * const dragControls = useDragControls()
- *
- * function startDrag(event) {
- *   dragControls.start(event, { snapToCursor: true })
- * }
- *
- * return (
- *   <>
- *     <div onMouseDown={startDrag} />
- *     <motion.div drag="x" dragControls={dragControls} />
- *   </>
- * )
- * ```
- *
- * @public
- */
-var DragControls = /** @class */ (function () {
-    function DragControls() {
-        this.componentControls = new Set();
-    }
-    /**
-     * Subscribe a component's internal `ComponentDragControls` to the user-facing API.
-     *
-     * @internal
-     */
-    DragControls.prototype.subscribe = function (controls) {
-        var _this = this;
-        this.componentControls.add(controls);
-        return function () { return _this.componentControls.delete(controls); };
-    };
-    /**
-     * Start a drag gesture on every `motion` component that has this set of drag controls
-     * passed into it via the `dragControls` prop.
-     *
-     * ```jsx
-     * dragControls.start(e, {
-     *   snapToCursor: true
-     * })
-     * ```
-     *
-     * @param event - A mouse/touch/pointer event.
-     * @param options - Options
-     *
-     * @public
-     */
-    DragControls.prototype.start = function (event, options) {
-        this.componentControls.forEach(function (controls) {
-            controls.start(event.nativeEvent || event, options);
-        });
-    };
-    return DragControls;
-}());
-var createDragControls = function () { return new DragControls(); };
-/**
- * Usually, dragging is initiated by pressing down on a `motion` component with a `drag` prop
- * and moving it. For some use-cases, for instance clicking at an arbitrary point on a video scrubber, we
- * might want to initiate that dragging from a different component than the draggable one.
- *
- * By creating a `dragControls` using the `useDragControls` hook, we can pass this into
- * the draggable component's `dragControls` prop. It exposes a `start` method
- * that can start dragging from pointer events on other components.
- *
- * @library
- *
- * ```jsx
- * const dragControls = useDragControls()
- *
- * function startDrag(event) {
- *   dragControls.start(event, { snapToCursor: true })
- * }
- *
- * return (
- *   <>
- *     <Frame onTapStart={startDrag} />
- *     <Frame drag="x" dragControls={dragControls} />
- *   </>
- * )
- * ```
- *
- * @motion
- *
- * ```jsx
- * const dragControls = useDragControls()
- *
- * function startDrag(event) {
- *   dragControls.start(event, { snapToCursor: true })
- * }
- *
- * return (
- *   <>
- *     <div onMouseDown={startDrag} />
- *     <motion.div drag="x" dragControls={dragControls} />
- *   </>
- * )
- * ```
- *
- * @public
- */
-function useDragControls() {
-    return useConstant(createDragControls);
-}
-
-var PresenceChild = function (_a) {
-    var children = _a.children, initial = _a.initial, isPresent = _a.isPresent, onExitComplete = _a.onExitComplete, custom = _a.custom;
-    var numPresenceChildren = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
-    var numExitComplete = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
-    var context = {
-        initial: initial,
-        isPresent: isPresent,
-        custom: custom,
-        onExitComplete: function () {
-            numExitComplete.current++;
-            var allComplete = numExitComplete.current >= numPresenceChildren.current;
-            onExitComplete && allComplete && onExitComplete();
-        },
-    };
-    var register = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
-        numExitComplete.current = 0;
-        return function () {
-            numPresenceChildren.current++;
-            return function () { return numPresenceChildren.current--; };
-        };
-    }, [isPresent]);
-    return ((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PresenceContext.Provider, { value: (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, context), { register: register }) }, children));
-};
-
-function getChildKey(child) {
-    return child.key || "";
-}
-function updateChildLookup(children, allChildren) {
-    var seenChildren =  true ? new Set() : 0;
-    children.forEach(function (child) {
-        var key = getChildKey(child);
-        if ( true && seenChildren) {
-            if (seenChildren.has(key)) {
-                console.warn("Children of AnimatePresence require unique keys. \"" + key + "\" is a duplicate.");
-            }
-            seenChildren.add(key);
-        }
-        allChildren.set(key, child);
-    });
-}
-function onlyElements(children) {
-    var filtered = [];
-    // We use forEach here instead of map as map mutates the component key by preprending `.$`
-    react__WEBPACK_IMPORTED_MODULE_0__.Children.forEach(children, function (child) {
-        if ((0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(child))
-            filtered.push(child);
-    });
-    return filtered;
-}
-/**
- * `AnimatePresence` enables the animation of components that have been removed from the tree.
- *
- * When adding/removing more than a single child, every child **must** be given a unique `key` prop.
- *
- * @library
- *
- * Any `Frame` components that have an `exit` property defined will animate out when removed from
- * the tree.
- *
- * ```jsx
- * import { Frame, AnimatePresence } from 'framer'
- *
- * // As items are added and removed from `items`
- * export function Items({ items }) {
- *   return (
- *     <AnimatePresence>
- *       {items.map(item => (
- *         <Frame
- *           key={item.id}
- *           initial={{ opacity: 0 }}
- *           animate={{ opacity: 1 }}
- *           exit={{ opacity: 0 }}
- *         />
- *       ))}
- *     </AnimatePresence>
- *   )
- * }
- * ```
- *
- * You can sequence exit animations throughout a tree using variants.
- *
- * @motion
- *
- * Any `motion` components that have an `exit` property defined will animate out when removed from
- * the tree.
- *
- * ```jsx
- * import { motion, AnimatePresence } from 'framer-motion'
- *
- * export const Items = ({ items }) => (
- *   <AnimatePresence>
- *     {items.map(item => (
- *       <motion.div
- *         key={item.id}
- *         initial={{ opacity: 0 }}
- *         animate={{ opacity: 1 }}
- *         exit={{ opacity: 0 }}
- *       />
- *     ))}
- *   </AnimatePresence>
- * )
- * ```
- *
- * You can sequence exit animations throughout a tree using variants.
- *
- * If a child contains multiple `motion` components with `exit` props, it will only unmount the child
- * once all `motion` components have finished animating out. Likewise, any components using
- * `usePresence` all need to call `safeToRemove`.
- *
- * @public
- */
-var AnimatePresence = function (_a) {
-    var children = _a.children, custom = _a.custom, _b = _a.initial, initial = _b === void 0 ? true : _b, onExitComplete = _a.onExitComplete, exitBeforeEnter = _a.exitBeforeEnter;
-    // We want to force a re-render once all exiting animations have finished. We
-    // either use a local forceUpdate function, or one from a parent context if it exists.
-    var localForceUpdate = useForceUpdate();
-    var contextForceUpdate = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(SyncLayoutContext);
-    var forceUpdate = contextForceUpdate || localForceUpdate;
-    var isInitialRender = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(true);
-    // Filter out any children that aren't ReactElements. We can only track ReactElements with a props.key
-    var filteredChildren = onlyElements(children);
-    // Keep a living record of the children we're actually rendering so we
-    // can diff to figure out which are entering and exiting
-    var presentChildren = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(filteredChildren);
-    // A lookup table to quickly reference components by key
-    var allChildren = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Map())
-        .current;
-    // A living record of all currently exiting components.
-    var exiting = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(new Set()).current;
-    updateChildLookup(filteredChildren, allChildren);
-    // If this is the initial component render, just deal with logic surrounding whether
-    // we play onMount animations or not.
-    if (isInitialRender.current) {
-        isInitialRender.current = false;
-        return ((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, filteredChildren.map(function (child) { return ((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? undefined : false }, child)); })));
-    }
-    // If this is a subsequent render, deal with entering and exiting children
-    var childrenToRender = (0,tslib__WEBPACK_IMPORTED_MODULE_8__.__spreadArrays)(filteredChildren);
-    // Diff the keys of the currently-present and target children to update our
-    // exiting list.
-    var presentKeys = presentChildren.current.map(getChildKey);
-    var targetKeys = filteredChildren.map(getChildKey);
-    // Diff the present children with our target children and mark those that are exiting
-    var numPresent = presentKeys.length;
-    for (var i = 0; i < numPresent; i++) {
-        var key = presentKeys[i];
-        if (targetKeys.indexOf(key) === -1) {
-            exiting.add(key);
-        }
-        else {
-            // In case this key has re-entered, remove from the exiting list
-            exiting.delete(key);
-        }
-    }
-    // If we currently have exiting children, and we're deferring rendering incoming children
-    // until after all current children have exiting, empty the childrenToRender array
-    if (exitBeforeEnter && exiting.size) {
-        childrenToRender = [];
-    }
-    // Loop through all currently exiting components and clone them to overwrite `animate`
-    // with any `exit` prop they might have defined.
-    exiting.forEach(function (key) {
-        // If this component is actually entering again, early return
-        if (targetKeys.indexOf(key) !== -1)
-            return;
-        var child = allChildren.get(key);
-        if (!child)
-            return;
-        var insertionIndex = presentKeys.indexOf(key);
-        var onExit = function () {
-            exiting.delete(key);
-            // Remove this child from the present children
-            var removeIndex = presentChildren.current.findIndex(function (child) { return child.key === key; });
-            presentChildren.current.splice(removeIndex, 1);
-            // Defer re-rendering until all exiting children have indeed left
-            if (!exiting.size) {
-                presentChildren.current = filteredChildren;
-                forceUpdate();
-                onExitComplete && onExitComplete();
-            }
-        };
-        childrenToRender.splice(insertionIndex, 0, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom: custom }, child));
-    });
-    // Add `MotionContext` even to children that don't need it to ensure we're rendering
-    // the same tree between renders
-    childrenToRender = childrenToRender.map(function (child) {
-        var key = child.key;
-        return exiting.has(key) ? (child) : ((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PresenceChild, { key: getChildKey(child), isPresent: true }, child));
-    });
-    presentChildren.current = childrenToRender;
-    if ( true &&
-        exitBeforeEnter &&
-        childrenToRender.length > 1) {
-        console.warn("You're attempting to animate multiple children within AnimatePresence, but its exitBeforeEnter prop is set to true. This will lead to odd visual behaviour.");
-    }
-    return ((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, exiting.size
-        ? childrenToRender
-        : childrenToRender.map(function (child) { return (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(child); })));
-};
-
-// Does this device prefer reduced motion? Returns `null` server-side.
-var prefersReducedMotion = motionValue(null);
-if (typeof window !== "undefined") {
-    if (window.matchMedia) {
-        var motionMediaQuery_1 = window.matchMedia("(prefers-reduced-motion)");
-        var setReducedMotionPreferences = function () {
-            return prefersReducedMotion.set(motionMediaQuery_1.matches);
-        };
-        motionMediaQuery_1.addListener(setReducedMotionPreferences);
-        setReducedMotionPreferences();
-    }
-    else {
-        prefersReducedMotion.set(false);
-    }
-}
-function determineShouldReduceMotion(prefersReduced, isReducedMotion) {
-    return typeof isReducedMotion === "boolean"
-        ? isReducedMotion
-        : Boolean(prefersReduced);
-}
-
-/**
- * A hook that returns `true` if we should be using reduced motion based on the current device's Reduced Motion setting.
- *
- * This can be used to implement changes to your UI based on Reduced Motion. For instance, replacing motion-sickness inducing
- * `x`/`y` animations with `opacity`, disabling the autoplay of background videos, or turning off parallax motion.
- *
- * It will actively respond to changes and re-render your components with the latest setting.
- *
- * ```jsx
- * export function Sidebar({ isOpen }) {
- *   const shouldReduceMotion = useReducedMotion()
- *   const closedX = shouldReduceMotion ? 0 : "-100%"
- *
- *   return (
- *     <motion.div animate={{
- *       opacity: isOpen ? 1 : 0,
- *       x: isOpen ? 0 : closedX
- *     }} />
- *   )
- * }
- * ```
- *
- * @return boolean
- *
- * @public
- */
-function useReducedMotion() {
-    var isReducedMotion = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MotionContext).isReducedMotion;
-    var _a = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(determineShouldReduceMotion(prefersReducedMotion.get(), isReducedMotion)), shouldReduceMotion = _a[0], setShouldReduceMotion = _a[1];
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-        return prefersReducedMotion.onChange(function (v) {
-            setShouldReduceMotion(determineShouldReduceMotion(v, isReducedMotion));
-        });
-    }, [setShouldReduceMotion, isReducedMotion]);
-    return shouldReduceMotion;
-}
-
-/**
- * Define accessibility options for a tree. Can be used to force the tree into Reduced Motion mode,
- * or disable device detection.
- *
- * @internal
- */
-function ReducedMotion(_a) {
-    var children = _a.children, enabled = _a.enabled;
-    var context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MotionContext);
-    context = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () { return ((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_8__.__assign)({}, context), { isReducedMotion: enabled })); }, [enabled]);
-    return ((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MotionContext.Provider, { value: context }, children));
 }
 
 
@@ -6305,10 +9681,362 @@ function ReducedMotion(_a) {
 
 /***/ }),
 
-/***/ "./node_modules/framesync/dist/framesync.es.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/framesync/dist/framesync.es.js ***!
-  \*****************************************************/
+/***/ "./node_modules/framer-motion/node_modules/tslib/tslib.es6.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/framer-motion/node_modules/tslib/tslib.es6.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "__assign": () => (/* binding */ __assign),
+/* harmony export */   "__asyncDelegator": () => (/* binding */ __asyncDelegator),
+/* harmony export */   "__asyncGenerator": () => (/* binding */ __asyncGenerator),
+/* harmony export */   "__asyncValues": () => (/* binding */ __asyncValues),
+/* harmony export */   "__await": () => (/* binding */ __await),
+/* harmony export */   "__awaiter": () => (/* binding */ __awaiter),
+/* harmony export */   "__classPrivateFieldGet": () => (/* binding */ __classPrivateFieldGet),
+/* harmony export */   "__classPrivateFieldIn": () => (/* binding */ __classPrivateFieldIn),
+/* harmony export */   "__classPrivateFieldSet": () => (/* binding */ __classPrivateFieldSet),
+/* harmony export */   "__createBinding": () => (/* binding */ __createBinding),
+/* harmony export */   "__decorate": () => (/* binding */ __decorate),
+/* harmony export */   "__exportStar": () => (/* binding */ __exportStar),
+/* harmony export */   "__extends": () => (/* binding */ __extends),
+/* harmony export */   "__generator": () => (/* binding */ __generator),
+/* harmony export */   "__importDefault": () => (/* binding */ __importDefault),
+/* harmony export */   "__importStar": () => (/* binding */ __importStar),
+/* harmony export */   "__makeTemplateObject": () => (/* binding */ __makeTemplateObject),
+/* harmony export */   "__metadata": () => (/* binding */ __metadata),
+/* harmony export */   "__param": () => (/* binding */ __param),
+/* harmony export */   "__read": () => (/* binding */ __read),
+/* harmony export */   "__rest": () => (/* binding */ __rest),
+/* harmony export */   "__spread": () => (/* binding */ __spread),
+/* harmony export */   "__spreadArray": () => (/* binding */ __spreadArray),
+/* harmony export */   "__spreadArrays": () => (/* binding */ __spreadArrays),
+/* harmony export */   "__values": () => (/* binding */ __values)
+/* harmony export */ });
+/******************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    }
+    return __assign.apply(this, arguments);
+}
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+}
+
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+var __createBinding = Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+});
+
+function __exportStar(m, o) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p)) __createBinding(o, m, p);
+}
+
+function __values(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+
+/** @deprecated */
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+
+/** @deprecated */
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+}
+
+function __spreadArray(to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+}
+
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+}
+
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+}
+
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+}
+
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+
+var __setModuleDefault = Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+};
+
+function __importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+}
+
+function __importDefault(mod) {
+    return (mod && mod.__esModule) ? mod : { default: mod };
+}
+
+function __classPrivateFieldGet(receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+}
+
+function __classPrivateFieldSet(receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
+}
+
+function __classPrivateFieldIn(state, receiver) {
+    if (receiver === null || (typeof receiver !== "object" && typeof receiver !== "function")) throw new TypeError("Cannot use 'in' operator on non-object");
+    return typeof state === "function" ? receiver === state : state.has(receiver);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/framesync/dist/es/create-render-step.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/framesync/dist/es/create-render-step.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createRenderStep": () => (/* binding */ createRenderStep)
+/* harmony export */ });
+function createRenderStep(runNextFrame) {
+    var toRun = [];
+    var toRunNextFrame = [];
+    var numToRun = 0;
+    var isProcessing = false;
+    var toKeepAlive = new WeakSet();
+    var step = {
+        schedule: function (callback, keepAlive, immediate) {
+            if (keepAlive === void 0) { keepAlive = false; }
+            if (immediate === void 0) { immediate = false; }
+            var addToCurrentFrame = immediate && isProcessing;
+            var buffer = addToCurrentFrame ? toRun : toRunNextFrame;
+            if (keepAlive)
+                toKeepAlive.add(callback);
+            if (buffer.indexOf(callback) === -1) {
+                buffer.push(callback);
+                if (addToCurrentFrame && isProcessing)
+                    numToRun = toRun.length;
+            }
+            return callback;
+        },
+        cancel: function (callback) {
+            var index = toRunNextFrame.indexOf(callback);
+            if (index !== -1)
+                toRunNextFrame.splice(index, 1);
+            toKeepAlive.delete(callback);
+        },
+        process: function (frameData) {
+            var _a;
+            isProcessing = true;
+            _a = [toRunNextFrame, toRun], toRun = _a[0], toRunNextFrame = _a[1];
+            toRunNextFrame.length = 0;
+            numToRun = toRun.length;
+            if (numToRun) {
+                for (var i = 0; i < numToRun; i++) {
+                    var callback = toRun[i];
+                    callback(frameData);
+                    if (toKeepAlive.has(callback)) {
+                        step.schedule(callback);
+                        runNextFrame();
+                    }
+                }
+            }
+            isProcessing = false;
+        },
+    };
+    return step;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framesync/dist/es/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/framesync/dist/es/index.js ***!
+  \*************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6316,94 +10044,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "cancelSync": () => (/* binding */ cancelSync),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   "flushSync": () => (/* binding */ flushSync),
 /* harmony export */   "getFrameData": () => (/* binding */ getFrameData)
 /* harmony export */ });
-/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
+/* harmony import */ var _on_next_frame_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./on-next-frame.js */ "./node_modules/framesync/dist/es/on-next-frame.js");
+/* harmony import */ var _create_render_step_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./create-render-step.js */ "./node_modules/framesync/dist/es/create-render-step.js");
 
 
-var prevTime = 0;
-var onNextFrame = typeof window !== 'undefined' && window.requestAnimationFrame !== undefined ? function (callback) {
-    return window.requestAnimationFrame(callback);
-} : function (callback) {
-    var timestamp = Date.now();
-    var timeToCall = Math.max(0, 16.7 - (timestamp - prevTime));
-    prevTime = timestamp + timeToCall;
-    setTimeout(function () {
-        return callback(prevTime);
-    }, timeToCall);
-};
-
-var createStep = function (setRunNextFrame) {
-    var processToRun = [];
-    var processToRunNextFrame = [];
-    var numThisFrame = 0;
-    var isProcessing = false;
-    var i = 0;
-    var cancelled = new WeakSet();
-    var toKeepAlive = new WeakSet();
-    var renderStep = {
-        cancel: function (process) {
-            var indexOfCallback = processToRunNextFrame.indexOf(process);
-            cancelled.add(process);
-            if (indexOfCallback !== -1) {
-                processToRunNextFrame.splice(indexOfCallback, 1);
-            }
-        },
-        process: function (frame) {
-            var _a;
-            isProcessing = true;
-            _a = [processToRunNextFrame, processToRun], processToRun = _a[0], processToRunNextFrame = _a[1];
-            processToRunNextFrame.length = 0;
-            numThisFrame = processToRun.length;
-            if (numThisFrame) {
-                var process_1;
-                for (i = 0; i < numThisFrame; i++) {
-                    process_1 = processToRun[i];
-                    process_1(frame);
-                    if (toKeepAlive.has(process_1) === true && !cancelled.has(process_1)) {
-                        renderStep.schedule(process_1);
-                        setRunNextFrame(true);
-                    }
-                }
-            }
-            isProcessing = false;
-        },
-        schedule: function (process, keepAlive, immediate) {
-            if (keepAlive === void 0) {
-                keepAlive = false;
-            }
-            if (immediate === void 0) {
-                immediate = false;
-            }
-            (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.invariant)(typeof process === "function", "Argument must be a function");
-            var addToCurrentBuffer = immediate && isProcessing;
-            var buffer = addToCurrentBuffer ? processToRun : processToRunNextFrame;
-            cancelled.delete(process);
-            if (keepAlive) toKeepAlive.add(process);
-            if (buffer.indexOf(process) === -1) {
-                buffer.push(process);
-                if (addToCurrentBuffer) numThisFrame = processToRun.length;
-            }
-        }
-    };
-    return renderStep;
-};
 
 var maxElapsed = 40;
-var defaultElapsed = 1 / 60 * 1000;
 var useDefaultElapsed = true;
-var willRunNextFrame = false;
+var runNextFrame = false;
 var isProcessing = false;
 var frame = {
     delta: 0,
     timestamp: 0
 };
 var stepsOrder = ["read", "update", "preRender", "render", "postRender"];
-var setWillRunNextFrame = function (willRun) {
-    return willRunNextFrame = willRun;
-};
 var steps = /*#__PURE__*/stepsOrder.reduce(function (acc, key) {
-    acc[key] = createStep(setWillRunNextFrame);
+    acc[key] = (0,_create_render_step_js__WEBPACK_IMPORTED_MODULE_1__.createRenderStep)(function () {
+        return runNextFrame = true;
+    });
     return acc;
 }, {});
 var sync = /*#__PURE__*/stepsOrder.reduce(function (acc, key) {
@@ -6415,9 +10076,8 @@ var sync = /*#__PURE__*/stepsOrder.reduce(function (acc, key) {
         if (immediate === void 0) {
             immediate = false;
         }
-        if (!willRunNextFrame) startLoop();
-        step.schedule(process, keepAlive, immediate);
-        return process;
+        if (!runNextFrame) startLoop();
+        return step.schedule(process, keepAlive, immediate);
     };
     return acc;
 }, {});
@@ -6425,32 +10085,66 @@ var cancelSync = /*#__PURE__*/stepsOrder.reduce(function (acc, key) {
     acc[key] = steps[key].cancel;
     return acc;
 }, {});
+var flushSync = /*#__PURE__*/stepsOrder.reduce(function (acc, key) {
+    acc[key] = function () {
+        return steps[key].process(frame);
+    };
+    return acc;
+}, {});
 var processStep = function (stepId) {
     return steps[stepId].process(frame);
 };
 var processFrame = function (timestamp) {
-    willRunNextFrame = false;
-    frame.delta = useDefaultElapsed ? defaultElapsed : Math.max(Math.min(timestamp - frame.timestamp, maxElapsed), 1);
-    if (!useDefaultElapsed) defaultElapsed = frame.delta;
+    runNextFrame = false;
+    frame.delta = useDefaultElapsed ? _on_next_frame_js__WEBPACK_IMPORTED_MODULE_0__.defaultTimestep : Math.max(Math.min(timestamp - frame.timestamp, maxElapsed), 1);
     frame.timestamp = timestamp;
     isProcessing = true;
     stepsOrder.forEach(processStep);
     isProcessing = false;
-    if (willRunNextFrame) {
+    if (runNextFrame) {
         useDefaultElapsed = false;
-        onNextFrame(processFrame);
+        (0,_on_next_frame_js__WEBPACK_IMPORTED_MODULE_0__.onNextFrame)(processFrame);
     }
 };
 var startLoop = function () {
-    willRunNextFrame = true;
+    runNextFrame = true;
     useDefaultElapsed = true;
-    if (!isProcessing) onNextFrame(processFrame);
+    if (!isProcessing) (0,_on_next_frame_js__WEBPACK_IMPORTED_MODULE_0__.onNextFrame)(processFrame);
 };
 var getFrameData = function () {
     return frame;
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (sync);
+
+
+
+/***/ }),
+
+/***/ "./node_modules/framesync/dist/es/on-next-frame.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/framesync/dist/es/on-next-frame.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "defaultTimestep": () => (/* binding */ defaultTimestep),
+/* harmony export */   "onNextFrame": () => (/* binding */ onNextFrame)
+/* harmony export */ });
+var defaultTimestep = (1 / 60) * 1000;
+var getCurrentTime = typeof performance !== "undefined"
+    ? function () { return performance.now(); }
+    : function () { return Date.now(); };
+var onNextFrame = typeof window !== "undefined"
+    ? function (callback) {
+        return window.requestAnimationFrame(callback);
+    }
+    : function (callback) {
+        return setTimeout(function () { return callback(getCurrentTime()); }, defaultTimestep);
+    };
+
 
 
 
@@ -8644,8 +12338,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.esm.js");
 /* harmony import */ var _styles_Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../styles/Button */ "./src/styles/Button.js");
-/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/framer-motion.es.js");
-/* harmony import */ var _assets_logo_overvue_trans_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../assets/logo/overvue_trans.png */ "./src/assets/logo/overvue_trans.png");
+/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/render/dom/motion.js");
+/* harmony import */ var _assets_logo_overvue_trans_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/logo/overvue_trans.png */ "./src/assets/logo/overvue_trans.png");
 
 
 
@@ -8677,8 +12371,8 @@ const Hero = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cre
 }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
   alt: "OverVue logo",
   id: "mainLogo",
-  src: _assets_logo_overvue_trans_png__WEBPACK_IMPORTED_MODULE_3__["default"]
-}))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(framer_motion__WEBPACK_IMPORTED_MODULE_2__.motion.p, {
+  src: _assets_logo_overvue_trans_png__WEBPACK_IMPORTED_MODULE_2__["default"]
+}))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(framer_motion__WEBPACK_IMPORTED_MODULE_3__.motion.p, {
   initial: "hidden",
   animate: "visible",
   variants: variants,
@@ -8686,7 +12380,7 @@ const Hero = () => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cre
     delay: 1
   },
   className: "subtitle"
-}, "Prototype driven development"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(framer_motion__WEBPACK_IMPORTED_MODULE_2__.motion.div, {
+}, "Prototype driven development"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(framer_motion__WEBPACK_IMPORTED_MODULE_3__.motion.div, {
   initial: "hidden",
   animate: "visible",
   variants: button,
@@ -9699,1419 +13393,779 @@ function mitt(all                 ) {
 
 /***/ }),
 
-/***/ "./node_modules/popmotion/dist/popmotion.es.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/popmotion/dist/popmotion.es.js ***!
-  \*****************************************************/
+/***/ "./node_modules/popmotion/dist/es/animations/generators/decay.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/animations/generators/decay.js ***!
+  \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Action": () => (/* binding */ Action),
-/* harmony export */   "ValueReaction": () => (/* binding */ ValueReaction),
-/* harmony export */   "action": () => (/* binding */ action),
-/* harmony export */   "chain": () => (/* binding */ chain),
-/* harmony export */   "composite": () => (/* binding */ composite),
-/* harmony export */   "crossfade": () => (/* binding */ crossfade),
-/* harmony export */   "decay": () => (/* binding */ vectorDecay),
-/* harmony export */   "delay": () => (/* binding */ delay),
-/* harmony export */   "everyFrame": () => (/* binding */ frame),
-/* harmony export */   "inertia": () => (/* binding */ index),
-/* harmony export */   "keyframes": () => (/* binding */ keyframes),
-/* harmony export */   "listen": () => (/* binding */ listen),
-/* harmony export */   "merge": () => (/* binding */ merge),
-/* harmony export */   "mouse": () => (/* binding */ mouse),
-/* harmony export */   "multicast": () => (/* binding */ multicast),
-/* harmony export */   "multitouch": () => (/* binding */ multitouch),
-/* harmony export */   "parallel": () => (/* binding */ parallel$1),
-/* harmony export */   "physics": () => (/* binding */ vectorPhysics),
-/* harmony export */   "pointer": () => (/* binding */ index$1),
-/* harmony export */   "schedule": () => (/* binding */ schedule),
-/* harmony export */   "spring": () => (/* binding */ vectorSpring),
-/* harmony export */   "stagger": () => (/* binding */ stagger),
-/* harmony export */   "styler": () => (/* binding */ styler),
-/* harmony export */   "timeline": () => (/* binding */ timeline),
-/* harmony export */   "tween": () => (/* binding */ tween),
-/* harmony export */   "value": () => (/* binding */ value)
+/* harmony export */   "decay": () => (/* binding */ decay)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @popmotion/popcorn */ "./node_modules/@popmotion/popcorn/dist/popcorn.es.js");
-/* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! framesync */ "./node_modules/framesync/dist/framesync.es.js");
-/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/style-value-types.es.js");
-/* harmony import */ var _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @popmotion/easing */ "./node_modules/@popmotion/easing/dist/easing.es.js");
-/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
+function decay(_a) {
+    var _b = _a.velocity, velocity = _b === void 0 ? 0 : _b, _c = _a.from, from = _c === void 0 ? 0 : _c, _d = _a.power, power = _d === void 0 ? 0.8 : _d, _e = _a.timeConstant, timeConstant = _e === void 0 ? 350 : _e, _f = _a.restDelta, restDelta = _f === void 0 ? 0.5 : _f, modifyTarget = _a.modifyTarget;
+    var state = { done: false, value: from };
+    var amplitude = power * velocity;
+    var ideal = from + amplitude;
+    var target = modifyTarget === undefined ? ideal : modifyTarget(ideal);
+    if (target !== ideal)
+        amplitude = target - from;
+    return {
+        next: function (t) {
+            var delta = -amplitude * Math.exp(-t / timeConstant);
+            state.done = !(delta > restDelta || delta < -restDelta);
+            state.value = state.done ? target : target + delta;
+            return state;
+        },
+        flipTarget: function () { },
+    };
+}
 
 
 
 
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/animations/generators/keyframes.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/animations/generators/keyframes.js ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "convertOffsetToTimes": () => (/* binding */ convertOffsetToTimes),
+/* harmony export */   "defaultEasing": () => (/* binding */ defaultEasing),
+/* harmony export */   "defaultOffset": () => (/* binding */ defaultOffset),
+/* harmony export */   "keyframes": () => (/* binding */ keyframes)
+/* harmony export */ });
+/* harmony import */ var _utils_interpolate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/interpolate.js */ "./node_modules/popmotion/dist/es/utils/interpolate.js");
+/* harmony import */ var _easing_index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../easing/index.js */ "./node_modules/popmotion/dist/es/easing/index.js");
 
 
 
-var Observer = /*#__PURE__*/function () {
-    function Observer(_a, observer) {
-        var _this = this;
-        var middleware = _a.middleware,
-            onComplete = _a.onComplete;
-        this.isActive = true;
-        this.update = function (v) {
-            if (_this.observer.update) _this.updateObserver(v);
-        };
-        this.complete = function () {
-            if (_this.observer.complete && _this.isActive) _this.observer.complete();
-            if (_this.onComplete) _this.onComplete();
-            _this.isActive = false;
-        };
-        this.error = function (err) {
-            if (_this.observer.error && _this.isActive) _this.observer.error(err);
-            _this.isActive = false;
-        };
-        this.observer = observer;
-        this.updateObserver = function (v) {
-            return observer.update(v);
-        };
-        this.onComplete = onComplete;
-        if (observer.update && middleware && middleware.length) {
-            middleware.forEach(function (m) {
-                return _this.updateObserver = m(_this.updateObserver, _this.complete);
-            });
-        }
-    }
-    return Observer;
-}();
-var createObserver = function (observerCandidate, _a, onComplete) {
-    var middleware = _a.middleware;
-    if (typeof observerCandidate === 'function') {
-        return new Observer({ middleware: middleware, onComplete: onComplete }, { update: observerCandidate });
-    } else {
-        return new Observer({ middleware: middleware, onComplete: onComplete }, observerCandidate);
-    }
-};
-
-var Action = /*#__PURE__*/function () {
-    function Action(props) {
-        if (props === void 0) {
-            props = {};
-        }
-        this.props = props;
-    }
-    Action.prototype.create = function (props) {
-        return new Action(props);
-    };
-    Action.prototype.start = function (observerCandidate) {
-        if (observerCandidate === void 0) {
-            observerCandidate = {};
-        }
-        var isComplete = false;
-        var subscription = {
-            stop: function () {
-                return undefined;
-            }
-        };
-        var _a = this.props,
-            init = _a.init,
-            observerProps = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__rest)(_a, ["init"]);
-        var observer = createObserver(observerCandidate, observerProps, function () {
-            isComplete = true;
-            subscription.stop();
-        });
-        var api = init(observer);
-        subscription = api ? (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)({}, subscription, api) : subscription;
-        if (isComplete) subscription.stop();
-        return subscription;
-    };
-    Action.prototype.applyMiddleware = function (middleware) {
-        return this.create((0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)({}, this.props, { middleware: this.props.middleware ? [middleware].concat(this.props.middleware) : [middleware] }));
-    };
-    Action.prototype.pipe = function () {
-        var funcs = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            funcs[_i] = arguments[_i];
-        }
-        var pipedUpdate = funcs.length === 1 ? funcs[0] : _popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.pipe.apply(void 0, funcs);
-        return this.applyMiddleware(function (update) {
-            return function (v) {
-                return update(pipedUpdate(v));
-            };
-        });
-    };
-    return Action;
-}();
-var action = function (init) {
-    return new Action({ init: init });
-};
-
-var Chainable = /*#__PURE__*/function () {
-    function Chainable(props) {
-        if (props === void 0) {
-            props = {};
-        }
-        this.props = props;
-    }
-    Chainable.prototype.applyMiddleware = function (middleware) {
-        return this.create((0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)({}, this.props, { middleware: this.props.middleware ? [middleware].concat(this.props.middleware) : [middleware] }));
-    };
-    Chainable.prototype.pipe = function () {
-        var funcs = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            funcs[_i] = arguments[_i];
-        }
-        var pipedUpdate = funcs.length === 1 ? funcs[0] : _popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.pipe.apply(void 0, funcs);
-        return this.applyMiddleware(function (update) {
-            return function (v) {
-                return update(pipedUpdate(v));
-            };
-        });
-    };
-    Chainable.prototype.while = function (predicate) {
-        return this.applyMiddleware(function (update, complete) {
-            return function (v) {
-                return predicate(v) ? update(v) : complete();
-            };
-        });
-    };
-    Chainable.prototype.filter = function (predicate) {
-        return this.applyMiddleware(function (update) {
-            return function (v) {
-                return predicate(v) && update(v);
-            };
-        });
-    };
-    return Chainable;
-}();
-
-var BaseMulticast = /*#__PURE__*/function (_super) {
-    (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__extends)(BaseMulticast, _super);
-    function BaseMulticast() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.subscribers = [];
-        return _this;
-    }
-    BaseMulticast.prototype.complete = function () {
-        this.subscribers.forEach(function (subscriber) {
-            return subscriber.complete();
-        });
-    };
-    BaseMulticast.prototype.error = function (err) {
-        this.subscribers.forEach(function (subscriber) {
-            return subscriber.error(err);
-        });
-    };
-    BaseMulticast.prototype.update = function (v) {
-        for (var i = 0; i < this.subscribers.length; i++) {
-            this.subscribers[i].update(v);
-        }
-    };
-    BaseMulticast.prototype.subscribe = function (observerCandidate) {
-        var _this = this;
-        var observer = createObserver(observerCandidate, this.props);
-        this.subscribers.push(observer);
-        var subscription = {
-            unsubscribe: function () {
-                var index = _this.subscribers.indexOf(observer);
-                if (index !== -1) _this.subscribers.splice(index, 1);
-            }
-        };
-        return subscription;
-    };
-    BaseMulticast.prototype.stop = function () {
-        if (this.parent) this.parent.stop();
-    };
-    return BaseMulticast;
-}(Chainable);
-
-var Multicast = /*#__PURE__*/function (_super) {
-    (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__extends)(Multicast, _super);
-    function Multicast() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Multicast.prototype.create = function (props) {
-        return new Multicast(props);
-    };
-    return Multicast;
-}(BaseMulticast);
-var multicast = function () {
-    return new Multicast();
-};
-
-var ValueReaction = /*#__PURE__*/function (_super) {
-    (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__extends)(ValueReaction, _super);
-    function ValueReaction(props) {
-        var _this = _super.call(this, props) || this;
-        _this.scheduleVelocityCheck = function () {
-            return framesync__WEBPACK_IMPORTED_MODULE_1__["default"].postRender(_this.velocityCheck);
-        };
-        _this.velocityCheck = function (_a) {
-            var timestamp = _a.timestamp;
-            if (timestamp !== _this.lastUpdated) {
-                _this.prev = _this.current;
-            }
-        };
-        _this.prev = _this.current = props.value || 0;
-        _this.updateCurrent = function (v) {
-            return _this.current = v;
-        };
-        _this.getVelocityOfCurrent = function () {
-            return _this.getSingleVelocity(_this.current, _this.prev);
-        };
-        if (props.initialSubscription) _this.subscribe(props.initialSubscription);
-        return _this;
-    }
-    ValueReaction.prototype.create = function (props) {
-        return new ValueReaction(props);
-    };
-    ValueReaction.prototype.get = function () {
-        return this.current;
-    };
-    ValueReaction.prototype.getVelocity = function () {
-        return this.getVelocityOfCurrent();
-    };
-    ValueReaction.prototype.update = function (v) {
-        _super.prototype.update.call(this, v);
-        this.prev = this.current;
-        this.updateCurrent(v);
-        var _a = (0,framesync__WEBPACK_IMPORTED_MODULE_1__.getFrameData)(),
-            delta = _a.delta,
-            timestamp = _a.timestamp;
-        this.timeDelta = delta;
-        this.lastUpdated = timestamp;
-        framesync__WEBPACK_IMPORTED_MODULE_1__["default"].postRender(this.scheduleVelocityCheck);
-    };
-    ValueReaction.prototype.subscribe = function (observerCandidate) {
-        var sub = _super.prototype.subscribe.call(this, observerCandidate);
-        this.subscribers[this.subscribers.length - 1].update(this.current);
-        return sub;
-    };
-    ValueReaction.prototype.getSingleVelocity = function (current, prev) {
-        return typeof current === 'number' && typeof prev === 'number' ? (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.velocityPerSecond)(current - prev, this.timeDelta) : (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.velocityPerSecond)(parseFloat(current) - parseFloat(prev), this.timeDelta) || 0;
-    };
-    return ValueReaction;
-}(BaseMulticast);
-var value = function (value, initialSubscription) {
-    return new ValueReaction({ value: value, initialSubscription: initialSubscription });
-};
-
-var createVectorTests = function (typeTests) {
-    var testNames = Object.keys(typeTests);
-    var isVectorProp = function (prop, key) {
-        return prop !== undefined && !typeTests[key](prop);
-    };
-    var getVectorKeys = function (props) {
-        return testNames.reduce(function (vectorKeys, key) {
-            if (isVectorProp(props[key], key)) vectorKeys.push(key);
-            return vectorKeys;
-        }, []);
-    };
-    var testVectorProps = function (props) {
-        return props && testNames.some(function (key) {
-            return isVectorProp(props[key], key);
-        });
-    };
-    return { getVectorKeys: getVectorKeys, testVectorProps: testVectorProps };
-};
-var unitTypes = [style_value_types__WEBPACK_IMPORTED_MODULE_2__.px, style_value_types__WEBPACK_IMPORTED_MODULE_2__.percent, style_value_types__WEBPACK_IMPORTED_MODULE_2__.degrees, style_value_types__WEBPACK_IMPORTED_MODULE_2__.vh, style_value_types__WEBPACK_IMPORTED_MODULE_2__.vw];
-var findUnitType = function (prop) {
-    return unitTypes.find(function (type) {
-        return type.test(prop);
-    });
-};
-var isUnitProp = function (prop) {
-    return Boolean(findUnitType(prop));
-};
-var createAction = function (action, props) {
-    return action(props);
-};
-var createUnitAction = function (action, _a) {
-    var from = _a.from,
-        to = _a.to,
-        props = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__rest)(_a, ["from", "to"]);
-    var unitType = findUnitType(from) || findUnitType(to);
-    var transform = unitType.transform,
-        parse = unitType.parse;
-    return action((0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)({}, props, { from: typeof from === 'string' ? parse(from) : from, to: typeof to === 'string' ? parse(to) : to })).pipe(transform);
-};
-var createMixerAction = function (mixer) {
-    return function (action, _a) {
-        var from = _a.from,
-            to = _a.to,
-            props = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__rest)(_a, ["from", "to"]);
-        return action((0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)({}, props, { from: 0, to: 1 })).pipe(mixer(from, to));
-    };
-};
-var createColorAction = /*#__PURE__*/createMixerAction(_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.mixColor);
-var createComplexAction = /*#__PURE__*/createMixerAction(_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.mixComplex);
-var createVectorAction = function (action, typeTests) {
-    var _a = createVectorTests(typeTests),
-        testVectorProps = _a.testVectorProps,
-        getVectorKeys = _a.getVectorKeys;
-    var vectorAction = function (props) {
-        var isVector = testVectorProps(props);
-        if (!isVector) return action(props);
-        var vectorKeys = getVectorKeys(props);
-        var testKey = vectorKeys[0];
-        var testProp = props[testKey];
-        return getActionCreator(testProp)(action, props, vectorKeys);
-    };
-    return vectorAction;
-};
-var getActionCreator = function (prop) {
-    if (typeof prop === 'number') {
-        return createAction;
-    } else if (isUnitProp(prop)) {
-        return createUnitAction;
-    } else if (style_value_types__WEBPACK_IMPORTED_MODULE_2__.color.test(prop)) {
-        return createColorAction;
-    } else if (style_value_types__WEBPACK_IMPORTED_MODULE_2__.complex.test(prop)) {
-        return createComplexAction;
-    } else {
-        return createAction;
-    }
-};
-
-var decay = function (props) {
-    if (props === void 0) {
-        props = {};
-    }
-    return action(function (_a) {
-        var complete = _a.complete,
-            update = _a.update;
-        var _b = props.velocity,
-            velocity = _b === void 0 ? 0 : _b,
-            _c = props.from,
-            from = _c === void 0 ? 0 : _c,
-            _d = props.power,
-            power = _d === void 0 ? 0.8 : _d,
-            _e = props.timeConstant,
-            timeConstant = _e === void 0 ? 350 : _e,
-            _f = props.restDelta,
-            restDelta = _f === void 0 ? 0.5 : _f,
-            modifyTarget = props.modifyTarget;
-        var elapsed = 0;
-        var amplitude = power * velocity;
-        var idealTarget = Math.round(from + amplitude);
-        var target = typeof modifyTarget === 'undefined' ? idealTarget : modifyTarget(idealTarget);
-        var process = framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(function (_a) {
-            var frameDelta = _a.delta;
-            elapsed += frameDelta;
-            var delta = -amplitude * Math.exp(-elapsed / timeConstant);
-            var isMoving = delta > restDelta || delta < -restDelta;
-            var current = isMoving ? target + delta : target;
-            update(current);
-            if (!isMoving) {
-                framesync__WEBPACK_IMPORTED_MODULE_1__.cancelSync.update(process);
-                complete();
-            }
-        }, true);
-        return {
-            stop: function () {
-                return framesync__WEBPACK_IMPORTED_MODULE_1__.cancelSync.update(process);
-            }
-        };
-    });
-};
-var vectorDecay = /*#__PURE__*/createVectorAction(decay, {
-    from: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    modifyTarget: function (func) {
-        return typeof func === 'function';
-    },
-    velocity: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test
-});
-
-var spring = function (props) {
-    if (props === void 0) {
-        props = {};
-    }
-    return action(function (_a) {
-        var update = _a.update,
-            complete = _a.complete;
-        var _b = props.velocity,
-            velocity = _b === void 0 ? 0.0 : _b;
-        var _c = props.from,
-            from = _c === void 0 ? 0.0 : _c,
-            _d = props.to,
-            to = _d === void 0 ? 0.0 : _d,
-            _e = props.stiffness,
-            stiffness = _e === void 0 ? 100 : _e,
-            _f = props.damping,
-            damping = _f === void 0 ? 10 : _f,
-            _g = props.mass,
-            mass = _g === void 0 ? 1.0 : _g,
-            _h = props.restSpeed,
-            restSpeed = _h === void 0 ? 0.01 : _h,
-            _j = props.restDelta,
-            restDelta = _j === void 0 ? 0.01 : _j;
-        var initialVelocity = velocity ? -(velocity / 1000) : 0.0;
-        var t = 0;
-        var delta = to - from;
-        var position = from;
-        var prevPosition = position;
-        var process = framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(function (_a) {
-            var timeDelta = _a.delta;
-            t += timeDelta;
-            var dampingRatio = damping / (2 * Math.sqrt(stiffness * mass));
-            var angularFreq = Math.sqrt(stiffness / mass) / 1000;
-            prevPosition = position;
-            if (dampingRatio < 1) {
-                var envelope = Math.exp(-dampingRatio * angularFreq * t);
-                var expoDecay = angularFreq * Math.sqrt(1.0 - dampingRatio * dampingRatio);
-                position = to - envelope * ((initialVelocity + dampingRatio * angularFreq * delta) / expoDecay * Math.sin(expoDecay * t) + delta * Math.cos(expoDecay * t));
-            } else {
-                var envelope = Math.exp(-angularFreq * t);
-                position = to - envelope * (delta + (initialVelocity + angularFreq * delta) * t);
-            }
-            velocity = (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.velocityPerSecond)(position - prevPosition, timeDelta);
-            var isBelowVelocityThreshold = Math.abs(velocity) <= restSpeed;
-            var isBelowDisplacementThreshold = Math.abs(to - position) <= restDelta;
-            if (isBelowVelocityThreshold && isBelowDisplacementThreshold) {
-                position = to;
-                update(position);
-                framesync__WEBPACK_IMPORTED_MODULE_1__.cancelSync.update(process);
-                complete();
-            } else {
-                update(position);
-            }
-        }, true);
-        return {
-            stop: function () {
-                return framesync__WEBPACK_IMPORTED_MODULE_1__.cancelSync.update(process);
-            }
-        };
-    });
-};
-var vectorSpring = /*#__PURE__*/createVectorAction(spring, {
-    from: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    to: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    stiffness: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    damping: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    mass: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    velocity: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test
-});
-
-var inertia = function (_a) {
-    var _b = _a.from,
-        from = _b === void 0 ? 0 : _b,
-        _c = _a.velocity,
-        velocity = _c === void 0 ? 0 : _c,
-        min = _a.min,
-        max = _a.max,
-        _d = _a.power,
-        power = _d === void 0 ? 0.8 : _d,
-        _e = _a.timeConstant,
-        timeConstant = _e === void 0 ? 700 : _e,
-        _f = _a.bounceStiffness,
-        bounceStiffness = _f === void 0 ? 500 : _f,
-        _g = _a.bounceDamping,
-        bounceDamping = _g === void 0 ? 10 : _g,
-        _h = _a.restDelta,
-        restDelta = _h === void 0 ? 1 : _h,
-        modifyTarget = _a.modifyTarget;
-    return action(function (_a) {
-        var update = _a.update,
-            complete = _a.complete;
-        var prev = from;
-        var current = from;
-        var activeAnimation;
-        var isSpring = false;
-        var isLessThanMin = function (v) {
-            return min !== undefined && v <= min;
-        };
-        var isMoreThanMax = function (v) {
-            return max !== undefined && v >= max;
-        };
-        var isOutOfBounds = function (v) {
-            return isLessThanMin(v) || isMoreThanMax(v);
-        };
-        var isTravellingAwayFromBounds = function (v, currentVelocity) {
-            return isLessThanMin(v) && currentVelocity < 0 || isMoreThanMax(v) && currentVelocity > 0;
-        };
-        var onUpdate = function (v) {
-            update(v);
-            prev = current;
-            current = v;
-            velocity = (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.velocityPerSecond)(current - prev, (0,framesync__WEBPACK_IMPORTED_MODULE_1__.getFrameData)().delta);
-            if (activeAnimation && !isSpring && isTravellingAwayFromBounds(v, velocity)) {
-                startSpring({ from: v, velocity: velocity });
-            }
-        };
-        var startAnimation = function (animation, next) {
-            activeAnimation && activeAnimation.stop();
-            activeAnimation = animation.start({
-                update: onUpdate,
-                complete: function () {
-                    if (next) {
-                        next();
-                        return;
-                    }
-                    complete();
-                }
-            });
-        };
-        var startSpring = function (props) {
-            isSpring = true;
-            startAnimation(vectorSpring((0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)({}, props, { to: isLessThanMin(props.from) ? min : max, stiffness: bounceStiffness, damping: bounceDamping, restDelta: restDelta })));
-        };
-        if (isOutOfBounds(from)) {
-            startSpring({ from: from, velocity: velocity });
-        } else if (velocity !== 0) {
-            var animation = vectorDecay({
-                from: from,
-                velocity: velocity,
-                timeConstant: timeConstant,
-                power: power,
-                restDelta: isOutOfBounds(from) ? 20 : restDelta,
-                modifyTarget: modifyTarget
-            });
-            startAnimation(animation, function () {
-                if (isOutOfBounds(current)) {
-                    startSpring({ from: current, velocity: velocity });
-                } else {
-                    complete();
-                }
-            });
-        } else {
-            complete();
-        }
-        return {
-            stop: function () {
-                return activeAnimation && activeAnimation.stop();
-            }
-        };
-    });
-};
-var index = /*#__PURE__*/createVectorAction(inertia, {
-    from: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    velocity: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    min: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    max: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    damping: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    stiffness: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    modifyTarget: function (func) {
-        return typeof func === 'function';
-    }
-});
-
-var frame = function () {
-    return action(function (_a) {
-        var update = _a.update;
-        var initialTime = 0;
-        var process = framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(function (_a) {
-            var timestamp = _a.timestamp;
-            if (!initialTime) initialTime = timestamp;
-            update(timestamp - initialTime);
-        }, true, true);
-        return {
-            stop: function () {
-                return framesync__WEBPACK_IMPORTED_MODULE_1__.cancelSync.update(process);
-            }
-        };
-    });
-};
-
-var scrubber = function (_a) {
-    var _b = _a.from,
-        from = _b === void 0 ? 0 : _b,
-        _c = _a.to,
-        to = _c === void 0 ? 1 : _c,
-        _d = _a.ease,
-        ease = _d === void 0 ? _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.linear : _d,
-        _e = _a.reverseEase,
-        reverseEase = _e === void 0 ? false : _e;
-    if (reverseEase) {
-        ease = (0,_popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.createReversedEasing)(ease);
-    }
-    return action(function (_a) {
-        var update = _a.update;
-        return {
-            seek: function (progress) {
-                return update(progress);
-            }
-        };
-    }).pipe(ease, function (v) {
-        return (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.mix)(from, to, v);
-    });
-};
-var vectorScrubber = /*#__PURE__*/createVectorAction(scrubber, {
-    ease: function (func) {
-        return typeof func === 'function';
-    },
-    from: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    to: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test
-});
-
-var clampProgress = /*#__PURE__*/(0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.clamp)(0, 1);
-var tween = function (props) {
-    if (props === void 0) {
-        props = {};
-    }
-    return action(function (_a) {
-        var update = _a.update,
-            complete = _a.complete;
-        var _b = props.duration,
-            duration = _b === void 0 ? 300 : _b,
-            _c = props.ease,
-            ease = _c === void 0 ? _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.easeOut : _c,
-            _d = props.flip,
-            flip = _d === void 0 ? 0 : _d,
-            _e = props.loop,
-            loop = _e === void 0 ? 0 : _e,
-            _f = props.yoyo,
-            yoyo = _f === void 0 ? 0 : _f,
-            _g = props.repeatDelay,
-            repeatDelay = _g === void 0 ? 0 : _g;
-        var _h = props.from,
-            from = _h === void 0 ? 0 : _h,
-            _j = props.to,
-            to = _j === void 0 ? 1 : _j,
-            _k = props.elapsed,
-            elapsed = _k === void 0 ? 0 : _k,
-            _l = props.flipCount,
-            flipCount = _l === void 0 ? 0 : _l,
-            _m = props.yoyoCount,
-            yoyoCount = _m === void 0 ? 0 : _m,
-            _o = props.loopCount,
-            loopCount = _o === void 0 ? 0 : _o;
-        var playhead = vectorScrubber({ from: from, to: to, ease: ease }).start(update);
-        var currentProgress = 0;
-        var process;
-        var isActive = false;
-        var reverseAnimation = function (reverseEase) {
-            var _a;
-            if (reverseEase === void 0) {
-                reverseEase = false;
-            }
-            _a = [to, from], from = _a[0], to = _a[1];
-            playhead = vectorScrubber({ from: from, to: to, ease: ease, reverseEase: reverseEase }).start(update);
-        };
-        var isTweenComplete = function () {
-            var isComplete = isActive && elapsed > duration + repeatDelay;
-            if (!isComplete) return false;
-            if (isComplete && !loop && !flip && !yoyo) return true;
-            var overtime = elapsed - duration;
-            elapsed = overtime - repeatDelay;
-            if (loop && loopCount < loop) {
-                loopCount++;
-                return false;
-            } else if (flip && flipCount < flip) {
-                flipCount++;
-                reverseAnimation();
-                return false;
-            } else if (yoyo && yoyoCount < yoyo) {
-                yoyoCount++;
-                reverseAnimation(yoyoCount % 2 !== 0);
-                return false;
-            }
-            return true;
-        };
-        var updateTween = function () {
-            currentProgress = clampProgress((0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.progress)(0, duration, elapsed));
-            playhead.seek(currentProgress);
-        };
-        var startTimer = function () {
-            isActive = true;
-            process = framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(function (_a) {
-                var delta = _a.delta;
-                elapsed += delta;
-                updateTween();
-                if (isTweenComplete()) {
-                    framesync__WEBPACK_IMPORTED_MODULE_1__.cancelSync.update(process);
-                    complete && framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(complete, false, true);
-                }
-            }, true);
-        };
-        var stopTimer = function () {
-            isActive = false;
-            if (process) framesync__WEBPACK_IMPORTED_MODULE_1__.cancelSync.update(process);
-        };
-        startTimer();
-        return {
-            isActive: function () {
-                return isActive;
-            },
-            getElapsed: function () {
-                return (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.clamp)(0, duration, elapsed);
-            },
-            getProgress: function () {
-                return currentProgress;
-            },
-            stop: function () {
-                stopTimer();
-            },
-            pause: function () {
-                stopTimer();
-                return this;
-            },
-            resume: function () {
-                if (!isActive) startTimer();
-                return this;
-            },
-            seek: function (newProgress) {
-                elapsed = (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.mix)(0, duration, newProgress);
-                framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(updateTween, false, true);
-                return this;
-            },
-            reverse: function () {
-                reverseAnimation();
-                return this;
-            }
-        };
-    });
-};
-
-var clampProgress$1 = /*#__PURE__*/(0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.clamp)(0, 1);
-var defaultEasings = function (values, easing) {
-    return values.map(function () {
-        return easing || _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.easeOut;
-    }).splice(0, values.length - 1);
-};
-var defaultTimings = function (values) {
+function defaultEasing(values, easing) {
+    return values.map(function () { return easing || _easing_index_js__WEBPACK_IMPORTED_MODULE_0__.easeInOut; }).splice(0, values.length - 1);
+}
+function defaultOffset(values) {
     var numValues = values.length;
-    return values.map(function (value, i) {
+    return values.map(function (_value, i) {
         return i !== 0 ? i / (numValues - 1) : 0;
     });
+}
+function convertOffsetToTimes(offset, duration) {
+    return offset.map(function (o) { return o * duration; });
+}
+function keyframes(_a) {
+    var _b = _a.from, from = _b === void 0 ? 0 : _b, _c = _a.to, to = _c === void 0 ? 1 : _c, ease = _a.ease, offset = _a.offset, _d = _a.duration, duration = _d === void 0 ? 300 : _d;
+    var state = { done: false, value: from };
+    var values = Array.isArray(to) ? to : [from, to];
+    var times = convertOffsetToTimes(offset && offset.length === values.length
+        ? offset
+        : defaultOffset(values), duration);
+    function createInterpolator() {
+        return (0,_utils_interpolate_js__WEBPACK_IMPORTED_MODULE_1__.interpolate)(times, values, {
+            ease: Array.isArray(ease) ? ease : defaultEasing(values, ease),
+        });
+    }
+    var interpolator = createInterpolator();
+    return {
+        next: function (t) {
+            state.value = interpolator(t);
+            state.done = t >= duration;
+            return state;
+        },
+        flipTarget: function () {
+            values.reverse();
+            interpolator = createInterpolator();
+        },
+    };
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/animations/generators/spring.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/animations/generators/spring.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "spring": () => (/* binding */ spring)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/popmotion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _utils_find_spring_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/find-spring.js */ "./node_modules/popmotion/dist/es/animations/utils/find-spring.js");
+
+
+
+var durationKeys = ["duration", "bounce"];
+var physicsKeys = ["stiffness", "damping", "mass"];
+function isSpringType(options, keys) {
+    return keys.some(function (key) { return options[key] !== undefined; });
+}
+function getSpringOptions(options) {
+    var springOptions = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({ velocity: 0.0, stiffness: 100, damping: 10, mass: 1.0, isResolvedFromDuration: false }, options);
+    if (!isSpringType(options, physicsKeys) &&
+        isSpringType(options, durationKeys)) {
+        var derived = (0,_utils_find_spring_js__WEBPACK_IMPORTED_MODULE_1__.findSpring)(options);
+        springOptions = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, springOptions), derived), { velocity: 0.0, mass: 1.0 });
+        springOptions.isResolvedFromDuration = true;
+    }
+    return springOptions;
+}
+function spring(_a) {
+    var _b = _a.from, from = _b === void 0 ? 0.0 : _b, _c = _a.to, to = _c === void 0 ? 1.0 : _c, _d = _a.restSpeed, restSpeed = _d === void 0 ? 2 : _d, restDelta = _a.restDelta, options = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__rest)(_a, ["from", "to", "restSpeed", "restDelta"]);
+    var state = { done: false, value: from };
+    var _e = getSpringOptions(options), stiffness = _e.stiffness, damping = _e.damping, mass = _e.mass, velocity = _e.velocity, duration = _e.duration, isResolvedFromDuration = _e.isResolvedFromDuration;
+    var resolveSpring = zero;
+    var resolveVelocity = zero;
+    function createSpring() {
+        var initialVelocity = velocity ? -(velocity / 1000) : 0.0;
+        var initialDelta = to - from;
+        var dampingRatio = damping / (2 * Math.sqrt(stiffness * mass));
+        var undampedAngularFreq = Math.sqrt(stiffness / mass) / 1000;
+        restDelta !== null && restDelta !== void 0 ? restDelta : (restDelta = Math.abs(to - from) <= 1 ? 0.01 : 0.4);
+        if (dampingRatio < 1) {
+            var angularFreq_1 = (0,_utils_find_spring_js__WEBPACK_IMPORTED_MODULE_1__.calcAngularFreq)(undampedAngularFreq, dampingRatio);
+            resolveSpring = function (t) {
+                var envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
+                return (to -
+                    envelope *
+                        (((initialVelocity +
+                            dampingRatio * undampedAngularFreq * initialDelta) /
+                            angularFreq_1) *
+                            Math.sin(angularFreq_1 * t) +
+                            initialDelta * Math.cos(angularFreq_1 * t)));
+            };
+            resolveVelocity = function (t) {
+                var envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
+                return (dampingRatio *
+                    undampedAngularFreq *
+                    envelope *
+                    ((Math.sin(angularFreq_1 * t) *
+                        (initialVelocity +
+                            dampingRatio *
+                                undampedAngularFreq *
+                                initialDelta)) /
+                        angularFreq_1 +
+                        initialDelta * Math.cos(angularFreq_1 * t)) -
+                    envelope *
+                        (Math.cos(angularFreq_1 * t) *
+                            (initialVelocity +
+                                dampingRatio *
+                                    undampedAngularFreq *
+                                    initialDelta) -
+                            angularFreq_1 *
+                                initialDelta *
+                                Math.sin(angularFreq_1 * t)));
+            };
+        }
+        else if (dampingRatio === 1) {
+            resolveSpring = function (t) {
+                return to -
+                    Math.exp(-undampedAngularFreq * t) *
+                        (initialDelta +
+                            (initialVelocity + undampedAngularFreq * initialDelta) *
+                                t);
+            };
+        }
+        else {
+            var dampedAngularFreq_1 = undampedAngularFreq * Math.sqrt(dampingRatio * dampingRatio - 1);
+            resolveSpring = function (t) {
+                var envelope = Math.exp(-dampingRatio * undampedAngularFreq * t);
+                var freqForT = Math.min(dampedAngularFreq_1 * t, 300);
+                return (to -
+                    (envelope *
+                        ((initialVelocity +
+                            dampingRatio * undampedAngularFreq * initialDelta) *
+                            Math.sinh(freqForT) +
+                            dampedAngularFreq_1 *
+                                initialDelta *
+                                Math.cosh(freqForT))) /
+                        dampedAngularFreq_1);
+            };
+        }
+    }
+    createSpring();
+    return {
+        next: function (t) {
+            var current = resolveSpring(t);
+            if (!isResolvedFromDuration) {
+                var currentVelocity = resolveVelocity(t) * 1000;
+                var isBelowVelocityThreshold = Math.abs(currentVelocity) <= restSpeed;
+                var isBelowDisplacementThreshold = Math.abs(to - current) <= restDelta;
+                state.done =
+                    isBelowVelocityThreshold && isBelowDisplacementThreshold;
+            }
+            else {
+                state.done = t >= duration;
+            }
+            state.value = state.done ? to : current;
+            return state;
+        },
+        flipTarget: function () {
+            var _a;
+            velocity = -velocity;
+            _a = [to, from], from = _a[0], to = _a[1];
+            createSpring();
+        },
+    };
+}
+spring.needsInterpolation = function (a, b) {
+    return typeof a === "string" || typeof b === "string";
 };
-var interpolateScrubbers = function (input, scrubbers, update) {
-    var rangeLength = input.length;
-    var finalInputIndex = rangeLength - 1;
-    var finalScrubberIndex = finalInputIndex - 1;
-    var subs = scrubbers.map(function (scrub) {
-        return scrub.start(update);
-    });
-    return function (v) {
-        if (v <= input[0]) {
-            subs[0].seek(0);
-        }
-        if (v >= input[finalInputIndex]) {
-            subs[finalScrubberIndex].seek(1);
-        }
-        var i = 1;
-        for (; i < rangeLength; i++) {
-            if (input[i] > v || i === finalInputIndex) break;
-        }
-        var progressInRange = (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.progress)(input[i - 1], input[i], v);
-        subs[i - 1].seek(clampProgress$1(progressInRange));
+var zero = function (_t) { return 0; };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/animations/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/animations/index.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "animate": () => (/* binding */ animate)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/popmotion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _utils_detect_animation_from_options_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/detect-animation-from-options.js */ "./node_modules/popmotion/dist/es/animations/utils/detect-animation-from-options.js");
+/* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! framesync */ "./node_modules/framesync/dist/es/index.js");
+/* harmony import */ var _utils_interpolate_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/interpolate.js */ "./node_modules/popmotion/dist/es/utils/interpolate.js");
+/* harmony import */ var _utils_elapsed_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/elapsed.js */ "./node_modules/popmotion/dist/es/animations/utils/elapsed.js");
+
+
+
+
+
+
+var framesync = function (update) {
+    var passTimestamp = function (_a) {
+        var delta = _a.delta;
+        return update(delta);
+    };
+    return {
+        start: function () { return framesync__WEBPACK_IMPORTED_MODULE_0__["default"].update(passTimestamp, true); },
+        stop: function () { return framesync__WEBPACK_IMPORTED_MODULE_0__.cancelSync.update(passTimestamp); },
     };
 };
-var keyframes = function (_a) {
-    var easings = _a.easings,
-        _b = _a.ease,
-        ease = _b === void 0 ? _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.linear : _b,
-        times = _a.times,
-        values = _a.values,
-        tweenProps = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__rest)(_a, ["easings", "ease", "times", "values"]);
-    easings = Array.isArray(easings) ? easings : defaultEasings(values, easings);
-    times = times || defaultTimings(values);
-    var scrubbers = easings.map(function (easing, i) {
-        return vectorScrubber({
-            from: values[i],
-            to: values[i + 1],
-            ease: easing
+function animate(_a) {
+    var _b, _c;
+    var from = _a.from, _d = _a.autoplay, autoplay = _d === void 0 ? true : _d, _e = _a.driver, driver = _e === void 0 ? framesync : _e, _f = _a.elapsed, elapsed = _f === void 0 ? 0 : _f, _g = _a.repeat, repeatMax = _g === void 0 ? 0 : _g, _h = _a.repeatType, repeatType = _h === void 0 ? "loop" : _h, _j = _a.repeatDelay, repeatDelay = _j === void 0 ? 0 : _j, onPlay = _a.onPlay, onStop = _a.onStop, onComplete = _a.onComplete, onRepeat = _a.onRepeat, onUpdate = _a.onUpdate, options = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__rest)(_a, ["from", "autoplay", "driver", "elapsed", "repeat", "repeatType", "repeatDelay", "onPlay", "onStop", "onComplete", "onRepeat", "onUpdate"]);
+    var to = options.to;
+    var driverControls;
+    var repeatCount = 0;
+    var computedDuration = options.duration;
+    var latest;
+    var isComplete = false;
+    var isForwardPlayback = true;
+    var interpolateFromNumber;
+    var animator = (0,_utils_detect_animation_from_options_js__WEBPACK_IMPORTED_MODULE_2__.detectAnimationFromOptions)(options);
+    if ((_c = (_b = animator).needsInterpolation) === null || _c === void 0 ? void 0 : _c.call(_b, from, to)) {
+        interpolateFromNumber = (0,_utils_interpolate_js__WEBPACK_IMPORTED_MODULE_3__.interpolate)([0, 100], [from, to], {
+            clamp: false,
         });
-    });
-    return tween((0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)({}, tweenProps, { ease: ease })).applyMiddleware(function (update) {
-        return interpolateScrubbers(times, scrubbers, update);
-    });
-};
-
-var physics = function (props) {
-    if (props === void 0) {
-        props = {};
+        from = 0;
+        to = 100;
     }
-    return action(function (_a) {
-        var complete = _a.complete,
-            update = _a.update;
-        var _b = props.acceleration,
-            acceleration = _b === void 0 ? 0 : _b,
-            _c = props.friction,
-            friction = _c === void 0 ? 0 : _c,
-            _d = props.velocity,
-            velocity = _d === void 0 ? 0 : _d,
-            springStrength = props.springStrength,
-            to = props.to;
-        var _e = props.restSpeed,
-            restSpeed = _e === void 0 ? 0.001 : _e,
-            _f = props.from,
-            from = _f === void 0 ? 0 : _f;
-        var current = from;
-        var process = framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(function (_a) {
-            var delta = _a.delta;
-            var elapsed = Math.max(delta, 16);
-            if (acceleration) velocity += (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.velocityPerFrame)(acceleration, elapsed);
-            if (friction) velocity *= Math.pow(1 - friction, elapsed / 100);
-            if (springStrength !== undefined && to !== undefined) {
-                var distanceToTarget = to - current;
-                velocity += distanceToTarget * (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.velocityPerFrame)(springStrength, elapsed);
+    var animation = animator((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, options), { from: from, to: to }));
+    function repeat() {
+        repeatCount++;
+        if (repeatType === "reverse") {
+            isForwardPlayback = repeatCount % 2 === 0;
+            elapsed = (0,_utils_elapsed_js__WEBPACK_IMPORTED_MODULE_4__.reverseElapsed)(elapsed, computedDuration, repeatDelay, isForwardPlayback);
+        }
+        else {
+            elapsed = (0,_utils_elapsed_js__WEBPACK_IMPORTED_MODULE_4__.loopElapsed)(elapsed, computedDuration, repeatDelay);
+            if (repeatType === "mirror")
+                animation.flipTarget();
+        }
+        isComplete = false;
+        onRepeat && onRepeat();
+    }
+    function complete() {
+        driverControls.stop();
+        onComplete && onComplete();
+    }
+    function update(delta) {
+        if (!isForwardPlayback)
+            delta = -delta;
+        elapsed += delta;
+        if (!isComplete) {
+            var state = animation.next(Math.max(0, elapsed));
+            latest = state.value;
+            if (interpolateFromNumber)
+                latest = interpolateFromNumber(latest);
+            isComplete = isForwardPlayback ? state.done : elapsed <= 0;
+        }
+        onUpdate === null || onUpdate === void 0 ? void 0 : onUpdate(latest);
+        if (isComplete) {
+            if (repeatCount === 0)
+                computedDuration !== null && computedDuration !== void 0 ? computedDuration : (computedDuration = elapsed);
+            if (repeatCount < repeatMax) {
+                (0,_utils_elapsed_js__WEBPACK_IMPORTED_MODULE_4__.hasRepeatDelayElapsed)(elapsed, computedDuration, repeatDelay, isForwardPlayback) && repeat();
             }
-            current += (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.velocityPerFrame)(velocity, elapsed);
-            update(current);
-            var isComplete = restSpeed !== false && (!velocity || Math.abs(velocity) <= restSpeed);
-            if (isComplete) {
-                framesync__WEBPACK_IMPORTED_MODULE_1__.cancelSync.update(process);
+            else {
                 complete();
             }
-        }, true);
-        return {
-            set: function (v) {
-                current = v;
-                return this;
-            },
-            setAcceleration: function (v) {
-                acceleration = v;
-                return this;
-            },
-            setFriction: function (v) {
-                friction = v;
-                return this;
-            },
-            setSpringStrength: function (v) {
-                springStrength = v;
-                return this;
-            },
-            setSpringTarget: function (v) {
-                to = v;
-                return this;
-            },
-            setVelocity: function (v) {
-                velocity = v;
-                return this;
-            },
-            stop: function () {
-                return framesync__WEBPACK_IMPORTED_MODULE_1__.cancelSync.update(process);
-            }
-        };
-    });
-};
-var vectorPhysics = /*#__PURE__*/createVectorAction(physics, {
-    acceleration: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    friction: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    velocity: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    from: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    to: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test,
-    springStrength: style_value_types__WEBPACK_IMPORTED_MODULE_2__.number.test
-});
-
-var multi = function (_a) {
-    var getCount = _a.getCount,
-        getFirst = _a.getFirst,
-        getOutput = _a.getOutput,
-        mapApi = _a.mapApi,
-        setProp = _a.setProp,
-        startActions = _a.startActions;
-    return function (actions) {
-        return action(function (_a) {
-            var update = _a.update,
-                complete = _a.complete,
-                error = _a.error;
-            var numActions = getCount(actions);
-            var output = getOutput();
-            var updateOutput = function () {
-                return update(output);
-            };
-            var numCompletedActions = 0;
-            var subs = startActions(actions, function (a, name) {
-                var hasCompleted = false;
-                return a.start({
-                    complete: function () {
-                        if (!hasCompleted) {
-                            hasCompleted = true;
-                            numCompletedActions++;
-                            if (numCompletedActions === numActions) framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(complete);
-                        }
-                    },
-                    error: error,
-                    update: function (v) {
-                        setProp(output, name, v);
-                        framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(updateOutput, false, true);
-                    }
-                });
-            });
-            return Object.keys(getFirst(subs)).reduce(function (api, methodName) {
-                api[methodName] = mapApi(subs, methodName);
-                return api;
-            }, {});
-        });
-    };
-};
-
-var composite = /*#__PURE__*/multi({
-    getOutput: function () {
-        return {};
-    },
-    getCount: function (subs) {
-        return Object.keys(subs).length;
-    },
-    getFirst: function (subs) {
-        return subs[Object.keys(subs)[0]];
-    },
-    mapApi: function (subs, methodName) {
-        return function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            return Object.keys(subs).reduce(function (output, propKey) {
-                var _a;
-                if (subs[propKey][methodName]) {
-                    args[0] && args[0][propKey] !== undefined ? output[propKey] = subs[propKey][methodName](args[0][propKey]) : output[propKey] = (_a = subs[propKey])[methodName].apply(_a, args);
-                }
-                return output;
-            }, {});
-        };
-    },
-    setProp: function (output, name, v) {
-        return output[name] = v;
-    },
-    startActions: function (actions, starter) {
-        return Object.keys(actions).reduce(function (subs, key) {
-            subs[key] = starter(actions[key], key);
-            return subs;
-        }, {});
-    }
-});
-
-var DEFAULT_DURATION = 300;
-var flattenTimings = function (instructions) {
-    var flatInstructions = [];
-    var lastArg = instructions[instructions.length - 1];
-    var isStaggered = typeof lastArg === 'number';
-    var staggerDelay = isStaggered ? lastArg : 0;
-    var segments = isStaggered ? instructions.slice(0, -1) : instructions;
-    var numSegments = segments.length;
-    var offset = 0;
-    segments.forEach(function (item, i) {
-        flatInstructions.push(item);
-        if (i !== numSegments - 1) {
-            var duration = item.duration || DEFAULT_DURATION;
-            offset += staggerDelay;
-            flatInstructions.push("-" + (duration - offset));
-        }
-    });
-    return flatInstructions;
-};
-var flattenArrayInstructions = function (instructions, instruction) {
-    Array.isArray(instruction) ? instructions.push.apply(instructions, flattenTimings(instruction)) : instructions.push(instruction);
-    return instructions;
-};
-var convertDefToProps = function (props, def, i) {
-    var duration = props.duration,
-        easings = props.easings,
-        times = props.times,
-        values = props.values;
-    var numValues = values.length;
-    var prevTimeTo = times[numValues - 1];
-    var timeFrom = def.at === 0 ? 0 : def.at / duration;
-    var timeTo = (def.at + def.duration) / duration;
-    if (i === 0) {
-        values.push(def.from);
-        times.push(timeFrom);
-    } else {
-        if (prevTimeTo !== timeFrom) {
-            if (def.from !== undefined) {
-                values.push(values[numValues - 1]);
-                times.push(timeFrom);
-                easings.push(_popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.linear);
-            }
-            var from = def.from !== undefined ? def.from : values[numValues - 1];
-            values.push(from);
-            times.push(timeFrom);
-            easings.push(_popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.linear);
-        } else if (def.from !== undefined) {
-            values.push(def.from);
-            times.push(timeFrom);
-            easings.push(_popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.linear);
         }
     }
-    values.push(def.to);
-    times.push(timeTo);
-    easings.push(def.ease || _popmotion_easing__WEBPACK_IMPORTED_MODULE_3__.easeInOut);
-    return props;
-};
-var timeline = function (instructions, _a) {
-    var _b = _a === void 0 ? {} : _a,
-        duration = _b.duration,
-        elapsed = _b.elapsed,
-        ease = _b.ease,
-        loop = _b.loop,
-        flip = _b.flip,
-        yoyo = _b.yoyo;
-    var playhead = 0;
-    var calculatedDuration = 0;
-    var flatInstructions = instructions.reduce(flattenArrayInstructions, []);
-    var animationDefs = [];
-    flatInstructions.forEach(function (instruction) {
-        if (typeof instruction === 'string') {
-            playhead += parseFloat(instruction);
-        } else if (typeof instruction === 'number') {
-            playhead = instruction;
-        } else {
-            var def = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)({}, instruction, { at: playhead });
-            def.duration = def.duration === undefined ? DEFAULT_DURATION : def.duration;
-            animationDefs.push(def);
-            playhead += def.duration;
-            calculatedDuration = Math.max(calculatedDuration, def.at + def.duration);
-        }
-    });
-    var tracks = {};
-    var numDefs = animationDefs.length;
-    for (var i = 0; i < numDefs; i++) {
-        var def = animationDefs[i];
-        var track = def.track;
-        if (track === undefined) {
-            throw new Error('No track defined');
-        }
-        if (!tracks.hasOwnProperty(track)) tracks[track] = [];
-        tracks[track].push(def);
+    function play() {
+        onPlay === null || onPlay === void 0 ? void 0 : onPlay();
+        driverControls = driver(update);
+        driverControls.start();
     }
-    var trackKeyframes = {};
-    for (var key in tracks) {
-        if (tracks.hasOwnProperty(key)) {
-            var keyframeProps = tracks[key].reduce(convertDefToProps, {
-                duration: calculatedDuration,
-                easings: [],
-                times: [],
-                values: []
-            });
-            trackKeyframes[key] = keyframes((0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)({}, keyframeProps, { duration: duration || calculatedDuration, ease: ease,
-                elapsed: elapsed,
-                loop: loop,
-                yoyo: yoyo,
-                flip: flip }));
-        }
-    }
-    return composite(trackKeyframes);
-};
-
-var listen = function (element, events, options) {
-    return action(function (_a) {
-        var update = _a.update;
-        var eventNames = events.split(' ').map(function (eventName) {
-            element.addEventListener(eventName, update, options);
-            return eventName;
-        });
-        return {
-            stop: function () {
-                return eventNames.forEach(function (eventName) {
-                    return element.removeEventListener(eventName, update, options);
-                });
-            }
-        };
-    });
-};
-
-var defaultPointerPos = function () {
+    autoplay && play();
     return {
-        clientX: 0,
-        clientY: 0,
-        pageX: 0,
-        pageY: 0,
-        x: 0,
-        y: 0
+        stop: function () {
+            onStop === null || onStop === void 0 ? void 0 : onStop();
+            driverControls.stop();
+        },
     };
-};
-var eventToPoint = function (e, point) {
-    if (point === void 0) {
-        point = defaultPointerPos();
-    }
-    point.clientX = point.x = e.clientX;
-    point.clientY = point.y = e.clientY;
-    point.pageX = e.pageX;
-    point.pageY = e.pageY;
-    return point;
-};
-
-var points = [/*#__PURE__*/defaultPointerPos()];
-var isTouchDevice = false;
-if (typeof document !== 'undefined') {
-    var updatePointsLocation = function (_a) {
-        var touches = _a.touches;
-        isTouchDevice = true;
-        var numTouches = touches.length;
-        points.length = 0;
-        for (var i = 0; i < numTouches; i++) {
-            var thisTouch = touches[i];
-            points.push(eventToPoint(thisTouch));
-        }
-    };
-    listen(document, 'touchstart touchmove', {
-        passive: true,
-        capture: true
-    }).start(updatePointsLocation);
 }
-var multitouch = function (_a) {
-    var _b = _a === void 0 ? {} : _a,
-        _c = _b.preventDefault,
-        preventDefault = _c === void 0 ? true : _c,
-        _d = _b.scale,
-        scale = _d === void 0 ? 1.0 : _d,
-        _e = _b.rotate,
-        rotate = _e === void 0 ? 0.0 : _e;
-    return action(function (_a) {
-        var update = _a.update;
-        var output = {
-            touches: points,
-            scale: scale,
-            rotate: rotate
-        };
-        var initialDistance = 0.0;
-        var initialRotation = 0.0;
-        var isGesture = points.length > 1;
-        if (isGesture) {
-            var firstTouch = points[0],
-                secondTouch = points[1];
-            initialDistance = (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.distance)(firstTouch, secondTouch);
-            initialRotation = (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.angle)(firstTouch, secondTouch);
-        }
-        var updatePoint = function () {
-            if (isGesture) {
-                var firstTouch = points[0],
-                    secondTouch = points[1];
-                var newDistance = (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.distance)(firstTouch, secondTouch);
-                var newRotation = (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.angle)(firstTouch, secondTouch);
-                output.scale = scale * (newDistance / initialDistance);
-                output.rotate = rotate + (newRotation - initialRotation);
-            }
-            update(output);
-        };
-        var onMove = function (e) {
-            if (preventDefault || e.touches.length > 1) e.preventDefault();
-            framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(updatePoint);
-        };
-        var updateOnMove = listen(document, 'touchmove', {
-            passive: !preventDefault
-        }).start(onMove);
-        if (isTouchDevice) framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(updatePoint);
-        return {
-            stop: function () {
-                framesync__WEBPACK_IMPORTED_MODULE_1__.cancelSync.update(updatePoint);
-                updateOnMove.stop();
-            }
-        };
-    });
-};
-var getIsTouchDevice = function () {
-    return isTouchDevice;
-};
 
-var point = /*#__PURE__*/defaultPointerPos();
-var isMouseDevice = false;
-if (typeof document !== 'undefined') {
-    var updatePointLocation = function (e) {
-        isMouseDevice = true;
-        eventToPoint(e, point);
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/animations/inertia.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/animations/inertia.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "inertia": () => (/* binding */ inertia)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ "./node_modules/popmotion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.js */ "./node_modules/popmotion/dist/es/animations/index.js");
+/* harmony import */ var _utils_velocity_per_second_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/velocity-per-second.js */ "./node_modules/popmotion/dist/es/utils/velocity-per-second.js");
+/* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! framesync */ "./node_modules/framesync/dist/es/index.js");
+
+
+
+
+
+function inertia(_a) {
+    var _b = _a.from, from = _b === void 0 ? 0 : _b, _c = _a.velocity, velocity = _c === void 0 ? 0 : _c, min = _a.min, max = _a.max, _d = _a.power, power = _d === void 0 ? 0.8 : _d, _e = _a.timeConstant, timeConstant = _e === void 0 ? 750 : _e, _f = _a.bounceStiffness, bounceStiffness = _f === void 0 ? 500 : _f, _g = _a.bounceDamping, bounceDamping = _g === void 0 ? 10 : _g, _h = _a.restDelta, restDelta = _h === void 0 ? 1 : _h, modifyTarget = _a.modifyTarget, driver = _a.driver, onUpdate = _a.onUpdate, onComplete = _a.onComplete;
+    var currentAnimation;
+    function isOutOfBounds(v) {
+        return (min !== undefined && v < min) || (max !== undefined && v > max);
+    }
+    function boundaryNearest(v) {
+        if (min === undefined)
+            return max;
+        if (max === undefined)
+            return min;
+        return Math.abs(min - v) < Math.abs(max - v) ? min : max;
+    }
+    function startAnimation(options) {
+        currentAnimation === null || currentAnimation === void 0 ? void 0 : currentAnimation.stop();
+        currentAnimation = (0,_index_js__WEBPACK_IMPORTED_MODULE_1__.animate)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({}, options), { driver: driver, onUpdate: function (v) {
+                var _a;
+                onUpdate === null || onUpdate === void 0 ? void 0 : onUpdate(v);
+                (_a = options.onUpdate) === null || _a === void 0 ? void 0 : _a.call(options, v);
+            }, onComplete: onComplete }));
+    }
+    function startSpring(options) {
+        startAnimation((0,tslib__WEBPACK_IMPORTED_MODULE_2__.__assign)({ type: "spring", stiffness: bounceStiffness, damping: bounceDamping, restDelta: restDelta }, options));
+    }
+    if (isOutOfBounds(from)) {
+        startSpring({ from: from, velocity: velocity, to: boundaryNearest(from) });
+    }
+    else {
+        var target = power * velocity + from;
+        if (typeof modifyTarget !== "undefined")
+            target = modifyTarget(target);
+        var boundary_1 = boundaryNearest(target);
+        var heading_1 = boundary_1 === min ? -1 : 1;
+        var prev_1;
+        var current_1;
+        var checkBoundary = function (v) {
+            prev_1 = current_1;
+            current_1 = v;
+            velocity = (0,_utils_velocity_per_second_js__WEBPACK_IMPORTED_MODULE_3__.velocityPerSecond)(v - prev_1, (0,framesync__WEBPACK_IMPORTED_MODULE_0__.getFrameData)().delta);
+            if ((heading_1 === 1 && v > boundary_1) ||
+                (heading_1 === -1 && v < boundary_1)) {
+                startSpring({ from: v, to: boundary_1, velocity: velocity });
+            }
+        };
+        startAnimation({
+            type: "decay",
+            from: from,
+            velocity: velocity,
+            timeConstant: timeConstant,
+            power: power,
+            restDelta: restDelta,
+            modifyTarget: modifyTarget,
+            onUpdate: isOutOfBounds(target) ? checkBoundary : undefined,
+        });
+    }
+    return {
+        stop: function () { return currentAnimation === null || currentAnimation === void 0 ? void 0 : currentAnimation.stop(); },
     };
-    listen(document, 'mousedown mousemove', true).start(updatePointLocation);
 }
-var mouse = function (_a) {
-    var _b = (_a === void 0 ? {} : _a).preventDefault,
-        preventDefault = _b === void 0 ? true : _b;
-    return action(function (_a) {
-        var update = _a.update;
-        var updatePoint = function () {
-            return update(point);
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/animations/utils/detect-animation-from-options.js":
+/*!******************************************************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/animations/utils/detect-animation-from-options.js ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "detectAnimationFromOptions": () => (/* binding */ detectAnimationFromOptions)
+/* harmony export */ });
+/* harmony import */ var _generators_spring_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../generators/spring.js */ "./node_modules/popmotion/dist/es/animations/generators/spring.js");
+/* harmony import */ var _generators_keyframes_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../generators/keyframes.js */ "./node_modules/popmotion/dist/es/animations/generators/keyframes.js");
+/* harmony import */ var _generators_decay_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../generators/decay.js */ "./node_modules/popmotion/dist/es/animations/generators/decay.js");
+
+
+
+
+var types = { keyframes: _generators_keyframes_js__WEBPACK_IMPORTED_MODULE_0__.keyframes, spring: _generators_spring_js__WEBPACK_IMPORTED_MODULE_1__.spring, decay: _generators_decay_js__WEBPACK_IMPORTED_MODULE_2__.decay };
+function detectAnimationFromOptions(config) {
+    if (Array.isArray(config.to)) {
+        return _generators_keyframes_js__WEBPACK_IMPORTED_MODULE_0__.keyframes;
+    }
+    else if (types[config.type]) {
+        return types[config.type];
+    }
+    var keys = new Set(Object.keys(config));
+    if (keys.has("ease") ||
+        (keys.has("duration") && !keys.has("dampingRatio"))) {
+        return _generators_keyframes_js__WEBPACK_IMPORTED_MODULE_0__.keyframes;
+    }
+    else if (keys.has("dampingRatio") ||
+        keys.has("stiffness") ||
+        keys.has("mass") ||
+        keys.has("damping") ||
+        keys.has("restSpeed") ||
+        keys.has("restDelta")) {
+        return _generators_spring_js__WEBPACK_IMPORTED_MODULE_1__.spring;
+    }
+    return _generators_keyframes_js__WEBPACK_IMPORTED_MODULE_0__.keyframes;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/animations/utils/elapsed.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/animations/utils/elapsed.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "hasRepeatDelayElapsed": () => (/* binding */ hasRepeatDelayElapsed),
+/* harmony export */   "loopElapsed": () => (/* binding */ loopElapsed),
+/* harmony export */   "reverseElapsed": () => (/* binding */ reverseElapsed)
+/* harmony export */ });
+function loopElapsed(elapsed, duration, delay) {
+    if (delay === void 0) { delay = 0; }
+    return elapsed - duration - delay;
+}
+function reverseElapsed(elapsed, duration, delay, isForwardPlayback) {
+    if (delay === void 0) { delay = 0; }
+    if (isForwardPlayback === void 0) { isForwardPlayback = true; }
+    return isForwardPlayback
+        ? loopElapsed(duration + -elapsed, duration, delay)
+        : duration - (elapsed - duration) + delay;
+}
+function hasRepeatDelayElapsed(elapsed, duration, delay, isForwardPlayback) {
+    return isForwardPlayback ? elapsed >= duration + delay : elapsed <= -delay;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/animations/utils/find-spring.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/animations/utils/find-spring.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "calcAngularFreq": () => (/* binding */ calcAngularFreq),
+/* harmony export */   "findSpring": () => (/* binding */ findSpring),
+/* harmony export */   "maxDamping": () => (/* binding */ maxDamping),
+/* harmony export */   "maxDuration": () => (/* binding */ maxDuration),
+/* harmony export */   "minDamping": () => (/* binding */ minDamping),
+/* harmony export */   "minDuration": () => (/* binding */ minDuration)
+/* harmony export */ });
+/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
+/* harmony import */ var _utils_clamp_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/clamp.js */ "./node_modules/popmotion/dist/es/utils/clamp.js");
+
+
+
+var safeMin = 0.001;
+var minDuration = 0.01;
+var maxDuration = 10.0;
+var minDamping = 0.05;
+var maxDamping = 1;
+function findSpring(_a) {
+    var _b = _a.duration, duration = _b === void 0 ? 800 : _b, _c = _a.bounce, bounce = _c === void 0 ? 0.25 : _c, _d = _a.velocity, velocity = _d === void 0 ? 0 : _d, _e = _a.mass, mass = _e === void 0 ? 1 : _e;
+    var envelope;
+    var derivative;
+    (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.warning)(duration <= maxDuration * 1000, "Spring duration must be 10 seconds or less");
+    var dampingRatio = 1 - bounce;
+    dampingRatio = (0,_utils_clamp_js__WEBPACK_IMPORTED_MODULE_1__.clamp)(minDamping, maxDamping, dampingRatio);
+    duration = (0,_utils_clamp_js__WEBPACK_IMPORTED_MODULE_1__.clamp)(minDuration, maxDuration, duration / 1000);
+    if (dampingRatio < 1) {
+        envelope = function (undampedFreq) {
+            var exponentialDecay = undampedFreq * dampingRatio;
+            var delta = exponentialDecay * duration;
+            var a = exponentialDecay - velocity;
+            var b = calcAngularFreq(undampedFreq, dampingRatio);
+            var c = Math.exp(-delta);
+            return safeMin - (a / b) * c;
         };
-        var onMove = function (e) {
-            if (preventDefault) e.preventDefault();
-            framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(updatePoint);
+        derivative = function (undampedFreq) {
+            var exponentialDecay = undampedFreq * dampingRatio;
+            var delta = exponentialDecay * duration;
+            var d = delta * velocity + velocity;
+            var e = Math.pow(dampingRatio, 2) * Math.pow(undampedFreq, 2) * duration;
+            var f = Math.exp(-delta);
+            var g = calcAngularFreq(Math.pow(undampedFreq, 2), dampingRatio);
+            var factor = -envelope(undampedFreq) + safeMin > 0 ? -1 : 1;
+            return (factor * ((d - e) * f)) / g;
         };
-        var updateOnMove = listen(document, 'mousemove').start(onMove);
-        if (isMouseDevice) framesync__WEBPACK_IMPORTED_MODULE_1__["default"].update(updatePoint);
+    }
+    else {
+        envelope = function (undampedFreq) {
+            var a = Math.exp(-undampedFreq * duration);
+            var b = (undampedFreq - velocity) * duration + 1;
+            return -safeMin + a * b;
+        };
+        derivative = function (undampedFreq) {
+            var a = Math.exp(-undampedFreq * duration);
+            var b = (velocity - undampedFreq) * (duration * duration);
+            return a * b;
+        };
+    }
+    var initialGuess = 5 / duration;
+    var undampedFreq = approximateRoot(envelope, derivative, initialGuess);
+    duration = duration * 1000;
+    if (isNaN(undampedFreq)) {
         return {
-            stop: function () {
-                framesync__WEBPACK_IMPORTED_MODULE_1__.cancelSync.update(updatePoint);
-                updateOnMove.stop();
-            }
+            stiffness: 100,
+            damping: 10,
+            duration: duration,
         };
-    });
-};
-
-var getFirstTouch = function (_a) {
-    var firstTouch = _a[0];
-    return firstTouch;
-};
-var pointer = function (props) {
-    if (props === void 0) {
-        props = {};
     }
-    return getIsTouchDevice() ? multitouch(props).pipe(function (_a) {
-        var touches = _a.touches;
-        return touches;
-    }, getFirstTouch) : mouse(props);
-};
-var index$1 = function (_a) {
-    if (_a === void 0) {
-        _a = {};
-    }
-    var x = _a.x,
-        y = _a.y,
-        props = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__rest)(_a, ["x", "y"]);
-    if (x !== undefined || y !== undefined) {
-        var applyXOffset_1 = (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.applyOffset)(x || 0);
-        var applyYOffset_1 = (0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.applyOffset)(y || 0);
-        var delta_1 = { x: 0, y: 0 };
-        return pointer(props).pipe(function (point) {
-            delta_1.x = applyXOffset_1(point.x);
-            delta_1.y = applyYOffset_1(point.y);
-            return delta_1;
-        });
-    } else {
-        return pointer(props);
-    }
-};
-
-var chain = function () {
-    var actions = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        actions[_i] = arguments[_i];
-    }
-    return action(function (_a) {
-        var update = _a.update,
-            complete = _a.complete;
-        var i = 0;
-        var current;
-        var playCurrent = function () {
-            current = actions[i].start({
-                complete: function () {
-                    i++;
-                    i >= actions.length ? complete() : playCurrent();
-                },
-                update: update
-            });
-        };
-        playCurrent();
+    else {
+        var stiffness = Math.pow(undampedFreq, 2) * mass;
         return {
-            stop: function () {
-                return current && current.stop();
-            }
+            stiffness: stiffness,
+            damping: dampingRatio * 2 * Math.sqrt(mass * stiffness),
+            duration: duration,
         };
-    });
-};
-
-var parallel = /*#__PURE__*/multi({
-    getOutput: function () {
-        return [];
-    },
-    getCount: function (subs) {
-        return subs.length;
-    },
-    getFirst: function (subs) {
-        return subs[0];
-    },
-    mapApi: function (subs, methodName) {
-        return function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            return subs.map(function (sub, i) {
-                if (sub[methodName]) {
-                    return Array.isArray(args[0]) ? sub[methodName](args[0][i]) : sub[methodName].apply(sub, args);
-                }
-            });
-        };
-    },
-    setProp: function (output, name, v) {
-        return output[name] = v;
-    },
-    startActions: function (actions, starter) {
-        return actions.map(function (action, i) {
-            return starter(action, i);
-        });
     }
-});
-var parallel$1 = function () {
-    var actions = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        actions[_i] = arguments[_i];
+}
+var rootIterations = 12;
+function approximateRoot(envelope, derivative, initialGuess) {
+    var result = initialGuess;
+    for (var i = 1; i < rootIterations; i++) {
+        result = result - envelope(result) / derivative(result);
     }
-    return parallel(actions);
-};
+    return result;
+}
+function calcAngularFreq(undampedFreq, dampingRatio) {
+    return undampedFreq * Math.sqrt(1 - dampingRatio * dampingRatio);
+}
 
-var crossfade = function (a, b) {
-    return action(function (observer) {
-        var balance = 0;
-        var fadable = parallel$1(a, b).start((0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)({}, observer, { update: function (_a) {
-                var va = _a[0],
-                    vb = _a[1];
-                observer.update((0,_popmotion_popcorn__WEBPACK_IMPORTED_MODULE_0__.mix)(va, vb, balance));
-            } }));
-        return {
-            setBalance: function (v) {
-                return balance = v;
-            },
-            stop: function () {
-                return fadable.stop();
-            }
-        };
-    });
-};
 
-var delay = function (timeToDelay) {
-    return action(function (_a) {
-        var complete = _a.complete;
-        var timeout = setTimeout(complete, timeToDelay);
-        return {
-            stop: function () {
-                return clearTimeout(timeout);
-            }
-        };
-    });
-};
 
-var merge = function () {
-    var actions = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        actions[_i] = arguments[_i];
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/easing/cubic-bezier.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/easing/cubic-bezier.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "cubicBezier": () => (/* binding */ cubicBezier)
+/* harmony export */ });
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ "./node_modules/popmotion/dist/es/easing/index.js");
+
+
+var a = function (a1, a2) { return 1.0 - 3.0 * a2 + 3.0 * a1; };
+var b = function (a1, a2) { return 3.0 * a2 - 6.0 * a1; };
+var c = function (a1) { return 3.0 * a1; };
+var calcBezier = function (t, a1, a2) {
+    return ((a(a1, a2) * t + b(a1, a2)) * t + c(a1)) * t;
+};
+var getSlope = function (t, a1, a2) {
+    return 3.0 * a(a1, a2) * t * t + 2.0 * b(a1, a2) * t + c(a1);
+};
+var subdivisionPrecision = 0.0000001;
+var subdivisionMaxIterations = 10;
+function binarySubdivide(aX, aA, aB, mX1, mX2) {
+    var currentX;
+    var currentT;
+    var i = 0;
+    do {
+        currentT = aA + (aB - aA) / 2.0;
+        currentX = calcBezier(currentT, mX1, mX2) - aX;
+        if (currentX > 0.0) {
+            aB = currentT;
+        }
+        else {
+            aA = currentT;
+        }
+    } while (Math.abs(currentX) > subdivisionPrecision &&
+        ++i < subdivisionMaxIterations);
+    return currentT;
+}
+var newtonIterations = 8;
+var newtonMinSlope = 0.001;
+function newtonRaphsonIterate(aX, aGuessT, mX1, mX2) {
+    for (var i = 0; i < newtonIterations; ++i) {
+        var currentSlope = getSlope(aGuessT, mX1, mX2);
+        if (currentSlope === 0.0) {
+            return aGuessT;
+        }
+        var currentX = calcBezier(aGuessT, mX1, mX2) - aX;
+        aGuessT -= currentX / currentSlope;
     }
-    return action(function (observer) {
-        var subs = actions.map(function (thisAction) {
-            return thisAction.start(observer);
-        });
-        return {
-            stop: function () {
-                return subs.forEach(function (sub) {
-                    return sub.stop();
-                });
-            }
-        };
-    });
-};
+    return aGuessT;
+}
+var kSplineTableSize = 11;
+var kSampleStepSize = 1.0 / (kSplineTableSize - 1.0);
+function cubicBezier(mX1, mY1, mX2, mY2) {
+    if (mX1 === mY1 && mX2 === mY2)
+        return _index_js__WEBPACK_IMPORTED_MODULE_0__.linear;
+    var sampleValues = new Float32Array(kSplineTableSize);
+    for (var i = 0; i < kSplineTableSize; ++i) {
+        sampleValues[i] = calcBezier(i * kSampleStepSize, mX1, mX2);
+    }
+    function getTForX(aX) {
+        var intervalStart = 0.0;
+        var currentSample = 1;
+        var lastSample = kSplineTableSize - 1;
+        for (; currentSample !== lastSample && sampleValues[currentSample] <= aX; ++currentSample) {
+            intervalStart += kSampleStepSize;
+        }
+        --currentSample;
+        var dist = (aX - sampleValues[currentSample]) /
+            (sampleValues[currentSample + 1] - sampleValues[currentSample]);
+        var guessForT = intervalStart + dist * kSampleStepSize;
+        var initialSlope = getSlope(guessForT, mX1, mX2);
+        if (initialSlope >= newtonMinSlope) {
+            return newtonRaphsonIterate(aX, guessForT, mX1, mX2);
+        }
+        else if (initialSlope === 0.0) {
+            return guessForT;
+        }
+        else {
+            return binarySubdivide(aX, intervalStart, intervalStart + kSampleStepSize, mX1, mX2);
+        }
+    }
+    return function (t) {
+        return t === 0 || t === 1 ? t : calcBezier(getTForX(t), mY1, mY2);
+    };
+}
 
-var schedule = function (scheduler, schedulee) {
-    return action(function (_a) {
-        var update = _a.update,
-            complete = _a.complete;
-        var latest;
-        var schedulerSub = scheduler.start({
-            update: function () {
-                return latest !== undefined && update(latest);
-            },
-            complete: complete
-        });
-        var scheduleeSub = schedulee.start({
-            update: function (v) {
-                return latest = v;
-            },
-            complete: complete
-        });
-        return {
-            stop: function () {
-                schedulerSub.stop();
-                scheduleeSub.stop();
-            }
-        };
-    });
-};
 
-var stagger = function (actions, interval) {
-    var intervalIsNumber = typeof interval === 'number';
-    var actionsWithDelay = actions.map(function (a, i) {
-        var timeToDelay = intervalIsNumber ? interval * i : interval(i);
-        return chain(delay(timeToDelay), a);
-    });
-    return parallel$1.apply(void 0, actionsWithDelay);
-};
 
-var styler = function () {
-    return (0,hey_listen__WEBPACK_IMPORTED_MODULE_4__.invariant)(false, 'styler has been removed from Popmotion in 9.0. Downgrade to 8.x or npm install stylefire');
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/easing/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/easing/index.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "anticipate": () => (/* binding */ anticipate),
+/* harmony export */   "backIn": () => (/* binding */ backIn),
+/* harmony export */   "backInOut": () => (/* binding */ backInOut),
+/* harmony export */   "backOut": () => (/* binding */ backOut),
+/* harmony export */   "bounceIn": () => (/* binding */ bounceIn),
+/* harmony export */   "bounceInOut": () => (/* binding */ bounceInOut),
+/* harmony export */   "bounceOut": () => (/* binding */ bounceOut),
+/* harmony export */   "circIn": () => (/* binding */ circIn),
+/* harmony export */   "circInOut": () => (/* binding */ circInOut),
+/* harmony export */   "circOut": () => (/* binding */ circOut),
+/* harmony export */   "easeIn": () => (/* binding */ easeIn),
+/* harmony export */   "easeInOut": () => (/* binding */ easeInOut),
+/* harmony export */   "easeOut": () => (/* binding */ easeOut),
+/* harmony export */   "linear": () => (/* binding */ linear)
+/* harmony export */ });
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ "./node_modules/popmotion/dist/es/easing/utils.js");
+
+
+var DEFAULT_OVERSHOOT_STRENGTH = 1.525;
+var BOUNCE_FIRST_THRESHOLD = 4.0 / 11.0;
+var BOUNCE_SECOND_THRESHOLD = 8.0 / 11.0;
+var BOUNCE_THIRD_THRESHOLD = 9.0 / 10.0;
+var linear = function (p) { return p; };
+var easeIn = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.createExpoIn)(2);
+var easeOut = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.reverseEasing)(easeIn);
+var easeInOut = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.mirrorEasing)(easeIn);
+var circIn = function (p) { return 1 - Math.sin(Math.acos(p)); };
+var circOut = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.reverseEasing)(circIn);
+var circInOut = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.mirrorEasing)(circOut);
+var backIn = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.createBackIn)(DEFAULT_OVERSHOOT_STRENGTH);
+var backOut = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.reverseEasing)(backIn);
+var backInOut = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.mirrorEasing)(backIn);
+var anticipate = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.createAnticipate)(DEFAULT_OVERSHOOT_STRENGTH);
+var ca = 4356.0 / 361.0;
+var cb = 35442.0 / 1805.0;
+var cc = 16061.0 / 1805.0;
+var bounceOut = function (p) {
+    if (p === 1 || p === 0)
+        return p;
+    var p2 = p * p;
+    return p < BOUNCE_FIRST_THRESHOLD
+        ? 7.5625 * p2
+        : p < BOUNCE_SECOND_THRESHOLD
+            ? 9.075 * p2 - 9.9 * p + 3.4
+            : p < BOUNCE_THIRD_THRESHOLD
+                ? ca * p2 - cb * p + cc
+                : 10.8 * p * p - 20.52 * p + 10.72;
+};
+var bounceIn = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.reverseEasing)(bounceOut);
+var bounceInOut = function (p) {
+    return p < 0.5
+        ? 0.5 * (1.0 - bounceOut(1.0 - p * 2.0))
+        : 0.5 * bounceOut(p * 2.0 - 1.0) + 0.5;
 };
 
 
@@ -11119,246 +14173,1546 @@ var styler = function () {
 
 /***/ }),
 
-/***/ "./node_modules/style-value-types/dist/style-value-types.es.js":
+/***/ "./node_modules/popmotion/dist/es/easing/utils.js":
+/*!********************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/easing/utils.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createAnticipate": () => (/* binding */ createAnticipate),
+/* harmony export */   "createBackIn": () => (/* binding */ createBackIn),
+/* harmony export */   "createExpoIn": () => (/* binding */ createExpoIn),
+/* harmony export */   "mirrorEasing": () => (/* binding */ mirrorEasing),
+/* harmony export */   "reverseEasing": () => (/* binding */ reverseEasing)
+/* harmony export */ });
+var reverseEasing = function (easing) { return function (p) { return 1 - easing(1 - p); }; };
+var mirrorEasing = function (easing) { return function (p) {
+    return p <= 0.5 ? easing(2 * p) / 2 : (2 - easing(2 * (1 - p))) / 2;
+}; };
+var createExpoIn = function (power) { return function (p) { return Math.pow(p, power); }; };
+var createBackIn = function (power) { return function (p) {
+    return p * p * ((power + 1) * p - power);
+}; };
+var createAnticipate = function (power) {
+    var backEasing = createBackIn(power);
+    return function (p) {
+        return (p *= 2) < 1
+            ? 0.5 * backEasing(p)
+            : 0.5 * (2 - Math.pow(2, -10 * (p - 1)));
+    };
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/utils/clamp.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/utils/clamp.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "clamp": () => (/* binding */ clamp)
+/* harmony export */ });
+var clamp = function (min, max, v) {
+    return Math.min(Math.max(v, min), max);
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/utils/distance.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/utils/distance.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "distance": () => (/* binding */ distance)
+/* harmony export */ });
+/* harmony import */ var _is_point_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./is-point.js */ "./node_modules/popmotion/dist/es/utils/is-point.js");
+/* harmony import */ var _is_point_3d_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./is-point-3d.js */ "./node_modules/popmotion/dist/es/utils/is-point-3d.js");
+/* harmony import */ var _inc_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./inc.js */ "./node_modules/popmotion/dist/es/utils/inc.js");
+
+
+
+
+var distance1D = function (a, b) { return Math.abs(a - b); };
+function distance(a, b) {
+    if ((0,_inc_js__WEBPACK_IMPORTED_MODULE_0__.isNum)(a) && (0,_inc_js__WEBPACK_IMPORTED_MODULE_0__.isNum)(b)) {
+        return distance1D(a, b);
+    }
+    else if ((0,_is_point_js__WEBPACK_IMPORTED_MODULE_1__.isPoint)(a) && (0,_is_point_js__WEBPACK_IMPORTED_MODULE_1__.isPoint)(b)) {
+        var xDelta = distance1D(a.x, b.x);
+        var yDelta = distance1D(a.y, b.y);
+        var zDelta = (0,_is_point_3d_js__WEBPACK_IMPORTED_MODULE_2__.isPoint3D)(a) && (0,_is_point_3d_js__WEBPACK_IMPORTED_MODULE_2__.isPoint3D)(b) ? distance1D(a.z, b.z) : 0;
+        return Math.sqrt(Math.pow(xDelta, 2) + Math.pow(yDelta, 2) + Math.pow(zDelta, 2));
+    }
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/utils/inc.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/utils/inc.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isNum": () => (/* binding */ isNum),
+/* harmony export */   "zeroPoint": () => (/* binding */ zeroPoint)
+/* harmony export */ });
+var zeroPoint = {
+    x: 0,
+    y: 0,
+    z: 0
+};
+var isNum = function (v) { return typeof v === 'number'; };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/utils/interpolate.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/utils/interpolate.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "interpolate": () => (/* binding */ interpolate)
+/* harmony export */ });
+/* harmony import */ var _progress_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./progress.js */ "./node_modules/popmotion/dist/es/utils/progress.js");
+/* harmony import */ var _mix_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mix.js */ "./node_modules/popmotion/dist/es/utils/mix.js");
+/* harmony import */ var _mix_color_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mix-color.js */ "./node_modules/popmotion/dist/es/utils/mix-color.js");
+/* harmony import */ var _mix_complex_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mix-complex.js */ "./node_modules/popmotion/dist/es/utils/mix-complex.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/color/index.js");
+/* harmony import */ var _clamp_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./clamp.js */ "./node_modules/popmotion/dist/es/utils/clamp.js");
+/* harmony import */ var _pipe_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pipe.js */ "./node_modules/popmotion/dist/es/utils/pipe.js");
+/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
+
+
+
+
+
+
+
+
+
+var mixNumber = function (from, to) { return function (p) { return (0,_mix_js__WEBPACK_IMPORTED_MODULE_1__.mix)(from, to, p); }; };
+function detectMixerFactory(v) {
+    if (typeof v === 'number') {
+        return mixNumber;
+    }
+    else if (typeof v === 'string') {
+        if (style_value_types__WEBPACK_IMPORTED_MODULE_2__.color.test(v)) {
+            return _mix_color_js__WEBPACK_IMPORTED_MODULE_3__.mixColor;
+        }
+        else {
+            return _mix_complex_js__WEBPACK_IMPORTED_MODULE_4__.mixComplex;
+        }
+    }
+    else if (Array.isArray(v)) {
+        return _mix_complex_js__WEBPACK_IMPORTED_MODULE_4__.mixArray;
+    }
+    else if (typeof v === 'object') {
+        return _mix_complex_js__WEBPACK_IMPORTED_MODULE_4__.mixObject;
+    }
+}
+function createMixers(output, ease, customMixer) {
+    var mixers = [];
+    var mixerFactory = customMixer || detectMixerFactory(output[0]);
+    var numMixers = output.length - 1;
+    for (var i = 0; i < numMixers; i++) {
+        var mixer = mixerFactory(output[i], output[i + 1]);
+        if (ease) {
+            var easingFunction = Array.isArray(ease) ? ease[i] : ease;
+            mixer = (0,_pipe_js__WEBPACK_IMPORTED_MODULE_5__.pipe)(easingFunction, mixer);
+        }
+        mixers.push(mixer);
+    }
+    return mixers;
+}
+function fastInterpolate(_a, _b) {
+    var from = _a[0], to = _a[1];
+    var mixer = _b[0];
+    return function (v) { return mixer((0,_progress_js__WEBPACK_IMPORTED_MODULE_6__.progress)(from, to, v)); };
+}
+function slowInterpolate(input, mixers) {
+    var inputLength = input.length;
+    var lastInputIndex = inputLength - 1;
+    return function (v) {
+        var mixerIndex = 0;
+        var foundMixerIndex = false;
+        if (v <= input[0]) {
+            foundMixerIndex = true;
+        }
+        else if (v >= input[lastInputIndex]) {
+            mixerIndex = lastInputIndex - 1;
+            foundMixerIndex = true;
+        }
+        if (!foundMixerIndex) {
+            var i = 1;
+            for (; i < inputLength; i++) {
+                if (input[i] > v || i === lastInputIndex) {
+                    break;
+                }
+            }
+            mixerIndex = i - 1;
+        }
+        var progressInRange = (0,_progress_js__WEBPACK_IMPORTED_MODULE_6__.progress)(input[mixerIndex], input[mixerIndex + 1], v);
+        return mixers[mixerIndex](progressInRange);
+    };
+}
+function interpolate(input, output, _a) {
+    var _b = _a === void 0 ? {} : _a, _c = _b.clamp, isClamp = _c === void 0 ? true : _c, ease = _b.ease, mixer = _b.mixer;
+    var inputLength = input.length;
+    (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.invariant)(inputLength === output.length, 'Both input and output ranges must be the same length');
+    (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.invariant)(!ease || !Array.isArray(ease) || ease.length === inputLength - 1, 'Array of easing functions must be of length `input.length - 1`, as it applies to the transitions **between** the defined values.');
+    if (input[0] > input[inputLength - 1]) {
+        input = [].concat(input);
+        output = [].concat(output);
+        input.reverse();
+        output.reverse();
+    }
+    var mixers = createMixers(output, ease, mixer);
+    var interpolator = inputLength === 2
+        ? fastInterpolate(input, mixers)
+        : slowInterpolate(input, mixers);
+    return isClamp
+        ? function (v) { return interpolator((0,_clamp_js__WEBPACK_IMPORTED_MODULE_7__.clamp)(input[0], input[inputLength - 1], v)); }
+        : interpolator;
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/utils/is-point-3d.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/utils/is-point-3d.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isPoint3D": () => (/* binding */ isPoint3D)
+/* harmony export */ });
+/* harmony import */ var _is_point_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./is-point.js */ "./node_modules/popmotion/dist/es/utils/is-point.js");
+
+
+var isPoint3D = function (point) {
+    return (0,_is_point_js__WEBPACK_IMPORTED_MODULE_0__.isPoint)(point) && point.hasOwnProperty('z');
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/utils/is-point.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/utils/is-point.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isPoint": () => (/* binding */ isPoint)
+/* harmony export */ });
+var isPoint = function (point) {
+    return point.hasOwnProperty('x') && point.hasOwnProperty('y');
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/utils/mix-color.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/utils/mix-color.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "mixColor": () => (/* binding */ mixColor),
+/* harmony export */   "mixLinearColor": () => (/* binding */ mixLinearColor)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ "./node_modules/popmotion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _mix_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./mix.js */ "./node_modules/popmotion/dist/es/utils/mix.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/color/hex.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/color/rgba.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/color/hsla.js");
+/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
+
+
+
+
+
+var mixLinearColor = function (from, to, v) {
+    var fromExpo = from * from;
+    var toExpo = to * to;
+    return Math.sqrt(Math.max(0, v * (toExpo - fromExpo) + fromExpo));
+};
+var colorTypes = [style_value_types__WEBPACK_IMPORTED_MODULE_1__.hex, style_value_types__WEBPACK_IMPORTED_MODULE_2__.rgba, style_value_types__WEBPACK_IMPORTED_MODULE_3__.hsla];
+var getColorType = function (v) {
+    return colorTypes.find(function (type) { return type.test(v); });
+};
+var notAnimatable = function (color) {
+    return "'" + color + "' is not an animatable color. Use the equivalent color code instead.";
+};
+var mixColor = function (from, to) {
+    var fromColorType = getColorType(from);
+    var toColorType = getColorType(to);
+    (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.invariant)(!!fromColorType, notAnimatable(from));
+    (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.invariant)(!!toColorType, notAnimatable(to));
+    (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.invariant)(fromColorType.transform === toColorType.transform, "Both colors must be hex/RGBA, OR both must be HSLA.");
+    var fromColor = fromColorType.parse(from);
+    var toColor = toColorType.parse(to);
+    var blended = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__assign)({}, fromColor);
+    var mixFunc = fromColorType === style_value_types__WEBPACK_IMPORTED_MODULE_3__.hsla ? _mix_js__WEBPACK_IMPORTED_MODULE_5__.mix : mixLinearColor;
+    return function (v) {
+        for (var key in blended) {
+            if (key !== "alpha") {
+                blended[key] = mixFunc(fromColor[key], toColor[key], v);
+            }
+        }
+        blended.alpha = (0,_mix_js__WEBPACK_IMPORTED_MODULE_5__.mix)(fromColor.alpha, toColor.alpha, v);
+        return fromColorType.transform(blended);
+    };
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/utils/mix-complex.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/utils/mix-complex.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "mixArray": () => (/* binding */ mixArray),
+/* harmony export */   "mixComplex": () => (/* binding */ mixComplex),
+/* harmony export */   "mixObject": () => (/* binding */ mixObject)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ "./node_modules/popmotion/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/color/index.js");
+/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/es/complex/index.js");
+/* harmony import */ var _mix_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mix.js */ "./node_modules/popmotion/dist/es/utils/mix.js");
+/* harmony import */ var _mix_color_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mix-color.js */ "./node_modules/popmotion/dist/es/utils/mix-color.js");
+/* harmony import */ var _inc_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inc.js */ "./node_modules/popmotion/dist/es/utils/inc.js");
+/* harmony import */ var _pipe_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pipe.js */ "./node_modules/popmotion/dist/es/utils/pipe.js");
+/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
+
+
+
+
+
+
+
+
+function getMixer(origin, target) {
+    if ((0,_inc_js__WEBPACK_IMPORTED_MODULE_1__.isNum)(origin)) {
+        return function (v) { return (0,_mix_js__WEBPACK_IMPORTED_MODULE_2__.mix)(origin, target, v); };
+    }
+    else if (style_value_types__WEBPACK_IMPORTED_MODULE_3__.color.test(origin)) {
+        return (0,_mix_color_js__WEBPACK_IMPORTED_MODULE_4__.mixColor)(origin, target);
+    }
+    else {
+        return mixComplex(origin, target);
+    }
+}
+var mixArray = function (from, to) {
+    var output = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__spreadArray)([], from);
+    var numValues = output.length;
+    var blendValue = from.map(function (fromThis, i) { return getMixer(fromThis, to[i]); });
+    return function (v) {
+        for (var i = 0; i < numValues; i++) {
+            output[i] = blendValue[i](v);
+        }
+        return output;
+    };
+};
+var mixObject = function (origin, target) {
+    var output = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_5__.__assign)({}, origin), target);
+    var blendValue = {};
+    for (var key in output) {
+        if (origin[key] !== undefined && target[key] !== undefined) {
+            blendValue[key] = getMixer(origin[key], target[key]);
+        }
+    }
+    return function (v) {
+        for (var key in blendValue) {
+            output[key] = blendValue[key](v);
+        }
+        return output;
+    };
+};
+function analyse(value) {
+    var parsed = style_value_types__WEBPACK_IMPORTED_MODULE_6__.complex.parse(value);
+    var numValues = parsed.length;
+    var numNumbers = 0;
+    var numRGB = 0;
+    var numHSL = 0;
+    for (var i = 0; i < numValues; i++) {
+        if (numNumbers || typeof parsed[i] === "number") {
+            numNumbers++;
+        }
+        else {
+            if (parsed[i].hue !== undefined) {
+                numHSL++;
+            }
+            else {
+                numRGB++;
+            }
+        }
+    }
+    return { parsed: parsed, numNumbers: numNumbers, numRGB: numRGB, numHSL: numHSL };
+}
+var mixComplex = function (origin, target) {
+    var template = style_value_types__WEBPACK_IMPORTED_MODULE_6__.complex.createTransformer(target);
+    var originStats = analyse(origin);
+    var targetStats = analyse(target);
+    (0,hey_listen__WEBPACK_IMPORTED_MODULE_0__.invariant)(originStats.numHSL === targetStats.numHSL &&
+        originStats.numRGB === targetStats.numRGB &&
+        originStats.numNumbers >= targetStats.numNumbers, "Complex values '" + origin + "' and '" + target + "' too different to mix. Ensure all colors are of the same type.");
+    return (0,_pipe_js__WEBPACK_IMPORTED_MODULE_7__.pipe)(mixArray(originStats.parsed, targetStats.parsed), template);
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/utils/mix.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/utils/mix.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "mix": () => (/* binding */ mix)
+/* harmony export */ });
+var mix = function (from, to, progress) {
+    return -progress * from + progress * to + from;
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/utils/pipe.js":
+/*!******************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/utils/pipe.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "pipe": () => (/* binding */ pipe)
+/* harmony export */ });
+var combineFunctions = function (a, b) { return function (v) { return b(a(v)); }; };
+var pipe = function () {
+    var transformers = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        transformers[_i] = arguments[_i];
+    }
+    return transformers.reduce(combineFunctions);
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/utils/progress.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/popmotion/dist/es/utils/progress.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "progress": () => (/* binding */ progress)
+/* harmony export */ });
+var progress = function (from, to, value) {
+    var toFromDifference = to - from;
+    return toFromDifference === 0 ? 1 : (value - from) / toFromDifference;
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/dist/es/utils/velocity-per-second.js":
 /*!*********************************************************************!*\
-  !*** ./node_modules/style-value-types/dist/style-value-types.es.js ***!
+  !*** ./node_modules/popmotion/dist/es/utils/velocity-per-second.js ***!
   \*********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "alpha": () => (/* binding */ alpha),
-/* harmony export */   "color": () => (/* binding */ color),
-/* harmony export */   "complex": () => (/* binding */ complex),
-/* harmony export */   "degrees": () => (/* binding */ degrees),
-/* harmony export */   "hex": () => (/* binding */ hex),
-/* harmony export */   "hsla": () => (/* binding */ hsla),
-/* harmony export */   "number": () => (/* binding */ number),
-/* harmony export */   "percent": () => (/* binding */ percent),
-/* harmony export */   "progressPercentage": () => (/* binding */ progressPercentage),
-/* harmony export */   "px": () => (/* binding */ px),
-/* harmony export */   "rgbUnit": () => (/* binding */ rgbUnit),
-/* harmony export */   "rgba": () => (/* binding */ rgba),
-/* harmony export */   "scale": () => (/* binding */ scale),
-/* harmony export */   "vh": () => (/* binding */ vh),
-/* harmony export */   "vw": () => (/* binding */ vw)
+/* harmony export */   "velocityPerSecond": () => (/* binding */ velocityPerSecond)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+function velocityPerSecond(velocity, frameDuration) {
+    return frameDuration ? velocity * (1000 / frameDuration) : 0;
+}
 
 
-var clamp = function (min, max) { return function (v) {
-    return Math.max(Math.min(v, max), min);
+
+
+/***/ }),
+
+/***/ "./node_modules/popmotion/node_modules/tslib/tslib.es6.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/popmotion/node_modules/tslib/tslib.es6.js ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "__assign": () => (/* binding */ __assign),
+/* harmony export */   "__asyncDelegator": () => (/* binding */ __asyncDelegator),
+/* harmony export */   "__asyncGenerator": () => (/* binding */ __asyncGenerator),
+/* harmony export */   "__asyncValues": () => (/* binding */ __asyncValues),
+/* harmony export */   "__await": () => (/* binding */ __await),
+/* harmony export */   "__awaiter": () => (/* binding */ __awaiter),
+/* harmony export */   "__classPrivateFieldGet": () => (/* binding */ __classPrivateFieldGet),
+/* harmony export */   "__classPrivateFieldIn": () => (/* binding */ __classPrivateFieldIn),
+/* harmony export */   "__classPrivateFieldSet": () => (/* binding */ __classPrivateFieldSet),
+/* harmony export */   "__createBinding": () => (/* binding */ __createBinding),
+/* harmony export */   "__decorate": () => (/* binding */ __decorate),
+/* harmony export */   "__exportStar": () => (/* binding */ __exportStar),
+/* harmony export */   "__extends": () => (/* binding */ __extends),
+/* harmony export */   "__generator": () => (/* binding */ __generator),
+/* harmony export */   "__importDefault": () => (/* binding */ __importDefault),
+/* harmony export */   "__importStar": () => (/* binding */ __importStar),
+/* harmony export */   "__makeTemplateObject": () => (/* binding */ __makeTemplateObject),
+/* harmony export */   "__metadata": () => (/* binding */ __metadata),
+/* harmony export */   "__param": () => (/* binding */ __param),
+/* harmony export */   "__read": () => (/* binding */ __read),
+/* harmony export */   "__rest": () => (/* binding */ __rest),
+/* harmony export */   "__spread": () => (/* binding */ __spread),
+/* harmony export */   "__spreadArray": () => (/* binding */ __spreadArray),
+/* harmony export */   "__spreadArrays": () => (/* binding */ __spreadArrays),
+/* harmony export */   "__values": () => (/* binding */ __values)
+/* harmony export */ });
+/******************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    }
+    return __assign.apply(this, arguments);
+}
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+}
+
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+var __createBinding = Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+});
+
+function __exportStar(m, o) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p)) __createBinding(o, m, p);
+}
+
+function __values(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+}
+
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+}
+
+/** @deprecated */
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+
+/** @deprecated */
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+}
+
+function __spreadArray(to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+}
+
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+}
+
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+}
+
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+}
+
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+
+var __setModuleDefault = Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+};
+
+function __importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+}
+
+function __importDefault(mod) {
+    return (mod && mod.__esModule) ? mod : { default: mod };
+}
+
+function __classPrivateFieldGet(receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+}
+
+function __classPrivateFieldSet(receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
+}
+
+function __classPrivateFieldIn(state, receiver) {
+    if (receiver === null || (typeof receiver !== "object" && typeof receiver !== "function")) throw new TypeError("Cannot use 'in' operator on non-object");
+    return typeof state === "function" ? receiver === state : state.has(receiver);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/style-value-types/dist/es/color/hex.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/style-value-types/dist/es/color/hex.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "hex": () => (/* binding */ hex)
+/* harmony export */ });
+/* harmony import */ var _rgba_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rgba.js */ "./node_modules/style-value-types/dist/es/color/rgba.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ "./node_modules/style-value-types/dist/es/color/utils.js");
+
+
+
+function parseHex(v) {
+    var r = '';
+    var g = '';
+    var b = '';
+    var a = '';
+    if (v.length > 5) {
+        r = v.substr(1, 2);
+        g = v.substr(3, 2);
+        b = v.substr(5, 2);
+        a = v.substr(7, 2);
+    }
+    else {
+        r = v.substr(1, 1);
+        g = v.substr(2, 1);
+        b = v.substr(3, 1);
+        a = v.substr(4, 1);
+        r += r;
+        g += g;
+        b += b;
+        a += a;
+    }
+    return {
+        red: parseInt(r, 16),
+        green: parseInt(g, 16),
+        blue: parseInt(b, 16),
+        alpha: a ? parseInt(a, 16) / 255 : 1,
+    };
+}
+var hex = {
+    test: (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.isColorString)('#'),
+    parse: parseHex,
+    transform: _rgba_js__WEBPACK_IMPORTED_MODULE_1__.rgba.transform,
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/style-value-types/dist/es/color/hsla.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/style-value-types/dist/es/color/hsla.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "hsla": () => (/* binding */ hsla)
+/* harmony export */ });
+/* harmony import */ var _numbers_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../numbers/index.js */ "./node_modules/style-value-types/dist/es/numbers/index.js");
+/* harmony import */ var _numbers_units_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../numbers/units.js */ "./node_modules/style-value-types/dist/es/numbers/units.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../utils.js */ "./node_modules/style-value-types/dist/es/utils.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils.js */ "./node_modules/style-value-types/dist/es/color/utils.js");
+
+
+
+
+
+var hsla = {
+    test: (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.isColorString)('hsl', 'hue'),
+    parse: (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.splitColor)('hue', 'saturation', 'lightness'),
+    transform: function (_a) {
+        var hue = _a.hue, saturation = _a.saturation, lightness = _a.lightness, _b = _a.alpha, alpha$1 = _b === void 0 ? 1 : _b;
+        return ('hsla(' +
+            Math.round(hue) +
+            ', ' +
+            _numbers_units_js__WEBPACK_IMPORTED_MODULE_1__.percent.transform((0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.sanitize)(saturation)) +
+            ', ' +
+            _numbers_units_js__WEBPACK_IMPORTED_MODULE_1__.percent.transform((0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.sanitize)(lightness)) +
+            ', ' +
+            (0,_utils_js__WEBPACK_IMPORTED_MODULE_2__.sanitize)(_numbers_index_js__WEBPACK_IMPORTED_MODULE_3__.alpha.transform(alpha$1)) +
+            ')');
+    },
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/style-value-types/dist/es/color/index.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/style-value-types/dist/es/color/index.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "color": () => (/* binding */ color)
+/* harmony export */ });
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils.js */ "./node_modules/style-value-types/dist/es/utils.js");
+/* harmony import */ var _hex_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hex.js */ "./node_modules/style-value-types/dist/es/color/hex.js");
+/* harmony import */ var _hsla_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./hsla.js */ "./node_modules/style-value-types/dist/es/color/hsla.js");
+/* harmony import */ var _rgba_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rgba.js */ "./node_modules/style-value-types/dist/es/color/rgba.js");
+
+
+
+
+
+var color = {
+    test: function (v) { return _rgba_js__WEBPACK_IMPORTED_MODULE_0__.rgba.test(v) || _hex_js__WEBPACK_IMPORTED_MODULE_1__.hex.test(v) || _hsla_js__WEBPACK_IMPORTED_MODULE_2__.hsla.test(v); },
+    parse: function (v) {
+        if (_rgba_js__WEBPACK_IMPORTED_MODULE_0__.rgba.test(v)) {
+            return _rgba_js__WEBPACK_IMPORTED_MODULE_0__.rgba.parse(v);
+        }
+        else if (_hsla_js__WEBPACK_IMPORTED_MODULE_2__.hsla.test(v)) {
+            return _hsla_js__WEBPACK_IMPORTED_MODULE_2__.hsla.parse(v);
+        }
+        else {
+            return _hex_js__WEBPACK_IMPORTED_MODULE_1__.hex.parse(v);
+        }
+    },
+    transform: function (v) {
+        return (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.isString)(v)
+            ? v
+            : v.hasOwnProperty('red')
+                ? _rgba_js__WEBPACK_IMPORTED_MODULE_0__.rgba.transform(v)
+                : _hsla_js__WEBPACK_IMPORTED_MODULE_2__.hsla.transform(v);
+    },
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/style-value-types/dist/es/color/rgba.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/style-value-types/dist/es/color/rgba.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "rgbUnit": () => (/* binding */ rgbUnit),
+/* harmony export */   "rgba": () => (/* binding */ rgba)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/style-value-types/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _numbers_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../numbers/index.js */ "./node_modules/style-value-types/dist/es/numbers/index.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils.js */ "./node_modules/style-value-types/dist/es/utils.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils.js */ "./node_modules/style-value-types/dist/es/color/utils.js");
+
+
+
+
+
+var clampRgbUnit = (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.clamp)(0, 255);
+var rgbUnit = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, _numbers_index_js__WEBPACK_IMPORTED_MODULE_2__.number), { transform: function (v) { return Math.round(clampRgbUnit(v)); } });
+var rgba = {
+    test: (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.isColorString)('rgb', 'red'),
+    parse: (0,_utils_js__WEBPACK_IMPORTED_MODULE_3__.splitColor)('red', 'green', 'blue'),
+    transform: function (_a) {
+        var red = _a.red, green = _a.green, blue = _a.blue, _b = _a.alpha, alpha$1 = _b === void 0 ? 1 : _b;
+        return 'rgba(' +
+            rgbUnit.transform(red) +
+            ', ' +
+            rgbUnit.transform(green) +
+            ', ' +
+            rgbUnit.transform(blue) +
+            ', ' +
+            (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.sanitize)(_numbers_index_js__WEBPACK_IMPORTED_MODULE_2__.alpha.transform(alpha$1)) +
+            ')';
+    },
+};
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/style-value-types/dist/es/color/utils.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/style-value-types/dist/es/color/utils.js ***!
+  \***************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isColorString": () => (/* binding */ isColorString),
+/* harmony export */   "splitColor": () => (/* binding */ splitColor)
+/* harmony export */ });
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils.js */ "./node_modules/style-value-types/dist/es/utils.js");
+
+
+var isColorString = function (type, testProp) { return function (v) {
+    return Boolean(((0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.isString)(v) && _utils_js__WEBPACK_IMPORTED_MODULE_0__.singleColorRegex.test(v) && v.startsWith(type)) ||
+        (testProp && Object.prototype.hasOwnProperty.call(v, testProp)));
 }; };
-var sanitize = function (v) { return (v % 1 ? Number(v.toFixed(5)) : v); };
-var floatRegex = /(-)?(\d[\d\.]*)/g;
-var colorRegex = /(#[0-9a-f]{6}|#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\((-?[\d\.]+%?[,\s]+){2,3}\s*\/*\s*[\d\.]+%?\))/gi;
-var singleColorRegex = /^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\((-?[\d\.]+%?[,\s]+){2,3}\s*\/*\s*[\d\.]+%?\))$/i;
+var splitColor = function (aName, bName, cName) { return function (v) {
+    var _a;
+    if (!(0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.isString)(v))
+        return v;
+    var _b = v.match(_utils_js__WEBPACK_IMPORTED_MODULE_0__.floatRegex), a = _b[0], b = _b[1], c = _b[2], alpha = _b[3];
+    return _a = {},
+        _a[aName] = parseFloat(a),
+        _a[bName] = parseFloat(b),
+        _a[cName] = parseFloat(c),
+        _a.alpha = alpha !== undefined ? parseFloat(alpha) : 1,
+        _a;
+}; };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/style-value-types/dist/es/complex/filter.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/style-value-types/dist/es/complex/filter.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "filter": () => (/* binding */ filter)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/style-value-types/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.js */ "./node_modules/style-value-types/dist/es/complex/index.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils.js */ "./node_modules/style-value-types/dist/es/utils.js");
+
+
+
+
+var maxDefaults = new Set(['brightness', 'contrast', 'saturate', 'opacity']);
+function applyDefaultFilter(v) {
+    var _a = v.slice(0, -1).split('('), name = _a[0], value = _a[1];
+    if (name === 'drop-shadow')
+        return v;
+    var number = (value.match(_utils_js__WEBPACK_IMPORTED_MODULE_0__.floatRegex) || [])[0];
+    if (!number)
+        return v;
+    var unit = value.replace(number, '');
+    var defaultValue = maxDefaults.has(name) ? 1 : 0;
+    if (number !== value)
+        defaultValue *= 100;
+    return name + '(' + defaultValue + unit + ')';
+}
+var functionRegex = /([a-z-]*)\(.*?\)/g;
+var filter = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, _index_js__WEBPACK_IMPORTED_MODULE_2__.complex), { getAnimatableNone: function (v) {
+        var functions = v.match(functionRegex);
+        return functions ? functions.map(applyDefaultFilter).join(' ') : v;
+    } });
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/style-value-types/dist/es/complex/index.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/style-value-types/dist/es/complex/index.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "complex": () => (/* binding */ complex)
+/* harmony export */ });
+/* harmony import */ var _color_index_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../color/index.js */ "./node_modules/style-value-types/dist/es/color/index.js");
+/* harmony import */ var _numbers_index_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../numbers/index.js */ "./node_modules/style-value-types/dist/es/numbers/index.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils.js */ "./node_modules/style-value-types/dist/es/utils.js");
+
+
+
+
+var colorToken = '${c}';
+var numberToken = '${n}';
+function test(v) {
+    var _a, _b, _c, _d;
+    return (isNaN(v) &&
+        (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.isString)(v) &&
+        ((_b = (_a = v.match(_utils_js__WEBPACK_IMPORTED_MODULE_0__.floatRegex)) === null || _a === void 0 ? void 0 : _a.length) !== null && _b !== void 0 ? _b : 0) + ((_d = (_c = v.match(_utils_js__WEBPACK_IMPORTED_MODULE_0__.colorRegex)) === null || _c === void 0 ? void 0 : _c.length) !== null && _d !== void 0 ? _d : 0) > 0);
+}
+function analyse(v) {
+    var values = [];
+    var numColors = 0;
+    var colors = v.match(_utils_js__WEBPACK_IMPORTED_MODULE_0__.colorRegex);
+    if (colors) {
+        numColors = colors.length;
+        v = v.replace(_utils_js__WEBPACK_IMPORTED_MODULE_0__.colorRegex, colorToken);
+        values.push.apply(values, colors.map(_color_index_js__WEBPACK_IMPORTED_MODULE_1__.color.parse));
+    }
+    var numbers = v.match(_utils_js__WEBPACK_IMPORTED_MODULE_0__.floatRegex);
+    if (numbers) {
+        v = v.replace(_utils_js__WEBPACK_IMPORTED_MODULE_0__.floatRegex, numberToken);
+        values.push.apply(values, numbers.map(_numbers_index_js__WEBPACK_IMPORTED_MODULE_2__.number.parse));
+    }
+    return { values: values, numColors: numColors, tokenised: v };
+}
+function parse(v) {
+    return analyse(v).values;
+}
+function createTransformer(v) {
+    var _a = analyse(v), values = _a.values, numColors = _a.numColors, tokenised = _a.tokenised;
+    var numValues = values.length;
+    return function (v) {
+        var output = tokenised;
+        for (var i = 0; i < numValues; i++) {
+            output = output.replace(i < numColors ? colorToken : numberToken, i < numColors ? _color_index_js__WEBPACK_IMPORTED_MODULE_1__.color.transform(v[i]) : (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.sanitize)(v[i]));
+        }
+        return output;
+    };
+}
+var convertNumbersToZero = function (v) {
+    return typeof v === 'number' ? 0 : v;
+};
+function getAnimatableNone(v) {
+    var parsed = parse(v);
+    var transformer = createTransformer(v);
+    return transformer(parsed.map(convertNumbersToZero));
+}
+var complex = { test: test, parse: parse, createTransformer: createTransformer, getAnimatableNone: getAnimatableNone };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/style-value-types/dist/es/numbers/index.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/style-value-types/dist/es/numbers/index.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "alpha": () => (/* binding */ alpha),
+/* harmony export */   "number": () => (/* binding */ number),
+/* harmony export */   "scale": () => (/* binding */ scale)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/style-value-types/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils.js */ "./node_modules/style-value-types/dist/es/utils.js");
+
+
 
 var number = {
     test: function (v) { return typeof v === 'number'; },
     parse: parseFloat,
-    transform: function (v) { return v; }
+    transform: function (v) { return v; },
 };
-var alpha = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, number), { transform: clamp(0, 1) });
+var alpha = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, number), { transform: (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.clamp)(0, 1) });
 var scale = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, number), { default: 1 });
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/style-value-types/dist/es/numbers/units.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/style-value-types/dist/es/numbers/units.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "degrees": () => (/* binding */ degrees),
+/* harmony export */   "percent": () => (/* binding */ percent),
+/* harmony export */   "progressPercentage": () => (/* binding */ progressPercentage),
+/* harmony export */   "px": () => (/* binding */ px),
+/* harmony export */   "vh": () => (/* binding */ vh),
+/* harmony export */   "vw": () => (/* binding */ vw)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ "./node_modules/style-value-types/node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils.js */ "./node_modules/style-value-types/dist/es/utils.js");
+
+
 
 var createUnitType = function (unit) { return ({
     test: function (v) {
-        return typeof v === 'string' && v.endsWith(unit) && v.split(' ').length === 1;
+        return (0,_utils_js__WEBPACK_IMPORTED_MODULE_0__.isString)(v) && v.endsWith(unit) && v.split(' ').length === 1;
     },
     parse: parseFloat,
-    transform: function (v) { return "" + v + unit; }
+    transform: function (v) { return "" + v + unit; },
 }); };
 var degrees = createUnitType('deg');
 var percent = createUnitType('%');
 var px = createUnitType('px');
 var vh = createUnitType('vh');
 var vw = createUnitType('vw');
-var progressPercentage = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, percent), { parse: function (v) { return percent.parse(v) / 100; }, transform: function (v) { return percent.transform(v * 100); } });
+var progressPercentage = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_1__.__assign)({}, percent), { parse: function (v) { return percent.parse(v) / 100; }, transform: function (v) { return percent.transform(v * 100); } });
 
-var getValueFromFunctionString = function (value) {
-    return value.substring(value.indexOf('(') + 1, value.lastIndexOf(')'));
-};
-var clampRgbUnit = clamp(0, 255);
-var isRgba = function (v) { return v.red !== undefined; };
-var isHsla = function (v) { return v.hue !== undefined; };
-function getValuesAsArray(value) {
-    return getValueFromFunctionString(value)
-        .replace(/(,|\/)/g, ' ')
-        .split(/ \s*/);
+
+
+
+/***/ }),
+
+/***/ "./node_modules/style-value-types/dist/es/utils.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/style-value-types/dist/es/utils.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "clamp": () => (/* binding */ clamp),
+/* harmony export */   "colorRegex": () => (/* binding */ colorRegex),
+/* harmony export */   "floatRegex": () => (/* binding */ floatRegex),
+/* harmony export */   "isString": () => (/* binding */ isString),
+/* harmony export */   "sanitize": () => (/* binding */ sanitize),
+/* harmony export */   "singleColorRegex": () => (/* binding */ singleColorRegex)
+/* harmony export */ });
+var clamp = function (min, max) { return function (v) {
+    return Math.max(Math.min(v, max), min);
+}; };
+var sanitize = function (v) { return (v % 1 ? Number(v.toFixed(5)) : v); };
+var floatRegex = /(-)?([\d]*\.?[\d])+/g;
+var colorRegex = /(#[0-9a-f]{6}|#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\((-?[\d\.]+%?[,\s]+){2,3}\s*\/*\s*[\d\.]+%?\))/gi;
+var singleColorRegex = /^(#[0-9a-f]{3}|#(?:[0-9a-f]{2}){2,4}|(rgb|hsl)a?\((-?[\d\.]+%?[,\s]+){2,3}\s*\/*\s*[\d\.]+%?\))$/i;
+function isString(v) {
+    return typeof v === 'string';
 }
-var splitColorValues = function (terms) {
-    return function (v) {
-        if (typeof v !== 'string')
-            return v;
-        var values = {};
-        var valuesArray = getValuesAsArray(v);
-        for (var i = 0; i < 4; i++) {
-            values[terms[i]] =
-                valuesArray[i] !== undefined ? parseFloat(valuesArray[i]) : 1;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/style-value-types/node_modules/tslib/tslib.es6.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/style-value-types/node_modules/tslib/tslib.es6.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "__assign": () => (/* binding */ __assign),
+/* harmony export */   "__asyncDelegator": () => (/* binding */ __asyncDelegator),
+/* harmony export */   "__asyncGenerator": () => (/* binding */ __asyncGenerator),
+/* harmony export */   "__asyncValues": () => (/* binding */ __asyncValues),
+/* harmony export */   "__await": () => (/* binding */ __await),
+/* harmony export */   "__awaiter": () => (/* binding */ __awaiter),
+/* harmony export */   "__classPrivateFieldGet": () => (/* binding */ __classPrivateFieldGet),
+/* harmony export */   "__classPrivateFieldIn": () => (/* binding */ __classPrivateFieldIn),
+/* harmony export */   "__classPrivateFieldSet": () => (/* binding */ __classPrivateFieldSet),
+/* harmony export */   "__createBinding": () => (/* binding */ __createBinding),
+/* harmony export */   "__decorate": () => (/* binding */ __decorate),
+/* harmony export */   "__exportStar": () => (/* binding */ __exportStar),
+/* harmony export */   "__extends": () => (/* binding */ __extends),
+/* harmony export */   "__generator": () => (/* binding */ __generator),
+/* harmony export */   "__importDefault": () => (/* binding */ __importDefault),
+/* harmony export */   "__importStar": () => (/* binding */ __importStar),
+/* harmony export */   "__makeTemplateObject": () => (/* binding */ __makeTemplateObject),
+/* harmony export */   "__metadata": () => (/* binding */ __metadata),
+/* harmony export */   "__param": () => (/* binding */ __param),
+/* harmony export */   "__read": () => (/* binding */ __read),
+/* harmony export */   "__rest": () => (/* binding */ __rest),
+/* harmony export */   "__spread": () => (/* binding */ __spread),
+/* harmony export */   "__spreadArray": () => (/* binding */ __spreadArray),
+/* harmony export */   "__spreadArrays": () => (/* binding */ __spreadArrays),
+/* harmony export */   "__values": () => (/* binding */ __values)
+/* harmony export */ });
+/******************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    if (typeof b !== "function" && b !== null)
+        throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
         }
-        return values;
+        return t;
+    }
+    return __assign.apply(this, arguments);
+}
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+function __decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+
+function __param(paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+}
+
+function __metadata(metadataKey, metadataValue) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
+}
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+function __generator(thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+}
+
+var __createBinding = Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+        desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+});
+
+function __exportStar(m, o) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p)) __createBinding(o, m, p);
+}
+
+function __values(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
     };
-};
-var rgbaTemplate = function (_a) {
-    var red = _a.red, green = _a.green, blue = _a.blue, _b = _a.alpha, alpha = _b === void 0 ? 1 : _b;
-    return "rgba(" + red + ", " + green + ", " + blue + ", " + alpha + ")";
-};
-var hslaTemplate = function (_a) {
-    var hue = _a.hue, saturation = _a.saturation, lightness = _a.lightness, _b = _a.alpha, alpha = _b === void 0 ? 1 : _b;
-    return "hsla(" + hue + ", " + saturation + ", " + lightness + ", " + alpha + ")";
-};
-var rgbUnit = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, number), { transform: function (v) { return Math.round(clampRgbUnit(v)); } });
-function isColorString(color, colorType) {
-    return color.startsWith(colorType) && singleColorRegex.test(color);
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
 }
-var rgba = {
-    test: function (v) { return (typeof v === 'string' ? isColorString(v, 'rgb') : isRgba(v)); },
-    parse: splitColorValues(['red', 'green', 'blue', 'alpha']),
-    transform: function (_a) {
-        var red = _a.red, green = _a.green, blue = _a.blue, _b = _a.alpha, alpha$1 = _b === void 0 ? 1 : _b;
-        return rgbaTemplate({
-            red: rgbUnit.transform(red),
-            green: rgbUnit.transform(green),
-            blue: rgbUnit.transform(blue),
-            alpha: sanitize(alpha.transform(alpha$1))
-        });
+
+function __read(o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
     }
-};
-var hsla = {
-    test: function (v) { return (typeof v === 'string' ? isColorString(v, 'hsl') : isHsla(v)); },
-    parse: splitColorValues(['hue', 'saturation', 'lightness', 'alpha']),
-    transform: function (_a) {
-        var hue = _a.hue, saturation = _a.saturation, lightness = _a.lightness, _b = _a.alpha, alpha$1 = _b === void 0 ? 1 : _b;
-        return hslaTemplate({
-            hue: Math.round(hue),
-            saturation: percent.transform(sanitize(saturation)),
-            lightness: percent.transform(sanitize(lightness)),
-            alpha: sanitize(alpha.transform(alpha$1))
-        });
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
     }
-};
-var hex = (0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)((0,tslib__WEBPACK_IMPORTED_MODULE_0__.__assign)({}, rgba), { test: function (v) { return typeof v === 'string' && isColorString(v, '#'); }, parse: function (v) {
-        var r = '';
-        var g = '';
-        var b = '';
-        if (v.length > 4) {
-            r = v.substr(1, 2);
-            g = v.substr(3, 2);
-            b = v.substr(5, 2);
+    return ar;
+}
+
+/** @deprecated */
+function __spread() {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        ar = ar.concat(__read(arguments[i]));
+    return ar;
+}
+
+/** @deprecated */
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+}
+
+function __spreadArray(to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
         }
-        else {
-            r = v.substr(1, 1);
-            g = v.substr(2, 1);
-            b = v.substr(3, 1);
-            r += r;
-            g += g;
-            b += b;
-        }
-        return {
-            red: parseInt(r, 16),
-            green: parseInt(g, 16),
-            blue: parseInt(b, 16),
-            alpha: 1
-        };
-    } });
-var color = {
-    test: function (v) {
-        return (typeof v === 'string' && singleColorRegex.test(v)) ||
-            isRgba(v) ||
-            isHsla(v);
-    },
-    parse: function (v) {
-        if (rgba.test(v)) {
-            return rgba.parse(v);
-        }
-        else if (hsla.test(v)) {
-            return hsla.parse(v);
-        }
-        else if (hex.test(v)) {
-            return hex.parse(v);
-        }
-        return v;
-    },
-    transform: function (v) {
-        if (isRgba(v)) {
-            return rgba.transform(v);
-        }
-        else if (isHsla(v)) {
-            return hsla.transform(v);
-        }
-        return v;
     }
+    return to.concat(ar || Array.prototype.slice.call(from));
+}
+
+function __await(v) {
+    return this instanceof __await ? (this.v = v, this) : new __await(v);
+}
+
+function __asyncGenerator(thisArg, _arguments, generator) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var g = generator.apply(thisArg, _arguments || []), i, q = [];
+    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
+    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
+    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
+    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
+    function fulfill(value) { resume("next", value); }
+    function reject(value) { resume("throw", value); }
+    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
+}
+
+function __asyncDelegator(o) {
+    var i, p;
+    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
+    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
+}
+
+function __asyncValues(o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+}
+
+function __makeTemplateObject(cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
 };
 
-var COLOR_TOKEN = '${c}';
-var NUMBER_TOKEN = '${n}';
-var convertNumbersToZero = function (v) {
-    return typeof v === 'number' ? 0 : v;
-};
-var complex = {
-    test: function (v) {
-        if (typeof v !== 'string' || !isNaN(v))
-            return false;
-        var numValues = 0;
-        var foundNumbers = v.match(floatRegex);
-        var foundColors = v.match(colorRegex);
-        if (foundNumbers)
-            numValues += foundNumbers.length;
-        if (foundColors)
-            numValues += foundColors.length;
-        return numValues > 0;
-    },
-    parse: function (v) {
-        var input = v;
-        var parsed = [];
-        var foundColors = input.match(colorRegex);
-        if (foundColors) {
-            input = input.replace(colorRegex, COLOR_TOKEN);
-            parsed.push.apply(parsed, foundColors.map(color.parse));
-        }
-        var foundNumbers = input.match(floatRegex);
-        if (foundNumbers) {
-            parsed.push.apply(parsed, foundNumbers.map(number.parse));
-        }
-        return parsed;
-    },
-    createTransformer: function (prop) {
-        var template = prop;
-        var token = 0;
-        var foundColors = prop.match(colorRegex);
-        var numColors = foundColors ? foundColors.length : 0;
-        if (foundColors) {
-            for (var i = 0; i < numColors; i++) {
-                template = template.replace(foundColors[i], COLOR_TOKEN);
-                token++;
-            }
-        }
-        var foundNumbers = template.match(floatRegex);
-        var numNumbers = foundNumbers ? foundNumbers.length : 0;
-        if (foundNumbers) {
-            for (var i = 0; i < numNumbers; i++) {
-                template = template.replace(foundNumbers[i], NUMBER_TOKEN);
-                token++;
-            }
-        }
-        return function (v) {
-            var output = template;
-            for (var i = 0; i < token; i++) {
-                output = output.replace(i < numColors ? COLOR_TOKEN : NUMBER_TOKEN, i < numColors ? color.transform(v[i]) : sanitize(v[i]));
-            }
-            return output;
-        };
-    },
-    getAnimatableNone: function (target) {
-        var parsedTarget = complex.parse(target);
-        var targetTransformer = complex.createTransformer(target);
-        return targetTransformer(parsedTarget.map(convertNumbersToZero));
-    }
+var __setModuleDefault = Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
 };
 
+function __importStar(mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+}
 
+function __importDefault(mod) {
+    return (mod && mod.__esModule) ? mod : { default: mod };
+}
+
+function __classPrivateFieldGet(receiver, state, kind, f) {
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
+    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+}
+
+function __classPrivateFieldSet(receiver, state, value, kind, f) {
+    if (kind === "m") throw new TypeError("Private method is not writable");
+    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
+    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
+    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
+}
+
+function __classPrivateFieldIn(state, receiver) {
+    if (receiver === null || (typeof receiver !== "object" && typeof receiver !== "function")) throw new TypeError("Cannot use 'in' operator on non-object");
+    return typeof state === "function" ? receiver === state : state.has(receiver);
+}
 
 
 /***/ }),
@@ -13890,572 +18244,6 @@ if ( true && typeof window !== 'undefined' && typeof navigator !== 'undefined' &
 
 /***/ }),
 
-/***/ "./node_modules/stylefire/dist/stylefire.es.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/stylefire/dist/stylefire.es.js ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "buildSVGAttrs": () => (/* binding */ buildSVGAttrs),
-/* harmony export */   "buildStyleProperty": () => (/* binding */ buildStyleProperty),
-/* harmony export */   "createStylerFactory": () => (/* binding */ createStyler),
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "isTransformProp": () => (/* binding */ isTransformProp),
-/* harmony export */   "transformProps": () => (/* binding */ transformProps)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var framesync__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! framesync */ "./node_modules/framesync/dist/framesync.es.js");
-/* harmony import */ var style_value_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! style-value-types */ "./node_modules/style-value-types/dist/style-value-types.es.js");
-/* harmony import */ var hey_listen__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! hey-listen */ "./node_modules/hey-listen/dist/hey-listen.es.js");
-
-
-
-
-
-var createStyler = function (_a) {
-    var onRead = _a.onRead,
-        onRender = _a.onRender,
-        _b = _a.uncachedValues,
-        uncachedValues = _b === void 0 ? new Set() : _b,
-        _c = _a.useCache,
-        useCache = _c === void 0 ? true : _c;
-    return function (_a) {
-        if (_a === void 0) {
-            _a = {};
-        }
-        var props = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__rest)(_a, []);
-        var state = {};
-        var changedValues = [];
-        var hasChanged = false;
-        function setValue(key, value) {
-            if (key.startsWith('--')) {
-                props.hasCSSVariable = true;
-            }
-            var currentValue = state[key];
-            state[key] = value;
-            if (state[key] === currentValue) return;
-            if (changedValues.indexOf(key) === -1) {
-                changedValues.push(key);
-            }
-            if (!hasChanged) {
-                hasChanged = true;
-                framesync__WEBPACK_IMPORTED_MODULE_0__["default"].render(styler.render);
-            }
-        }
-        var styler = {
-            get: function (key, forceRead) {
-                if (forceRead === void 0) {
-                    forceRead = false;
-                }
-                var useCached = !forceRead && useCache && !uncachedValues.has(key) && state[key] !== undefined;
-                return useCached ? state[key] : onRead(key, props);
-            },
-            set: function (values, value) {
-                if (typeof values === 'string') {
-                    setValue(values, value);
-                } else {
-                    for (var key in values) {
-                        setValue(key, values[key]);
-                    }
-                }
-                return this;
-            },
-            render: function (forceRender) {
-                if (forceRender === void 0) {
-                    forceRender = false;
-                }
-                if (hasChanged || forceRender === true) {
-                    onRender(state, props, changedValues);
-                    hasChanged = false;
-                    changedValues.length = 0;
-                }
-                return this;
-            }
-        };
-        return styler;
-    };
-};
-
-var CAMEL_CASE_PATTERN = /([a-z])([A-Z])/g;
-var REPLACE_TEMPLATE = '$1-$2';
-var camelToDash = function (str) {
-    return str.replace(CAMEL_CASE_PATTERN, REPLACE_TEMPLATE).toLowerCase();
-};
-
-var camelCache = /*#__PURE__*/new Map();
-var dashCache = /*#__PURE__*/new Map();
-var prefixes = ['Webkit', 'Moz', 'O', 'ms', ''];
-var numPrefixes = prefixes.length;
-var isBrowser = typeof document !== 'undefined';
-var testElement;
-var setDashPrefix = function (key, prefixed) {
-    return dashCache.set(key, camelToDash(prefixed));
-};
-var testPrefix = function (key) {
-    testElement = testElement || document.createElement('div');
-    for (var i = 0; i < numPrefixes; i++) {
-        var prefix = prefixes[i];
-        var noPrefix = prefix === '';
-        var prefixedPropertyName = noPrefix ? key : prefix + key.charAt(0).toUpperCase() + key.slice(1);
-        if (prefixedPropertyName in testElement.style || noPrefix) {
-            if (noPrefix && key === 'clipPath' && dashCache.has(key)) {
-                return;
-            }
-            camelCache.set(key, prefixedPropertyName);
-            setDashPrefix(key, "" + (noPrefix ? '' : '-') + camelToDash(prefixedPropertyName));
-        }
-    }
-};
-var setServerProperty = function (key) {
-    return setDashPrefix(key, key);
-};
-var prefixer = function (key, asDashCase) {
-    if (asDashCase === void 0) {
-        asDashCase = false;
-    }
-    var cache = asDashCase ? dashCache : camelCache;
-    if (!cache.has(key)) {
-        isBrowser ? testPrefix(key) : setServerProperty(key);
-    }
-    return cache.get(key) || key;
-};
-
-var axes = ['', 'X', 'Y', 'Z'];
-var order = ['translate', 'scale', 'rotate', 'skew', 'transformPerspective'];
-var transformProps = /*#__PURE__*/order.reduce(function (acc, key) {
-    return axes.reduce(function (axesAcc, axesKey) {
-        axesAcc.push(key + axesKey);
-        return axesAcc;
-    }, acc);
-}, ['x', 'y', 'z']);
-var transformPropDictionary = /*#__PURE__*/transformProps.reduce(function (dict, key) {
-    dict[key] = true;
-    return dict;
-}, {});
-function isTransformProp(key) {
-    return transformPropDictionary[key] === true;
-}
-function sortTransformProps(a, b) {
-    return transformProps.indexOf(a) - transformProps.indexOf(b);
-}
-var transformOriginProps = /*#__PURE__*/new Set(['originX', 'originY', 'originZ']);
-function isTransformOriginProp(key) {
-    return transformOriginProps.has(key);
-}
-
-var int = /*#__PURE__*/(0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)( /*#__PURE__*/(0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)({}, style_value_types__WEBPACK_IMPORTED_MODULE_1__.number), { transform: Math.round });
-var valueTypes = {
-    color: style_value_types__WEBPACK_IMPORTED_MODULE_1__.color,
-    backgroundColor: style_value_types__WEBPACK_IMPORTED_MODULE_1__.color,
-    outlineColor: style_value_types__WEBPACK_IMPORTED_MODULE_1__.color,
-    fill: style_value_types__WEBPACK_IMPORTED_MODULE_1__.color,
-    stroke: style_value_types__WEBPACK_IMPORTED_MODULE_1__.color,
-    borderColor: style_value_types__WEBPACK_IMPORTED_MODULE_1__.color,
-    borderTopColor: style_value_types__WEBPACK_IMPORTED_MODULE_1__.color,
-    borderRightColor: style_value_types__WEBPACK_IMPORTED_MODULE_1__.color,
-    borderBottomColor: style_value_types__WEBPACK_IMPORTED_MODULE_1__.color,
-    borderLeftColor: style_value_types__WEBPACK_IMPORTED_MODULE_1__.color,
-    borderWidth: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    borderTopWidth: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    borderRightWidth: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    borderBottomWidth: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    borderLeftWidth: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    borderRadius: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    radius: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    borderTopLeftRadius: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    borderTopRightRadius: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    borderBottomRightRadius: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    borderBottomLeftRadius: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    width: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    maxWidth: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    height: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    maxHeight: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    size: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    top: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    right: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    bottom: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    left: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    padding: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    paddingTop: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    paddingRight: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    paddingBottom: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    paddingLeft: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    margin: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    marginTop: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    marginRight: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    marginBottom: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    marginLeft: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    rotate: style_value_types__WEBPACK_IMPORTED_MODULE_1__.degrees,
-    rotateX: style_value_types__WEBPACK_IMPORTED_MODULE_1__.degrees,
-    rotateY: style_value_types__WEBPACK_IMPORTED_MODULE_1__.degrees,
-    rotateZ: style_value_types__WEBPACK_IMPORTED_MODULE_1__.degrees,
-    scale: style_value_types__WEBPACK_IMPORTED_MODULE_1__.scale,
-    scaleX: style_value_types__WEBPACK_IMPORTED_MODULE_1__.scale,
-    scaleY: style_value_types__WEBPACK_IMPORTED_MODULE_1__.scale,
-    scaleZ: style_value_types__WEBPACK_IMPORTED_MODULE_1__.scale,
-    skew: style_value_types__WEBPACK_IMPORTED_MODULE_1__.degrees,
-    skewX: style_value_types__WEBPACK_IMPORTED_MODULE_1__.degrees,
-    skewY: style_value_types__WEBPACK_IMPORTED_MODULE_1__.degrees,
-    distance: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    translateX: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    translateY: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    translateZ: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    x: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    y: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    z: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    perspective: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    opacity: style_value_types__WEBPACK_IMPORTED_MODULE_1__.alpha,
-    originX: style_value_types__WEBPACK_IMPORTED_MODULE_1__.progressPercentage,
-    originY: style_value_types__WEBPACK_IMPORTED_MODULE_1__.progressPercentage,
-    originZ: style_value_types__WEBPACK_IMPORTED_MODULE_1__.px,
-    zIndex: int,
-    fillOpacity: style_value_types__WEBPACK_IMPORTED_MODULE_1__.alpha,
-    strokeOpacity: style_value_types__WEBPACK_IMPORTED_MODULE_1__.alpha,
-    numOctaves: int
-};
-var getValueType = function (key) {
-    return valueTypes[key];
-};
-var getValueAsType = function (value, type) {
-    return type && typeof value === 'number' ? type.transform(value) : value;
-};
-
-var SCROLL_LEFT = 'scrollLeft';
-var SCROLL_TOP = 'scrollTop';
-var scrollKeys = /*#__PURE__*/new Set([SCROLL_LEFT, SCROLL_TOP]);
-
-var blacklist = /*#__PURE__*/new Set([SCROLL_LEFT, SCROLL_TOP, 'transform']);
-var translateAlias = {
-    x: 'translateX',
-    y: 'translateY',
-    z: 'translateZ'
-};
-function isCustomTemplate(v) {
-    return typeof v === 'function';
-}
-function buildTransform(state, transform, transformKeys, transformIsDefault, enableHardwareAcceleration, allowTransformNone) {
-    if (allowTransformNone === void 0) {
-        allowTransformNone = true;
-    }
-    var transformString = '';
-    var transformHasZ = false;
-    transformKeys.sort(sortTransformProps);
-    var numTransformKeys = transformKeys.length;
-    for (var i = 0; i < numTransformKeys; i++) {
-        var key = transformKeys[i];
-        transformString += (translateAlias[key] || key) + "(" + transform[key] + ") ";
-        transformHasZ = key === 'z' ? true : transformHasZ;
-    }
-    if (!transformHasZ && enableHardwareAcceleration) {
-        transformString += 'translateZ(0)';
-    } else {
-        transformString = transformString.trim();
-    }
-    if (isCustomTemplate(state.transform)) {
-        transformString = state.transform(transform, transformIsDefault ? '' : transformString);
-    } else if (allowTransformNone && transformIsDefault) {
-        transformString = 'none';
-    }
-    return transformString;
-}
-function buildStyleProperty(state, enableHardwareAcceleration, styles, transform, transformOrigin, transformKeys, isDashCase, allowTransformNone) {
-    if (enableHardwareAcceleration === void 0) {
-        enableHardwareAcceleration = true;
-    }
-    if (styles === void 0) {
-        styles = {};
-    }
-    if (transform === void 0) {
-        transform = {};
-    }
-    if (transformOrigin === void 0) {
-        transformOrigin = {};
-    }
-    if (transformKeys === void 0) {
-        transformKeys = [];
-    }
-    if (isDashCase === void 0) {
-        isDashCase = false;
-    }
-    if (allowTransformNone === void 0) {
-        allowTransformNone = true;
-    }
-    var transformIsDefault = true;
-    var hasTransform = false;
-    var hasTransformOrigin = false;
-    for (var key in state) {
-        var value = state[key];
-        var valueType = getValueType(key);
-        var valueAsType = getValueAsType(value, valueType);
-        if (isTransformProp(key)) {
-            hasTransform = true;
-            transform[key] = valueAsType;
-            transformKeys.push(key);
-            if (transformIsDefault) {
-                if (valueType.default && value !== valueType.default || !valueType.default && value !== 0) {
-                    transformIsDefault = false;
-                }
-            }
-        } else if (isTransformOriginProp(key)) {
-            transformOrigin[key] = valueAsType;
-            hasTransformOrigin = true;
-        } else if (!blacklist.has(key) || !isCustomTemplate(valueAsType)) {
-            styles[prefixer(key, isDashCase)] = valueAsType;
-        }
-    }
-    if (hasTransform || typeof state.transform === 'function') {
-        styles.transform = buildTransform(state, transform, transformKeys, transformIsDefault, enableHardwareAcceleration, allowTransformNone);
-    }
-    if (hasTransformOrigin) {
-        styles.transformOrigin = (transformOrigin.originX || '50%') + " " + (transformOrigin.originY || '50%') + " " + (transformOrigin.originZ || 0);
-    }
-    return styles;
-}
-function createStyleBuilder(_a) {
-    var _b = _a === void 0 ? {} : _a,
-        _c = _b.enableHardwareAcceleration,
-        enableHardwareAcceleration = _c === void 0 ? true : _c,
-        _d = _b.isDashCase,
-        isDashCase = _d === void 0 ? true : _d,
-        _e = _b.allowTransformNone,
-        allowTransformNone = _e === void 0 ? true : _e;
-    var styles = {};
-    var transform = {};
-    var transformOrigin = {};
-    var transformKeys = [];
-    return function (state) {
-        transformKeys.length = 0;
-        buildStyleProperty(state, enableHardwareAcceleration, styles, transform, transformOrigin, transformKeys, isDashCase, allowTransformNone);
-        return styles;
-    };
-}
-
-function onRead(key, options) {
-    var element = options.element,
-        preparseOutput = options.preparseOutput;
-    var defaultValueType = getValueType(key);
-    if (isTransformProp(key)) {
-        return defaultValueType ? defaultValueType.default || 0 : 0;
-    } else if (scrollKeys.has(key)) {
-        return element[key];
-    } else {
-        var domValue = window.getComputedStyle(element, null).getPropertyValue(prefixer(key, true)) || 0;
-        return preparseOutput && defaultValueType && defaultValueType.test(domValue) && defaultValueType.parse ? defaultValueType.parse(domValue) : domValue;
-    }
-}
-function onRender(state, _a, changedValues) {
-    var element = _a.element,
-        buildStyles = _a.buildStyles,
-        hasCSSVariable = _a.hasCSSVariable;
-    Object.assign(element.style, buildStyles(state));
-    if (hasCSSVariable) {
-        var numChangedValues = changedValues.length;
-        for (var i = 0; i < numChangedValues; i++) {
-            var key = changedValues[i];
-            if (key.startsWith('--')) {
-                element.style.setProperty(key, state[key]);
-            }
-        }
-    }
-    if (changedValues.indexOf(SCROLL_LEFT) !== -1) {
-        element[SCROLL_LEFT] = state[SCROLL_LEFT];
-    }
-    if (changedValues.indexOf(SCROLL_TOP) !== -1) {
-        element[SCROLL_TOP] = state[SCROLL_TOP];
-    }
-}
-var cssStyler = /*#__PURE__*/createStyler({
-    onRead: onRead,
-    onRender: onRender,
-    uncachedValues: scrollKeys
-});
-function createCssStyler(element, _a) {
-    if (_a === void 0) {
-        _a = {};
-    }
-    var enableHardwareAcceleration = _a.enableHardwareAcceleration,
-        allowTransformNone = _a.allowTransformNone,
-        props = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__rest)(_a, ["enableHardwareAcceleration", "allowTransformNone"]);
-    return cssStyler((0,tslib__WEBPACK_IMPORTED_MODULE_3__.__assign)({ element: element, buildStyles: createStyleBuilder({
-            enableHardwareAcceleration: enableHardwareAcceleration,
-            allowTransformNone: allowTransformNone
-        }), preparseOutput: true }, props));
-}
-
-var camelCaseAttributes = /*#__PURE__*/new Set(['baseFrequency', 'diffuseConstant', 'kernelMatrix', 'kernelUnitLength', 'keySplines', 'keyTimes', 'limitingConeAngle', 'markerHeight', 'markerWidth', 'numOctaves', 'targetX', 'targetY', 'surfaceScale', 'specularConstant', 'specularExponent', 'stdDeviation', 'tableValues']);
-
-var defaultOrigin = 0.5;
-var svgAttrsTemplate = function () {
-    return {
-        style: {}
-    };
-};
-var progressToPixels = function (progress, length) {
-    return style_value_types__WEBPACK_IMPORTED_MODULE_1__.px.transform(progress * length);
-};
-var unmeasured = { x: 0, y: 0, width: 0, height: 0 };
-function calcOrigin(origin, offset, size) {
-    return typeof origin === 'string' ? origin : style_value_types__WEBPACK_IMPORTED_MODULE_1__.px.transform(offset + size * origin);
-}
-function calculateSVGTransformOrigin(dimensions, originX, originY) {
-    return calcOrigin(originX, dimensions.x, dimensions.width) + " " + calcOrigin(originY, dimensions.y, dimensions.height);
-}
-var svgStyleConfig = {
-    enableHardwareAcceleration: false,
-    isDashCase: false
-};
-function buildSVGAttrs(_a, dimensions, totalPathLength, cssBuilder, attrs, isDashCase) {
-    if (dimensions === void 0) {
-        dimensions = unmeasured;
-    }
-    if (cssBuilder === void 0) {
-        cssBuilder = createStyleBuilder(svgStyleConfig);
-    }
-    if (attrs === void 0) {
-        attrs = svgAttrsTemplate();
-    }
-    if (isDashCase === void 0) {
-        isDashCase = true;
-    }
-    var attrX = _a.attrX,
-        attrY = _a.attrY,
-        originX = _a.originX,
-        originY = _a.originY,
-        pathLength = _a.pathLength,
-        _b = _a.pathSpacing,
-        pathSpacing = _b === void 0 ? 1 : _b,
-        _c = _a.pathOffset,
-        pathOffset = _c === void 0 ? 0 : _c,
-        state = (0,tslib__WEBPACK_IMPORTED_MODULE_3__.__rest)(_a, ["attrX", "attrY", "originX", "originY", "pathLength", "pathSpacing", "pathOffset"]);
-    var style = cssBuilder(state);
-    for (var key in style) {
-        if (key === 'transform') {
-            attrs.style.transform = style[key];
-        } else {
-            var attrKey = isDashCase && !camelCaseAttributes.has(key) ? camelToDash(key) : key;
-            attrs[attrKey] = style[key];
-        }
-    }
-    if (originX !== undefined || originY !== undefined || style.transform) {
-        attrs.style.transformOrigin = calculateSVGTransformOrigin(dimensions, originX !== undefined ? originX : defaultOrigin, originY !== undefined ? originY : defaultOrigin);
-    }
-    if (attrX !== undefined) attrs.x = attrX;
-    if (attrY !== undefined) attrs.y = attrY;
-    if (totalPathLength !== undefined && pathLength !== undefined) {
-        attrs[isDashCase ? 'stroke-dashoffset' : 'strokeDashoffset'] = progressToPixels(-pathOffset, totalPathLength);
-        attrs[isDashCase ? 'stroke-dasharray' : 'strokeDasharray'] = progressToPixels(pathLength, totalPathLength) + " " + progressToPixels(pathSpacing, totalPathLength);
-    }
-    return attrs;
-}
-function createAttrBuilder(dimensions, totalPathLength, isDashCase) {
-    if (isDashCase === void 0) {
-        isDashCase = true;
-    }
-    var attrs = svgAttrsTemplate();
-    var cssBuilder = createStyleBuilder(svgStyleConfig);
-    return function (state) {
-        return buildSVGAttrs(state, dimensions, totalPathLength, cssBuilder, attrs, isDashCase);
-    };
-}
-
-var getDimensions = function (element) {
-    return typeof element.getBBox === 'function' ? element.getBBox() : element.getBoundingClientRect();
-};
-var getSVGElementDimensions = function (element) {
-    try {
-        return getDimensions(element);
-    } catch (e) {
-        return { x: 0, y: 0, width: 0, height: 0 };
-    }
-};
-
-var isPath = function (element) {
-    return element.tagName === 'path';
-};
-var svgStyler = /*#__PURE__*/createStyler({
-    onRead: function (key, _a) {
-        var element = _a.element;
-        key = !camelCaseAttributes.has(key) ? camelToDash(key) : key;
-        if (!isTransformProp(key)) {
-            return element.getAttribute(key);
-        } else {
-            var valueType = getValueType(key);
-            return valueType ? valueType.default || 0 : 0;
-        }
-    },
-    onRender: function (state, _a) {
-        var element = _a.element,
-            buildAttrs = _a.buildAttrs;
-        var attrs = buildAttrs(state);
-        for (var key in attrs) {
-            if (key === 'style') {
-                Object.assign(element.style, attrs.style);
-            } else {
-                element.setAttribute(key, attrs[key]);
-            }
-        }
-    }
-});
-var svg = function (element) {
-    var dimensions = getSVGElementDimensions(element);
-    var pathLength = isPath(element) && element.getTotalLength ? element.getTotalLength() : undefined;
-    return svgStyler({
-        element: element,
-        buildAttrs: createAttrBuilder(dimensions, pathLength)
-    });
-};
-
-var viewport = /*#__PURE__*/createStyler({
-    useCache: false,
-    onRead: function (key) {
-        return key === 'scrollTop' ? window.pageYOffset : window.pageXOffset;
-    },
-    onRender: function (_a) {
-        var _b = _a.scrollTop,
-            scrollTop = _b === void 0 ? 0 : _b,
-            _c = _a.scrollLeft,
-            scrollLeft = _c === void 0 ? 0 : _c;
-        return window.scrollTo(scrollLeft, scrollTop);
-    }
-});
-
-var cache = /*#__PURE__*/new WeakMap();
-var isHTMLElement = function (node) {
-    return node instanceof HTMLElement || typeof node.click === 'function';
-};
-var isSVGElement = function (node) {
-    return node instanceof SVGElement || 'ownerSVGElement' in node;
-};
-var createDOMStyler = function (node, props) {
-    var styler;
-    if (node === window) {
-        styler = viewport(node);
-    } else if (isHTMLElement(node)) {
-        styler = createCssStyler(node, props);
-    } else if (isSVGElement(node)) {
-        styler = svg(node);
-    }
-    (0,hey_listen__WEBPACK_IMPORTED_MODULE_2__.invariant)(styler !== undefined, 'No valid node provided. Node must be HTMLElement, SVGElement or window.');
-    cache.set(node, styler);
-    return styler;
-};
-var getStyler = function (node, props) {
-    return cache.has(node) ? cache.get(node) : createDOMStyler(node, props);
-};
-function index(nodeOrSelector, props) {
-    var node = typeof nodeOrSelector === 'string' ? document.querySelector(nodeOrSelector) : nodeOrSelector;
-    return getStyler(node, props);
-}
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (index);
-
-
-
-/***/ }),
-
 /***/ "./node_modules/stylis-rule-sheet/index.js":
 /*!*************************************************!*\
   !*** ./node_modules/stylis-rule-sheet/index.js ***!
@@ -14521,261 +18309,6 @@ function index(nodeOrSelector, props) {
 
 !function(e){ true?module.exports=e(null):0}(function e(a){"use strict";var r=/^\0+/g,c=/[\0\r\f]/g,s=/: */g,t=/zoo|gra/,i=/([,: ])(transform)/g,f=/,+\s*(?![^(]*[)])/g,n=/ +\s*(?![^(]*[)])/g,l=/ *[\0] */g,o=/,\r+?/g,h=/([\t\r\n ])*\f?&/g,u=/:global\(((?:[^\(\)\[\]]*|\[.*\]|\([^\(\)]*\))*)\)/g,d=/\W+/g,b=/@(k\w+)\s*(\S*)\s*/,p=/::(place)/g,k=/:(read-only)/g,g=/\s+(?=[{\];=:>])/g,A=/([[}=:>])\s+/g,C=/(\{[^{]+?);(?=\})/g,w=/\s{2,}/g,v=/([^\(])(:+) */g,m=/[svh]\w+-[tblr]{2}/,x=/\(\s*(.*)\s*\)/g,$=/([\s\S]*?);/g,y=/-self|flex-/g,O=/[^]*?(:[rp][el]a[\w-]+)[^]*/,j=/stretch|:\s*\w+\-(?:conte|avail)/,z=/([^-])(image-set\()/,N="-webkit-",S="-moz-",F="-ms-",W=59,q=125,B=123,D=40,E=41,G=91,H=93,I=10,J=13,K=9,L=64,M=32,P=38,Q=45,R=95,T=42,U=44,V=58,X=39,Y=34,Z=47,_=62,ee=43,ae=126,re=0,ce=12,se=11,te=107,ie=109,fe=115,ne=112,le=111,oe=105,he=99,ue=100,de=112,be=1,pe=1,ke=0,ge=1,Ae=1,Ce=1,we=0,ve=0,me=0,xe=[],$e=[],ye=0,Oe=null,je=-2,ze=-1,Ne=0,Se=1,Fe=2,We=3,qe=0,Be=1,De="",Ee="",Ge="";function He(e,a,s,t,i){for(var f,n,o=0,h=0,u=0,d=0,g=0,A=0,C=0,w=0,m=0,$=0,y=0,O=0,j=0,z=0,R=0,we=0,$e=0,Oe=0,je=0,ze=s.length,Je=ze-1,Re="",Te="",Ue="",Ve="",Xe="",Ye="";R<ze;){if(C=s.charCodeAt(R),R===Je)if(h+d+u+o!==0){if(0!==h)C=h===Z?I:Z;d=u=o=0,ze++,Je++}if(h+d+u+o===0){if(R===Je){if(we>0)Te=Te.replace(c,"");if(Te.trim().length>0){switch(C){case M:case K:case W:case J:case I:break;default:Te+=s.charAt(R)}C=W}}if(1===$e)switch(C){case B:case q:case W:case Y:case X:case D:case E:case U:$e=0;case K:case J:case I:case M:break;default:for($e=0,je=R,g=C,R--,C=W;je<ze;)switch(s.charCodeAt(je++)){case I:case J:case W:++R,C=g,je=ze;break;case V:if(we>0)++R,C=g;case B:je=ze}}switch(C){case B:for(g=(Te=Te.trim()).charCodeAt(0),y=1,je=++R;R<ze;){switch(C=s.charCodeAt(R)){case B:y++;break;case q:y--;break;case Z:switch(A=s.charCodeAt(R+1)){case T:case Z:R=Qe(A,R,Je,s)}break;case G:C++;case D:C++;case Y:case X:for(;R++<Je&&s.charCodeAt(R)!==C;);}if(0===y)break;R++}if(Ue=s.substring(je,R),g===re)g=(Te=Te.replace(r,"").trim()).charCodeAt(0);switch(g){case L:if(we>0)Te=Te.replace(c,"");switch(A=Te.charCodeAt(1)){case ue:case ie:case fe:case Q:f=a;break;default:f=xe}if(je=(Ue=He(a,f,Ue,A,i+1)).length,me>0&&0===je)je=Te.length;if(ye>0)if(f=Ie(xe,Te,Oe),n=Pe(We,Ue,f,a,pe,be,je,A,i,t),Te=f.join(""),void 0!==n)if(0===(je=(Ue=n.trim()).length))A=0,Ue="";if(je>0)switch(A){case fe:Te=Te.replace(x,Me);case ue:case ie:case Q:Ue=Te+"{"+Ue+"}";break;case te:if(Ue=(Te=Te.replace(b,"$1 $2"+(Be>0?De:"")))+"{"+Ue+"}",1===Ae||2===Ae&&Le("@"+Ue,3))Ue="@"+N+Ue+"@"+Ue;else Ue="@"+Ue;break;default:if(Ue=Te+Ue,t===de)Ve+=Ue,Ue=""}else Ue="";break;default:Ue=He(a,Ie(a,Te,Oe),Ue,t,i+1)}Xe+=Ue,O=0,$e=0,z=0,we=0,Oe=0,j=0,Te="",Ue="",C=s.charCodeAt(++R);break;case q:case W:if((je=(Te=(we>0?Te.replace(c,""):Te).trim()).length)>1){if(0===z)if((g=Te.charCodeAt(0))===Q||g>96&&g<123)je=(Te=Te.replace(" ",":")).length;if(ye>0)if(void 0!==(n=Pe(Se,Te,a,e,pe,be,Ve.length,t,i,t)))if(0===(je=(Te=n.trim()).length))Te="\0\0";switch(g=Te.charCodeAt(0),A=Te.charCodeAt(1),g){case re:break;case L:if(A===oe||A===he){Ye+=Te+s.charAt(R);break}default:if(Te.charCodeAt(je-1)===V)break;Ve+=Ke(Te,g,A,Te.charCodeAt(2))}}O=0,$e=0,z=0,we=0,Oe=0,Te="",C=s.charCodeAt(++R)}}switch(C){case J:case I:if(h+d+u+o+ve===0)switch($){case E:case X:case Y:case L:case ae:case _:case T:case ee:case Z:case Q:case V:case U:case W:case B:case q:break;default:if(z>0)$e=1}if(h===Z)h=0;else if(ge+O===0&&t!==te&&Te.length>0)we=1,Te+="\0";if(ye*qe>0)Pe(Ne,Te,a,e,pe,be,Ve.length,t,i,t);be=1,pe++;break;case W:case q:if(h+d+u+o===0){be++;break}default:switch(be++,Re=s.charAt(R),C){case K:case M:if(d+o+h===0)switch(w){case U:case V:case K:case M:Re="";break;default:if(C!==M)Re=" "}break;case re:Re="\\0";break;case ce:Re="\\f";break;case se:Re="\\v";break;case P:if(d+h+o===0&&ge>0)Oe=1,we=1,Re="\f"+Re;break;case 108:if(d+h+o+ke===0&&z>0)switch(R-z){case 2:if(w===ne&&s.charCodeAt(R-3)===V)ke=w;case 8:if(m===le)ke=m}break;case V:if(d+h+o===0)z=R;break;case U:if(h+u+d+o===0)we=1,Re+="\r";break;case Y:case X:if(0===h)d=d===C?0:0===d?C:d;break;case G:if(d+h+u===0)o++;break;case H:if(d+h+u===0)o--;break;case E:if(d+h+o===0)u--;break;case D:if(d+h+o===0){if(0===O)switch(2*w+3*m){case 533:break;default:y=0,O=1}u++}break;case L:if(h+u+d+o+z+j===0)j=1;break;case T:case Z:if(d+o+u>0)break;switch(h){case 0:switch(2*C+3*s.charCodeAt(R+1)){case 235:h=Z;break;case 220:je=R,h=T}break;case T:if(C===Z&&w===T&&je+2!==R){if(33===s.charCodeAt(je+2))Ve+=s.substring(je,R+1);Re="",h=0}}}if(0===h){if(ge+d+o+j===0&&t!==te&&C!==W)switch(C){case U:case ae:case _:case ee:case E:case D:if(0===O){switch(w){case K:case M:case I:case J:Re+="\0";break;default:Re="\0"+Re+(C===U?"":"\0")}we=1}else switch(C){case D:if(z+7===R&&108===w)z=0;O=++y;break;case E:if(0==(O=--y))we=1,Re+="\0"}break;case K:case M:switch(w){case re:case B:case q:case W:case U:case ce:case K:case M:case I:case J:break;default:if(0===O)we=1,Re+="\0"}}if(Te+=Re,C!==M&&C!==K)$=C}}m=w,w=C,R++}if(je=Ve.length,me>0)if(0===je&&0===Xe.length&&0===a[0].length==false)if(t!==ie||1===a.length&&(ge>0?Ee:Ge)===a[0])je=a.join(",").length+2;if(je>0){if(f=0===ge&&t!==te?function(e){for(var a,r,s=0,t=e.length,i=Array(t);s<t;++s){for(var f=e[s].split(l),n="",o=0,h=0,u=0,d=0,b=f.length;o<b;++o){if(0===(h=(r=f[o]).length)&&b>1)continue;if(u=n.charCodeAt(n.length-1),d=r.charCodeAt(0),a="",0!==o)switch(u){case T:case ae:case _:case ee:case M:case D:break;default:a=" "}switch(d){case P:r=a+Ee;case ae:case _:case ee:case M:case E:case D:break;case G:r=a+r+Ee;break;case V:switch(2*r.charCodeAt(1)+3*r.charCodeAt(2)){case 530:if(Ce>0){r=a+r.substring(8,h-1);break}default:if(o<1||f[o-1].length<1)r=a+Ee+r}break;case U:a="";default:if(h>1&&r.indexOf(":")>0)r=a+r.replace(v,"$1"+Ee+"$2");else r=a+r+Ee}n+=r}i[s]=n.replace(c,"").trim()}return i}(a):a,ye>0)if(void 0!==(n=Pe(Fe,Ve,f,e,pe,be,je,t,i,t))&&0===(Ve=n).length)return Ye+Ve+Xe;if(Ve=f.join(",")+"{"+Ve+"}",Ae*ke!=0){if(2===Ae&&!Le(Ve,2))ke=0;switch(ke){case le:Ve=Ve.replace(k,":"+S+"$1")+Ve;break;case ne:Ve=Ve.replace(p,"::"+N+"input-$1")+Ve.replace(p,"::"+S+"$1")+Ve.replace(p,":"+F+"input-$1")+Ve}ke=0}}return Ye+Ve+Xe}function Ie(e,a,r){var c=a.trim().split(o),s=c,t=c.length,i=e.length;switch(i){case 0:case 1:for(var f=0,n=0===i?"":e[0]+" ";f<t;++f)s[f]=Je(n,s[f],r,i).trim();break;default:f=0;var l=0;for(s=[];f<t;++f)for(var h=0;h<i;++h)s[l++]=Je(e[h]+" ",c[f],r,i).trim()}return s}function Je(e,a,r,c){var s=a,t=s.charCodeAt(0);if(t<33)t=(s=s.trim()).charCodeAt(0);switch(t){case P:switch(ge+c){case 0:case 1:if(0===e.trim().length)break;default:return s.replace(h,"$1"+e.trim())}break;case V:switch(s.charCodeAt(1)){case 103:if(Ce>0&&ge>0)return s.replace(u,"$1").replace(h,"$1"+Ge);break;default:return e.trim()+s.replace(h,"$1"+e.trim())}default:if(r*ge>0&&s.indexOf("\f")>0)return s.replace(h,(e.charCodeAt(0)===V?"":"$1")+e.trim())}return e+s}function Ke(e,a,r,c){var l,o=0,h=e+";",u=2*a+3*r+4*c;if(944===u)return function(e){var a=e.length,r=e.indexOf(":",9)+1,c=e.substring(0,r).trim(),s=e.substring(r,a-1).trim();switch(e.charCodeAt(9)*Be){case 0:break;case Q:if(110!==e.charCodeAt(10))break;default:for(var t=s.split((s="",f)),i=0,r=0,a=t.length;i<a;r=0,++i){for(var l=t[i],o=l.split(n);l=o[r];){var h=l.charCodeAt(0);if(1===Be&&(h>L&&h<90||h>96&&h<123||h===R||h===Q&&l.charCodeAt(1)!==Q))switch(isNaN(parseFloat(l))+(-1!==l.indexOf("("))){case 1:switch(l){case"infinite":case"alternate":case"backwards":case"running":case"normal":case"forwards":case"both":case"none":case"linear":case"ease":case"ease-in":case"ease-out":case"ease-in-out":case"paused":case"reverse":case"alternate-reverse":case"inherit":case"initial":case"unset":case"step-start":case"step-end":break;default:l+=De}}o[r++]=l}s+=(0===i?"":",")+o.join(" ")}}if(s=c+s+";",1===Ae||2===Ae&&Le(s,1))return N+s+s;return s}(h);else if(0===Ae||2===Ae&&!Le(h,1))return h;switch(u){case 1015:return 97===h.charCodeAt(10)?N+h+h:h;case 951:return 116===h.charCodeAt(3)?N+h+h:h;case 963:return 110===h.charCodeAt(5)?N+h+h:h;case 1009:if(100!==h.charCodeAt(4))break;case 969:case 942:return N+h+h;case 978:return N+h+S+h+h;case 1019:case 983:return N+h+S+h+F+h+h;case 883:if(h.charCodeAt(8)===Q)return N+h+h;if(h.indexOf("image-set(",11)>0)return h.replace(z,"$1"+N+"$2")+h;return h;case 932:if(h.charCodeAt(4)===Q)switch(h.charCodeAt(5)){case 103:return N+"box-"+h.replace("-grow","")+N+h+F+h.replace("grow","positive")+h;case 115:return N+h+F+h.replace("shrink","negative")+h;case 98:return N+h+F+h.replace("basis","preferred-size")+h}return N+h+F+h+h;case 964:return N+h+F+"flex-"+h+h;case 1023:if(99!==h.charCodeAt(8))break;return l=h.substring(h.indexOf(":",15)).replace("flex-","").replace("space-between","justify"),N+"box-pack"+l+N+h+F+"flex-pack"+l+h;case 1005:return t.test(h)?h.replace(s,":"+N)+h.replace(s,":"+S)+h:h;case 1e3:switch(o=(l=h.substring(13).trim()).indexOf("-")+1,l.charCodeAt(0)+l.charCodeAt(o)){case 226:l=h.replace(m,"tb");break;case 232:l=h.replace(m,"tb-rl");break;case 220:l=h.replace(m,"lr");break;default:return h}return N+h+F+l+h;case 1017:if(-1===h.indexOf("sticky",9))return h;case 975:switch(o=(h=e).length-10,u=(l=(33===h.charCodeAt(o)?h.substring(0,o):h).substring(e.indexOf(":",7)+1).trim()).charCodeAt(0)+(0|l.charCodeAt(7))){case 203:if(l.charCodeAt(8)<111)break;case 115:h=h.replace(l,N+l)+";"+h;break;case 207:case 102:h=h.replace(l,N+(u>102?"inline-":"")+"box")+";"+h.replace(l,N+l)+";"+h.replace(l,F+l+"box")+";"+h}return h+";";case 938:if(h.charCodeAt(5)===Q)switch(h.charCodeAt(6)){case 105:return l=h.replace("-items",""),N+h+N+"box-"+l+F+"flex-"+l+h;case 115:return N+h+F+"flex-item-"+h.replace(y,"")+h;default:return N+h+F+"flex-line-pack"+h.replace("align-content","").replace(y,"")+h}break;case 973:case 989:if(h.charCodeAt(3)!==Q||122===h.charCodeAt(4))break;case 931:case 953:if(true===j.test(e))if(115===(l=e.substring(e.indexOf(":")+1)).charCodeAt(0))return Ke(e.replace("stretch","fill-available"),a,r,c).replace(":fill-available",":stretch");else return h.replace(l,N+l)+h.replace(l,S+l.replace("fill-",""))+h;break;case 962:if(h=N+h+(102===h.charCodeAt(5)?F+h:"")+h,r+c===211&&105===h.charCodeAt(13)&&h.indexOf("transform",10)>0)return h.substring(0,h.indexOf(";",27)+1).replace(i,"$1"+N+"$2")+h}return h}function Le(e,a){var r=e.indexOf(1===a?":":"{"),c=e.substring(0,3!==a?r:10),s=e.substring(r+1,e.length-1);return Oe(2!==a?c:c.replace(O,"$1"),s,a)}function Me(e,a){var r=Ke(a,a.charCodeAt(0),a.charCodeAt(1),a.charCodeAt(2));return r!==a+";"?r.replace($," or ($1)").substring(4):"("+a+")"}function Pe(e,a,r,c,s,t,i,f,n,l){for(var o,h=0,u=a;h<ye;++h)switch(o=$e[h].call(Te,e,u,r,c,s,t,i,f,n,l)){case void 0:case false:case true:case null:break;default:u=o}if(u!==a)return u}function Qe(e,a,r,c){for(var s=a+1;s<r;++s)switch(c.charCodeAt(s)){case Z:if(e===T)if(c.charCodeAt(s-1)===T&&a+2!==s)return s+1;break;case I:if(e===Z)return s+1}return s}function Re(e){for(var a in e){var r=e[a];switch(a){case"keyframe":Be=0|r;break;case"global":Ce=0|r;break;case"cascade":ge=0|r;break;case"compress":we=0|r;break;case"semicolon":ve=0|r;break;case"preserve":me=0|r;break;case"prefix":if(Oe=null,!r)Ae=0;else if("function"!=typeof r)Ae=1;else Ae=2,Oe=r}}return Re}function Te(a,r){if(void 0!==this&&this.constructor===Te)return e(a);var s=a,t=s.charCodeAt(0);if(t<33)t=(s=s.trim()).charCodeAt(0);if(Be>0)De=s.replace(d,t===G?"":"-");if(t=1,1===ge)Ge=s;else Ee=s;var i,f=[Ge];if(ye>0)if(void 0!==(i=Pe(ze,r,f,f,pe,be,0,0,0,0))&&"string"==typeof i)r=i;var n=He(xe,f,r,0,0);if(ye>0)if(void 0!==(i=Pe(je,n,f,f,pe,be,n.length,0,0,0))&&"string"!=typeof(n=i))t=0;return De="",Ge="",Ee="",ke=0,pe=1,be=1,we*t==0?n:n.replace(c,"").replace(g,"").replace(A,"$1").replace(C,"$1").replace(w," ")}if(Te.use=function e(a){switch(a){case void 0:case null:ye=$e.length=0;break;default:if("function"==typeof a)$e[ye++]=a;else if("object"==typeof a)for(var r=0,c=a.length;r<c;++r)e(a[r]);else qe=0|!!a}return e},Te.set=Re,void 0!==a)Re(a);return Te});
 //# sourceMappingURL=stylis.min.js.map
-
-/***/ }),
-
-/***/ "./node_modules/tslib/tslib.es6.js":
-/*!*****************************************!*\
-  !*** ./node_modules/tslib/tslib.es6.js ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "__assign": () => (/* binding */ __assign),
-/* harmony export */   "__asyncDelegator": () => (/* binding */ __asyncDelegator),
-/* harmony export */   "__asyncGenerator": () => (/* binding */ __asyncGenerator),
-/* harmony export */   "__asyncValues": () => (/* binding */ __asyncValues),
-/* harmony export */   "__await": () => (/* binding */ __await),
-/* harmony export */   "__awaiter": () => (/* binding */ __awaiter),
-/* harmony export */   "__classPrivateFieldGet": () => (/* binding */ __classPrivateFieldGet),
-/* harmony export */   "__classPrivateFieldSet": () => (/* binding */ __classPrivateFieldSet),
-/* harmony export */   "__createBinding": () => (/* binding */ __createBinding),
-/* harmony export */   "__decorate": () => (/* binding */ __decorate),
-/* harmony export */   "__exportStar": () => (/* binding */ __exportStar),
-/* harmony export */   "__extends": () => (/* binding */ __extends),
-/* harmony export */   "__generator": () => (/* binding */ __generator),
-/* harmony export */   "__importDefault": () => (/* binding */ __importDefault),
-/* harmony export */   "__importStar": () => (/* binding */ __importStar),
-/* harmony export */   "__makeTemplateObject": () => (/* binding */ __makeTemplateObject),
-/* harmony export */   "__metadata": () => (/* binding */ __metadata),
-/* harmony export */   "__param": () => (/* binding */ __param),
-/* harmony export */   "__read": () => (/* binding */ __read),
-/* harmony export */   "__rest": () => (/* binding */ __rest),
-/* harmony export */   "__spread": () => (/* binding */ __spread),
-/* harmony export */   "__spreadArrays": () => (/* binding */ __spreadArrays),
-/* harmony export */   "__values": () => (/* binding */ __values)
-/* harmony export */ });
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics(d, b);
-};
-
-function __extends(d, b) {
-    extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    }
-    return __assign.apply(this, arguments);
-}
-
-function __rest(s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-}
-
-function __decorate(decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-}
-
-function __param(paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-}
-
-function __metadata(metadataKey, metadataValue) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(metadataKey, metadataValue);
-}
-
-function __awaiter(thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-}
-
-function __generator(thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-}
-
-function __createBinding(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}
-
-function __exportStar(m, exports) {
-    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-
-function __values(o) {
-    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
-    if (m) return m.call(o);
-    if (o && typeof o.length === "number") return {
-        next: function () {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
-}
-
-function __read(o, n) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator];
-    if (!m) return o;
-    var i = m.call(o), r, ar = [], e;
-    try {
-        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
-    }
-    catch (error) { e = { error: error }; }
-    finally {
-        try {
-            if (r && !r.done && (m = i["return"])) m.call(i);
-        }
-        finally { if (e) throw e.error; }
-    }
-    return ar;
-}
-
-function __spread() {
-    for (var ar = [], i = 0; i < arguments.length; i++)
-        ar = ar.concat(__read(arguments[i]));
-    return ar;
-}
-
-function __spreadArrays() {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
-
-function __await(v) {
-    return this instanceof __await ? (this.v = v, this) : new __await(v);
-}
-
-function __asyncGenerator(thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-}
-
-function __asyncDelegator(o) {
-    var i, p;
-    return i = {}, verb("next"), verb("throw", function (e) { throw e; }), verb("return"), i[Symbol.iterator] = function () { return this; }, i;
-    function verb(n, f) { i[n] = o[n] ? function (v) { return (p = !p) ? { value: __await(o[n](v)), done: n === "return" } : f ? f(v) : v; } : f; }
-}
-
-function __asyncValues(o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-}
-
-function __makeTemplateObject(cooked, raw) {
-    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
-    return cooked;
-};
-
-function __importStar(mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result.default = mod;
-    return result;
-}
-
-function __importDefault(mod) {
-    return (mod && mod.__esModule) ? mod : { default: mod };
-}
-
-function __classPrivateFieldGet(receiver, privateMap) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to get private field on non-instance");
-    }
-    return privateMap.get(receiver);
-}
-
-function __classPrivateFieldSet(receiver, privateMap, value) {
-    if (!privateMap.has(receiver)) {
-        throw new TypeError("attempted to set private field on non-instance");
-    }
-    privateMap.set(receiver, value);
-    return value;
-}
-
 
 /***/ }),
 
@@ -15347,7 +18880,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var _gatsbyjs_reach_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @gatsbyjs/reach-router */ "./node_modules/@gatsbyjs/reach-router/es/index.js");
 /* harmony import */ var gatsby_page_utils_apply_trailing_slash_option__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! gatsby-page-utils/apply-trailing-slash-option */ "./node_modules/gatsby-page-utils/dist/apply-trailing-slash-option.js");
-function i(){return i=Object.assign?Object.assign.bind():function(t){for(var e=1;e<arguments.length;e++){var n=arguments[e];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(t[r]=n[r])}return t},i.apply(this,arguments)}function a(t){let e=t||"/",n="",r="";const o=e.indexOf("#");-1!==o&&(r=e.slice(o),e=e.slice(0,o));const s=e.indexOf("?");return-1!==s&&(n=e.slice(s),e=e.slice(0,s)),{pathname:e,search:"?"===n?"":n,hash:"#"===r?"":r}}const c=/^[a-zA-Z][a-zA-Z\d+\-.]*?:/,l=t=>{if("string"==typeof t)return!(t=>c.test(t))(t)},p=()=> true? true?"":0:0;function h(t,e=(()=> true? true?"":0:0)()){var n;if(!l(t))return t;if(t.startsWith("./")||t.startsWith("../"))return t;const r=null!=(n=null!=e?e:p())?n:"/";return`${null!=r&&r.endsWith("/")?r.slice(0,-1):r}${t.startsWith("/")?t:`/${t}`}`}const f=t=>null==t?void 0:t.startsWith("/"),u=()=> true?"legacy":0,_=(t,e)=>{if("number"==typeof t)return t;if(!l(t))return t;const{pathname:r,search:o,hash:i}=a(t),c=u();let p=t;return"always"!==c&&"never"!==c||(p=`${(0,gatsby_page_utils_apply_trailing_slash_option__WEBPACK_IMPORTED_MODULE_2__.applyTrailingSlashOption)(r,c)}${o}${i}`),f(p)?h(p):function(t,e){if(f(t))return t;const r=u(),o=(0,_gatsbyjs_reach_router__WEBPACK_IMPORTED_MODULE_1__.resolve)(t,e);return"always"===r||"never"===r?(0,gatsby_page_utils_apply_trailing_slash_option__WEBPACK_IMPORTED_MODULE_2__.applyTrailingSlashOption)(o,r):o}(p,e)},d=["to","getProps","onClick","onMouseEnter","activeClassName","activeStyle","innerRef","partiallyActive","state","replace","_location"];function m(t){return h(t,p())}const y={activeClassName:prop_types__WEBPACK_IMPORTED_MODULE_3__.string,activeStyle:prop_types__WEBPACK_IMPORTED_MODULE_3__.object,partiallyActive:prop_types__WEBPACK_IMPORTED_MODULE_3__.bool};function v(t){/*#__PURE__*/return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_gatsbyjs_reach_router__WEBPACK_IMPORTED_MODULE_1__.Location,null,({location:n})=>/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(b,i({},t,{_location:n})))}class b extends react__WEBPACK_IMPORTED_MODULE_0__.Component{constructor(t){super(t),this.defaultGetProps=({isPartiallyCurrent:t,isCurrent:e})=>(this.props.partiallyActive?t:e)?{className:[this.props.className,this.props.activeClassName].filter(Boolean).join(" "),style:i({},this.props.style,this.props.activeStyle)}:null;let e=!1;"undefined"!=typeof window&&window.IntersectionObserver&&(e=!0),this.state={IOSupported:e},this.abortPrefetch=null,this.handleRef=this.handleRef.bind(this)}_prefetch(){let t=window.location.pathname+window.location.search;this.props._location&&this.props._location.pathname&&(t=this.props._location.pathname+this.props._location.search);const e=a(_(this.props.to,t)),n=e.pathname+e.search;if(t!==n)return ___loader.enqueue(n)}componentWillUnmount(){if(!this.io)return;const{instance:t,el:e}=this.io;this.abortPrefetch&&this.abortPrefetch.abort(),t.unobserve(e),t.disconnect()}handleRef(t){this.props.innerRef&&Object.prototype.hasOwnProperty.call(this.props.innerRef,"current")?this.props.innerRef.current=t:this.props.innerRef&&this.props.innerRef(t),this.state.IOSupported&&t&&(this.io=((t,e)=>{const n=new window.IntersectionObserver(n=>{n.forEach(n=>{t===n.target&&e(n.isIntersecting||n.intersectionRatio>0)})});return n.observe(t),{instance:n,el:t}})(t,t=>{t?this.abortPrefetch=this._prefetch():this.abortPrefetch&&this.abortPrefetch.abort()}))}render(){const t=this.props,{to:n,getProps:r=this.defaultGetProps,onClick:s,onMouseEnter:c,state:p,replace:h,_location:f}=t,u=function(t,e){if(null==t)return{};var n,r,o={},s=Object.keys(t);for(r=0;r<s.length;r++)e.indexOf(n=s[r])>=0||(o[n]=t[n]);return o}(t,d); false||l(n)||console.warn(`External link ${n} was detected in a Link component. Use the Link component only for internal links. See: https://gatsby.dev/internal-links`);const m=_(n,f.pathname);return l(m)?/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_gatsbyjs_reach_router__WEBPACK_IMPORTED_MODULE_1__.Link,i({to:m,state:p,getProps:r,innerRef:this.handleRef,onMouseEnter:t=>{c&&c(t);const e=a(m);___loader.hovering(e.pathname+e.search)},onClick:t=>{if(s&&s(t),!(0!==t.button||this.props.target||t.defaultPrevented||t.metaKey||t.altKey||t.ctrlKey||t.shiftKey)){t.preventDefault();let e=h;const n=encodeURI(m)===f.pathname;"boolean"!=typeof h&&n&&(e=!0),window.___navigate(m,{state:p,replace:e})}return!0}},u)):/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a",i({href:m},u))}}b.propTypes=i({},y,{onClick:prop_types__WEBPACK_IMPORTED_MODULE_3__.func,to:prop_types__WEBPACK_IMPORTED_MODULE_3__.string.isRequired,replace:prop_types__WEBPACK_IMPORTED_MODULE_3__.bool,state:prop_types__WEBPACK_IMPORTED_MODULE_3__.object});var w=react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((t,n)=>/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(v,i({innerRef:n},t)));const P=(t,e)=>{window.___navigate(_(t,window.location.pathname),e)};
+"client export"
+;function i(){return i=Object.assign?Object.assign.bind():function(t){for(var e=1;e<arguments.length;e++){var n=arguments[e];for(var r in n)Object.prototype.hasOwnProperty.call(n,r)&&(t[r]=n[r])}return t},i.apply(this,arguments)}function a(t){let e=t||"/",n="",r="";const o=e.indexOf("#");-1!==o&&(r=e.slice(o),e=e.slice(0,o));const s=e.indexOf("?");return-1!==s&&(n=e.slice(s),e=e.slice(0,s)),{pathname:e,search:"?"===n?"":n,hash:"#"===r?"":r}}const c=/^[a-zA-Z][a-zA-Z\d+\-.]*?:/,l=t=>{if("string"==typeof t)return!(t=>c.test(t))(t)},p=()=> true? true?"":0:0;function h(t,e=(()=> true? true?"":0:0)()){var n;if(!l(t))return t;if(t.startsWith("./")||t.startsWith("../"))return t;const r=null!=(n=null!=e?e:p())?n:"/";return`${null!=r&&r.endsWith("/")?r.slice(0,-1):r}${t.startsWith("/")?t:`/${t}`}`}const f=t=>null==t?void 0:t.startsWith("/"),u=()=> true?"legacy":0,_=(t,e)=>{if("number"==typeof t)return t;if(!l(t))return t;const{pathname:r,search:o,hash:i}=a(t),c=u();let p=t;return"always"!==c&&"never"!==c||(p=`${(0,gatsby_page_utils_apply_trailing_slash_option__WEBPACK_IMPORTED_MODULE_2__.applyTrailingSlashOption)(r,c)}${o}${i}`),f(p)?h(p):function(t,e){if(f(t))return t;const r=u(),o=(0,_gatsbyjs_reach_router__WEBPACK_IMPORTED_MODULE_1__.resolve)(t,e);return"always"===r||"never"===r?(0,gatsby_page_utils_apply_trailing_slash_option__WEBPACK_IMPORTED_MODULE_2__.applyTrailingSlashOption)(o,r):o}(p,e)},d=["to","getProps","onClick","onMouseEnter","activeClassName","activeStyle","innerRef","partiallyActive","state","replace","_location"];function m(t){return h(t,p())}const y={activeClassName:prop_types__WEBPACK_IMPORTED_MODULE_3__.string,activeStyle:prop_types__WEBPACK_IMPORTED_MODULE_3__.object,partiallyActive:prop_types__WEBPACK_IMPORTED_MODULE_3__.bool};function v(t){/*#__PURE__*/return react__WEBPACK_IMPORTED_MODULE_0__.createElement(_gatsbyjs_reach_router__WEBPACK_IMPORTED_MODULE_1__.Location,null,({location:n})=>/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(b,i({},t,{_location:n})))}class b extends react__WEBPACK_IMPORTED_MODULE_0__.Component{constructor(t){super(t),this.defaultGetProps=({isPartiallyCurrent:t,isCurrent:e})=>(this.props.partiallyActive?t:e)?{className:[this.props.className,this.props.activeClassName].filter(Boolean).join(" "),style:i({},this.props.style,this.props.activeStyle)}:null;let e=!1;"undefined"!=typeof window&&window.IntersectionObserver&&(e=!0),this.state={IOSupported:e},this.abortPrefetch=null,this.handleRef=this.handleRef.bind(this)}_prefetch(){let t=window.location.pathname+window.location.search;this.props._location&&this.props._location.pathname&&(t=this.props._location.pathname+this.props._location.search);const e=a(_(this.props.to,t)),n=e.pathname+e.search;if(t!==n)return ___loader.enqueue(n)}componentWillUnmount(){if(!this.io)return;const{instance:t,el:e}=this.io;this.abortPrefetch&&this.abortPrefetch.abort(),t.unobserve(e),t.disconnect()}handleRef(t){this.props.innerRef&&Object.prototype.hasOwnProperty.call(this.props.innerRef,"current")?this.props.innerRef.current=t:this.props.innerRef&&this.props.innerRef(t),this.state.IOSupported&&t&&(this.io=((t,e)=>{const n=new window.IntersectionObserver(n=>{n.forEach(n=>{t===n.target&&e(n.isIntersecting||n.intersectionRatio>0)})});return n.observe(t),{instance:n,el:t}})(t,t=>{t?this.abortPrefetch=this._prefetch():this.abortPrefetch&&this.abortPrefetch.abort()}))}render(){const t=this.props,{to:n,getProps:r=this.defaultGetProps,onClick:s,onMouseEnter:c,state:p,replace:h,_location:f}=t,u=function(t,e){if(null==t)return{};var n,r,o={},s=Object.keys(t);for(r=0;r<s.length;r++)e.indexOf(n=s[r])>=0||(o[n]=t[n]);return o}(t,d); false||l(n)||console.warn(`External link ${n} was detected in a Link component. Use the Link component only for internal links. See: https://gatsby.dev/internal-links`);const m=_(n,f.pathname);return l(m)?/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_gatsbyjs_reach_router__WEBPACK_IMPORTED_MODULE_1__.Link,i({to:m,state:p,getProps:r,innerRef:this.handleRef,onMouseEnter:t=>{c&&c(t);const e=a(m);___loader.hovering(e.pathname+e.search)},onClick:t=>{if(s&&s(t),!(0!==t.button||this.props.target||t.defaultPrevented||t.metaKey||t.altKey||t.ctrlKey||t.shiftKey)){t.preventDefault();let e=h;const n=encodeURI(m)===f.pathname;"boolean"!=typeof h&&n&&(e=!0),window.___navigate(m,{state:p,replace:e})}return!0}},u)):/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("a",i({href:m},u))}}b.propTypes=i({},y,{onClick:prop_types__WEBPACK_IMPORTED_MODULE_3__.func,to:prop_types__WEBPACK_IMPORTED_MODULE_3__.string.isRequired,replace:prop_types__WEBPACK_IMPORTED_MODULE_3__.bool,state:prop_types__WEBPACK_IMPORTED_MODULE_3__.object});var w=react__WEBPACK_IMPORTED_MODULE_0__.forwardRef((t,n)=>/*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(v,i({innerRef:n},t)));const P=(t,e)=>{window.___navigate(_(t,window.location.pathname),e)};
 //# sourceMappingURL=index.modern.mjs.map
 
 
