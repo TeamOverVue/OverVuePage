@@ -33,7 +33,7 @@ const BottomDiv = styled.div`
     margin-left: 0.5em;
   }
   .contribute {
-    width: 6.4rem;
+    width: 200px;
     display: flex;
     margin: 2em auto;
     font-size: 1.1rem;
@@ -43,9 +43,12 @@ const BottomDiv = styled.div`
     text-decoration: none;
     border-radius: 0.5rem;
     border: 1px solid white;
-    background: none;
+    background: #7ad8ae;
     font-family: sans-serif;
     transition: 200ms ease-in;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &:hover {
       background-color: rgb(255, 255, 255, 0.2);
     }

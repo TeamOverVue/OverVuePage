@@ -119,6 +119,7 @@ html {
   margin-bottom: 2rem;
   display: inline-block;
   margin-top: 4rem;
+  background: #7ad8ae;
 }
 
 .footer {
@@ -139,6 +140,8 @@ html {
 }
 
 .team-heading {
+  display: flex;
+  justify-content: center;
   margin-top: 3rem;
   font-weight: 200;
   font-size: 1.5rem;

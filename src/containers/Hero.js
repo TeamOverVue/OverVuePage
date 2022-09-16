@@ -73,7 +73,7 @@ export const Hero = () => (
 const HeaderStyles = styled.div`
   display: flex;
   flex-direction: column;
-  height: 98vh;
+  height: 100vh;
   background: rgb(37, 96, 159);
   background: linear-gradient(
     107deg,
@@ -87,7 +87,6 @@ const HeaderStyles = styled.div`
     margin-right: 1.5rem;
   }
   p {
-    margin-right: 0.5em;
     font-size: 1em;
   }
   i {
