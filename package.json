@@ -17,13 +17,12 @@
     "styled-components": "^4.3.2"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
-    "build": "react-scripts --openssl-legacy-provider build",
     "test": "jest",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "dev": "gatsby develop"
+    "dev": "gatsby develop",
+    "build": "gatsby build"
   },
   "browserslist": {
     "production": [
