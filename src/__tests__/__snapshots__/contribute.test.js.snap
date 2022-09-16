@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Contribute renders correctly 1`] = `
+<div
+  className="sc-bdVaJa dhnbAR"
+>
+  <h2>
+    Want to Contribute?
+  </h2>
+  <div>
+    OverVue is open source. Help make Vue prototyping better!
+  </div>
+  <a
+    className="contribute"
+    href="https://github.com/open-source-labs/OverVue"
+  >
+    <p>
+      Github 
+    </p>
+     
+    <i
+      className="fab fa-github"
+    />
+  </a>
+</div>
+`;

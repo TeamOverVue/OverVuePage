@@ -1,0 +1,20 @@
+.docs__content {
+  display: flex;
+  width: 100%;
+  color: #0f1730;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+  padding: 32px;
+}
+
+h2 {
+  font-size: 48px;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+p {
+  font-size: 18px;
+  /* margin-bottom: 18px; */
+}

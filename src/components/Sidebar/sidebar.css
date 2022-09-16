@@ -1,0 +1,33 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background: linear-gradient( 107deg, rgb(52,73,94) 0%, rgb(1,4,31) 70% );
+  padding: 16px;
+  height: 100vh;
+  width: 250px;
+  position: relative;
+}
+
+.sidebar__inner {
+  position: fixed;
+}
+
+.sidebar__link {
+  text-decoration: none;
+  color: white;
+  text-align: left;
+  margin-bottom: 8px;
+  display: block;
+  font-size: 12pt;
+  margin-left: 28px;
+}
+
+h3 {
+  color: white;
+  text-align: left;
+  margin-bottom: 12px;
+  margin-top: 20px;
+  font-family: 'Mukta', sans-serif;
+  font-weight: 350px;
+}
