@@ -9,16 +9,16 @@ export default function ComponentStyling() {
         <h2>Component Styling</h2>​
         <ul>
           <li>
-            Create custom boilerplate code for Vue 3.0 applications
+            positioning/snap to grid
           </li>
           <li>
-            Visualize component hierarchies in real time
+            color updates
           </li>
           <li>
-            Quickly produce product prototypes with snap-to-grid positioning
+            size updates
           </li>
           <li>
-            Make use of the popular Vue component library element+
+            Making use of the popular Vue component library element+
           </li>
         </ul>
       </div>

@@ -2,23 +2,23 @@ import React from "react";
 import { DocsLayout } from "../../layouts";
 import "../../styles/docs.css";
 
-export default function SlackLogin() {
+export default function SaveAndExport() {
   return (
     <DocsLayout>
       <div className="docs__content">
-        <h2>Slack Login</h2>​
+        <h2>Save and Export Your Projects</h2>​
         <ul>
           <li>
-            Create custom boilerplate code for Vue 3.0 applications
+            Saving and importing json object of Overvue instance
           </li>
           <li>
-            Visualize component hierarchies in real time
+            Saving and Exporting full boilerplate code
           </li>
           <li>
-            Quickly produce product prototypes with snap-to-grid positioning
+            Saving and Exporting individual component code
           </li>
           <li>
-            Make use of the popular Vue component library element+
+            Opening and initializing exported code
           </li>
         </ul>
       </div>

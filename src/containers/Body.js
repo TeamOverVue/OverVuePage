@@ -1,3 +1,5 @@
+/* content for body of home page including core feature gifs and instructions*/
+
 import React from "react";
 import HeadTwoStyle from "../styles/HeadTwoStyle";
 import styled from "styled-components";

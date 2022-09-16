@@ -1,4 +1,7 @@
+// links object for docs sidebar navigation and page routing with Gatsby
+
 export const links = {
+  //section heading and nested links
   'getting_started': [
     {
       label: "Introduction",
@@ -10,9 +13,10 @@ export const links = {
     },
     {
       label: "New User Tutorial",
-      link: "/docs/new-user-turoial",
+      link: "/docs/new-user-tutorial",
     },
   ],
+  //section heading and nested links
   'guides': [
     {
       label: "Setting Up Your Environment",

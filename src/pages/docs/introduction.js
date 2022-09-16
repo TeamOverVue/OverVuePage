@@ -13,16 +13,16 @@ export default function Introduction() {
            <h3>Key Features</h3>​
          <ul>
              <li>
-          Quickly produce product prototypes with your choice of custom OR element+ library components, snap-to-grid positioning, and component color and sizing
+             Quickly produce product prototypes with your choice of custom OR element+ library components, snap-to-grid positioning, and component color and sizing
              </li>
              <li>
-          Visualize and manipulate component hierarchies and project routing in real time
+             Visualize and manipulate component hierarchies and project routing in real time
             </li>
             <li>
-          Export custom boilerplate code for Vue 3.0 applications including all the neccessary npm packages, Oauth login of your choice, customized Vue SFC's, and component testing files
+             Export custom boilerplate code for Vue 3.0 applications including all the neccessary npm packages, Oauth login of your choice, customized Vue SFC's, and component testing files
             </li>
             <li>
-          Share project updates with your team via Slack
+             Share project updates with your team via Slack
             </li>
         </ul>
         <h3>New to Vue 8.0</h3>

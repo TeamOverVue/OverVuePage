@@ -9,16 +9,13 @@ export default function HierarchyVisualization() {
         <h2>Hierarchy Visualization</h2>​
         <ul>
           <li>
-            Create custom boilerplate code for Vue 3.0 applications
+            intro to benefit(s) of hierarchy visualization
           </li>
           <li>
-            Visualize component hierarchies in real time
+            how to use
           </li>
           <li>
-            Quickly produce product prototypes with snap-to-grid positioning
-          </li>
-          <li>
-            Make use of the popular Vue component library element+
+            extra
           </li>
         </ul>
       </div>

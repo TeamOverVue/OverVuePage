@@ -6,10 +6,10 @@ export default function Installation() {
   return (
     <DocsLayout>
       <div className="docs__content">
-        <h2>Introduction</h2>
+        <h2>Installation</h2>
         <p>
           {" "}
-          OverVue is a prototyping tool that allows developers to dynamically create and visualize a Vue application, implementing a real-time intuitive tree display of component hierarchy and a live-generated code preview. The resulting boilerplate can be exported as a template for further development.
+          OverVue is compatible with both MacOS and WSL. Quickly install and set up using the quickstart guide for your operating system below.
            {" "}
         </p>
         <h2>Installation Instructions</h2>​

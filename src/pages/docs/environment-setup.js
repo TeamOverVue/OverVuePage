@@ -2,23 +2,23 @@ import React from "react";
 import { DocsLayout } from "../../layouts";
 import "../../styles/docs.css";
 
-export default function CanvasCustomization() {
+export default function EnvironmentSetup() {
   return (
     <DocsLayout>
       <div className="docs__content">
-        <h2>Canvas Customization</h2>​
+        <h2>Setting Up Your OverVue Environment</h2>​
         <ul>
           <li>
-            list option
+            Setting grid density
           </li>
           <li>
-            Visualize component hierarchies in real time
+            connecting to slack
           </li>
           <li>
-            Quickly produce product prototypes with snap-to-grid positioning
+            selecting Oauth and typescript options
           </li>
           <li>
-            Make use of the popular Vue component library element+
+            anything else you wanna add
           </li>
         </ul>
       </div>

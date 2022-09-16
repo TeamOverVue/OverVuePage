@@ -6,19 +6,19 @@ export default function CreateComponent() {
   return (
     <DocsLayout>
       <div className="docs__content">
-        <h2>CreateComponent</h2>​
+        <h2>Creating New Components</h2>​
         <ul>
           <li>
-            Create custom boilerplate code for Vue 3.0 applications
+            creating new component
           </li>
           <li>
-            Visualize component hierarchies in real time
+            using element + components
           </li>
           <li>
-            Quickly produce product prototypes with snap-to-grid positioning
+            adding classes, id, parent/child, 
           </li>
           <li>
-            Make use of the popular Vue component library element+
+            editing components
           </li>
         </ul>
       </div>

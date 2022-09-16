@@ -1,3 +1,5 @@
+// react layout for docs page including persistant top navbar and sidebar
+
 import React from "react";
 import { links } from "../data/sidebar-links";
 import { Navbar } from "../components/Navbar";

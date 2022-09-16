@@ -1,3 +1,5 @@
+/* content for hero of home page including OverVue banner, download buttons */
+
 import React from "react";
 import styled from "styled-components";
 import { Button } from "../styles/Button";
@@ -46,7 +48,7 @@ export const Hero = () => (
       }}
     >
       <div className="title">
-        <p>Version 7.0 Now Available</p>
+        <p>Introducing OverVue 8.0</p>
       </div>
 
       <Button
