@@ -6,6 +6,7 @@
   align-items: center;
   text-align: left;
   padding: 32px;
+  padding-top: 40px;
 }
 
 h2 {
@@ -14,7 +15,18 @@ h2 {
   margin-bottom: 12px;
 }
 
+h3 {
+  font-size: 36px;
+  width: 100%;
+  margin-bottom: 12px;
+  color: #0f1730;
+}
+
 p {
   font-size: 18px;
   /* margin-bottom: 18px; */
+}
+
+li {
+
 }

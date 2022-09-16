@@ -5,7 +5,7 @@
   background: linear-gradient( 107deg, rgb(52,73,94) 0%, rgb(1,4,31) 70% );
   padding: 16px;
   height: 100vh;
-  width: 250px;
+  width: 300px;
   position: relative;
 }
 
@@ -23,11 +23,12 @@
   margin-left: 28px;
 }
 
-h3 {
+.sidebar h3 {
   color: white;
   text-align: left;
   margin-bottom: 12px;
   margin-top: 20px;
   font-family: 'Mukta', sans-serif;
-  font-weight: 350px;
+  font-weight: 300px;
+  font-size: 20px;
 }

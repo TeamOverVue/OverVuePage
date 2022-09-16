@@ -1,41 +1,33 @@
 export const links = {
   'getting_started': [
     {
+      label: "Introduction",
+      link: "/docs/introduction",
+    },
+    {
       label: "Installation",
       link: "/docs/installation",
     },
     {
-      label: "Core Features",
-      link: "/docs/core-features",
+      label: "New User Tutorial",
+      link: "/docs/new-user-turoial",
     },
   ],
-  features: [
+  'guides': [
     {
-      label: "Canvas Features",
-      link: "/docs/canvas-customization",
+      label: "Setting Up Your Environment",
+      link: "/docs/environment-setup",
     },
     {
-      label: "Create Component",
+      label: "Creating New Components",
       link: "/docs/create-component",
     },
     {
-      label: "Component Libraries",
-      link: "/docs/component-libraries",
-    },
-    {
-      label: "Component Attributes",
-      link: "/docs/component-attributes",
-    },
-    {
-      label: "Component Styling",
+      label: "Adding Styling",
       link: "/docs/component-styling",
     },
     {
-      label: "Delete Component",
-      link: "/docs/delete-component",
-    },
-    {
-      label: "Routes",
+      label: "Using and Visualizing Routes",
       link: "/docs/routes",
     },
     {
@@ -43,20 +35,9 @@ export const links = {
       link: "/docs/hierarchy-visualization",
     },
     {
-      label: "Slack Login",
-      link: "/docs/slack-login",
+      label: "Saving and Exporting your Code",
+      link: "/docs/save-and-export",
     },
-    {
-      label: "Typescript",
-      link: "/docs/typescript",
-    },
-    {
-      label: "Export",
-      link: "/docs/export",
-    },
-    {
-      label: "Import",
-      link: "/docs/import",
-    },
+   
   ],
 };

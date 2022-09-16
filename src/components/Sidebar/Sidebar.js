@@ -12,8 +12,8 @@ export default function Sidebar({ links }) {
             {label}
           </Link>
         ))}
-        <h3>Features</h3>
-        {links.features.map(({ label, link }) => (
+        <h3>Guides</h3>
+        {links.guides.map(({ label, link }) => (
           <Link className="sidebar__link" to={link}>
             {label}
           </Link>
