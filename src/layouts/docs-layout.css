@@ -15,3 +15,7 @@
   color: #0f1730;
 }
 
+.docs__body li, .docs__body p {
+  margin-bottom: 18px;
+}
+

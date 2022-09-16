@@ -87,7 +87,6 @@ const HeaderStyles = styled.div`
     margin-right: 1.5rem;
   }
   p {
-    margin-right: 0.5em;
     font-size: 1em;
   }
   i {
