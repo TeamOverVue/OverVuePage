@@ -225,8 +225,13 @@ const Section = styled.div`
   }
   img {
     margin: 0rem 1.2rem;
-    width: 630px;
-    max-width: 90vw;
+    max-width: 500px;
+    width: 100%;
+    flex-grow: 1;
+
+    @media only screen and (max-width: 882px) {
+      max-width: 100%;
+    }
   }
 
   @media only screen and (max-width: 1400px) {

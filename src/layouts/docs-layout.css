@@ -10,7 +10,8 @@
   width: 100vw;
   display: grid;
   grid-template-columns: 300px 1fr;
-  margin-top: 70px;
+  padding-top: 36px;
+  margin-top: 0px;
   color: #0f1730;
 }
 
