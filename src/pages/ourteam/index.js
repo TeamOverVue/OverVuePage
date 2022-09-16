@@ -1,6 +1,6 @@
 import React from "react";
 import DeveloperCard from "../../styles/DeveloperCard";
-import { Contribute } from "../../components/Contribute";
+import Contribute from "../../components/Contribute";
 import { Navbar } from "../../components/Navbar";
 
 import devData from "../../assets/devData";

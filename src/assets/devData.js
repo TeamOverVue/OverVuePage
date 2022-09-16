@@ -7,7 +7,7 @@ import deanfchung from "./dev-pics/dean-chung.png";
 import deano from "./dev-pics/deano.jpg";
 import drew from "./dev-pics/drew.jpg";
 import joseph from "./dev-pics/joseph.jpg";
-import alex from "./dev-pics/alex.png";
+import alexH from "./dev-pics/alexH.png";
 import joju from "./dev-pics/joju.jpg";
 import keriann from "./dev-pics/keri_overvue.png";
 import allison from "./dev-pics/allison1.jpg";
@@ -61,11 +61,11 @@ const devData = {
     'github-link': 'https://github.com/jeisele2',
     'img': joseph
   },
-  alex: {
+  alexH: {
     'dev-name': 'Alexander Havas',
     'github-handle': '@LOLDragoon',
     'github-link': 'https://github.com/LOLDragoon',
-    'img': alex 
+    'img': alexH
   },
   keriann: {
     'dev-name': 'Keriann Lin',
