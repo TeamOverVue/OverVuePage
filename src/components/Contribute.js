@@ -55,7 +55,7 @@ const BottomDiv = styled.div`
   }
 `;
 
-export const Contribute = () => {
+const Contribute = () => {
   return (
     <BottomDiv>
       <h2>Want to Contribute?</h2>
@@ -66,3 +66,5 @@ export const Contribute = () => {
     </BottomDiv>
   );
 };
+
+export default Contribute
